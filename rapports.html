@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rapports — La Larme d'Argent</title>
+<link rel="stylesheet" href="css/sw-v2.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+
+/* ── PAGE HEADER ── */
+.r-page-header { margin-bottom: 28px; }
+.r-page-title {
+  font-family: var(--font-ui); font-size: 1.45rem; font-weight: 700;
+  color: var(--text); letter-spacing: .02em; margin-bottom: 3px;
+}
+.r-page-sub {
+  font-family: var(--font-body); font-size: .82rem;
+  font-style: italic; color: var(--text-muted);
+}
+
+/* ── CARTE SESSION ── */
+.session-card {
+  background: var(--surface); border-radius: 12px;
+  box-shadow: var(--sh-card);
+  border-left: 3px solid var(--border-soft);
+  animation: cardIn .3s ease both;
+  transition: box-shadow .18s;
+  margin-bottom: 10px; overflow: hidden;
+}
+.session-card:hover { box-shadow: var(--sh-card-hov); }
+
+/* ── EN-TÊTE CARTE ── */
+.session-head {
+  padding: 14px 16px 12px;
+  display: flex; align-items: flex-start; gap: 12px;
+  cursor: pointer; user-select: none;
+}
+.session-num {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1.5px solid var(--border-mid);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-ui); font-size: .8rem; font-weight: 700;
+  color: var(--text-muted); flex-shrink: 0; margin-top: 2px;
+}
+.session-head-info { flex: 1; min-width: 0; }
+.session-titre {
+  font-family: var(--font-ui); font-size: .88rem; font-weight: 700;
+  color: var(--text); letter-spacing: .02em; line-height: 1.25; margin-bottom: 5px;
+}
+.session-meta {
+  font-family: var(--font-body); font-size: .78rem;
+  font-style: italic; color: var(--text-muted);
+}
+.session-chevron {
+  font-size: .6rem; color: var(--text-dim);
+  transition: transform .2s; margin-top: 5px; flex-shrink: 0;
+}
+.session-card.open .session-chevron { transform: rotate(180deg); }
+
+/* ── CORPS CARTE ── */
+.session-div { height: 1px; background: var(--border-soft); margin: 0 16px; display: none; }
+.session-card.open .session-div { display: block; }
+.session-body { padding: 20px 24px 22px; display: none; }
+.session-card.open .session-body { display: block; }
+
+/* ── EN-TÊTE RAPPORT FORMEL ── */
+.rapport-header {
+  border: 1.5px solid var(--border-soft); border-radius: 10px;
+  margin-bottom: 22px; overflow: hidden;
+}
+.rh-block {
+  padding: 10px 18px; border-bottom: 1px solid var(--border-soft);
+  background: var(--bg);
+}
+.rh-block:last-child { border-bottom: none; }
+.rh-sep {
+  display: flex; align-items: center; padding: 7px 18px;
+  background: var(--surface-mid); border-bottom: 1px solid var(--border-soft);
+}
+.rh-sep::before, .rh-sep::after { content: ''; flex: 1; height: 1px; background: var(--border-soft); }
+.rh-sep-inner { font-size: 1.8rem; color: var(--text); padding: 0 14px; }
+.rh-unite-title {
+  font-family: var(--font-ui); font-size: .9rem; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase; text-align: center;
+  line-height: 1.3; color: var(--text);
+}
+.rh-unite-sub {
+  font-family: var(--font-body); font-size: .78rem; font-style: italic;
+  text-align: center; margin-top: 5px; color: var(--text-muted);
+}
+.rh-type-title {
+  font-family: var(--font-ui); font-size: .82rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; text-align: center; color: var(--text);
+}
+.rh-type-sub {
+  font-family: var(--font-body); font-size: .7rem; font-style: italic;
+  text-transform: uppercase; letter-spacing: .08em; text-align: center;
+  color: var(--text-muted); margin-top: 5px;
+}
+.rh-meta-table { width: 100%; border-collapse: collapse; }
+.rh-meta-row td { padding: 5px 0; vertical-align: top; border-bottom: 1px solid var(--border-soft); }
+.rh-meta-row:last-child td { border-bottom: none; }
+.rh-meta-label {
+  font-family: var(--font-ui); font-size: .44rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--text-muted); width: 28%;
+  padding-right: 16px !important; padding-top: 2px !important;
+}
+.rh-meta-value {
+  font-family: var(--font-body); font-size: .82rem; font-style: italic;
+  line-height: 1.6; color: var(--text-muted);
+}
+
+/* ── RAPPORT META SIMPLE ── */
+.rapport-meta {
+  display: flex; gap: 8px; align-items: center;
+  margin-bottom: 16px; flex-wrap: wrap;
+}
+.rapport-from {
+  font-family: var(--font-ui); font-size: .52rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--text-muted);
+}
+.rapport-sep { color: var(--border-mid); }
+
+/* ── TEXTE NARRATIF ── */
+.rapport-text {
+  font-family: var(--font-body); font-size: .88rem; line-height: 1.9;
+  color: var(--text); white-space: pre-line;
+}
+.rapport-section-sep {
+  display: flex; align-items: center; gap: 12px;
+  margin: 20px 0; color: var(--text); font-size: 1.76rem;
+}
+.rapport-section-sep::before, .rapport-section-sep::after {
+  content: ''; flex: 1; height: 1px; background: var(--border-soft);
+}
+.rapport-section-head {
+  font-family: var(--font-ui); font-size: .6rem; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--text-muted); margin: 16px 0 4px;
+}
+
+/* ── SECTIONS ÉVÉNEMENTS / DÉCISIONS / RÉVÉLATIONS ── */
+.r-section { margin-top: 20px; }
+.r-section-sep { height: 1px; background: var(--border-soft); margin: 20px 0; }
+.r-section-title {
+  font-family: var(--font-ui); font-size: .55rem; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--text-muted);
+  border-bottom: 1px solid var(--border-soft); padding-bottom: 4px; margin-bottom: 8px;
+}
+.evt-list { list-style: none; }
+.evt-item {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-family: var(--font-body); font-size: .82rem; color: var(--text-muted);
+  padding: 5px 0; border-bottom: 1px solid var(--border-soft); line-height: 1.55;
+}
+.evt-item:last-child { border-bottom: none; }
+.evt-item::before { content: '·'; flex-shrink: 0; font-size: 1rem; margin-top: -1px; }
+.rev-item::before { content: '◈'; flex-shrink: 0; font-size: .55rem; margin-top: 4px; color: var(--crimson); }
+.dec-item::before { content: '✦'; flex-shrink: 0; font-size: .55rem; margin-top: 4px; color: var(--text-dim); }
+
+/* ── META CHIPS ── */
+.r-meta { margin-top: 20px; }
+.r-meta-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
+.r-meta-row:last-child { margin-bottom: 0; }
+.r-meta-lbl {
+  font-family: var(--font-ui); font-size: .52rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted);
+  min-width: 60px; flex-shrink: 0; padding-top: 3px;
+}
+.chip-list { display: flex; flex-wrap: wrap; gap: 4px; }
+.chip {
+  font-family: var(--font-body); font-size: .75rem; font-style: italic;
+  color: var(--text-muted); padding: 1px 8px;
+  border: 1px solid var(--border-soft); border-radius: 8px;
+}
+
+/* ── BLOC MJ ── */
+.mj-block {
+  border: 1.5px solid var(--crimson-bd); border-radius: 8px; padding: 10px 12px;
+  margin-top: 20px;
+}
+.mj-block-title {
+  font-family: var(--font-ui); font-size: .52rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--crimson); margin-bottom: 6px;
+}
+.mj-block-txt {
+  font-family: var(--font-body); font-size: .78rem; font-style: italic;
+  color: var(--text-muted); line-height: 1.6;
+}
+
+</style>
+</head>
+<body>
+
+<div class="r-page-header">
+  <div class="page-title">Les <span>Rapports</span></div>
+  <div class="page-sub">Comptes rendus officiels et notes de mission</div>
+</div>
+<div id="rapports-wrap">
+  <p style="font-style:italic;color:var(--text-dim);font-size:.82rem;text-align:center;padding:40px;">Chargement…</p>
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/nav-v2.js"></script>
+<script>
+var RAPPORTS_DATA = [];
+var LIEUX_DATA    = [];
+var PNJS_DATA     = [];
+
+async function init() {
+  try {
+    var results = await Promise.all([
+      loadData('rapports.json'),
+      loadData('lieux.json').catch(function(){ return []; }),
+      loadData('pnjs.json').catch(function(){ return []; })
+    ]);
+    RAPPORTS_DATA = results[0];
+    LIEUX_DATA    = results[1];
+    PNJS_DATA     = results[2];
+    renderGrid();
+  } catch(e) {
+    document.getElementById('rapports-wrap').innerHTML =
+      '<p style="color:var(--crimson);font-size:.82rem;font-style:italic;text-align:center;padding:40px;">⚠ Données inaccessibles en file://. Utiliser un serveur local.</p>';
+  }
+}
+
+function lieuName(id) {
+  var l = LIEUX_DATA.find(function(x){ return x.id === id; });
+  return l ? l.nom : id.replace('lieu_', '');
+}
+function pnjName(id) {
+  var p = PNJS_DATA.find(function(x){ return x.id === id; });
+  return p ? p.nom : id.replace('pnj_', '');
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── En-tête formel ──────────────────────────────────────────────────────────
+function renderRapportHeader(s) {
+  var hasHeader = s.en_tete_unite || s.en_tete_type || s.en_tete_attention || s.en_tete_objet;
+  if (!hasHeader) {
+    if (!s.auteur_nom && !s.destinataire) return '';
+    return '<div class="rapport-meta">'
+      + '<span class="rapport-from">' + esc(s.auteur_nom || '') + '</span>'
+      + (s.destinataire ? '<span class="rapport-sep">·</span><span class="rapport-from">' + esc(s.destinataire) + '</span>' : '')
+      + '</div>';
+  }
+  var html = '<div class="rapport-header">';
+  if (s.en_tete_unite) {
+    var uLines = s.en_tete_unite.split('\n').map(function(l){ return l.trim(); }).filter(Boolean);
+    html += '<div class="rh-block">';
+    if (uLines[0]) html += '<div class="rh-unite-title">' + esc(uLines[0]) + '</div>';
+    if (uLines[1]) html += '<div class="rh-unite-sub">'   + esc(uLines[1]) + '</div>';
+    html += '</div>';
+  }
+  if (s.en_tete_type) {
+    html += '<div class="rh-sep"><span class="rh-sep-inner">⚜</span></div>';
+    var tLines = s.en_tete_type.split('\n').map(function(l){ return l.trim(); }).filter(Boolean);
+    html += '<div class="rh-block">';
+    if (tLines[0]) html += '<div class="rh-type-title">' + esc(tLines[0]) + '</div>';
+    if (tLines[1]) html += '<div class="rh-type-sub">'   + esc(tLines[1]) + '</div>';
+    html += '</div>';
+  }
+  var allMeta = [];
+  [s.en_tete_attention, s.en_tete_objet].forEach(function(field) {
+    if (!field) return;
+    var lines = field.split('\n').map(function(l){ return l.trim(); }).filter(Boolean);
+    for (var i = 0; i + 1 < lines.length; i += 2)
+      allMeta.push({ lbl: lines[i], val: lines[i+1] });
+    if (lines.length % 2 === 1) allMeta.push({ lbl: '', val: lines[lines.length-1] });
+  });
+  if (allMeta.length) {
+    html += '<div class="rh-block"><table class="rh-meta-table">';
+    allMeta.forEach(function(row) {
+      html += '<tr class="rh-meta-row">'
+        + '<td class="rh-meta-label">' + esc(row.lbl) + '</td>'
+        + '<td class="rh-meta-value">' + esc(row.val) + '</td>'
+        + '</tr>';
+    });
+    html += '</table></div>';
+  }
+  html += '</div>';
+  return html;
+}
+
+// ── Corps narratif ──────────────────────────────────────────────────────────
+function renderRapportBody(text) {
+  if (!text) return '';
+  var parts = text.split(/(?=\n[IVX]+\.\n)/);
+  if (parts.length <= 1) return '<div class="rapport-text">' + esc(text) + '</div>';
+  var html = '';
+  parts.forEach(function(part, i) {
+    if (i > 0) html += '<div class="rapport-section-sep">⚜</div>';
+    var m = part.match(/^\n([IVX]+\.)\n([\s\S]*)$/);
+    if (m) {
+      html += '<div class="rapport-section-head">' + m[1] + '</div>';
+      var bodyLines = part.split('\n');
+      var title = bodyLines[2];
+      if (title && title.trim()) {
+        html += '<div class="rapport-section-head" style="font-size:.72rem;color:var(--text-muted);margin-top:0;letter-spacing:.06em;text-transform:none;font-style:italic;">' + esc(title) + '</div>';
+      }
+      html += '<div class="rapport-text">' + esc(part.replace(/^\n[IVX]+\.\n[^\n]*\n/, '')) + '</div>';
+    } else {
+      html += '<div class="rapport-text">' + esc(part) + '</div>';
+    }
+  });
+  return html;
+}
+
+// ── Construction carte ──────────────────────────────────────────────────────
+function buildCard(s, idx) {
+  var isMJ = (typeof getMJMode === 'function') ? getMJMode() : false;
+  var pnjsChips  = (s.pnjs_rencontres || []).map(function(id){ return '<span class="chip">' + esc(pnjName(id)) + '</span>'; }).join('');
+  var lieuxChips = (s.lieux_visites   || []).map(function(id){ return '<span class="chip">' + esc(lieuName(id)) + '</span>'; }).join('');
+
+  var evtsHTML = (s.evenements_cles      || []).map(function(e){ return '<li class="evt-item">'          + esc(e) + '</li>'; }).join('');
+  var decsHTML = (s.decisions_importantes|| []).map(function(d){ return '<li class="evt-item dec-item">' + esc(d) + '</li>'; }).join('');
+  var revsHTML = (s.revelations          || []).map(function(r){ return '<li class="evt-item rev-item">' + esc(r) + '</li>'; }).join('');
+
+  var evtsSection = evtsHTML ? '<div class="r-section"><div class="r-section-title">Événements clés</div><ul class="evt-list">' + evtsHTML + '</ul></div>' : '';
+  var decsSection = decsHTML ? '<div class="r-section"><div class="r-section-title">Décisions importantes</div><ul class="evt-list">' + decsHTML + '</ul></div>' : '';
+  var revsSection = revsHTML ? '<div class="r-section"><div class="r-section-title">Révélations</div><ul class="evt-list">' + revsHTML + '</ul></div>' : '';
+
+  var metaHTML = (pnjsChips || lieuxChips) ? '<div class="r-meta">'
+    + (pnjsChips  ? '<div class="r-meta-row"><span class="r-meta-lbl">PNJs</span><div class="chip-list">'  + pnjsChips  + '</div></div>' : '')
+    + (lieuxChips ? '<div class="r-meta-row"><span class="r-meta-lbl">Lieux</span><div class="chip-list">' + lieuxChips + '</div></div>' : '')
+    + '</div>' : '';
+
+  var mjHTML = s.notes_mj ? '<div class="mj-only"><div class="mj-block"><div class="mj-block-title">⚿ Notes MJ</div><div class="mj-block-txt">' + esc(s.notes_mj) + '</div></div></div>' : '';
+
+  var hasSections = evtsSection || decsSection || revsSection || metaHTML;
+  var sectionSep  = hasSections && s['rapport_diégetique'] ? '<div class="r-section-sep"></div>' : '';
+
+  var metaParts = [];
+  if (s.date_jeu) metaParts.push(s.date_jeu);
+  if (s.date_fiction) metaParts.push('Fiction : ' + s.date_fiction);
+  if (s.auteur_nom) metaParts.push(s.auteur_nom);
+  var metaLine = metaParts.join(' · ');
+
+  return '<div class="session-card" id="sess-' + idx + '">'
+    + '<div class="session-head" onclick="toggleSession(' + idx + ')">'
+    +   '<div class="session-num">' + s.numero + '</div>'
+    +   '<div class="session-head-info">'
+    +     '<div class="session-titre">' + esc(s.titre) + '</div>'
+    +     (metaLine ? '<div class="session-meta">' + esc(metaLine) + '</div>' : '')
+    +   '</div>'
+    +   '<span class="session-chevron">▾</span>'
+    + '</div>'
+    + '<div class="session-div"></div>'
+    + '<div class="session-body">'
+    +   renderRapportHeader(s)
+    +   renderRapportBody(s['rapport_diégetique'])
+    +   sectionSep
+    +   evtsSection + decsSection + revsSection
+    +   metaHTML + mjHTML
+    + '</div>'
+    + '</div>';
+}
+
+function toggleSession(idx) {
+  var card = document.getElementById('sess-' + idx);
+  if (!card) return;
+  card.classList.toggle('open');
+}
+
+function renderGrid() {
+  var isMJ = (typeof getMJMode === 'function') ? getMJMode() : false;
+  var rapports = isMJ ? RAPPORTS_DATA : RAPPORTS_DATA.filter(function(r){ return r.visible_joueurs !== false; });
+  if (!rapports.length) {
+    document.getElementById('rapports-wrap').innerHTML =
+      '<p style="font-style:italic;color:var(--text-dim);font-size:.82rem;text-align:center;padding:40px;">Aucun rapport disponible.</p>';
+    return;
+  }
+  document.getElementById('rapports-wrap').innerHTML = rapports.map(buildCard).join('');
+}
+
+document.addEventListener('mjmodechange', function(){ if (RAPPORTS_DATA.length) renderGrid(); });
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

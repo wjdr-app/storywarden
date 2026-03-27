@@ -1,0 +1,109 @@
+[
+  {
+    "id": "lore_03",
+    "categorie": "bornes",
+    "titre": "Les Bornes-Cœur",
+    "contenu": "Pour pallier les fissures du sceau, l'histoire raconte que les anciens ont planté des obélisques, les Bornes-Cœur, aux carrefours et au cœur des villages. Chaque Borne-Cœur est un obélisque de pierre, couvert de runes gravées sur ses quatre faces. Elle accueille dans sa niche une Larme d'Argent et protège de la brume tout ce qui se situe dans le périmètre des obélisques placés autour des villes et villages.",
+    "visible_joueurs": true,
+    "tags": [
+      "bornes",
+      "larme",
+      "protection"
+    ]
+  },
+  {
+    "id": "lore_04",
+    "categorie": "bornes",
+    "titre": "La Larme d'Argent",
+    "contenu": "Galet de pierre noire veinée d'argent, gros comme un poing fermé, légèrement froid au toucher même par temps chaud. Minérale inconnue qui interfère avec le Souffle du Dessous. Très dense, très dur, pas cassable facilement. Les veines d'argent peuvent laisser de la poudre par friction, mais c'est un procédé compliqué et presque inconnu. Chaque village de la Marche possède sa propre Larme. D'autres larmes doivent exister.",
+    "visible_joueurs": true,
+    "tags": [
+      "larme",
+      "artefact",
+      "bornes"
+    ]
+  },
+  {
+    "id": "lore_05",
+    "categorie": "bornes",
+    "titre": "La Poudre d'Argent",
+    "contenu": "Froide au toucher, éclat mat. Effets : annule ou perturbe la protection naturelle contre les morts-vivants. Réaction particulière chez Osric (lignée draconique argent) : résonance inexpliquée, comme une boussole qui cherche son nord.",
+    "visible_joueurs": true,
+    "tags": [
+      "larme",
+      "poudre",
+      "secrets"
+    ]
+  },
+  {
+    "id": "lore_06",
+    "categorie": "voyage",
+    "titre": "Voyager dans la Marche",
+    "contenu": "Les caravanes emportent des lanternes de Sel-Lune, ces lanternes sont équipée d'une cloche. le sel lune génère une lumière qui repousse la brume, la son de la cloche étend la portée lumineuse et repousse les monstres. Les lanterniers sont des guides professionnels qui connaissent les routes sûres.",
+    "visible_joueurs": true,
+    "tags": [
+      "voyage",
+      "brume",
+      "équipement"
+    ]
+  },
+  {
+    "id": "lore_07",
+    "categorie": "voyage",
+    "titre": "Lanternes de Sel de Lune",
+    "contenu": "Lanterne dont le réservoir brûle une huile infusée de sel de lune. Repousse les effets de la brume à courte portée. Une cloche est intégrée à la lanterne, le son permet essentiellement de repousser les monstres, et son intensité peut faire varier la puissance de la lunière émise. Outil standard des guides de route. Note : Les PJs possèdent une lanterne, extorquée à Corvin lors de l'interrogatoire.",
+    "visible_joueurs": true,
+    "tags": [
+      "équipement",
+      "brume",
+      "voyage"
+    ]
+  },
+  {
+    "id": "lore_08",
+    "categorie": "factions",
+    "titre": "La Brigade du Saumon Noir",
+    "contenu": "Milice privée fondée il y a une vingtaine d'années par des mercenaires de Val-de-Brume pour sécuriser les routes de commerce. Insigne : saumon noir. Ni entièrement corrompue, ni entièrement fiable. En sous-effectif chronique dans la région, c'est la norme permanente.",
+    "visible_joueurs": true,
+    "tags": [
+      "brigade",
+      "faction",
+      "politique"
+    ]
+  },
+  {
+    "id": "lore_09",
+    "categorie": "factions",
+    "titre": "Les Gardiens de Route (dissous)",
+    "contenu": "Ordre mixte fondé il y a six générations pour entretenir les Bornes-Cœur et former les Marqueurs-de-Seuil. Dépositaires du savoir sur les Bornes, les Larmes et la nature du Souffle, ils en étudiaient les mécanismes, en cartographiaient les effets, en transmettaient la connaissance. Dissous il y a deux générations. Causes disputées, non documentées publiquement. Symbole : serpent enroulé autour d'un obélisque.",
+    "visible_joueurs": true,
+    "tags": [
+      "gardiens",
+      "faction",
+      "histoire"
+    ]
+  },
+  {
+    "id": "lore_10",
+    "categorie": "factions",
+    "titre": "Les Marqueurs-de-Seuil",
+    "contenu": "Titre hérité des Gardiens de Route. Poignée d'artisans indépendants capables de lire, entretenir et renforcer les runes des Bornes. Rulven est l'un d'eux. Il se considère comme descendant spirituel des Gardiens, mais ses connaissances sont incomplètes.",
+    "visible_joueurs": true,
+    "tags": [
+      "marqueurs",
+      "faction",
+      "bornes"
+    ]
+  },
+  {
+    "id": "lore_11",
+    "categorie": "geographie",
+    "titre": "La Marche de Roncebrume",
+    "contenu": "Région de landes humides, de forêts basses et de villages et villes épars reliés par des routes de terre et des pistes de charretiers. Au nord : les Hauteurs de Cendrecaille. À l'ouest : la Cjaîne des Brumes, une chaîne montagneuse.",
+    "visible_joueurs": true,
+    "tags": [
+      "géographie",
+      "région"
+    ]
+  }
+]

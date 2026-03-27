@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lore — La Larme d'Argent</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/sw-v2.css">
+<style>
+/* ── FILTERS ───────────────────────────────────────────────────── */
+.filters-bar { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-bottom:16px; }
+.filter-btn {
+  font-family:var(--font-ui); font-size:.68rem; font-weight:500;
+  letter-spacing:.06em; text-transform:uppercase;
+  padding:5px 16px; background:transparent;
+  color:var(--text-muted); border:1px solid var(--border-soft);
+  border-radius:20px; cursor:pointer; transition:all .15s; outline:none;
+}
+.filter-btn:hover { border-color:var(--border-mid); color:var(--text); }
+.filter-btn.active { background:var(--crimson); border-color:var(--crimson); color:var(--text); }
+
+.search-input {
+  padding:5px 14px; background:var(--surface);
+  border:1px solid var(--border-soft); border-radius:20px;
+  font-family:var(--font-body); font-size:.85rem; font-style:italic;
+  color:var(--text); outline:none; transition:border-color .15s; margin-left:auto;
+}
+.search-input::placeholder { color:var(--text-dim); }
+.search-input:focus { border-color:var(--border-mid); }
+
+.count-line {
+  font-family:var(--font-ui); font-size:.56rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--text-dim); margin-bottom:12px;
+}
+
+/* ── GRID ──────────────────────────────────────────────────────── */
+.lore-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:10px; align-items:start;
+}
+
+/* ── CARD ──────────────────────────────────────────────────────── */
+.lore-card {
+  background:var(--surface); border:1px solid var(--border-soft);
+  border-radius:10px; overflow:hidden; cursor:pointer;
+  transition:background .15s, border-color .15s;
+}
+.lore-card:not(.open):hover { background:var(--surface-mid); border-color:var(--border-mid); }
+.lore-card.open { border-color:var(--border-mid); cursor:default; }
+.lore-card-head { padding:12px 14px 10px; display:flex; align-items:flex-start; gap:10px; }
+.lore-head-info { flex:1; min-width:0; }
+.lore-titre { font-family:var(--font-ui); font-size:.8rem; font-weight:700; letter-spacing:.04em; line-height:1.25; margin-bottom:3px; }
+.lore-cat { font-size:.76rem; font-style:italic; color:var(--text-muted); }
+.badge-col { display:flex; flex-direction:column; gap:4px; align-items:flex-end; flex-shrink:0; }
+.l-badge {
+  font-family:var(--font-ui); font-size:.46rem; letter-spacing:.1em;
+  text-transform:uppercase; border:1px solid; border-radius:20px;
+  padding:2px 8px; white-space:nowrap;
+}
+/* .l-badge.joueurs supprime */
+.l-badge.mj-seul { background:var(--crimson); border-color:var(--crimson); color:var(--text); }
+.lore-chevron { font-size:.65rem; color:var(--text-dim); transition:transform .2s; margin-top:3px; flex-shrink:0; }
+.lore-card.open .lore-chevron { transform:rotate(180deg); }
+.lore-card-div { height:1px; background:var(--border-soft); margin:0 14px; display:none; }
+.lore-card.open .lore-card-div { display:block; }
+.lore-body { padding:0 14px 12px; display:none; }
+.lore-card.open .lore-body { display:block; }
+.lore-contenu { font-size:.85rem; line-height:1.65; color:var(--text-muted); font-style:italic; margin:10px 0 8px; }
+.tag-list { display:flex; flex-wrap:wrap; gap:4px; }
+.tag { font-size:.74rem; font-style:italic; color:var(--text-muted); padding:2px 8px; border:1px solid var(--border-soft); border-radius:8px; }
+.empty-msg { font-family:var(--font-ui); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-dim); text-align:center; padding:40px; grid-column:1/-1; }
+
+@media(max-width:640px){ .lore-grid{ grid-template-columns:1fr; } .search-input{ margin-left:0; width:100%; } }
+</style>
+</head>
+<body>
+
+<div class="page-header"><h1 class="page-title">Le <span>Lore</span></h1><p class="page-sub">Lieux, organisations et cultures du monde</p></div>
+<div class="filters-bar" id="filters-bar">
+  <button class="filter-btn active" data-filter="tous" onclick="setFilter('tous',this)">Tous</button>
+  <input class="search-input" type="text" id="search-input" placeholder="Rechercher…" oninput="applyFilters()">
+</div>
+<div class="count-line" id="count-line"></div>
+<div class="lore-grid" id="lore-grid">
+  <p style="font-style:italic;color:var(--text-muted);font-size:.82rem;grid-column:1/-1;text-align:center;padding:24px;">Chargement…</p>
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/nav-v2.js"></script>
+<script>
+let LORE_DATA = [];
+let currentFilter = 'tous';
+
+const LORE_CATS_KEY = 'sw_lore_cats';
+const DEFAULT_LORE_CATS = ['cosmologie','bornes','voyage','factions','geographie','histoire','magie','autre'];
+
+function getLoreCats() {
+  try { const s = localStorage.getItem(LORE_CATS_KEY); if(s) return JSON.parse(s); } catch(e){}
+  return [...DEFAULT_LORE_CATS];
+}
+
+function catLabel(cat) {
+  if (!cat) return '';
+  return cat.charAt(0).toUpperCase() + cat.slice(1);
+}
+
+function buildFilters() {
+  const fromData = [...new Set(LORE_DATA.map(l => l.categorie).filter(Boolean))];
+  const fromStore = getLoreCats();
+  const all = [...new Set([...fromStore, ...fromData])];
+  const bar = document.getElementById('filters-bar');
+  const search = document.getElementById('search-input');
+  bar.querySelectorAll('.filter-btn:not([data-filter="tous"])').forEach(b => b.remove());
+  all.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.dataset.filter = cat;
+    btn.onclick = () => setFilter(cat, btn);
+    btn.textContent = catLabel(cat);
+    bar.insertBefore(btn, search);
+  });
+  const active = bar.querySelector('[data-filter="' + currentFilter + '"]');
+  if (active) active.classList.add('active');
+}
+
+async function init() {
+  try {
+    LORE_DATA = await loadData('lore.json');
+    buildFilters();
+    applyFilters();
+  } catch(e) {
+    document.getElementById('lore-grid').innerHTML =
+      '<p style="color:var(--crimson);font-size:.82rem;font-style:italic;grid-column:1/-1;text-align:center;padding:24px;">\u26a0 Donn\u00e9es inaccessibles en file://. Utiliser un serveur local.</p>';
+  }
+}
+
+function setFilter(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+
+function applyFilters() {
+  const q = (document.getElementById('search-input').value || '').toLowerCase().trim();
+  const isMJ = getMJMode();
+  let filtered = isMJ ? LORE_DATA : LORE_DATA.filter(l => l.visible_joueurs !== false);
+  if (currentFilter !== 'tous') filtered = filtered.filter(l => l.categorie === currentFilter);
+  if (q) filtered = filtered.filter(l =>
+    l.titre.toLowerCase().includes(q) ||
+    l.contenu.toLowerCase().includes(q) ||
+    (l.tags || []).some(t => t.toLowerCase().includes(q)));
+  renderGrid(filtered);
+  const total = LORE_DATA.length;
+  document.getElementById('count-line').textContent =
+    filtered.length === total ? `${total} entr\u00e9es` : `${filtered.length} / ${total} entr\u00e9es`;
+}
+
+function renderGrid(lore) {
+  const grid = document.getElementById('lore-grid');
+  if (!lore.length) { grid.innerHTML = '<p class="empty-msg">Aucune entr\u00e9e correspondante.</p>'; return; }
+  grid.innerHTML = lore.map(buildCard).join('');
+  applyMJMode(getMJMode());
+}
+
+function buildCard(entry) {
+  const catLbl = catLabel(entry.categorie);
+  const visible = entry.visible_joueurs;
+  const mjOnlyCls = visible ? '' : ' mj-only';
+  const tagsHTML = (entry.tags || []).length
+    ? `<div class="tag-list">${entry.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>`
+    : '';
+  return `
+  <div class="lore-card${mjOnlyCls}" id="lore-${entry.id}" onclick="toggleCard('${entry.id}',event)">
+    <div class="lore-card-head">
+      <div class="lore-head-info">
+        <div class="lore-titre">${entry.titre}</div>
+        <div class="lore-cat">${catLbl}</div>
+      </div>
+      <div class="badge-col">
+        <span class="l-badge mj-seul">${visible ? '' : 'MJ seul'}</span>
+      </div>
+      <span class="lore-chevron">\u25be</span>
+    </div>
+    <div class="lore-card-div"></div>
+    <div class="lore-body">
+      <p class="lore-contenu">${entry.contenu}</p>
+      ${tagsHTML}
+    </div>
+  </div>`;
+}
+
+function toggleCard(id, event) {
+  if (['A','BUTTON','INPUT'].includes(event.target.tagName)) return;
+  const card = document.getElementById('lore-' + id);
+  if (!card) return;
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.lore-card.open').forEach(c => c.classList.remove('open'));
+  if (!isOpen) card.classList.add('open');
+  applyMJMode(getMJMode());
+}
+
+(function(){ const _o=window.setMJMode; window.setMJMode=function(v){_o(v); if(LORE_DATA&&LORE_DATA.length) applyFilters();}; })();
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

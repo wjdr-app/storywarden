@@ -1,0 +1,384 @@
+[
+  {
+    "id": "monstre_01",
+    "nom": "Squelette",
+    "type": "Mort-vivant",
+    "categorie": "bête",
+    "taille": "M",
+    "alignement": "loyal mauvais",
+    "fp": "1/4",
+    "px": 50,
+    "bonus_maitrise": 2,
+    "ca": "13 (restes d'armure)",
+    "pv": "13 (2d8 + 4)",
+    "vitesse": "9 m",
+    "initiative": "",
+    "attributs": {
+      "FOR": {
+        "score": 10,
+        "mod": 0,
+        "save": null
+      },
+      "DEX": {
+        "score": 14,
+        "mod": 2,
+        "save": null
+      },
+      "CON": {
+        "score": 15,
+        "mod": 2,
+        "save": null
+      },
+      "INT": {
+        "score": 6,
+        "mod": -2,
+        "save": null
+      },
+      "SAG": {
+        "score": 8,
+        "mod": -1,
+        "save": null
+      },
+      "CHA": {
+        "score": 5,
+        "mod": -3,
+        "save": null
+      }
+    },
+    "competences": "",
+    "resistances": "",
+    "immunites_degats": "poison",
+    "immunites_etats": "épuisement, empoisonné",
+    "sens": "vision dans le noir 18 m, Perception passive 9",
+    "perception_passive": 9,
+    "langues": "comprend les langues qu'il connaissait de son vivant mais ne peut pas parler",
+    "traits": [],
+    "actions": [
+      {
+        "nom": "Épée courte",
+        "description": "Attaque au corps à corps avec une arme : +4 au toucher, allonge 1,50 m, une cible. Touché : 5 (1d6 + 2) dégâts perforants."
+      },
+      {
+        "nom": "Arc court",
+        "description": "Attaque à distance avec une arme : +4 au toucher, portée 24/96 m, une cible. Touché : 5 (1d6 + 2) dégâts perforants."
+      }
+    ],
+    "actions_bonus": [],
+    "reactions": [],
+    "actions_legendaires": [],
+    "notes_mj": "",
+    "visible_joueurs": true,
+    "portrait_url": "img/monstres/squelette.png",
+    "description": "Un squelette est un amas d’os humanoïdes réanimé par la brume, sans maître clairement identifiable. Ses mouvements sont raides et mécaniques, accompagnés du cliquetis sinistre de ses ossements, tandis que de faibles lueurs vagues luisent dans ses orbites vides.\n\nIl tient généralement une arme dépareillée et agit comme guidé par une volonté diffuse, sans conscience véritable. Exempt de chair, il ignore les blessures mortelles, avançant tant que la brume continue de lui prêter une vie étrange et mystérieuse."
+  },
+  {
+    "id": "monstre_02",
+    "nom": "Squelette géant",
+    "type": "Mort-vivant",
+    "categorie": "bête",
+    "taille": "G",
+    "alignement": "loyal mauvais",
+    "fp": "2",
+    "px": 450,
+    "bonus_maitrise": 2,
+    "ca": "12 (armure naturelle)",
+    "pv": "67 (9d10 + 18)",
+    "vitesse": "12 m",
+    "initiative": "",
+    "attributs": {
+      "FOR": {
+        "score": 18,
+        "mod": 4,
+        "save": null
+      },
+      "DEX": {
+        "score": 11,
+        "mod": 0,
+        "save": null
+      },
+      "CON": {
+        "score": 15,
+        "mod": 2,
+        "save": null
+      },
+      "INT": {
+        "score": 6,
+        "mod": -2,
+        "save": null
+      },
+      "SAG": {
+        "score": 8,
+        "mod": -1,
+        "save": null
+      },
+      "CHA": {
+        "score": 5,
+        "mod": -3,
+        "save": null
+      }
+    },
+    "competences": "",
+    "resistances": "",
+    "immunites_degats": "poison",
+    "immunites_etats": "épuisement, empoisonné",
+    "sens": "vision dans le noir 18 m, Perception passive 9",
+    "perception_passive": 9,
+    "langues": "comprend l'abyssal mais ne peut pas parler",
+    "traits": [
+      {
+        "nom": "Charge",
+        "description": "Si le squelette se déplace d'au moins 3 mètres en ligne droite vers une cible, puis la touche lors d'une attaque avec sa corne dans le même tour, la cible subit 9 (2d8) dégâts perforants supplémentaires. Si la cible est une créature, elle doit réussir un jet de sauvegarde de Force DD 14 ou être repoussée de 3 mètres et tomber à terre."
+      }
+    ],
+    "actions": [
+      {
+        "nom": "Arme à deux mains",
+        "description": "Attaque au corps à corps avec une arme : +6 au toucher, allonge 1,50 m, une cible. Touché : 17 (2d12 + 4) dégâts tranchants."
+      },
+      {
+        "nom": "Corne",
+        "description": "Attaque au corps à corps avec une arme : +6 au toucher, allonge 1,50 m, une cible. Touché : 13 (2d8 + 4) dégâts perforants."
+      }
+    ],
+    "actions_bonus": [],
+    "reactions": [],
+    "actions_legendaires": [],
+    "notes_mj": "",
+    "visible_joueurs": true,
+    "portrait_url": "img/monstres/squelette_geant.png",
+    "description": "Ce guerrier nécromantique est la fusion de plusieurs squelettes tombés au combat, plus grand, plus massif et plus menaçant qu’un squelette ordinaire. Son corps est un assemblage d’os recouverts de poudre d’argent, portant une armure lourde cabossée. Il peut projeter un cri directement dans l’esprit de ses ennemis, les paralysant de peur et de souffrance, comme s’il portait en lui la vengeance de tous ceux qui sont tombés sous la réquisition."
+  },
+  {
+    "id": "monstre_03",
+    "nom": "TEST",
+    "type": "Humanoïde (toute race)",
+    "categorie": "bête",
+    "taille": "M",
+    "alignement": "Neutre -Neutre",
+    "fp": "1/8",
+    "px": 25,
+    "bonus_maitrise": 2,
+    "ca": "12 (armure de cuir)",
+    "pv": "11 (2d8 + 2)",
+    "vitesse": "9 m",
+    "initiative": "",
+    "attributs": {
+      "FOR": {
+        "score": 11,
+        "mod": 0,
+        "save": null
+      },
+      "DEX": {
+        "score": 12,
+        "mod": 1,
+        "save": null
+      },
+      "CON": {
+        "score": 12,
+        "mod": 1,
+        "save": null
+      },
+      "INT": {
+        "score": 10,
+        "mod": 0,
+        "save": null
+      },
+      "SAG": {
+        "score": 10,
+        "mod": 0,
+        "save": null
+      },
+      "CHA": {
+        "score": 10,
+        "mod": 0,
+        "save": null
+      }
+    },
+    "competences": "",
+    "resistances": "",
+    "immunites_degats": "",
+    "immunites_etats": "",
+    "sens": "Perception passive 10",
+    "perception_passive": 10,
+    "langues": "commun",
+    "traits": [],
+    "actions": [
+      {
+        "nom": "Cimeterre",
+        "description": "Attaque au corps à corps avec une arme : +3 au toucher, allonge 1,50 m, une cible. Touché : 4 (1d6 + 1) dégâts tranchants."
+      },
+      {
+        "nom": "Arbalète légère",
+        "description": "Attaque à distance avec une arme : +3 au toucher, portée 24/96 m, une cible. Touché : 5 (1d8 + 1) dégâts perforants."
+      }
+    ],
+    "actions_bonus": [],
+    "reactions": [],
+    "actions_legendaires": [],
+    "notes_mj": "",
+    "visible_joueurs": false,
+    "portrait_url": "",
+    "description": "test"
+  },
+  {
+    "id": "monstre_04",
+    "nom": "Bandit",
+    "type": "Humanoïde (toute race)",
+    "categorie": "bête",
+    "taille": "M",
+    "alignement": "tout alignement non loyal",
+    "fp": "1/8",
+    "px": 25,
+    "bonus_maitrise": 2,
+    "ca": "12 (armure de cuir)",
+    "pv": "11 (2d8 + 2)",
+    "vitesse": "9 m",
+    "initiative": "",
+    "attributs": {
+      "FOR": {
+        "score": 11,
+        "mod": 0,
+        "save": null
+      },
+      "DEX": {
+        "score": 12,
+        "mod": 1,
+        "save": null
+      },
+      "CON": {
+        "score": 12,
+        "mod": 1,
+        "save": null
+      },
+      "INT": {
+        "score": 10,
+        "mod": 0,
+        "save": null
+      },
+      "SAG": {
+        "score": 10,
+        "mod": 0,
+        "save": null
+      },
+      "CHA": {
+        "score": 10,
+        "mod": 0,
+        "save": null
+      }
+    },
+    "competences": "",
+    "resistances": "",
+    "immunites_degats": "",
+    "immunites_etats": "",
+    "sens": "Perception passive 10",
+    "perception_passive": 10,
+    "langues": "une langue au choix (généralement le commun)",
+    "traits": [],
+    "actions": [
+      {
+        "nom": "Cimeterre",
+        "description": "Attaque au corps à corps avec une arme : +3 au toucher, allonge 1,50 m, une cible. Touché : 4 (1d6 + 1) dégâts tranchants."
+      },
+      {
+        "nom": "Arbalète légère",
+        "description": "Attaque à distance avec une arme : +3 au toucher, portée 24/96 m, une cible. Touché : 5 (1d8 + 1) dégâts perforants."
+      }
+    ],
+    "actions_bonus": [],
+    "reactions": [],
+    "actions_legendaires": [],
+    "notes_mj": "",
+    "visible_joueurs": false,
+    "portrait_url": "",
+    "description": ""
+  },
+  {
+    "id": "monstre_05",
+    "nom": "Rodeur de la brume",
+    "type": "bête",
+    "categorie": "bête",
+    "taille": "G",
+    "alignement": "chaotique neutre",
+    "fp": "3",
+    "px": 700,
+    "bonus_maitrise": 2,
+    "ca": "17 (chemise de mailles, bouclier)",
+    "pv": "65 (10d8 + 20)",
+    "vitesse": "9 m",
+    "initiative": "",
+    "attributs": {
+      "FOR": {
+        "score": 17,
+        "mod": 3,
+        "save": null
+      },
+      "DEX": {
+        "score": 14,
+        "mod": 2,
+        "save": null
+      },
+      "CON": {
+        "score": 14,
+        "mod": 2,
+        "save": null
+      },
+      "INT": {
+        "score": 11,
+        "mod": 0,
+        "save": null
+      },
+      "SAG": {
+        "score": 12,
+        "mod": 1,
+        "save": null
+      },
+      "CHA": {
+        "score": 11,
+        "mod": 0,
+        "save": null
+      }
+    },
+    "competences": "Discrétion +6, Intimidation +2, Survie +3",
+    "resistances": "",
+    "immunites_degats": "",
+    "immunites_etats": "",
+    "sens": "vision dans le noir 18 m, Perception passive 11",
+    "perception_passive": 11,
+    "langues": "commun",
+    "traits": [
+      {
+        "nom": "Attaque surprise",
+        "description": "Si un rodeur surprend une créature et touche avec une attaque lors du premier round de combat, la cible subit 7 (2d6) dégâts supplémentaires pour cette attaque."
+      },
+      {
+        "nom": "Brutal",
+        "description": "Une arme de corps à corps inflige un dé de dégâts supplémentaires lorsque le rodeur réussit son attaque (inclus dans l'attaque ci-dessous)."
+      },
+      {
+        "nom": "Cœur de Hruggek",
+        "description": "Le rodeur a un avantage aux jets de sauvegarde pour ne pas être charmé, effrayé, paralysé, empoisonné, étourdi, ou pour ne pas être endormi."
+      }
+    ],
+    "actions": [
+      {
+        "nom": "Attaques multiples",
+        "description": "Le rodeur effectue deux attaques au corps à corps."
+      },
+      {
+        "nom": "Morgenstern",
+        "description": "Attaque au corps à corps avec une arme : +5 au toucher, allonge 1,50 m, une cible. Touché : 12 (2d8 + 3) dégâts perforants."
+      },
+      {
+        "nom": "Javeline",
+        "description": "Attaque au corps à corps ou à distance avec une arme : +5 au toucher, allonge 1,50 m ou portée 9/36 m, une cible. Touché : 10 (2d6 + 3) dégâts perforants au corps à corps ou 6 (1d6 + 3) dégâts perforants à distance."
+      }
+    ],
+    "actions_bonus": [],
+    "reactions": [],
+    "actions_legendaires": [],
+    "notes_mj": "",
+    "visible_joueurs": true,
+    "portrait_url": "",
+    "description": "Le Rôdeur de la Brume est une créature bestiale et furtive qui hante les zones corrompues par le Souffle du Dessous. Évoluant loin de la lumière protectrice des Bornes-Cœur, il représente l'un des dangers les plus mortels pour les voyageurs égarés. C'est une bête taillée pour la traque, qui déchiquette ses victimes à l'aide de ses griffes acérées et de ses puissantes mâchoires."
+  }
+]

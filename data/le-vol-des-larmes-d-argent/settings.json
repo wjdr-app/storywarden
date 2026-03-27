@@ -1,0 +1,14 @@
+{
+  "campaign_title": "Story Warden",
+  "campaign_subtitle": "Dungeon lite Management Tool",
+  "index_title": "Les larmes d'argent",
+  "index_subtitle": "Aventure à la marche de Roncebrume",
+  "hero_bg_type": "color",
+  "hero_bg_color": "#1a1a1a",
+  "hero_bg_image": "img/heroBG/fond.png",
+  "codex_visible_joueurs": true,
+  "nav_visible": {
+    "codex": true,
+    "lieux": true
+  }
+}

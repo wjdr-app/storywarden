@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PNJs — La Larme d'Argent</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/sw-v2.css">
+<style>
+/* ── PAGE HEADER ── */
+.pnj-page-header { margin-bottom: 24px; }
+.pnj-page-title {
+  font-family: var(--font-ui);
+  font-size: 1.45rem; font-weight: 700;
+  color: var(--text); letter-spacing: .02em; margin-bottom: 3px;
+}
+.pnj-page-sub {
+  font-family: var(--font-body);
+  font-size: .82rem; font-style: italic; color: var(--text-muted);
+}
+
+/* ── FILTERS ── */
+.filters-zone {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  margin-bottom: 22px;
+}
+.filter-pill {
+  font-family: var(--font-ui);
+  font-size: .68rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  padding: 5px 13px; border-radius: 20px;
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface); color: var(--text-muted);
+  cursor: pointer; transition: all .14s; outline: none;
+}
+.filter-pill:hover { border-color: var(--border-mid); color: var(--text); background: var(--surface-mid); }
+.filter-pill.active { background: var(--crimson); border-color: var(--crimson); color: var(--text); }
+.filter-group { display: flex; flex-wrap: wrap; gap: 6px; }
+.filter-sep { width: 1px; height: 18px; background: var(--border-soft); align-self: center; margin: 0 2px; }
+.search-input{padding:5px 14px;background:var(--surface);border:1px solid var(--border-soft);border-radius:20px;font-family:var(--font-body);font-size:.85rem;font-style:italic;color:var(--text);outline:none;transition:border-color .15s;margin-left:auto;}
+.search-input::placeholder{color:var(--text-dim);}
+.search-input:focus{border-color:var(--border-mid);}
+
+/* ── PNJ GRID ── */
+.pnj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 14px; align-items: start;
+}
+
+/* ── PNJ CARD ── */
+.pnj-card {
+  background: var(--surface);
+  border-radius: 12px;
+  box-shadow: var(--sh-card);
+  overflow: hidden;
+  animation: cardIn .3s ease both;
+  display: flex; flex-direction: column;
+  transition: box-shadow .18s;
+  height: 240px; /* hauteur fixe repliée */
+}
+.pnj-card:hover { box-shadow: var(--sh-card-hov); }
+.pnj-card.expanded { height: auto; overflow: visible; }
+
+/* Plus de bandes de statut */
+
+/* Section identité — hauteur fixe */
+.card-identity {
+  padding: 14px 16px 10px;
+  display: flex; gap: 12px; align-items: flex-start;
+  min-height: 100px; flex-shrink: 0;
+}
+.card-portrait {
+  width: 62px; height: 78px;
+  border-radius: 7px; border: 1px solid var(--border-soft);
+  flex-shrink: 0; overflow: hidden;
+  background: var(--surface-mid);
+  display: flex; align-items: center; justify-content: center;
+}
+.card-portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card-portrait-ico {
+  width: 26px; height: 26px;
+  background-color: var(--border-mid);
+  mask-image: url(assets/pictos/pnj.svg); mask-size: contain; mask-repeat: no-repeat; mask-position: center;
+  -webkit-mask-image: url(assets/pictos/pnj.svg); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center;
+}
+.card-info { flex: 1; min-width: 0; }
+.card-nom {
+  font-family: var(--font-ui); font-size: .92rem; font-weight: 700;
+  color: var(--text); margin-bottom: 2px; line-height: 1.2;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.card-role {
+  font-size: .76rem; font-style: italic; color: var(--text-muted);
+  margin-bottom: 7px; line-height: 1.3;
+}
+.card-chips { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.chip-status {
+  font-family: var(--font-ui); font-size: .58rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 20px; border: 1.5px solid;
+}
+.chip-status.vivant  { color: var(--text);        border-color: var(--border-mid); background: transparent; }
+.chip-status.mort    { color: var(--crimson);     border-color: var(--crimson-bd); background: transparent; }
+.chip-status.disparu { color: var(--text-muted);  border-color: var(--border-mid); background: transparent; }
+.chip-status.inconnu { color: var(--text-muted);  border-color: var(--border-mid); background: transparent; }
+.chip-loc {
+  font-family: var(--font-ui); font-size: .6rem; color: var(--text-muted);
+  padding: 2px 8px; border-radius: 20px; border: 1px solid var(--border-soft);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 130px;
+}
+
+/* Description — remplit l'espace restant, scroll si besoin */
+.card-divider { height: 1px; background: var(--border-soft); margin: 0; }
+.card-desc-area {
+  padding: 10px 16px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-mid) transparent;
+}
+.card-desc-area::-webkit-scrollbar { width: 3px; }
+.card-desc-area::-webkit-scrollbar-track { background: transparent; }
+.card-desc-area::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 2px; }
+.card-desc {
+  font-size: .8rem; font-style: italic; color: var(--text-muted); line-height: 1.55; margin: 0;
+}
+
+/* Stats — boîtes style personnages_v2, avec contour crimson */
+.pnj-stats-grid {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 10px;
+  background: var(--surface-mid);
+  border: 1px solid var(--crimson-bd);
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.pnj-stats-row1 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.pnj-stat-line {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--bg); border: 1px solid var(--border-soft); border-radius: 6px;
+  padding: 5px 10px;
+}
+.pnj-stat-line-lbl {
+  font-family: var(--font-ui); font-size: 9px; font-weight: 700;
+  color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em;
+}
+.pnj-stat-line-val {
+  font-family: var(--font-body); font-size: 15px; font-weight: 900;
+  color: var(--text); line-height: 1;
+}
+.pnj-stat-box {
+  flex: 1; min-width: 52px;
+  background: var(--bg);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 6px 4px;
+  text-align: center;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 2px;
+}
+.pnj-stat-lbl {
+  font-family: var(--font-ui); font-size: 9px; font-weight: 700;
+  color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em;
+  display: block;
+}
+.pnj-stat-val {
+  font-family: var(--font-body); font-size: 17px; font-weight: 900;
+  color: var(--text); line-height: 1; display: block;
+}
+
+/* Footer de carte */
+.card-footer {
+  padding: 6px 16px 10px;
+  display: flex; justify-content: flex-end;
+  margin-top: auto;
+}
+.btn-details {
+  font-family: var(--font-ui); font-size: .64rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 5px 14px;
+  background: var(--crimson-dim); border: 1px solid var(--crimson-bd);
+  border-radius: 7px; color: var(--text-muted);
+  cursor: pointer; transition: all .14s;
+}
+.btn-details:hover, .pnj-card.expanded .btn-details {
+  background: var(--crimson); border-color: var(--crimson); color: var(--text);
+}
+
+/* Section détails (expand in-place) */
+.card-details-area {
+  display: none;
+  border-top: 1px solid var(--border-soft);
+  padding: 12px 16px 14px;
+  animation: cardIn .2s ease;
+}
+.pnj-card.expanded .card-details-area { display: block; }
+
+.detail-row {
+  display: flex; gap: 8px; margin-bottom: 6px; align-items: baseline;
+}
+.detail-lbl {
+  font-family: var(--font-ui); font-size: .58rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--text-muted); min-width: 88px; flex-shrink: 0;
+}
+.detail-val { font-size: .8rem; font-style: italic; color: var(--text-muted); flex: 1; }
+
+.detail-phrase {
+  padding: 8px 12px;
+  border-left: 2px solid var(--crimson-bd);
+  font-style: italic; font-size: .82rem; color: var(--text-muted);
+  background: var(--surface-mid); border-radius: 0 5px 5px 0;
+  margin: 6px 0;
+}
+
+/* Capacités accordéon */
+.cap-section { display: flex; flex-direction: column; gap: 4px; margin-bottom: 4px; }
+.cap-item { background: var(--bg); border: 1px solid var(--border-soft); border-radius: 6px; overflow: hidden; }
+.cap-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 7px 10px; cursor: pointer; user-select: none;
+  transition: background .12s;
+}
+.cap-head:hover { background: var(--surface-mid); }
+.cap-name {
+  font-family: var(--font-ui); font-size: .78rem; font-weight: 700;
+  color: var(--text); flex: 1;
+}
+.cap-chevron {
+  width: 12px; height: 12px; flex-shrink: 0; margin-left: 8px;
+  background-color: var(--text-dim);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23000'/%3E%3C/svg%3E");
+  mask-size: contain; mask-repeat: no-repeat; mask-position: center;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23000'/%3E%3C/svg%3E");
+  -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center;
+  transition: transform .18s;
+}
+.cap-item.open .cap-chevron { transform: rotate(180deg); }
+.cap-body {
+  display: none; padding: 0 10px 10px;
+  font-size: .78rem; color: var(--text-muted); line-height: 1.6;
+  border-top: 1px solid var(--border-soft);
+}
+.cap-item.open .cap-body { display: block; }
+.cap-body-detail {
+  margin-top: 5px; padding-top: 5px; border-top: 1px solid var(--border-soft);
+  font-size: .72rem; color: var(--text-dim); font-style: italic;
+}
+
+.mj-block {
+  margin-top: 10px;
+  border: 1.5px solid var(--crimson-bd);
+  border-radius: 9px; padding: 10px 12px;
+}
+.mj-block-title {
+  font-family: var(--font-ui); font-size: .55rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--crimson); margin-bottom: 6px;
+}
+.mj-block-txt { font-size: .8rem; font-style: italic; color: var(--text-muted); line-height: 1.6; }
+
+/* ── EMPTY ── */
+.pnj-empty {
+  grid-column: 1/-1; text-align: center; padding: 60px 20px;
+  font-family: var(--font-ui); font-size: .75rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--text-dim);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  .pnj-grid { grid-template-columns: 1fr; }
+  .filter-search { margin-left: 0; }
+  .filter-search input { width: 100%; }
+  .filters-zone { flex-direction: column; align-items: flex-start; }
+}
+.pnj-stats-grid { display: none; }
+body.mj-active .pnj-stats-grid { display: flex; }
+</style>
+</head>
+<body>
+
+<div class="pnj-page-header">
+  <h1 class="page-title">Les <span>PNJs</span></h1>
+  <p class="page-sub">Personnages non-joueurs de la campagne</p>
+</div>
+
+<div class="filters-zone" id="filters-zone">
+  <div class="filter-group" id="filter-villes">
+    <!-- injecté dynamiquement -->
+  </div>
+  <input class="search-input" type="text" id="search-input" placeholder="Rechercher…" oninput="applyFilters()">
+</div>
+
+<div class="pnj-grid" id="pnj-grid">
+  <p class="pnj-empty">Chargement…</p>
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/nav-v2.js"></script>
+<script>
+let PNJ_DATA  = [];
+let LIEUX_DATA = [];
+let _villeFilter = 'toutes';
+let _cityMap = {}; // pnjId → cityNom
+
+const STATUS_LABELS = { vivant: 'Vivant', mort: 'Mort', disparu: 'Disparu', inconnu: 'Inconnu' };
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+async function init() {
+  try {
+    [PNJ_DATA, LIEUX_DATA] = await Promise.all([
+      loadData('pnjs.json'),
+      loadData('lieux.json').catch(() => [])
+    ]);
+    _cityMap = buildCityMap(LIEUX_DATA);
+    buildVilleFilters();
+    applyFilters();
+  } catch (e) {
+    document.getElementById('pnj-grid').innerHTML =
+      '<p class="pnj-empty" style="color:#c66;">&#9888; Données inaccessibles — utiliser un serveur local.</p>';
+  }
+}
+
+// ── NORMALISATION VILLES via lieux.json ───────────────────────────────────────
+function buildCityMap(lieuxData) {
+  const map = {};
+  if (!lieuxData || !lieuxData.length) return map;
+
+  // Trouver les IDs qui sont des sous-lieux
+  const sousIds = new Set();
+  for (const l of lieuxData) {
+    (l.sous_lieux || []).forEach(id => sousIds.add(id));
+  }
+
+  // Lieux de premier niveau (villes/villages)
+  const topLieux = lieuxData.filter(l => !sousIds.has(l.id));
+
+  for (const lieu of topLieux) {
+    // PNJs présents directement dans ce lieu
+    for (const pnjId of (lieu.pnjs_presents || [])) {
+      if (!map[pnjId]) map[pnjId] = lieu.nom;
+    }
+    // PNJs dans les sous-lieux → rattachés à la ville parente
+    for (const subId of (lieu.sous_lieux || [])) {
+      const sub = lieuxData.find(x => x.id === subId);
+      if (sub) {
+        for (const pnjId of (sub.pnjs_presents || [])) {
+          if (!map[pnjId]) map[pnjId] = lieu.nom;
+        }
+      }
+    }
+  }
+  return map;
+}
+
+// Fallback : extraire le nom de ville depuis la chaîne localisation
+function normCity(loc) {
+  if (!loc || loc === 'Inconnu') return null;
+  // "Grisebar (Église)" → "Grisebar"
+  // "Hautecendre - Marché" → "Hautecendre"
+  const m = loc.match(/^([^(-]+?)(?:\s*[\(-])/);
+  return m ? m[1].trim() : loc.trim();
+}
+
+function getPnjCity(pnj) {
+  return _cityMap[pnj.id] || normCity(pnj.localisation) || null;
+}
+
+// ── FILTRES VILLE ─────────────────────────────────────────────────────────────
+function buildVilleFilters() {
+  const isMJ = getMJMode();
+  const visible = isMJ ? PNJ_DATA : PNJ_DATA.filter(p => p.visible_joueurs !== false);
+  const cities = [...new Set(visible.map(p => getPnjCity(p)).filter(Boolean))].sort();
+
+  const container = document.getElementById('filter-villes');
+  if (!cities.length) { container.innerHTML = ''; return; }
+
+  const allAct = _villeFilter === 'toutes' ? ' active' : '';
+  container.innerHTML =
+    `<button class="filter-pill${allAct}" data-ville="toutes" onclick="setVilleFilter(this.dataset.ville,this)">Toutes les villes</button>` +
+    cities.map(c => {
+      const act = _villeFilter === c ? ' active' : '';
+      return `<button class="filter-pill${act}" data-ville="${escHtml(c)}" onclick="setVilleFilter(this.dataset.ville,this)">${escHtml(c)}</button>`;
+    }).join('');
+}
+
+function setVilleFilter(ville, btn) {
+  _villeFilter = ville;
+  document.querySelectorAll('#filter-villes .filter-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+
+function applyFilters() {
+  const q = (document.getElementById('search-input').value || '').toLowerCase().trim();
+  const isMJ = getMJMode();
+  let list = isMJ ? PNJ_DATA : PNJ_DATA.filter(p => p.visible_joueurs !== false);
+  if (_villeFilter !== 'toutes') list = list.filter(p => getPnjCity(p) === _villeFilter);
+  if (q) list = list.filter(p =>
+    (p.nom || '').toLowerCase().includes(q) ||
+    (p.role || '').toLowerCase().includes(q) ||
+    (p.description || '').toLowerCase().includes(q)
+  );
+  renderGrid(list);
+}
+
+// ── RENDU GRILLE ─────────────────────────────────────────────────────────────
+function renderGrid(pnjs) {
+  const grid = document.getElementById('pnj-grid');
+  if (!pnjs.length) { grid.innerHTML = '<p class="pnj-empty">Aucun PNJ correspondant.</p>'; return; }
+  grid.innerHTML = pnjs.map((p, i) => buildCard(p, i)).join('');
+}
+
+function buildCard(p, delay) {
+  const statusLbl = STATUS_LABELS[p.statut] || p.statut;
+  const city = getPnjCity(p);
+
+  const portraitHtml = p.portrait_url
+    ? `<img src="${escHtml(p.portrait_url)}" alt="${escHtml(p.nom)}" loading="lazy">`
+    : `<div class="card-portrait-ico"></div>`;
+
+  const locHtml = city ? `<span class="chip-loc">&#128205; ${escHtml(city)}</span>` : '';
+
+  // Description avec scrollbar
+  const descHtml = p.description
+    ? `<div class="card-divider"></div>
+       <div class="card-desc-area">
+         <p class="card-desc">${escHtml(p.description)}</p>
+       </div>`
+    : '';
+
+  // Section détails (expand in-place)
+  const detailsHtml = buildDetailsSection(p);
+
+  return `<div class="pnj-card" data-id="${escHtml(p.id)}" data-status="${escHtml(p.statut || 'inconnu')}" style="animation-delay:${delay * 0.04}s">
+  <div class="card-identity">
+    <div class="card-portrait">${portraitHtml}</div>
+    <div class="card-info">
+      <div class="card-nom" title="${escHtml(p.nom)}">${escHtml(p.nom)}</div>
+      <div class="card-role">${escHtml(p.role || '')}</div>
+      <div class="card-chips">
+        <span class="chip-status ${escHtml(p.statut || 'inconnu')}">${escHtml(statusLbl)}</span>
+        ${locHtml}
+      </div>
+    </div>
+  </div>
+  ${descHtml}
+  <div class="card-footer">
+    <button class="btn-details" onclick="toggleCard(this.closest('.pnj-card'))">Détails &#8595;</button>
+  </div>
+  <div class="card-details-area">${detailsHtml}</div>
+</div>`;
+}
+
+function buildDetailsSection(p) {
+  const isMJ = getMJMode();
+  let html = '';
+
+  // Stats — 9 cases fixes : PV/CA/INIT (ligne 1) + 6 compétences (ligne 2)
+  {
+    const st = p.stats || {};
+    function getStat(keys) {
+      for (const k of keys) {
+        const found = Object.entries(st).find(([sk]) => new RegExp('^' + k + '$', 'i').test(sk));
+        if (found !== undefined) return found[1];
+        if (p[k] !== undefined && typeof p[k] !== 'object') return p[k];
+      }
+      return null;
+    }
+    function box(label, val) {
+      const v = val !== null && val !== undefined ? escHtml(String(val)) : '&mdash;';
+      return `<div class="pnj-stat-box"><span class="pnj-stat-lbl">${escHtml(label)}</span><span class="pnj-stat-val">${v}</span></div>`;
+    }
+    const r1 = [
+      box('PV',   getStat(['pv','pts de vie','points de vie'])),
+      box('CA',   getStat(['ca',"classe d'armure",'classe_armure'])),
+      box('INIT', getStat(['initiative','init'])),
+    ].join('');
+    function line(label, val) {
+      const v = val !== null && val !== undefined ? escHtml(String(val)) : '&mdash;';
+      return `<div class="pnj-stat-line"><span class="pnj-stat-line-lbl">${escHtml(label)}</span><span class="pnj-stat-line-val">${v}</span></div>`;
+    }
+    const r2 = [
+      line('Perspicacité',  getStat(['perspicacite','perspicacité','insight'])),
+      line('Investigation', getStat(['investigation'])),
+      line('Persuasion',    getStat(['persuasion'])),
+      line('Discrétion',    getStat(['discretion','discrétion','stealth'])),
+      line('Histoire',      getStat(['histoire','history'])),
+      line('Attaque',       getStat(['attaque','atk','bonus attaque','bonus_attaque'])),
+    ].join('');
+    html += '<div class="pnj-stats-grid"><div class="pnj-stats-row1">' + r1 + '</div>' + r2 + '</div>';
+  }
+
+  if (p.phrase_cle)
+    html += `<div class="detail-phrase">&#171; ${escHtml(p.phrase_cle)} &#187;</div>`;
+
+
+  if (p.tic)
+    html += `<div class="detail-row"><span class="detail-lbl">Tic</span><span class="detail-val">${escHtml(p.tic)}</span></div>`;
+
+  if (p.repliques && p.repliques.length)
+    html += `<div class="detail-row"><span class="detail-lbl">Répliques</span><span class="detail-val">${p.repliques.map(r => `&#171; ${escHtml(r)} &#187;`).join(' — ')}</span></div>`;
+
+  if (p.capacites_confirmees && p.capacites_confirmees.length && (isMJ || p.capacites_visible_joueurs !== false)) {
+    const caps = p.capacites_confirmees.map(c => {
+      const nom = typeof c === 'object' ? (c.nom || '') : c;
+      const desc = typeof c === 'object' ? (c.description || c.desc || '') : '';
+      const detail = typeof c === 'object' ? (c.details || c.detail || '') : '';
+      const bodyHtml = desc || detail
+        ? `<div class="cap-body">${desc ? `<span>${escHtml(desc)}</span>` : ''}${detail ? `<div class="cap-body-detail">${escHtml(detail)}</div>` : ''}</div>`
+        : '';
+      return `<div class="cap-item">
+        <div class="cap-head" ${bodyHtml ? "onclick=\"this.closest('.cap-item').classList.toggle('open')\"" : ''}>
+          <span class="cap-name">${escHtml(nom)}</span>
+        </div>${bodyHtml}</div>`;
+    }).join('');
+    html += `<div class="detail-lbl" style="margin:8px 0 4px">Capacités</div><div class="cap-section">${caps}</div>`;
+  }
+
+  if (p.notes)
+    html += `<div class="detail-row"><span class="detail-lbl">Notes</span><span class="detail-val">${escHtml(p.notes)}</span></div>`;
+
+  if (isMJ && p.secrets_mj)
+    html += `<div class="mj-block mj-only"><div class="mj-block-title">&#128273; Secrets MJ</div><div class="mj-block-txt">${escHtml(p.secrets_mj)}</div></div>`;
+
+  return html || '<p style="font-size:.78rem;font-style:italic;color:var(--text-dim)">Aucun détail supplémentaire.</p>';
+}
+
+// ── EXPAND IN-PLACE ───────────────────────────────────────────────────────────
+function toggleCard(card) {
+  const wasExpanded = card.classList.contains('expanded');
+  // Fermer tous les autres
+  document.querySelectorAll('.pnj-card.expanded').forEach(c => {
+    c.classList.remove('expanded');
+    const btn = c.querySelector('.btn-details');
+    if (btn) btn.textContent = 'D\u00e9tails \u2193';
+  });
+  if (!wasExpanded) {
+    card.classList.add('expanded');
+    // Regénérer les détails (pour MJ mode)
+    const p = PNJ_DATA.find(x => x.id === card.dataset.id);
+    if (p) card.querySelector('.card-details-area').innerHTML = buildDetailsSection(p);
+    const btn = card.querySelector('.btn-details');
+    if (btn) btn.textContent = 'Fermer \u2191';
+    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+// ── MJ MODE ───────────────────────────────────────────────────────────────────
+document.addEventListener('mjmodechange', () => {
+  buildVilleFilters();
+  applyFilters();
+});
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

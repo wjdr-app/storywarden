@@ -1,0 +1,339 @@
+[
+  {
+    "id": "Edward",
+    "nom": "Edward Lancenoir",
+    "role": "Agent de terrain — Brigade du Saumon Noir, détachement de Valmorne",
+    "statut": "vivant",
+    "description": "Compétent, factuel, sans affect dans ses rapports. Phrases directes, décisions assumées et brièvement justifiées. Préfère Finn (ne le dit pas). N'apprécie pas les initiatives non concertées d'Osric (dit dans le rapport).",
+    "localisation": "Valmorne",
+    "superieur": "pnj_mael",
+    "relations": [
+      "pnj_mael"
+    ],
+    "connu_joueurs": true,
+    "stats": {
+      "pv": 65,
+      "ca": 18,
+      "attaque": "+8 / 1d8+6",
+      "initiative": "+4",
+      "perspicacite": 8,
+      "investigation": 7,
+      "persuasion": 6,
+      "discretion": 5,
+      "histoire": 4
+    },
+    "secrets_mj": "A perçu pendant le combat une résonance mentale émanant de Marte-Crânes — voix qui ne passe pas par les lèvres, adresse directement l'esprit. Recoupé avec le témoignage de Renn sur l'homme à la capuche. Ne l'a pas dit dans son rapport.",
+    "notes": "A rédigé le rapport officiel de la session 1. Supérieur hiérarchique immédiat des aventuriers dans la Brigade.",
+    "visible_joueurs": true,
+    "portrait_url": "img/portraits/edward.png",
+    "tic": "",
+    "phrase_cle": "",
+    "repliques": []
+  },
+  {
+    "id": "pnj_mael",
+    "nom": "Sergent Mael",
+    "role": "Commandant du détachement de Valmorne — Brigade du Saumon Noir",
+    "statut": "vivant",
+    "description": "Homme trapu, cinquantaine usée, mains comme des battoirs, moustache perpétuellement mal taillée. Pragmatique, compétent dans un registre étroit. Ce qu'il veut : que les papiers soient en ordre.",
+    "localisation": "Val-de -brume",
+    "stats": {
+      "pv": 38,
+      "ca": 16,
+      "intimidation": 4,
+      "perspicacite": 3,
+      "athletisme": 3
+    },
+    "tic": "",
+    "repliques": [],
+    "relations": [
+      "pnj_edward"
+    ],
+    "connu_joueurs": true,
+    "secrets_mj": "",
+    "notes": "Statut après session : a accepté les dispositions d'Edward concernant Renn, Ysolda, Corvin.",
+    "visible_joueurs": true,
+    "phrase_cle": "",
+    "capacites_confirmees": [],
+    "capacites_visible_joueurs": true
+  },
+  {
+    "id": "pnj_rulven",
+    "nom": "Rulven",
+    "role": "Maître-Marqueur indépendant, Gardien des Bornes-Cœur",
+    "statut": "vivant",
+    "description": "Homme sec et discret, doigts tachés d'encre, yeux qui semblent toujours calculer. Employeur de Mila. En colère contre Mila suite à sa défaillance.",
+    "localisation": "Valmorne",
+    "stats": {
+      "pv": 22,
+      "ca": 12,
+      "arcanes": 7,
+      "histoire": 6,
+      "investigation": 5
+    },
+    "relations": [
+      "pnj_mila"
+    ],
+    "connu_joueurs": true,
+    "secrets_mj": "Voix du lore. Toutes les informations sur les Bornes, les Larmes et le Souffle passent par lui. Identifie le symbole des Gardiens de Route. Peut identifier la poudre d'argent. Estime que les connaissances de l'étranger dépassent les siennes de loin. Hypothèse sur la cabane d'Ysolda : une Larme ancienne enfouie sous le terrain expliquerait pourquoi la brume l'épargne — non confirmée.",
+    "notes": "Descendant spirituel autodidacte des Gardiens de Route. Ses connaissances sont incomplètes par rapport au savoir de l'étranger.",
+    "tic": "",
+    "phrase_cle": "",
+    "repliques": []
+  },
+  {
+    "id": "pnj_renn",
+    "nom": "Renn",
+    "role": "Adolescent de Valmorne, auteur du vol de la Larme",
+    "statut": "vivant",
+    "description": "16 ans. Père arrêté et exécuté par la Brigade (raison inconnue). Mère morte en janvier. Seul responsable de sa sœur Camille, 9 ans.",
+    "localisation": "L'écurie-relais de Valmorne",
+    "stats": {
+      "pv": 7,
+      "ca": 10,
+      "discretion": 3,
+      "acrobaties": 2
+    },
+    "relations": [
+      "pnj_camille",
+      "pnj_mila",
+      "pnj_capuche"
+    ],
+    "connu_joueurs": true,
+    "secrets_mj": "L'homme à la capuche l'a contacté une semaine avant les événements. Lui a promis argent, nouveau foyer, départ de la Marche pour lui et sa sœur. Lui a dit que ça conduirait au départ de la Brigade.",
+    "phrase_cle": "",
+    "notes": "Disposition finale : emploi aux écuries du détachement sous supervision de Guillaume. Rancœur envers la Brigade (père exécuté) — à surveiller.",
+    "tic": "",
+    "repliques": []
+  },
+  {
+    "id": "pnj_ysolda",
+    "nom": "Ysolda la Grise",
+    "role": "Herboriste ermite — acheteuse de bonne foi de la Larme",
+    "statut": "vivant",
+    "description": "Quarante ans à étudier les plantes de la Marche et leurs propriétés contre la brume.",
+    "localisation": "Tertre à l'extérieur du village",
+    "stats": {
+      "pv": 14,
+      "ca": 11,
+      "nature": 6,
+      "medecine": 5,
+      "arcanes": 4
+    },
+    "relations": [
+      "pnj_corvin"
+    ],
+    "connu_joueurs": true,
+    "secrets_mj": "A acheté la pierre à Corvin comme curiosité des marches. Ne savait pas que c'était la vraie Larme. Ses notes montrent qu'elle avait commencé à comprendre trop tard. Ses connaissances en herboristerie peuvent fabriquer des répulsifs temporaires à la brume.",
+    "notes": "Disposition finale : accord commercial avec la Brigade, tarif préférentiel alcools/potions en échange de sa liberté.",
+    "tic": "",
+    "phrase_cle": "",
+    "repliques": []
+  },
+  {
+    "id": "pnj_corvin",
+    "nom": "Corvin",
+    "role": "Colporteur itinérant — maillon intermédiaire",
+    "statut": "vivant",
+    "description": "Gros, suant, charrette qui sent le vieux cuir. Écharpe rouge. A reconnu la pierre mais a conclu la vente sans poser de questions.",
+    "localisation": "Valmorne",
+    "stats": {
+      "pv": 12,
+      "ca": 10,
+      "tromperie": 4,
+      "persuasion": 3
+    },
+    "relations": [
+      "pnj_bren",
+      "pnj_ysolda",
+      "pnj_capuche"
+    ],
+    "connu_joueurs": true,
+    "secrets_mj": "A racheté la Larme à Renn pour presque rien. L'a revendue à Ysolda. Connaît Bren. A été contacté par l'étranger qui a initialement organisé l'escorte. Probablement fournisseur de l'établissement de bains en sel de lune.",
+    "notes": "Disposition finale : donation conséquente à la Brigade, doit déclarer ses passages, toute récidive traitée sans négociation. Informateur commercial potentiel.",
+    "tic": "",
+    "phrase_cle": "",
+    "repliques": []
+  },
+  {
+    "id": "pnj_mila",
+    "nom": "Mila",
+    "role": "Gardienne de la Borne-Cœur — employée de Rulven",
+    "statut": "vivant",
+    "description": "Absente lors du vol — était aux bains publics, dans un état d'incohérence avancée au sel de lune.",
+    "localisation": "Valmorne",
+    "stats": {
+      "pv": 9,
+      "ca": 10,
+      "perception": 4,
+      "perspicacite": 2
+    },
+    "relations": [
+      "pnj_rulven",
+      "pnj_renn"
+    ],
+    "connu_joueurs": true,
+    "secrets_mj": "A lâché en état défoncé la mention d'un sale gamin.",
+    "notes": "Statut : suspendue à titre conservatoire. Décision conjointe Mael/Rulven attendue.",
+    "tic": "",
+    "phrase_cle": "",
+    "repliques": []
+  },
+  {
+    "id": "pnj_bren",
+    "nom": "Bren",
+    "role": "Lanternier indépendant - à l'emploi de Corvin pour l'escorte",
+    "statut": "vivant",
+    "description": "Guide professionnel de route. Connaît les chemins sûrs de la Marche.",
+    "localisation": "Le relais abandonné",
+    "relations": [
+      "pnj_corvin",
+      "pnj_capuche"
+    ],
+    "connu_joueurs": true,
+    "secrets_mj": "A escorté Renn et sa sœur, détecté le monstre, ordonné aux enfants de fuir. S'est réfugié dans une cabane en lisière. A été secouru le lendemain matin par les soldats mandatés par Edward, en mauvais état mais vivant. A reçu de l'étranger une note mentionnant un point de rendez-vous.",
+    "notes": "Les aventuriers ne sont PAS allés le secourir — c'est Edward qui a mandaté les soldats. Bren doit sa vie à la Brigade indirectement.",
+    "tic": "",
+    "phrase_cle": "",
+    "repliques": [],
+    "stats": {},
+    "capacites_confirmees": [],
+    "capacites_visible_joueurs": true
+  },
+  {
+    "id": "pnj_guillaume",
+    "nom": "Guillaume",
+    "role": "Palefrenier de l'écurie-relais de Valmorne",
+    "statut": "vivant",
+    "description": "Palefrenier discret. Supervisera Renn à l'écurie.",
+    "localisation": "L'écurie-relais de Valmorne",
+    "relations": [
+      "pnj_renn"
+    ],
+    "connu_joueurs": true,
+    "secrets_mj": "",
+    "notes": "",
+    "tic": "",
+    "phrase_cle": "",
+    "repliques": [],
+    "stats": {}
+  },
+  {
+    "id": "pnj_capuche",
+    "nom": "L'homme à la capuche",
+    "role": "Antagoniste - identité inconnue",
+    "statut": "inconnu",
+    "description": "Grand, capuche basse, manteau sans écusson. Pas de visage visible — trop sombre. Ne passe pas par les lèvres pour parler : communication mentale ou télépathique directe.",
+    "localisation": "Inconnu",
+    "relations": [
+      "pnj_renn",
+      "pnj_corvin",
+      "pnj_bren"
+    ],
+    "connu_joueurs": true,
+    "capacites_confirmees": [
+      "Communication mentale/télépathique à distance",
+      "Connaissances approfondies sur les Larmes et les Bornes (dépasse Rulven)",
+      "Capable de préparer des morts-vivants avec de la poudre de Larme",
+      "Contrôle un rodeur de brume",
+      "Pièces neuves à l'effigie d'un dragon"
+    ],
+    "secrets_mj": "Valmorne était un test pour voir si ça marchait, voir combien de temps ça tient un village sans Larme. Il reviendra pour les autres Larmes. Lien probable avec le savoir des Gardiens de Route. La voix mentale perçue par Edward sur le squelette a résonné de la même manière.",
+    "notes": "",
+    "visible_joueurs": true,
+    "tic": "",
+    "phrase_cle": "",
+    "repliques": [],
+    "stats": {},
+    "capacites_visible_joueurs": true
+  },
+  {
+    "id": "pnj_gobelin",
+    "nom": "Le gobelin tenancier",
+    "role": "Tenancier de l'établissement de bains — couverture pour salon de sel de lune",
+    "statut": "vivant",
+    "description": "Tient un établissement de bains publics servant de façade à une salle de consommation de sel de lune récréatif illégale.",
+    "localisation": "L'établissement de bains",
+    "relations": [
+      "pnj_corvin"
+    ],
+    "connu_joueurs": true,
+    "secrets_mj": "Probablement approvisionné par Corvin en sel de lune. Réseau de distribution dans la région possible.",
+    "notes": "Disposition finale : placé devant un choix binaire — Brigade ou prison. Réponse attendue sous huitaine (depuis la session 1). Résultat non encore déterminé.",
+    "tic": "",
+    "phrase_cle": "",
+    "repliques": [],
+    "stats": {}
+  },
+  {
+    "id": "pnj_camille",
+    "nom": "Camille",
+    "role": "Sœur de Renn — à sa charge",
+    "statut": "vivant",
+    "description": "9 ans. Seule famille restante de Renn après la mort de leur mère et l'exécution de leur père. Ne parle plus depuis le décès de sa mère.",
+    "localisation": "Valmorne",
+    "relations": [
+      "pnj_renn"
+    ],
+    "connu_joueurs": true,
+    "secrets_mj": "",
+    "notes": "",
+    "tic": "",
+    "phrase_cle": "",
+    "repliques": [],
+    "stats": {},
+    "visible_joueurs": true
+  },
+  {
+    "id": "PNJ-BEN",
+    "nom": "Benjamin \"Ben\" Iscrem",
+    "role": "Soldat régulier de la Brigade du Saumon Noir, la force de frappe du binôme.",
+    "statut": "vivant",
+    "localisation": "Valmorne",
+    "connu_joueurs": false,
+    "description": "Benjamin est un homme trapu, au cou épais et à la mâchoire carrée. C'est le genre de soldat qui exécute les ordres à la lettre sans poser de questions existentielles. Il parle peu, s'exprime souvent par des grognements d'approbation ou de mécontentement, et laisse généralement Jérémy faire la conversation. Sous son armure abîmée, il porte encore de lourds hématomes de son \"affrontement\" (ou plutôt de sa mise K.O. expéditive) par l'homme à la capuche.",
+    "tic": "",
+    "phrase_cle": "",
+    "repliques": [],
+    "secrets_mj": "",
+    "notes": "",
+    "capacites_confirmees": [
+      "Tactique de Phalange : Tant qu'il se trouve à moins d'1,5m d'un allié de la Brigade (comme Jérémy), Benjamin bénéficie d'un avantage sur tous ses jets de sauvegarde contre la peur ou le renversement.",
+      "Traumatisme persistant (Malus) : Ayant été foudroyé mentalement par l'homme à la capuche, Ben souffre actuellement de violentes migraines s'il est exposé directement à la magie."
+    ],
+    "capacites_visible_joueurs": true,
+    "relations": [],
+    "stats": {
+      "pv": 18,
+      "ca": 15,
+      "attaque": "Lance d'arrêt : +4 pour toucher (1d6+2 dégâts perforant)",
+      "initiative": "+1"
+    }
+  },
+  {
+    "id": "PNJ-JERRY",
+    "nom": "Jérémy \"Jerry\" Frost",
+    "role": "Éclaireur de la Brigade du Saumon Noir, la tête pensante du binôme.",
+    "statut": "vivant",
+    "localisation": "Valmorne",
+    "connu_joueurs": true,
+    "description": "Plus grand, plus fin et nettement plus nerveux que son partenaire, Jérémy a le regard qui fouille toujours les ombres. Il est bavard, légèrement cynique, et a tendance à se plaindre constamment de l'humidité et du froid de la Marche de Roncebrume. Il porte son uniforme de la Brigade avec un peu plus de soin que Ben. Bien qu'il soit un éclaireur compétent, son ego en a pris un coup : il n'a même pas eu le temps de voir l'homme à la capuche ou le monstre l'attaquer avant de perdre connaissance au moulin.",
+    "tic": "",
+    "phrase_cle": "",
+    "repliques": [],
+    "secrets_mj": "",
+    "notes": "",
+    "capacites_confirmees": [
+      "Vigilance partagée : Jérémy a l'habitude de surveiller les angles morts de Ben. Tant qu'il se trouve à moins d'1,5m de Benjamin, aucun ennemi ne bénéficie de l'avantage sur ses jets d'attaque pour les prendre en tenaille.",
+      "Leçon d'humilité : Depuis l'événement du moulin, Jerry est terrifié par l'idée de retourner dans la brume. Il refusera catégoriquement toute mission hors du village à moins d'être accompagné par un groupe solide ou massivement protégé par du Sel de Lune."
+    ],
+    "capacites_visible_joueurs": true,
+    "relations": [],
+    "stats": {
+      "pv": 14,
+      "ca": 14,
+      "attaque": "Épée courte de milicien : +4 pour toucher (1d6+2 dégâts tranchants).",
+      "initiative": "+2"
+    }
+  }
+]

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quêtes — La Larme d'Argent</title>
+<link rel="stylesheet" href="css/sw-v2.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+
+/* ── PAGE HEADER ── */
+.q-page-header { margin-bottom: 28px; }
+.q-page-title {
+  font-family: var(--font-ui); font-size: 1.45rem; font-weight: 700;
+  color: var(--text); letter-spacing: .02em; margin-bottom: 3px;
+}
+.q-page-sub {
+  font-family: var(--font-body); font-size: .82rem;
+  font-style: italic; color: var(--text-muted);
+}
+
+/* ── SECTION HEADER ── */
+.q-section { margin-bottom: 0; }
+.q-section + .q-section { margin-top: 32px; }
+.sec-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.sec-line { flex: 1; height: 1px; background: var(--border-soft); }
+.sec-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; background: var(--border-mid); }
+.sec-dot.critique { background: var(--crimson); }
+.sec-label {
+  font-family: var(--font-ui); font-size: .58rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase; white-space: nowrap;
+  color: var(--text-muted);
+}
+.sec-label.critique { color: var(--crimson); }
+
+/* ── GRILLE TERMINÉES ── */
+.done-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.done-grid .quete-card { margin-bottom: 0; }
+@media(max-width:640px) { .done-grid { grid-template-columns: 1fr; } }
+
+/* ── CARTE ── */
+.quete-card {
+  background: var(--surface); border-radius: 12px;
+  box-shadow: var(--sh-card);
+  border-left: 3px solid transparent;
+  overflow: hidden;
+  animation: cardIn .3s ease both;
+  transition: box-shadow .18s;
+  margin-bottom: 10px;
+}
+.quete-card:hover { box-shadow: var(--sh-card-hov); }
+.quete-card.terminee { opacity: .68; }
+.quete-card.terminee:hover { opacity: 1; }
+.quete-card.prio-critique { border-left-color: var(--crimson); }
+.quete-card.prio-importante { border-left-color: var(--border-mid); }
+
+/* ── EN-TÊTE CARTE ── */
+.quete-head {
+  padding: 14px 16px 12px;
+  display: flex; align-items: flex-start; gap: 12px;
+  cursor: pointer; user-select: none;
+}
+.quete-head-info { flex: 1; min-width: 0; }
+.quete-titre {
+  font-family: var(--font-ui); font-size: .88rem; font-weight: 700;
+  color: var(--text); letter-spacing: .02em; line-height: 1.25; margin-bottom: 5px;
+}
+.quete-desc {
+  font-family: var(--font-body); font-size: .82rem; font-style: italic;
+  color: var(--text-muted); line-height: 1.55;
+}
+.badge-col { display: flex; flex-direction: column; gap: 5px; align-items: flex-end; flex-shrink: 0; }
+
+/* Chips statut / priorité */
+.q-chip {
+  font-family: var(--font-ui); font-size: .6rem; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 2px 9px; border-radius: 20px; white-space: nowrap;
+  border: 1.5px solid var(--border-soft); background: transparent; color: var(--text-muted);
+}
+.q-chip.critique   { color: var(--crimson);    border-color: var(--crimson-bd); }
+.q-chip.active     { color: var(--text);        border-color: var(--border-mid); }
+.q-chip.suspens    { color: var(--text-muted);  border-color: var(--border-soft); }
+.q-chip.terminee   { color: var(--text-dim);    border-color: var(--border-soft); }
+.q-chip.importante { color: var(--text-muted);  border-color: var(--border-mid); }
+.q-chip.secondaire { color: var(--text-dim);    border-color: var(--border-soft); }
+
+.quete-chevron {
+  font-size: .6rem; color: var(--text-dim);
+  transition: transform .2s; margin-top: 5px; flex-shrink: 0;
+}
+.quete-card.open .quete-chevron { transform: rotate(180deg); }
+
+/* ── CORPS CARTE ── */
+.quete-div { height: 1px; background: var(--border-soft); margin: 0 16px; display: none; }
+.quete-card.open .quete-div { display: block; }
+.quete-body { padding: 14px 16px; display: none; }
+.quete-card.open .quete-body { display: block; }
+
+/* ── OBJECTIFS ── */
+.sub-title {
+  font-family: var(--font-ui); font-size: .55rem; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--text-muted);
+  border-bottom: 1px solid var(--border-soft); padding-bottom: 4px; margin-bottom: 8px;
+}
+.obj-list { list-style: none; margin-bottom: 14px; }
+.obj-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-family: var(--font-body); font-size: .82rem; color: var(--text-muted);
+  padding: 5px 0; border-bottom: 1px solid var(--border-soft); line-height: 1.5;
+}
+.obj-item:last-child { border-bottom: none; }
+.obj-check {
+  width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+  border: 1.5px solid var(--border-mid);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .5rem; color: var(--bg);
+}
+.obj-check.done { background: var(--text-muted); border-color: var(--text-muted); }
+.obj-txt { flex: 1; }
+.obj-txt.done { text-decoration: line-through; color: var(--text-dim); font-style: italic; }
+
+/* ── INDICES ── */
+.indice-section { margin-bottom: 14px; }
+.indice-item {
+  display: flex; gap: 8px; align-items: flex-start;
+  font-family: var(--font-body); font-size: .8rem; font-style: italic;
+  color: var(--text-muted); padding: 3px 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+.indice-item:last-child { border-bottom: none; }
+.indice-item::before { content: '◈'; color: var(--text-dim); font-size: .55rem; flex-shrink: 0; margin-top: 3px; }
+
+/* ── MÉTA ── */
+.quete-meta {
+  background: var(--bg); border: 1px solid var(--border-soft);
+  border-radius: 8px; padding: 10px 12px; margin-bottom: 12px;
+}
+.q-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 5px; }
+.q-row:last-child { margin-bottom: 0; }
+.q-lbl {
+  font-family: var(--font-ui); font-size: .52rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted);
+  min-width: 60px; flex-shrink: 0; padding-top: 3px;
+}
+.chip-list { display: flex; flex-wrap: wrap; gap: 4px; }
+.meta-chip {
+  font-family: var(--font-body); font-size: .75rem; font-style: italic;
+  color: var(--text-muted); padding: 1px 8px;
+  border: 1px solid var(--border-soft); border-radius: 8px;
+}
+
+/* ── RÉCOMPENSE ── */
+.recompense {
+  border-left: 2px solid var(--border-mid);
+  padding: 6px 12px; background: var(--bg);
+  font-family: var(--font-body); font-size: .8rem; font-style: italic;
+  color: var(--text-muted); margin-bottom: 12px;
+  display: flex; gap: 8px; align-items: flex-start;
+  border-radius: 0 6px 6px 0;
+}
+.recompense::before { content: '✦'; color: var(--text-dim); flex-shrink: 0; margin-top: 1px; }
+
+/* ── BLOC MJ ── */
+.mj-block {
+  border: 1.5px solid var(--crimson-bd); border-radius: 8px; padding: 10px 12px;
+}
+.mj-block-title {
+  font-family: var(--font-ui); font-size: .52rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--crimson); margin-bottom: 6px;
+}
+.mj-block-txt {
+  font-family: var(--font-body); font-size: .78rem; font-style: italic;
+  color: var(--text-muted); line-height: 1.6; white-space: pre-wrap;
+}
+
+</style>
+</head>
+<body>
+
+<div class="q-page-header">
+  <div class="page-title">Les <span>Quêtes</span></div>
+  <div class="page-sub">Missions actives, fils narratifs et objectifs de la Brigade</div>
+</div>
+<div id="quetes-wrap">
+  <p style="font-style:italic;color:var(--text-dim);font-size:.82rem;text-align:center;padding:40px;">Chargement…</p>
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/nav-v2.js"></script>
+<script>
+var QUETES_DATA = [];
+
+async function init() {
+  try {
+    QUETES_DATA = await loadData('quetes.json');
+    renderGrid();
+  } catch(e) {
+    document.getElementById('quetes-wrap').innerHTML =
+      '<p style="color:var(--crimson);font-size:.82rem;font-style:italic;text-align:center;padding:40px;">⚠ Données inaccessibles en file://. Utiliser un serveur local.</p>';
+  }
+}
+
+function renderGrid() {
+  var isMJ = (typeof getMJMode === 'function') ? getMJMode() : false;
+  var quetes = isMJ ? QUETES_DATA : QUETES_DATA.filter(function(q){ return q.visible_joueurs !== false; });
+  var critique  = quetes.filter(function(q){ return q.statut === 'active'    && q.priorite === 'critique'; });
+  var actives   = quetes.filter(function(q){ return q.statut === 'active'    && q.priorite !== 'critique'; });
+  var suspens   = quetes.filter(function(q){ return q.statut === 'en suspens'; });
+  var terminees = quetes.filter(function(q){ return q.statut === 'terminée'; });
+  var html = '';
+  if (critique.length)  html += '<div class="q-section">'  + secHead('Actives — Critique', true) + critique.map(buildCard).join('') + '</div>';
+  if (actives.length)   html += '<div class="q-section">'  + secHead('Actives', false) + actives.map(buildCard).join('') + '</div>';
+  if (suspens.length)   html += '<div class="q-section">'  + secHead('En suspens', false) + suspens.map(buildCard).join('') + '</div>';
+  if (terminees.length) html += '<div class="q-section">'  + secHead('Terminées', false) + '<div class="done-grid">' + terminees.map(buildCard).join('') + '</div></div>';
+  document.getElementById('quetes-wrap').innerHTML = html || '<p style="text-align:center;color:var(--text-dim);padding:60px;font-family:var(--font-ui);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;">Aucune quête</p>';
+}
+
+function secHead(label, isCrit) {
+  var cls = isCrit ? ' critique' : '';
+  return '<div class="sec-header">'
+    + '<div class="sec-line"></div>'
+    + '<div class="sec-dot' + cls + '"></div>'
+    + '<span class="sec-label' + cls + '">' + label + '</span>'
+    + '<div class="sec-dot' + cls + '"></div>'
+    + '<div class="sec-line"></div>'
+    + '</div>';
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function buildCard(q) {
+  var isMJ   = (typeof getMJMode === 'function') ? getMJMode() : false;
+  var isCrit = q.priorite === 'critique';
+  var isDone = q.statut === 'terminée';
+
+  var leftCls = isCrit ? ' prio-critique' : (q.priorite === 'importante' ? ' prio-importante' : '');
+  var doneCls = isDone ? ' terminee' : '';
+
+  // Chips
+  var statutLbl = isDone ? 'Terminée' : q.statut === 'en suspens' ? 'En suspens' : 'Active';
+  var statutCls = isDone ? 'terminee' : q.statut === 'en suspens' ? 'suspens' : 'active';
+  var prioLbls  = { critique:'Critique', importante:'Importante', secondaire:'Secondaire' };
+  var prioLbl   = prioLbls[q.priorite] || null;
+  var prioChip  = prioLbl ? '<span class="q-chip ' + q.priorite + '">' + prioLbl + '</span>' : '';
+  var statChip  = '<span class="q-chip ' + statutCls + '">' + statutLbl + '</span>';
+
+  // Objectifs
+  var objItems = (q.objectifs||[])
+    .filter(function(o){ return isMJ || o.visible_joueurs !== false; })
+    .map(function(o){
+      return '<li class="obj-item">'
+        + '<span class="obj-check' + (o.accompli ? ' done' : '') + '">' + (o.accompli ? '✓' : '') + '</span>'
+        + '<span class="obj-txt'  + (o.accompli ? ' done' : '') + '">' + esc(o.texte) + '</span>'
+        + '</li>';
+    }).join('');
+  var objHTML = objItems ? '<div class="sub-title">Objectifs</div><ul class="obj-list">' + objItems + '</ul>' : '';
+
+  // Indices
+  var indHTML = '';
+  if (q.indices && q.indices.length) {
+    indHTML = '<div class="indice-section"><div class="sub-title">Indices connus</div>'
+      + q.indices.map(function(i){ return '<div class="indice-item">' + esc(i) + '</div>'; }).join('')
+      + '</div>';
+  }
+
+  // Méta
+  var lieuxChips = (q.lieux_impliques||[]).map(function(id){ return '<span class="meta-chip">' + esc(id) + '</span>'; }).join('');
+  var pnjChips   = (q.pnjs_impliques ||[]).map(function(id){ return '<span class="meta-chip">' + esc(id) + '</span>'; }).join('');
+  var metaHTML = (lieuxChips||pnjChips) ? '<div class="quete-meta">'
+    + (lieuxChips ? '<div class="q-row"><span class="q-lbl">Lieux</span><div class="chip-list">' + lieuxChips + '</div></div>' : '')
+    + (pnjChips   ? '<div class="q-row"><span class="q-lbl">PNJs</span><div class="chip-list">' + pnjChips   + '</div></div>' : '')
+    + '</div>' : '';
+
+  // Récompense
+  var recHTML = q.recompense ? '<div class="recompense">' + esc(q.recompense) + '</div>' : '';
+
+  // Notes MJ
+  var mjHTML = q.notes_mj ? '<div class="mj-only"><div class="mj-block">'
+    + '<div class="mj-block-title">⚿ Notes MJ</div>'
+    + '<div class="mj-block-txt">' + esc(q.notes_mj) + '</div>'
+    + '</div></div>' : '';
+
+  return '<div class="quete-card' + leftCls + doneCls + '" id="q-' + q.id + '">'
+    + '<div class="quete-head" onclick="toggleCard(\'' + q.id + '\')">'
+    +   '<div class="quete-head-info">'
+    +     '<div class="quete-titre">' + esc(q.titre) + '</div>'
+    +     '<div class="quete-desc">'  + esc(q.description) + '</div>'
+    +   '</div>'
+    +   '<div class="badge-col">' + statChip + prioChip + '</div>'
+    +   '<span class="quete-chevron">▾</span>'
+    + '</div>'
+    + '<div class="quete-div"></div>'
+    + '<div class="quete-body">'
+    +   objHTML + indHTML + metaHTML + recHTML + mjHTML
+    + '</div>'
+    + '</div>';
+}
+
+function toggleCard(id) {
+  var card = document.getElementById('q-' + id);
+  if (!card) return;
+  var isOpen = card.classList.contains('open');
+  document.querySelectorAll('.quete-card.open').forEach(function(c){ c.classList.remove('open'); });
+  if (!isOpen) card.classList.add('open');
+}
+
+document.addEventListener('mjmodechange', function(){ if (QUETES_DATA.length) renderGrid(); });
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "lettre_bandit_01",
+    "titre": "Lettre des bandit.",
+    "type": "parchemin",
+    "statut": "revele",
+    "contenu": "Les Saumons sortent de leur trou.\n\nUne charrette de la Brigade vient de quitter Valmorne. Ils ont pris la vieille piste, direction le moulin en ruine.\n\nLaissez passer les voyageurs ordinaires, mais dès que vous voyez l'écusson noir, frappez.\n\nVisez la lanterne en premier. Faites sauter la cloche et la flamme, la brume fera la moitié du travail pour nous. \n\nPas de prisonniers. Mort à la Brigade.",
+    "session_decouverte": "session 02",
+    "visible_joueurs": true
+  },
+  {
+    "id": "mission_moulin_Ben",
+    "titre": "Ordre de Déploiement Tactique",
+    "type": "parchemin",
+    "statut": "revele",
+    "contenu": "BRIGADE DU SAUMON NOIR - DÉTACHEMENT DE VALMORNE\nOrdre de Déploiement Tactique\n\nAssignation : Soldat Benjamin Iscrem\nÉmis par : Agent de Terrain E. Lancenoir\nObjectif : Récupération de témoin clé / Sécurisation\n\nDirectives :\nLe lanternier répondant au nom de Bren a disparu cette nuit lors du vol de la Larme d'Argent. Selon nos premiers éléments, il devait escorter le voleur et la marchandise vers un point de rendez-vous situé au vieux moulin à eau désaffecté.\n\nVotre mission est de remonter sa piste sur la route du moulin. Localisez-le et ramenez-le à Valmorne pour interrogatoire. L'individu est au centre de notre enquête et détient des informations sur l'acheteur final : il doit être ramené en état de parler. S'il a succombé au Souffle ou aux bêtes, fouillez ses effets personnels et rapportez tout document ou preuve matérielle.\n\n\nSigné : Edward Lancenoir",
+    "session_decouverte": "Session 02",
+    "visible_joueurs": true
+  }
+]

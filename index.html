@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>La Larme d'Argent — Accueil</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/sw-v2.css">
+<style>
+/* ── HERO ──────────────────────────────────────────────────── */
+.hero {
+  background:var(--surface); border:1px solid var(--border-soft);
+  border-radius:14px; padding:32px 36px 26px; margin-bottom:20px;
+  text-align:center; position:relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse at 50% -20%, var(--crimson-dim) 0%, transparent 65%);
+  pointer-events:none;
+}
+.hero-title {
+  font-family:var(--font-ui); font-size:2.4rem; font-weight:700;
+  line-height:1; letter-spacing:.02em; margin-bottom:8px; position:relative;
+}
+.hero-rule {
+  display:flex; align-items:center; gap:10px;
+  margin:14px auto; max-width:260px; position:relative;
+}
+.hero-rule .rl { flex:1; height:1px; background:var(--border-soft); }
+.hero-rule .ro { font-size:.8rem; color:var(--crimson); }
+.hero-sub {
+  font-family:var(--font-ui); font-size:.56rem; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--text-dim); position:relative;
+}
+
+/* ── SECTION TITLE ─────────────────────────────────────────── */
+.sec-t {
+  font-family:var(--font-ui); font-size:.52rem; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--text-dim);
+  border-bottom:1px solid var(--border-soft); padding-bottom:6px; margin-bottom:12px;
+}
+
+/* ── MODULE GRID ───────────────────────────────────────────── */
+.mod-section { margin-bottom:20px; }
+.mod-grid {
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:8px;
+}
+.mod-card {
+  background:var(--surface); border:1px solid var(--border-soft);
+  border-radius:10px; padding:16px 12px 14px; text-align:center;
+  text-decoration:none; color:var(--text);
+  transition:background .15s, border-color .15s; display:block;
+}
+.mod-card:hover { background:var(--surface-mid); border-color:var(--border-mid); }
+.mod-card.mj-card { border-color:var(--crimson-bd); }
+.mod-card.mj-card:hover { background:var(--crimson-dim); border-color:var(--crimson); }
+.mod-icon { font-size:1.3rem; display:block; margin-bottom:8px; }
+.mod-name {
+  font-family:var(--font-ui); font-size:.64rem; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase; display:block;
+}
+.mod-desc { font-size:.7rem; color:var(--text-dim); font-style:italic; display:block; margin-top:3px; }
+
+/* ── 2-COL ──────────────────────────────────────────────────── */
+.main-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+
+/* ── SHEET ──────────────────────────────────────────────────── */
+.sheet {
+  background:var(--surface); border:1px solid var(--border-soft);
+  border-radius:12px; overflow:hidden;
+}
+.sheet-head {
+  border-bottom:1px solid var(--border-soft);
+  padding:11px 18px 9px; display:flex; align-items:center;
+  justify-content:space-between; gap:10px;
+}
+.sheet-title {
+  font-family:var(--font-ui); font-size:.6rem; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase;
+}
+.sheet-meta { font-size:.74rem; color:var(--text-dim); font-style:italic; }
+.sheet-body { padding:14px 18px; }
+.sheet-link {
+  font-family:var(--font-ui); font-size:.44rem; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--text); text-decoration:none;
+  background:var(--crimson); border:1px solid var(--crimson);
+  border-radius:20px; padding:3px 12px;
+  transition:all .2s; white-space:nowrap; flex-shrink:0;
+}
+.sheet-link:hover { background:var(--crimson-dark); border-color:var(--crimson-dark); }
+
+/* ── EVENT LIST ─────────────────────────────────────────────── */
+.evt-list { list-style:none; }
+.evt-item {
+  font-size:.82rem; line-height:1.6; padding:4px 0;
+  border-bottom:1px solid var(--border-soft);
+  display:flex; gap:7px; align-items:flex-start;
+}
+.evt-item:last-child { border-bottom:none; }
+.evt-item::before { content:'·'; flex-shrink:0; margin-top:2px; color:var(--text-dim); }
+
+/* ── FILS NARRATIFS ─────────────────────────────────────────── */
+.fil-card {
+  border:1px solid var(--border-soft); border-radius:8px;
+  padding:9px 12px; margin-bottom:8px;
+  transition:border-color .15s;
+}
+.fil-card:last-child { margin-bottom:0; }
+.fil-card.critique { border-color:var(--crimson-bd); background:var(--crimson-dim); }
+.fil-badge {
+  display:inline-block; font-family:var(--font-ui); font-size:.44rem;
+  letter-spacing:.1em; text-transform:uppercase;
+  border:1px solid var(--border-soft); border-radius:20px;
+  padding:1px 8px; margin-bottom:4px; color:var(--text-dim);
+}
+.fil-badge.critique { border-color:var(--crimson-bd); color:var(--crimson); }
+.fil-titre { font-family:var(--font-ui); font-size:.68rem; font-weight:700; margin-bottom:3px; }
+.fil-desc { font-size:.8rem; color:var(--text-muted); line-height:1.45; }
+
+.load-err { font-style:italic; color:var(--crimson); font-size:.82rem; }
+
+@media(max-width:700px) {
+  .main-grid { grid-template-columns:1fr; }
+  .mod-grid { grid-template-columns:repeat(3,1fr); }
+  .hero { padding:22px 18px 18px; }
+  .hero-title { font-size:1.8rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-title" id="hero-title">La Larme d'Argent</div>
+  <div class="hero-rule"><span class="rl"></span><span class="ro">✦</span><span class="rl"></span></div>
+  <div class="hero-sub" id="hero-sub">Outil de gestion de campagne · Brigade du Saumon Noir</div>
+</div>
+
+<div class="mod-section">
+  <div class="sec-t">Modules</div>
+  <div class="mod-grid">
+    <a class="mod-card" href="personnages.html"><span class="mod-icon">⚔</span><span class="mod-name">Aventuriers</span><span class="mod-desc">Fiches complètes</span></a>
+    <a class="mod-card" href="pnjs.html"><span class="mod-icon">◈</span><span class="mod-name">PNJs</span><span class="mod-desc">Personnages</span></a>
+    <a class="mod-card" href="lieux.html"><span class="mod-icon">⌖</span><span class="mod-name">Lieux</span><span class="mod-desc">La Marche</span></a>
+    <a class="mod-card" href="quetes.html"><span class="mod-icon">◉</span><span class="mod-name">Quêtes</span><span class="mod-desc">Fils actifs</span></a>
+    <a class="mod-card" href="lore.html"><span class="mod-icon">✧</span><span class="mod-name">Lore</span><span class="mod-desc">Univers</span></a>
+    <a class="mod-card" href="rapports.html"><span class="mod-icon">✉</span><span class="mod-name">Rapports</span><span class="mod-desc">Journal</span></a>
+    <a class="mod-card" href="timeline.html"><span class="mod-icon">◷</span><span class="mod-name">Chronologie</span><span class="mod-desc">Événements</span></a>
+    <a class="mod-card" href="regles.html"><span class="mod-icon">⊟</span><span class="mod-name">Règles</span><span class="mod-desc">Référence</span></a>
+    <a class="mod-card" href="relations.html"><span class="mod-icon">⊕</span><span class="mod-name">Relations</span><span class="mod-desc">Graphe</span></a>
+    <a class="mod-card" href="carte.html"><span class="mod-icon">✦</span><span class="mod-name">Carte</span><span class="mod-desc">La Marche</span></a>
+    <a class="mod-card" href="des.html"><span class="mod-icon">⚄</span><span class="mod-name">Dés</span><span class="mod-desc">Lanceur</span></a>
+    <a class="mod-card mj-only mj-card" href="combat-v2.html"><span class="mod-icon">✤</span><span class="mod-name">Combat</span><span class="mod-desc">Initiatives</span></a>
+    <a class="mod-card" href="monstres.html"><span class="mod-icon">◎</span><span class="mod-name">Monstres</span><span class="mod-desc">Bestiaire</span></a>
+  </div>
+</div>
+
+<div class="main-grid">
+  <div class="sheet" id="last-session">
+    <div class="sheet-head">
+      <span class="sheet-title">Dernière session</span>
+      <span class="sheet-meta" id="session-date">—</span>
+      <a href="timeline.html" class="sheet-link">Chronologie →</a>
+    </div>
+    <div class="sheet-body" id="session-body">
+      <p style="font-style:italic;color:var(--text-dim);font-size:.82rem;">Chargement…</p>
+    </div>
+  </div>
+
+  <div class="sheet" id="fils-sheet">
+    <div class="sheet-head">
+      <span class="sheet-title">Fils narratifs actifs</span>
+    </div>
+    <div class="sheet-body" id="fils-body">
+      <p style="font-style:italic;color:var(--text-dim);font-size:.82rem;">Chargement…</p>
+    </div>
+  </div>
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/nav-v2.js"></script>
+<script>
+async function init() {
+  try {
+    const [quetes, rapports, timeline, settings] = await Promise.all([
+      loadData('quetes.json'),
+      loadData('rapports.json'),
+      loadData('timeline.json').catch(()=>[]),
+      fetch('data/settings.json').then(r => r.ok ? r.json() : {}).catch(() => ({}))
+    ]);
+    if (settings.index_title)    document.getElementById('hero-title').textContent = settings.index_title;
+    if (settings.index_subtitle) document.getElementById('hero-sub').textContent   = settings.index_subtitle;
+    const hero = document.querySelector('.hero');
+    if (hero) {
+      if (settings.hero_bg_type === 'image' && settings.hero_bg_image) {
+        hero.style.backgroundImage = 'linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.4)), url('+settings.hero_bg_image+')';
+        hero.style.backgroundSize = 'cover'; hero.style.backgroundPosition = 'center';
+      } else if (settings.hero_bg_color) {
+        hero.style.background = settings.hero_bg_color;
+      }
+    }
+
+    // Dernière session — depuis la chronologie
+    const sessionPeriods = [...new Set(timeline.map(e => e.periode))]
+      .filter(p => /^session_\d+$/.test(p)).sort();
+    const lastPeriod = sessionPeriods[sessionPeriods.length - 1];
+    if (lastPeriod) {
+      const isMJ = typeof getMJMode === 'function' && getMJMode();
+      const evts = timeline
+        .filter(e => e.periode === lastPeriod && (isMJ || e.visible_joueurs !== false))
+        .map(e => `<li class="evt-item">${e.titre}</li>`).join('');
+      const label = lastPeriod.replace('session_', 'Session ');
+      document.getElementById('session-date').textContent = label;
+      document.getElementById('session-body').innerHTML = `<ul class="evt-list">${evts}</ul>`;
+    }
+
+    // Fils narratifs
+    const critiques = quetes.filter(q => q.statut === 'active' && q.priorite === 'critique');
+    const importantes = quetes.filter(q => q.statut === 'active' && q.priorite !== 'critique');
+    const tous = [...critiques, ...importantes];
+    if (tous.length) {
+      document.getElementById('fils-body').innerHTML = tous.map(q => `
+        <div class="fil-card${q.priorite === 'critique' ? ' critique' : ''}">
+          <span class="fil-badge${q.priorite === 'critique' ? ' critique' : ''}">${q.priorite === 'critique' ? 'Critique' : 'Importante'}</span>
+          <div class="fil-titre">${q.titre}</div>
+          <div class="fil-desc">${q.description.substring(0, 120)}…</div>
+        </div>`).join('');
+    } else {
+      document.getElementById('fils-body').innerHTML = '<p style="font-style:italic;color:var(--text-dim);font-size:.82rem;">Aucun fil actif.</p>';
+    }
+  } catch(e) {
+    document.getElementById('session-body').innerHTML =
+      '<p class="load-err">⚠ Ouvrir via serveur local (pas file://).</p>';
+  }
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

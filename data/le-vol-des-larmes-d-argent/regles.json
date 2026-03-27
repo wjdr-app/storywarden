@@ -1,0 +1,195 @@
+[
+  {
+    "id": "regle_01",
+    "categorie": "jets",
+    "titre": "Le 20 naturel — résolution narrative",
+    "description": "Un 20 naturel = le joueur propose la résolution narrative, validée par le MJ. Le résultat doit rester plausible pour le personnage mais peut être spectaculaire.",
+    "exemple": "Session 1 — Illwen sur 20 naturel : son éclat de flamme virevolte et touche 3 cibles simultanément. Validé.",
+    "notes_mj": ""
+  },
+  {
+    "id": "regle_02",
+    "categorie": "jets",
+    "titre": "Le 1 naturel — situation contre-productive",
+    "description": "Un 1 naturel = situation ridicule ou contre-productive pour le joueur.",
+    "exemple": "Session 1 — Osric sur 1 naturel : son propre trait de feu lui est revenu dessus.",
+    "notes_mj": ""
+  },
+  {
+    "id": "regle_03",
+    "categorie": "combat",
+    "titre": "Système de capacités puissantes — 3 utilisations/combat",
+    "description": "Chaque personnage a 3 utilisations de capacités puissantes par combat, partagées entre toutes ses capacités fortes. Elles se rechargent après 10 minutes de repos.",
+    "exemple": "",
+    "notes_mj": ""
+  },
+  {
+    "id": "regle_04",
+    "categorie": "jets",
+    "titre": "Expertise (double maîtrise)",
+    "description": "Certains personnages ont expertise sur certaines compétences — bonus +4 au lieu de +2.",
+    "exemple": "Finn : Discrétion ★★, Escamotage ★★.",
+    "notes_mj": "",
+    "table_dd": []
+  },
+  {
+    "id": "regle_08",
+    "categorie": "competences",
+    "titre": "Aide entre alliés",
+    "description": "Un personnage peut aider un autre sur un jet si l'aide est crédible. L'aidant donne l'avantage au jet de l'allié. Un seul aidant par jet. L'aide doit être décrite concrètement — « je lui tiens l'échelle » ou « je surveille les alentours pendant qu'il crochète ».",
+    "exemple": "",
+    "notes_mj": ""
+  },
+  {
+    "id": "regle_13",
+    "categorie": "jets",
+    "titre": "Quand lancer les dés ?",
+    "description": "Le dé intervient uniquement quand deux conditions sont réunies simultanément :<br>• Le résultat est <strong>incertain</strong> — il y a une vraie possibilité d'échec.<br>• L'échec a des <strong>conséquences intéressantes</strong> — une porte ratée peut retarder l'action ou déclencher une réaction.<br><br>Si l'action est raisonnablement dans les cordes du personnage dans ces conditions précises, le MJ peut l'accorder sans jet. Si elle est franchement impossible, il le dit clairement.",
+    "exemple": "",
+    "notes_mj": "Règle d'or : en cas de doute sur la difficulté, fixez DD 12 et avancez. Ne demandez pas de jet pour des actions banales qu'un personnage compétent réussit naturellement — c'est précisément ce que signifie avoir une compétence élevée.",
+    "table_dd": []
+  },
+  {
+    "id": "regle_14",
+    "categorie": "jets",
+    "titre": "Avantage et désavantage",
+    "description": "<strong>Avantage :</strong> lancez 2d20, gardez le plus haut. Circonstances favorables : aide d'un allié, position dominante, outil parfaitement adapté.<br><strong>Désavantage :</strong> lancez 2d20, gardez le plus bas. Circonstances défavorables : blessé, distrait, mal équipé.<br><br><strong>Cumul :</strong> si avantage et désavantage s'appliquent simultanément, ils s'annulent — on revient à 1 seul d20, quelle que soit la quantité de chaque côté.<br><br><strong>Au combat — cas courants :</strong><br>• Avantage à l'attaque : cible inconsciente, attaque depuis une position cachée, allié adjacent à la cible.<br>• Désavantage à l'attaque : tirer à distance en corps-à-corps, portée longue dépassée, gêné.",
+    "exemple": "",
+    "notes_mj": "",
+    "table_dd": []
+  },
+  {
+    "id": "regle_15",
+    "categorie": "jets",
+    "titre": "Séquence d'un jet de compétence",
+    "description": "1. Le joueur décrit ce que son personnage tente de faire.<br>2. Le MJ décide si un jet est nécessaire (résultat incertain + échec intéressant).<br>3. Le MJ choisit la compétence pertinente et annonce le DD.<br>4. Le joueur lance <strong>1d20 + bonus de compétence</strong>.<br>5. Résultat ≥ DD → réussite. Résultat &lt; DD → échec avec conséquences.",
+    "exemple": "Un jet raté ne peut pas être simplement relancé — il représente la meilleure tentative dans ces conditions. Pour retenter : changer d'approche, apporter de nouvelles informations, ou attendre que les circonstances changent.",
+    "notes_mj": "",
+    "table_dd": []
+  },
+  {
+    "id": "regle_16",
+    "categorie": "combat",
+    "titre": "Initiative",
+    "description": "Début de combat : chaque participant lance <strong>1d20 + bonus d'initiative</strong>. L'ordre est fixé pour toute la durée du combat.<br><br>• Égalité joueur/ennemi → le joueur passe en premier.<br>• Égalité entre joueurs → ils décident entre eux.",
+    "exemple": "",
+    "notes_mj": "",
+    "table_dd": []
+  },
+  {
+    "id": "regle_17",
+    "categorie": "combat",
+    "titre": "Tour de combat — actions disponibles",
+    "description": "À chaque tour, dans l'ordre souhaité :<br><strong>① Déplacement</strong> — jusqu'à sa vitesse en mètres. Peut être découpé avant et après l'action.<br><strong>② Action principale</strong> au choix :<br><table class='ref-table' style='margin-top:4px'><thead><tr><th>Action</th><th>Effet</th></tr></thead><tbody><tr><td>Attaquer</td><td>Attaque à l'arme ou avec un sort offensif.</td></tr><tr><td>Lancer un sort</td><td>Capacité magique ou sort (compte dans le compteur de 3).</td></tr><tr><td>Se désengager</td><td>Quitter le corps-à-corps sans provoquer d'attaque d'opportunité.</td></tr><tr><td>Aider</td><td>Donne l'avantage à un allié sur son prochain jet d'attaque ou compétence.</td></tr><tr><td>Chercher</td><td>Perception ou Investigation pour localiser quelque chose de caché.</td></tr><tr><td>Courir</td><td>Double la vitesse ce tour — pas d'attaque possible.</td></tr><tr><td>Interagir</td><td>Fouiller une poche, ouvrir une porte, ramasser une arme au sol.</td></tr><tr><td>Se couvrir</td><td>Athlétisme ou Acrobatie (DD fixé par le MJ) pour réduire les risques.</td></tr></tbody></table><br><strong>③ Action bonus</strong> — si la fiche le prévoit. Une seule par tour.<br><strong>④ Réaction</strong> — déclenchée hors de son tour dans les conditions de la fiche. Une seule par round.",
+    "exemple": "",
+    "notes_mj": "",
+    "table_dd": []
+  },
+  {
+    "id": "regle_18",
+    "categorie": "combat",
+    "titre": "Attaquer",
+    "description": "<strong>Toucher :</strong> 1d20 + bonus d'attaque ≥ CA de la cible → touché.<br><strong>Dégâts :</strong> dés de dégâts de l'arme + modificateur → soustrait aux PV de la cible.<br><br><strong>20 naturel — coup critique :</strong> touche automatiquement. Résolution narrative à valider par le MJ. Ex. : rapière 1d8+3 → 2d8+3.<br><strong>1 naturel — échec critique :</strong> rate automatiquement. Le MJ peut ajouter une complication narrative (arme qui tombe, sort dévié…).",
+    "exemple": "",
+    "notes_mj": "Darg (Guerrier Champion) : coup critique sur 19 ou 20 naturel.",
+    "table_dd": []
+  },
+  {
+    "id": "regle_19",
+    "categorie": "combat",
+    "titre": "Attaque d'opportunité",
+    "description": "Si un personnage quitte le contact d'un ennemi <strong>sans utiliser l'action Se désengager</strong>, cet ennemi peut déclencher une <strong>attaque d'opportunité</strong> en réaction.<br>C'est une attaque normale, faite hors du tour de l'attaquant.<br><br><strong>Pour l'éviter :</strong> utiliser l'action Se désengager — on recule en sécurité, mais on ne peut pas attaquer ce tour.",
+    "exemple": "",
+    "notes_mj": "",
+    "table_dd": []
+  },
+  {
+    "id": "regle_20",
+    "categorie": "combat",
+    "titre": "Déplacement en combat",
+    "description": "Chaque personnage peut se déplacer jusqu'à sa <strong>vitesse en mètres</strong> par tour. Le déplacement peut être découpé librement avant et après l'action principale.<br><br>• 1 case = 1,5 mètre.<br>• Tirer à distance en corps-à-corps → désavantage.<br>• Dépasser la portée courte d'une arme → désavantage.<br>• Action Courir → double la vitesse, mais pas d'attaque ce tour.",
+    "exemple": "",
+    "notes_mj": ""
+  },
+  {
+    "id": "regle_21",
+    "categorie": "combat",
+    "titre": "Jets de mort",
+    "description": "À 0 PV : le personnage s'effondre <strong>inconscient</strong>. Au début de chacun de ses tours, lancer <strong>1d20 sans modificateur</strong> :<br><br>• 10+ : succès &nbsp;|&nbsp; 9 ou moins : échec<br>• <strong>20 naturel :</strong> stabilisé + reprend conscience avec 1 PV<br>• <strong>1 naturel :</strong> compte pour 2 échecs<br><br><strong>3 succès →</strong> stabilisé (inconscient mais hors danger, plus de jets de mort).<br><strong>3 échecs →</strong> mort.<br><br>Un allié peut stabiliser l'inconscient : <strong>Médecine DD 10</strong> au contact. Un soin minimal (1 PV) remet debout immédiatement.",
+    "exemple": "",
+    "notes_mj": "",
+    "table_dd": []
+  },
+  {
+    "id": "regle_22",
+    "categorie": "combat",
+    "titre": "Sorts mineurs (illimités)",
+    "description": "Les sorts mineurs sont des effets magiques basiques <strong>sans limite d'utilisation</strong>, indiqués « illimités » sur la fiche.<br><br>Ils fonctionnent comme une attaque : <strong>1d20 + bonus d'attaque du sort ≥ CA</strong> de la cible — ou la cible fait un <strong>jet de résistance</strong> si le sort l'indique.<br><br>Ils n'utilisent <strong>pas le compteur de 3</strong>. Ce sont les outils quotidiens des personnages magiques. Les capacités puissantes, elles, partagent ce compteur.",
+    "exemple": "",
+    "notes_mj": "",
+    "table_dd": []
+  },
+  {
+    "id": "regle_23",
+    "categorie": "soins",
+    "titre": "Repos court et repos long",
+    "description": "<strong>Repos court (10 minutes) :</strong> recharge la moitié des capacités puissantes (compteur de 2 sur 3). Pas de récupération de PV sauf si une capacité de soin est utilisée pendant ce repos.<br><br><strong>Repos long (nuit complète) :</strong> récupère la totalité des PV. À noter : les capacités puissantes se rechargent intégralement.",
+    "exemple": "",
+    "notes_mj": "",
+    "table_dd": []
+  },
+  {
+    "id": "regle_24",
+    "categorie": "jets",
+    "titre": "Les 6 attributs",
+    "description": "<table class='ref-table'><thead><tr><th>Attribut</th><th>Abrév.</th><th>Gouverne</th></tr></thead><tbody><tr><td>Force</td><td>FOR</td><td>Mêlée lourde, escalader, soulever · Athlétisme</td></tr><tr><td>Dextérité</td><td>DEX</td><td>Mêlée légère, distance, CA, initiative · Acrobaties, Discrétion, Escamotage</td></tr><tr><td>Constitution</td><td>CON</td><td>Points de Vie, résistance à la douleur et à la fatigue</td></tr><tr><td>Intelligence</td><td>INT</td><td>Arcanes, Histoire, Investigation, Nature, Religion</td></tr><tr><td>Sagesse</td><td>SAG</td><td>Médecine, Perception, Perspicacité, Survie, Dressage</td></tr><tr><td>Charisme</td><td>CHA</td><td>Intimidation, Persuasion, Représentation, Tromperie</td></tr></tbody></table>",
+    "exemple": "Modificateur = (score − 10) ÷ 2, arrondi à l'inférieur. Score 14 → +2. Score 8 → −1. Score 10–11 → +0.",
+    "notes_mj": "",
+    "table_dd": []
+  },
+  {
+    "id": "regle_25",
+    "categorie": "jets",
+    "titre": "Les 18 compétences",
+    "description": "<table class='ref-table'><thead><tr><th>Compétence</th><th>Attr.</th><th>Situations typiques</th></tr></thead><tbody><tr><td>Acrobaties</td><td>DEX</td><td>Équilibre, chutes, voltiges, espace étroit</td></tr><tr><td>Arcanes</td><td>INT</td><td>Identifier sort, créature magique, artefact</td></tr><tr><td>Athlétisme</td><td>FOR</td><td>Escalade, nage, saut, effort physique</td></tr><tr><td>Discrétion</td><td>DEX</td><td>Se cacher, se déplacer sans bruit, suivre</td></tr><tr><td>Dressage</td><td>SAG</td><td>Calmer/guider animaux, équitation difficile</td></tr><tr><td>Escamotage</td><td>DEX</td><td>Vol furtif, crochetage, faire disparaître</td></tr><tr><td>Histoire</td><td>INT</td><td>Événements passés, ordres disparus, datation</td></tr><tr><td>Intimidation</td><td>CHA</td><td>Menacer, imposer par la présence</td></tr><tr><td>Investigation</td><td>INT</td><td>Fouille méthodique, indices cachés, déduction</td></tr><tr><td>Médecine</td><td>SAG</td><td>Stabiliser DD 10, diagnostiquer un poison</td></tr><tr><td>Nature</td><td>INT</td><td>Identifier plantes, animaux, phénomènes naturels</td></tr><tr><td>Perception</td><td>SAG</td><td>Repérer danger, entendre, voir dans pénombre</td></tr><tr><td>Perspicacité</td><td>SAG</td><td>Détecter mensonge, lire les intentions</td></tr><tr><td>Persuasion</td><td>CHA</td><td>Convaincre honnêtement, négocier, coopération</td></tr><tr><td>Religion</td><td>INT</td><td>Rites, symboles, divinités, ordres religieux</td></tr><tr><td>Représentation</td><td>CHA</td><td>Instrument, histoire captivante, diversion</td></tr><tr><td>Survie</td><td>SAG</td><td>Suivre traces, s'orienter, camp, ressources</td></tr><tr><td>Tromperie</td><td>CHA</td><td>Mentir, déguiser intentions, semer confusion</td></tr></tbody></table>",
+    "exemple": "",
+    "notes_mj": "",
+    "table_dd": []
+  },
+  {
+    "id": "regle_26",
+    "categorie": "jets",
+    "titre": "Guide compétences — quelle situation ?",
+    "description": "<table class='ref-table'><thead><tr><th>Situation</th><th>Compétence</th><th>DD</th></tr></thead><tbody><tr><td>Repérer un danger ou une présence</td><td>Perception (SAG)</td><td>12–14</td></tr><tr><td>Deviner si quelqu'un ment</td><td>Perspicacité (SAG)</td><td>12–14</td></tr><tr><td>Fouiller une pièce méthodiquement</td><td>Investigation (INT)</td><td>10–14</td></tr><tr><td>Reconnaître un symbole ou rite</td><td>Religion / Arcanes (INT)</td><td>10–12</td></tr><tr><td>Suivre des traces</td><td>Survie (SAG)</td><td>10–14</td></tr><tr><td>Convaincre honnêtement un PNJ</td><td>Persuasion (CHA)</td><td>12–16</td></tr><tr><td>Mentir ou tromper un PNJ</td><td>Tromperie (CHA)</td><td>12–16</td></tr><tr><td>Menacer ou faire peur</td><td>Intimidation (CHA)</td><td>12–16</td></tr><tr><td>Se déplacer sans bruit</td><td>Discrétion (DEX)</td><td>12–14</td></tr><tr><td>Voler furtivement ou crocheter</td><td>Escamotage (DEX)</td><td>12–16</td></tr><tr><td>Se rappeler un fait historique</td><td>Histoire (INT)</td><td>10–14</td></tr><tr><td>Identifier une plante ou un animal</td><td>Nature (INT)</td><td>10–12</td></tr><tr><td>Soigner sans magie</td><td>Médecine (SAG)</td><td>10 (stabiliser)</td></tr><tr><td>Escalader ou effort physique</td><td>Athlétisme (FOR)</td><td>12–16</td></tr><tr><td>Équilibre, réactions rapides</td><td>Acrobaties (DEX)</td><td>10–14</td></tr></tbody></table>",
+    "exemple": "",
+    "notes_mj": "",
+    "table_dd": []
+  },
+  {
+    "id": "regle_27",
+    "categorie": "jets",
+    "titre": "Conditions courantes",
+    "description": "<table class='ref-table'><thead><tr><th>Condition</th><th>Effet</th></tr></thead><tbody><tr><td>Inconscient (0 PV)</td><td>Hors combat. Jets de mort à chaque tour. Un soin remet debout.</td></tr><tr><td>Stabilisé</td><td>Inconscient mais hors danger. Plus de jets de mort. Récupère au repos.</td></tr><tr><td>Gêné</td><td>Désavantage aux jets d'attaque et compétences physiques. Vitesse souvent réduite.</td></tr><tr><td>Peur</td><td>Désavantage aux jets d'attaque et de compétence tant que la source est visible. Ne peut pas s'en approcher.</td></tr><tr><td>Charmé</td><td>Ne peut pas attaquer la créature qui le charme. La considère favorablement.</td></tr><tr><td>Paralysé</td><td>Hors combat. Attaques au contact = coups critiques automatiques.</td></tr></tbody></table>",
+    "exemple": "",
+    "notes_mj": "",
+    "table_dd": []
+  },
+  {
+    "id": "regle_28",
+    "categorie": "jets",
+    "titre": "Exploration et enquête",
+    "description": "Hors du combat, pas d'ordre de tour. Les joueurs décrivent leurs intentions — le MJ anime le monde.<br><br><strong>Ce que les joueurs peuvent faire :</strong><br>• <strong>Observer :</strong> Perception, Investigation, Survie, Arcanes, Religion, Histoire, Nature<br>• <strong>Parler :</strong> Persuasion, Tromperie, Intimidation, Représentation<br>• <strong>Agir physiquement :</strong> Athlétisme, Discrétion, Escamotage, Acrobaties<br>• <strong>Soigner :</strong> Médecine DD 10 (stabiliser), capacités de soin sur la fiche<br><br>Un bon argument narratif peut <strong>réduire la difficulté ou remplacer le jet</strong>. Le joueur qui décrit précisément son approche mérite un avantage ou un DD plus bas.",
+    "exemple": "« Je suis discret » = jet standard. « Je profite du bruit des écuries pour couvrir mes pas et reste dans l'ombre des tonneaux » = DD réduit ou avantage.",
+    "notes_mj": "Les PNJs ont leurs propres motivations — jouez leurs intérêts, pas leur serviabilité. Un garde ne coopère pas parce que les PJs sont des héros ; il coopère parce qu'ils l'ont convaincu que c'est dans son intérêt.",
+    "table_dd": []
+  },
+  {
+    "id": "regle_29",
+    "categorie": "jets",
+    "titre": "Maîtrise et niveaux de compétence",
+    "description": "Chaque compétence porte un indicateur sur la fiche :<br><br>• <strong>Cercle vide</strong> — pas de maîtrise. On ajoute seulement le modificateur de l'attribut.<br>• <strong>Cercle plein</strong> — maîtrise. Modificateur + bonus de maîtrise (+2 au niveau 3).<br>• <strong>★ Expertise</strong> — double maîtrise. Modificateur + double le bonus (+4). Très rare : un ou deux cas par personnage maximum.<br><br>Le bonus de maîtrise vaut <strong>+2 au niveau 3</strong> (niveau des personnages de la campagne).",
+    "exemple": "",
+    "notes_mj": "",
+    "table_dd": []
+  }
+]

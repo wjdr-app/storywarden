@@ -1,0 +1,232 @@
+[
+  {
+    "id": "lieu_01",
+    "nom": "Valmorne",
+    "type": "village",
+    "region": "Les Marches du Souffle",
+    "description": "Bourg au sud de la Marche de Roncebrume. Village central de la session 1.",
+    "statut": "visité",
+    "evenements": [
+      "evt_08",
+      "evt_09",
+      "evt_10",
+      "evt_11",
+      "evt_12",
+      "evt_13",
+      "evt_14",
+      "evt_15",
+      "evt_16",
+      "evt_17",
+      "evt_18",
+      "evt_19",
+      "evt_20"
+    ],
+    "pnjs_presents": [
+      "pnj_edward",
+      "pnj_mael",
+      "pnj_rulven",
+      "pnj_renn",
+      "pnj_corvin",
+      "pnj_mila",
+      "pnj_guillaume",
+      "pnj_gobelin",
+      "pnj_camille"
+    ],
+    "sous_lieux": [
+      "lieu_02",
+      "lieu_03",
+      "lieu_04",
+      "lieu_05",
+      "lieu_06",
+      "lieu_07"
+    ],
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "visible_joueurs": true,
+    "categorie": "ville"
+  },
+  {
+    "id": "lieu_02",
+    "nom": "La Chope Creuse",
+    "type": "autre",
+    "region": "Valmorne",
+    "description": "Auberge principale de Valmorne. Tables de la Brigade. Lieu du marché initial avec Edward.",
+    "statut": "visité",
+    "evenements": [
+      "evt_10",
+      "evt_11"
+    ],
+    "pnjs_presents": [
+      "pnj_mael",
+      "pnj_edward"
+    ],
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "categorie": "batiment",
+    "ville_parente_id": "lieu_01",
+    "sous_lieux": []
+  },
+  {
+    "id": "lieu_03",
+    "nom": "La Borne-Cœur de Valmorne",
+    "type": "autre",
+    "region": "Valmorne",
+    "description": "Obélisque de pierre sur la place centrale. Quatre faces de runes gravées, niche sommitale pour la Larme d'Argent. Protège le village de la brume.",
+    "statut": "visité",
+    "evenements": [
+      "evt_08",
+      "evt_09",
+      "evt_12",
+      "evt_19"
+    ],
+    "pnjs_presents": [
+      "pnj_rulven"
+    ],
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "categorie": "batiment",
+    "ville_parente_id": "lieu_01",
+    "sous_lieux": []
+  },
+  {
+    "id": "lieu_04",
+    "nom": "Le cimetière de Valmorne",
+    "type": "autre",
+    "region": "Valmorne",
+    "description": "Cimetière au sud du village. D'où venaient les morts-vivants lors de la session 1.",
+    "statut": "connu",
+    "evenements": [
+      "evt_09",
+      "evt_12"
+    ],
+    "pnjs_presents": [],
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "sous_lieux": [],
+    "categorie": "batiment",
+    "ville_parente_id": "lieu_01"
+  },
+  {
+    "id": "lieu_05",
+    "nom": "L'établissement de bains",
+    "type": "autre",
+    "region": "Valmorne",
+    "description": "Bains publics en façade. Réalité : salle de consommation de sel de lune récréatif illégale, tenue par un gobelin. C'est ici que Mila était lors du vol.",
+    "statut": "visité",
+    "evenements": [
+      "evt_15"
+    ],
+    "pnjs_presents": [
+      "pnj_gobelin"
+    ],
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "categorie": "batiment",
+    "ville_parente_id": "lieu_01",
+    "sous_lieux": []
+  },
+  {
+    "id": "lieu_06",
+    "nom": "Le manoir du maire",
+    "type": "autre",
+    "region": "Valmorne",
+    "description": "Manoir où séjournait Corvin. Finn s'y est introduit par crochetage et a improvisé un déguisement de majordome.",
+    "statut": "visité",
+    "evenements": [
+      "evt_17"
+    ],
+    "pnjs_presents": [],
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "categorie": "batiment",
+    "ville_parente_id": "lieu_01",
+    "sous_lieux": []
+  },
+  {
+    "id": "lieu_07",
+    "nom": "L'écurie-relais de Valmorne",
+    "type": "autre",
+    "region": "Valmorne",
+    "description": "Écurie-relais du village. Guillaume le palefrenier. Cheval de Corvin laissé ici. Renn y travaille désormais sous supervision de Guillaume.",
+    "statut": "visité",
+    "evenements": [],
+    "pnjs_presents": [
+      "pnj_guillaume",
+      "pnj_renn"
+    ],
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "categorie": "batiment",
+    "ville_parente_id": "lieu_01",
+    "sous_lieux": []
+  },
+  {
+    "id": "lieu_08",
+    "nom": "La cabane d'Ysolda",
+    "type": "autre",
+    "region": "Lisière de forêt",
+    "description": "À une heure de marche de Valmorne, en lisière de forêt. Zone épargnée par la brume. Intérieur : herbes séchées, fioles, herbes brûlées.",
+    "statut": "visité",
+    "evenements": [
+      "evt_18"
+    ],
+    "pnjs_presents": [
+      "pnj_ysolda"
+    ],
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "categorie": "batiment",
+    "ville_parente_id": "lieu_01",
+    "sous_lieux": []
+  },
+  {
+    "id": "lieu_09",
+    "nom": "Le relais abandonné",
+    "type": "autre",
+    "region": "Route vers Val-de-Brume",
+    "description": "À mi-chemin entre Valmorne et Val-de-Brume. Bren s'y est réfugié avec les enfants lors de l'attaque du Rôdeur de Brume.",
+    "statut": "connu",
+    "evenements": [],
+    "pnjs_presents": [],
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "categorie": "batiment",
+    "ville_parente_id": "lieu_01",
+    "sous_lieux": []
+  },
+  {
+    "id": "lieu_11",
+    "nom": "Val-de-Brume",
+    "type": "ville",
+    "region": "Les Marches du Souffle",
+    "description": "Ville au nord de la Marche. Siège probable de la Brigade du Saumon Noir à plus grande échelle.",
+    "statut": "connu",
+    "evenements": [],
+    "pnjs_presents": [],
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "visible_joueurs": true,
+    "categorie": "ville",
+    "sous_lieux": []
+  }
+]

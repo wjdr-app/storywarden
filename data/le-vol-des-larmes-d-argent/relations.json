@@ -1,0 +1,93 @@
+[
+  {
+    "source": "pnj_edward",
+    "cible": "pnj_mael",
+    "type": "hiérarchie",
+    "label": "Subordonné / Supérieur",
+    "secret": false
+  },
+  {
+    "source": "pj_02",
+    "cible": "pnj_edward",
+    "type": "hiérarchie",
+    "label": "Enrôlés de force",
+    "secret": false
+  },
+  {
+    "source": "pj_03",
+    "cible": "pnj_edward",
+    "type": "hiérarchie",
+    "label": "Enrôlés de force — sous surveillance",
+    "secret": false
+  },
+  {
+    "source": "pj_05",
+    "cible": "pnj_edward",
+    "type": "hiérarchie",
+    "label": "Enrôlés de force — approuvé tacitement",
+    "secret": false
+  },
+  {
+    "source": "pnj_edward",
+    "cible": "pj_03",
+    "type": "méfiance",
+    "label": "Une seule chance accordée",
+    "secret": false
+  },
+  {
+    "source": "pnj_rulven",
+    "cible": "pnj_mila",
+    "type": "hiérarchie",
+    "label": "Employeur — en colère suite au manquement",
+    "secret": false
+  },
+  {
+    "source": "pnj_renn",
+    "cible": "pnj_camille",
+    "type": "famille",
+    "label": "Frère / Sœur — seule famille restante",
+    "secret": false
+  },
+  {
+    "source": "pnj_renn",
+    "cible": "pnj_capuche",
+    "type": "ennemi",
+    "label": "Manipulé — victime",
+    "secret": false
+  },
+  {
+    "source": "pnj_corvin",
+    "cible": "pnj_bren",
+    "type": "neutre",
+    "label": "Commercial — a fourni Bren comme lanternier",
+    "secret": false
+  },
+  {
+    "source": "pnj_corvin",
+    "cible": "pnj_ysolda",
+    "type": "neutre",
+    "label": "Transaction commerciale — Larme vendue",
+    "secret": false
+  },
+  {
+    "source": "pj_05",
+    "cible": "pj_03",
+    "type": "méfiance",
+    "label": "A giflé Osric lors de l'incident Renn",
+    "secret": false
+  },
+  {
+    "source": "pnj_guillaume",
+    "cible": "pnj_renn",
+    "type": "hiérarchie",
+    "label": "Supervision aux écuries",
+    "secret": false
+  },
+  {
+    "source": "pnj_edward",
+    "cible": "pnj_rulven",
+    "type": "allié",
+    "label": "Autorité reconnue sur les Bornes",
+    "secret": false
+  }
+]

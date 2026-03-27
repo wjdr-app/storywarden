@@ -1,0 +1,616 @@
+[
+  {
+    "id": "marche_map",
+    "nom": "La marche de Roncebrume",
+    "niveau": "region",
+    "parent_id": null,
+    "image": "img/cartes/region/marche_de_roncebrume.webp",
+    "largeur": 11481,
+    "hauteur": 11629,
+    "visible_joueurs": true,
+    "marqueurs": [
+      {
+        "x": 1165,
+        "y": 10436,
+        "lieu_id": "lieu_01",
+        "enfant_carte_id": "Village_valmorne",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 5778,
+        "y": 1796,
+        "lieu_id": "lieu_11",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": "#b0b0b0"
+      },
+      {
+        "x": 1984,
+        "y": 9588,
+        "lieu_id": "lieu_12",
+        "enfant_carte_id": "hautecendre_map",
+        "visible_joueurs": true,
+        "couleur": "#ababab"
+      },
+      {
+        "x": 719,
+        "y": 11076,
+        "lieu_id": "lieu_13",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": "#bababa"
+      },
+      {
+        "x": 2300,
+        "y": 10888,
+        "lieu_id": "lieu_14",
+        "enfant_carte_id": "grisebar",
+        "visible_joueurs": true,
+        "couleur": "#bababa"
+      },
+      {
+        "x": 4178,
+        "y": 10819,
+        "lieu_id": "lieu_15",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": "#adadad"
+      },
+      {
+        "x": 1686,
+        "y": 5708,
+        "lieu_id": "valmecroix",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 5406,
+        "y": 9770,
+        "lieu_id": "riveclair",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 8698,
+        "y": 823,
+        "lieu_id": "embrin",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 3862,
+        "y": 8471,
+        "lieu_id": "clairbleu",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 7154,
+        "y": 8169,
+        "lieu_id": "Bourg-Argent",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 9981,
+        "y": 7491,
+        "lieu_id": "Malgard",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 7451,
+        "y": 1237,
+        "lieu_id": "Bois-mort",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 8456,
+        "y": 10637,
+        "lieu_id": "Pont-de-Bruine",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 3230,
+        "y": 5136,
+        "lieu_id": "Brunefeuille",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 1984,
+        "y": 2480,
+        "lieu_id": "Solime",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 8363,
+        "y": 2499,
+        "lieu_id": "Beaumarais",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 9999,
+        "y": 8339,
+        "lieu_id": "Plaineval",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 5536,
+        "y": 5664,
+        "lieu_id": "Sombrebois",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 6094,
+        "y": 7190,
+        "lieu_id": "La Croisée",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 10595,
+        "y": 10128,
+        "lieu_id": "Kald",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 9311,
+        "y": 3064,
+        "lieu_id": "Val-Châtaigne",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 2653,
+        "y": 7717,
+        "lieu_id": "Clairforêt",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 1054,
+        "y": 8697,
+        "lieu_id": "Dhunfoth",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 2914,
+        "y": 6398,
+        "lieu_id": "Eralion",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 719,
+        "y": 6625,
+        "lieu_id": "Nuidiver",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 8065,
+        "y": 6355,
+        "lieu_id": "Nidragon",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 477,
+        "y": 2154,
+        "lieu_id": "Cairneige",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 9311,
+        "y": 8031,
+        "lieu_id": "Bassevue",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 2133,
+        "y": 1513,
+        "lieu_id": "Fort-de-Feu",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 6894,
+        "y": 458,
+        "lieu_id": "Rochebrume",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 10130,
+        "y": 8866,
+        "lieu_id": "Palais des Marées",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": "#ab4444"
+      },
+      {
+        "x": 7544,
+        "y": 2493,
+        "lieu_id": "Le Donjon Hors du Temps",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": "#ab4444"
+      },
+      {
+        "x": 1909,
+        "y": 910,
+        "lieu_id": "Tour du Dragon",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": "#ab4444"
+      },
+      {
+        "x": 7972,
+        "y": 1739,
+        "lieu_id": "Le Sanctuaire Interdit",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": "#ab4444"
+      },
+      {
+        "x": 7414,
+        "y": 8697,
+        "lieu_id": "Cachots des Argentiers",
+        "enfant_carte_id": "",
+        "visible_joueurs": true,
+        "couleur": "#ab4444"
+      }
+    ]
+  },
+  {
+    "id": "Village_valmorne",
+    "nom": "Valmorne",
+    "niveau": "ville",
+    "parent_id": "marche_map",
+    "image": "img/cartes/ville/Valmorne.png",
+    "largeur": 1000,
+    "hauteur": 800,
+    "visible_joueurs": true,
+    "marqueurs": [
+      {
+        "x": 411,
+        "y": 333,
+        "lieu_id": "lieu_02",
+        "enfant_carte_id": "valmorne_chope_creuse",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 481,
+        "y": 379,
+        "lieu_id": "lieu_03",
+        "enfant_carte_id": "valmorne_place",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 468,
+        "y": 724,
+        "lieu_id": "lieu_04",
+        "enfant_carte_id": "Valmorne_cimentiere",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 605,
+        "y": 766,
+        "lieu_id": "lieu_07",
+        "enfant_carte_id": "valmorne_ecuries",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 174,
+        "y": 323,
+        "lieu_id": "lieu_06",
+        "enfant_carte_id": "valmorne_manoir",
+        "visible_joueurs": true,
+        "couleur": ""
+      },
+      {
+        "x": 247,
+        "y": 218,
+        "lieu_id": "lieu_05",
+        "enfant_carte_id": "valmorne_bain",
+        "visible_joueurs": true,
+        "couleur": ""
+      }
+    ]
+  },
+  {
+    "id": "valmorne_chope_creuse",
+    "nom": "La chope Creuse",
+    "niveau": "batiment",
+    "parent_id": "Village_valmorne",
+    "image": "img/cartes/batiment/chope_creuse_rdc.webp",
+    "largeur": 1200,
+    "hauteur": 1725,
+    "visible_joueurs": true,
+    "etages": [
+      {
+        "nom": "RDC",
+        "image": "img/cartes/batiment/chope_creuse_rdc.webp",
+        "largeur": 1200,
+        "hauteur": 1725
+      },
+      {
+        "nom": "R1",
+        "image": "img/cartes/batiment/chope_creuse_r1.webp",
+        "largeur": 1200,
+        "hauteur": 1725
+      },
+      {
+        "nom": "R2",
+        "image": "img/cartes/batiment/chope_creuse_r2.webp",
+        "largeur": 1200,
+        "hauteur": 1725
+      }
+    ],
+    "marqueurs": []
+  },
+  {
+    "id": "valmorne_place",
+    "nom": "Place de la borne-Coeur",
+    "niveau": "batiment",
+    "parent_id": "Village_valmorne",
+    "image": "img/cartes/batiment/valmorne_place.webp",
+    "largeur": 2876,
+    "hauteur": 2000,
+    "visible_joueurs": true,
+    "etages": [
+      {
+        "nom": "Place de la borne",
+        "image": "img/cartes/batiment/valmorne_place.webp",
+        "largeur": 2876,
+        "hauteur": 2000
+      }
+    ],
+    "marqueurs": []
+  },
+  {
+    "id": "valmorne_bain",
+    "nom": "Établissement de bain",
+    "niveau": "batiment",
+    "parent_id": "Village_valmorne",
+    "image": "img/cartes/batiment/valmorne_bains_rdc.webp",
+    "largeur": 2876,
+    "hauteur": 2000,
+    "visible_joueurs": true,
+    "etages": [
+      {
+        "nom": "RDC",
+        "image": "img/cartes/batiment/valmorne_bains_rdc.webp",
+        "largeur": 2876,
+        "hauteur": 2000
+      }
+    ],
+    "marqueurs": []
+  },
+  {
+    "id": "valmorne_caserne",
+    "nom": "Caserne de la brigade",
+    "niveau": "batiment",
+    "parent_id": "Village_valmorne",
+    "image": "img/cartes/batiment/valmorne_caserne.webp",
+    "largeur": 2876,
+    "hauteur": 2000,
+    "visible_joueurs": true,
+    "etages": [
+      {
+        "nom": "",
+        "image": "img/cartes/batiment/valmorne_caserne.webp",
+        "largeur": 2876,
+        "hauteur": 2000
+      }
+    ],
+    "marqueurs": []
+  },
+  {
+    "id": "Valmorne_cimentiere",
+    "nom": "Cimetière",
+    "niveau": "batiment",
+    "parent_id": "Village_valmorne",
+    "image": "img/cartes/batiment/valmorne_chapelle_RDC.webp",
+    "largeur": 2876,
+    "hauteur": 2000,
+    "visible_joueurs": true,
+    "etages": [
+      {
+        "nom": "Chapelle RDC",
+        "image": "img/cartes/batiment/valmorne_chapelle_RDC.webp",
+        "largeur": 2876,
+        "hauteur": 2000
+      },
+      {
+        "nom": "Chapelle R1",
+        "image": "img/cartes/batiment/valmorne_chapelle_R1.webp",
+        "largeur": 2876,
+        "hauteur": 2000
+      },
+      {
+        "nom": "Cimetière 01",
+        "image": "img/cartes/batiment/valmorne_cimetière_1.webp",
+        "largeur": 2876,
+        "hauteur": 2000
+      },
+      {
+        "nom": "Cimetière 02",
+        "image": "img/cartes/batiment/valmorne_cimetière_2.webp",
+        "largeur": 2876,
+        "hauteur": 2000
+      }
+    ],
+    "marqueurs": []
+  },
+  {
+    "id": "valmorne_ecuries",
+    "nom": "Écurie",
+    "niveau": "batiment",
+    "parent_id": "Village_valmorne",
+    "image": "",
+    "largeur": 2876,
+    "hauteur": 2000,
+    "visible_joueurs": true,
+    "etages": [
+      {
+        "nom": "Écurie",
+        "image": "",
+        "largeur": 2876,
+        "hauteur": 2000
+      }
+    ],
+    "marqueurs": []
+  },
+  {
+    "id": "valmorne_forge",
+    "nom": "Forge",
+    "niveau": "batiment",
+    "parent_id": "Village_valmorne",
+    "image": "img/cartes/batiment/valmorne_forge.webp",
+    "largeur": 2876,
+    "hauteur": 2000,
+    "visible_joueurs": true,
+    "etages": [
+      {
+        "nom": "",
+        "image": "img/cartes/batiment/valmorne_forge.webp",
+        "largeur": 2876,
+        "hauteur": 2000
+      }
+    ],
+    "marqueurs": []
+  },
+  {
+    "id": "valmorne_grenier",
+    "nom": "Grenier",
+    "niveau": "batiment",
+    "parent_id": "Village_valmorne",
+    "image": "img/cartes/batiment/valmorne_grenier.webp",
+    "largeur": 2876,
+    "hauteur": 2000,
+    "visible_joueurs": true,
+    "etages": [
+      {
+        "nom": "Grenier",
+        "image": "img/cartes/batiment/valmorne_grenier.webp",
+        "largeur": 2876,
+        "hauteur": 2000
+      }
+    ],
+    "marqueurs": []
+  },
+  {
+    "id": "valmorne_manoir",
+    "nom": "Manoir",
+    "niveau": "batiment",
+    "parent_id": "Village_valmorne",
+    "image": "img/cartes/batiment/valmorne_manoir_RDC.webp",
+    "largeur": 2876,
+    "hauteur": 2000,
+    "visible_joueurs": true,
+    "etages": [
+      {
+        "nom": "RDC",
+        "image": "img/cartes/batiment/valmorne_manoir_RDC.webp",
+        "largeur": 2876,
+        "hauteur": 2000
+      },
+      {
+        "nom": "R1",
+        "image": "img/cartes/batiment/valmorne_manoir_R1.webp",
+        "largeur": 2876,
+        "hauteur": 2000
+      },
+      {
+        "nom": "R-1",
+        "image": "img/cartes/batiment/valmorne_manoir_basement.webp",
+        "largeur": 2876,
+        "hauteur": 2000
+      }
+    ],
+    "marqueurs": []
+  },
+  {
+    "id": "valmorne_chambre_hote",
+    "nom": "Chambre d'hôte",
+    "niveau": "batiment",
+    "parent_id": "Village_valmorne",
+    "image": "img/cartes/batiment/valmorne_chambre_d'hote.webp",
+    "largeur": 2876,
+    "hauteur": 2000,
+    "visible_joueurs": true,
+    "etages": [
+      {
+        "nom": "RDC",
+        "image": "img/cartes/batiment/valmorne_chambre_d'hote.webp",
+        "largeur": 2876,
+        "hauteur": 2000
+      }
+    ],
+    "marqueurs": []
+  },
+  {
+    "id": "grisebar",
+    "nom": "Grisebar",
+    "niveau": "ville",
+    "parent_id": "marche_map",
+    "image": "img/cartes/ville/Grisebar.png",
+    "largeur": 4095,
+    "hauteur": 5793,
+    "visible_joueurs": true,
+    "marqueurs": []
+  },
+  {
+    "id": "hautecendre_map",
+    "nom": "Hautecendre",
+    "niveau": "ville",
+    "parent_id": "marche_map",
+    "image": "img/cartes/ville/hautecendre.png",
+    "largeur": 1401,
+    "hauteur": 1551,
+    "visible_joueurs": true,
+    "marqueurs": []
+  }
+]

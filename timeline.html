@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chronologie — La Larme d'Argent</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/sw-v2.css">
+<style>
+/* ── LAYOUT ────────────────────────────────────────────────────── */
+.tl-page { max-width:820px; margin:0 auto; }
+
+/* ── PERIOD HEADER ─────────────────────────────────────────────── */
+.periode-head { display:flex; align-items:center; gap:10px; margin:28px 0 14px; }
+.periode-head:first-child { margin-top:0; }
+.ph-line { flex:1; height:1px; background:var(--border-soft); }
+.ph-label {
+  font-family:var(--font-ui); font-size:.56rem; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase; white-space:nowrap;
+  color:var(--text-muted);
+}
+
+/* ── TIMELINE TRACK ────────────────────────────────────────────── */
+.timeline-wrap { position:relative; padding-left:32px; }
+.timeline-wrap::before {
+  content:''; position:absolute; left:7px; top:0; bottom:0;
+  width:2px; background:var(--border-soft);
+}
+
+/* ── ITEM ──────────────────────────────────────────────────────── */
+.tl-item { position:relative; margin-bottom:10px; }
+.tl-dot {
+  position:absolute; left:-29px; top:14px;
+  width:14px; height:14px; border-radius:50%;
+  border:2px solid var(--border-soft); background:var(--bg); flex-shrink:0;
+}
+.tl-dot.historique { background:var(--surface); border-color:var(--border-mid); }
+.tl-dot.session    { background:var(--text); border-color:var(--text); }
+.tl-dot.faction    { background:#336; border-color:#5566aa; }
+.tl-dot.revelation { background:var(--crimson); border-color:var(--crimson); }
+
+/* ── CARD ──────────────────────────────────────────────────────── */
+.tl-card {
+  background:var(--surface); border:1px solid var(--border-soft);
+  border-radius:10px; overflow:hidden; cursor:pointer;
+  transition:background .15s, border-color .15s;
+}
+.tl-card:not(.open):hover { background:var(--surface-mid); border-color:var(--border-mid); }
+.tl-card.open { border-color:var(--border-mid); cursor:default; }
+.tl-card-head { padding:10px 14px 8px; display:flex; align-items:flex-start; gap:10px; }
+.tl-head-info { flex:1; min-width:0; }
+.tl-date {
+  font-family:var(--font-ui); font-size:.5rem; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--text-dim); margin-bottom:2px;
+}
+.tl-titre { font-family:var(--font-ui); font-size:.74rem; font-weight:700; letter-spacing:.04em; line-height:1.25; }
+.tl-type-badge {
+  font-family:var(--font-ui); font-size:.44rem; letter-spacing:.1em; text-transform:uppercase;
+  border:1px solid; border-radius:20px; padding:2px 7px; white-space:nowrap;
+  flex-shrink:0; align-self:flex-start; margin-top:2px;
+}
+.tl-type-badge.historique { border-color:var(--border-mid); color:var(--text-dim); }
+.tl-type-badge.session    { border-color:var(--border-mid); color:var(--text-muted); }
+.tl-type-badge.faction    { border-color:#5566aa; color:#8899cc; }
+.tl-type-badge.revelation { border-color:var(--crimson-bd); color:var(--crimson); }
+.tl-chevron { font-size:.6rem; color:var(--text-dim); transition:transform .2s; margin-top:3px; flex-shrink:0; }
+.tl-card.open .tl-chevron { transform:rotate(180deg); }
+
+.tl-card-div { height:1px; background:var(--border-soft); margin:0 14px; display:none; }
+.tl-card.open .tl-card-div { display:block; }
+.tl-body { padding:0 14px 10px; display:none; }
+.tl-card.open .tl-body { display:block; }
+.tl-desc { font-size:.82rem; font-style:italic; color:var(--text-muted); line-height:1.6; margin:8px 0 6px; }
+.chip-list { display:flex; flex-wrap:wrap; gap:4px; }
+.chip { font-size:.72rem; font-style:italic; color:var(--text-muted); padding:2px 8px; border:1px solid var(--border-soft); border-radius:8px; }
+
+@media(max-width:600px){
+  .timeline-wrap{ padding-left:24px; }
+  .timeline-wrap::before{ left:5px; }
+  .tl-dot{ left:-22px; width:12px; height:12px; top:13px; }
+}
+</style>
+</head>
+<body>
+
+<div class="tl-page">
+  <div class="page-header"><h1 class="page-title">La <span>Chronologie</span></h1><p class="page-sub">D&eacute;roul&eacute; chronologique de la campagne</p></div>
+<div id="timeline-wrap">
+    <p style="font-style:italic;color:var(--text-muted);font-size:.82rem;text-align:center;padding:40px;">Chargement&#8230;</p>
+  </div>
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/nav-v2.js"></script>
+<script>
+const PERIODE_LABELS = {
+  avant_campagne:    'Avant la campagne',
+  avant_session_01:  'Avant la session 1',
+  session_01:        'Session 1'
+};
+const TYPE_LABELS = {
+  historique: 'Historique',
+  session:    'Session',
+  faction:    'Faction',
+  revelation: 'R\u00e9v\u00e9lation'
+};
+
+let TIMELINE_DATA = [];
+async function init() {
+  try {
+    TIMELINE_DATA = await loadData('timeline.json');
+    render(TIMELINE_DATA);
+  } catch(e) {
+    document.getElementById('timeline-wrap').innerHTML =
+      '<p style="color:var(--crimson);font-size:.82rem;font-style:italic;text-align:center;padding:40px;">\u26a0 Donn\u00e9es inaccessibles en file://. Utiliser un serveur local.</p>';
+  }
+}
+
+function render(events) {
+  if (!getMJMode()) events = events.filter(e => e.visible_joueurs !== false);
+  const _pdsLS = (() => { try{ return JSON.parse(localStorage.getItem('sw_timeline_periods'))||null; }catch(e){ return null; } })();
+  const periodes = _pdsLS || [...new Set(events.map(e=>e.periode).filter(Boolean))];
+  let html = '';
+  periodes.forEach(p => {
+    const evts = events.filter(e => e.periode === p);
+    if (!evts.length) return;
+    html += `<div class="periode-head"><div class="ph-line"></div><span class="ph-label">${PERIODE_LABELS[p] || p.replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}</span><div class="ph-line"></div></div>`;
+    html += `<div class="timeline-wrap">`;
+    evts.forEach(e => {
+      const mjCls = e.visible_joueurs ? '' : ' mj-only';
+      const entitesChips = (e.entites_liees || [])
+        .map(id => `<span class="chip">${id.replace('pnj_','').replace('pj_','Av. ')}</span>`).join('');
+      html += `
+      <div class="tl-item${mjCls}">
+        <div class="tl-dot ${e.type}"></div>
+        <div class="tl-card" id="tl-${e.id||events.indexOf(e)}" onclick="toggleEvt('${e.id||events.indexOf(e)}',event)">
+          <div class="tl-card-head">
+            <div class="tl-head-info">
+              <div class="tl-date">${e.date_fiction}</div>
+              <div class="tl-titre">${e.titre}</div>
+            </div>
+            <span class="tl-type-badge ${e.type}">${TYPE_LABELS[e.type] || e.type}</span>
+            <span class="tl-chevron">\u25be</span>
+          </div>
+          <div class="tl-card-div"></div>
+          <div class="tl-body">
+            <p class="tl-desc">${e.description}</p>
+            ${entitesChips ? `<div class="chip-list">${entitesChips}</div>` : ''}
+          </div>
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+  document.getElementById('timeline-wrap').innerHTML = html;
+  applyMJMode(getMJMode());
+}
+
+function toggleEvt(id, event) {
+  if (['A','BUTTON','INPUT'].includes(event.target.tagName)) return;
+  const card = document.getElementById('tl-' + id);
+  if (!card) return;
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.tl-card.open').forEach(c => c.classList.remove('open'));
+  if (!isOpen) card.classList.add('open');
+  applyMJMode(getMJMode());
+}
+
+(function(){ const _o=window.setMJMode; window.setMJMode=function(v){_o(v); if(TIMELINE_DATA&&TIMELINE_DATA.length) render(TIMELINE_DATA);}; })();
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carte — La Larme d'Argent</title>
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/sw-v2.css">
+<style>
+/* ── BREADCRUMB ────────────────────────────────────────────────── */
+.breadcrumb { display:flex; align-items:center; gap:4px; margin-bottom:12px; flex-wrap:wrap; }
+.bc-item { font-family:var(--font-ui); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; }
+.bc-link { color:var(--text-muted); cursor:pointer; transition:color .2s; }
+.bc-link:hover { color:var(--text); }
+.bc-current { color:var(--text); }
+.bc-sep { color:var(--text-dim); font-size:.7rem; margin:0 2px; }
+
+/* ── FULL-PAGE LAYOUT ──────────────────────────────────────────── */
+/* Supprime le padding .main pour cette page seulement */
+body  { height: 100%; overflow: hidden; }
+.page-body { overflow: hidden; min-height: 0; }
+.main { padding: 0 !important; overflow: hidden; display: flex; flex-direction: column; min-height: 0; }
+#app  { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+
+/* ── MAP CONTAINER ─────────────────────────────────────────────── */
+.map-wrap {
+  flex: 1; min-height: 0;
+  display: flex; flex-direction: column;
+  background:var(--surface); border-top:1px solid var(--border-soft);
+  overflow:hidden;
+}
+.map-header {
+  border-bottom:1px solid var(--border-soft); padding:10px 18px;
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+}
+.map-title { font-family:var(--font-ui); font-size:.72rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+.niveau-badge {
+  font-family:var(--font-ui); font-size:.65rem; letter-spacing:.1em; text-transform:uppercase;
+  border:1px solid var(--border-soft); border-radius:20px; padding:3px 10px; color:var(--text-muted);
+}
+.mkr-count { font-size:.72rem; font-style:italic; color:var(--text-dim); margin-left:auto; }
+
+/* ── LEAFLET MAP ─────────────────────────────────────────────────
+   Pleine hauteur disponible : 100vh - topbar(84px) - map-header(~46px)
+   - padding .main top/bottom (32+80px) = ~242px total déduites
+   ─────────────────────────────────────────────────────────────── */
+#leaflet-map {
+  width:100%;
+  flex: 1;
+  min-height: 0;
+  min-height: calc(100vh - 200px);
+  background:var(--surface);
+}
+.leaflet-popup-content-wrapper {
+  background:var(--surface); border:1px solid var(--border-soft);
+  border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,.5); color:var(--text);
+}
+.leaflet-popup-content { margin:10px 14px; }
+.leaflet-popup-tip-container .leaflet-popup-tip { background:var(--surface); }
+.leaflet-control-zoom { border: none !important; box-shadow: none !important; }
+.leaflet-control-zoom a {
+  width: 36px !important; height: 36px !important; line-height: 36px !important;
+  font-size: 18px !important; font-weight: 700;
+  background: var(--surface) !important; color: var(--text) !important;
+  border: 1px solid var(--border-mid) !important;
+  transition: background .15s, border-color .15s;
+}
+.leaflet-control-zoom a:hover { background: var(--surface-hi) !important; border-color: var(--crimson-bd) !important; }
+.leaflet-control-zoom-in  { border-radius: 8px 8px 0 0 !important; }
+.leaflet-control-zoom-out { border-radius: 0 0 8px 8px !important; border-top: none !important; }
+.leaflet-control-attribution { display:none!important; }
+.leaflet-tooltip {
+  background:var(--surface); border:1px solid var(--border-soft); color:var(--text);
+  font-family:var(--font-body); font-size:.82rem; border-radius:6px;
+  padding:3px 8px; box-shadow:0 2px 6px rgba(0,0,0,.5); white-space:nowrap;
+}
+.leaflet-tooltip::before { border-top-color:var(--border-soft); }
+
+/* Bouton retour dans la carte */
+.leaflet-back-control {
+  background:var(--surface); border:1px solid var(--crimson-bd);
+  border-radius:8px; width:36px; height:36px;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--crimson); cursor:pointer; font-size:1.1rem; margin-top:4px;
+  transition:all .2s; line-height:1; padding:0;
+}
+.leaflet-back-control:hover { background:var(--crimson-dim); border-color:var(--crimson); color:var(--text); }
+
+/* Navigation entre étages */
+.etage-badge {
+  font-family:var(--font-ui); font-size:.48rem; letter-spacing:.12em; text-transform:uppercase;
+  background:var(--surface-mid); border-radius:20px; padding:2px 8px; color:var(--text);
+}
+.leaflet-floor-nav { display:flex; flex-direction:column; gap:3px; margin-top:4px; }
+.leaflet-floor-btn {
+  display:block; width:100%; background:var(--surface);
+  border:1px solid var(--border-soft); border-radius:6px;
+  padding:5px 10px; font-family:var(--font-ui); font-size:.65rem;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted);
+  cursor:pointer; transition:all .2s; text-align:center; min-width:44px;
+}
+.leaflet-floor-btn:hover { background:var(--crimson-dim); border-color:var(--crimson-bd); color:var(--text); }
+.leaflet-floor-active {
+  display:block; width:100%; background:var(--crimson);
+  border:1px solid var(--crimson); border-radius:6px;
+  padding:5px 10px; font-family:var(--font-ui); font-size:.65rem;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--text);
+  text-align:center; min-width:44px;
+}
+
+/* ── CARTE GRID (liste des cartes racines) ─────────────────────── */
+.carte-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; margin-top:12px; }
+.carte-card {
+  background:var(--surface); border:1px solid var(--border-soft);
+  border-radius:12px; overflow:hidden; cursor:pointer;
+  transition:border-color .2s, transform .15s;
+}
+.carte-card:hover { border-color:var(--border-mid); transform:translateY(-2px); }
+.carte-thumb { width:100%; height:120px; object-fit:cover; display:block; }
+.carte-thumb-placeholder {
+  width:100%; height:120px; background:var(--surface-mid);
+  display:flex; align-items:center; justify-content:center;
+  font-size:2rem; color:var(--text-dim);
+}
+.carte-card-info { padding:10px 14px 12px; }
+.carte-card-nom { font-family:var(--font-ui); font-size:.74rem; font-weight:700; margin-bottom:3px; }
+.carte-card-niveau { font-size:.7rem; font-style:italic; color:var(--text-dim); }
+
+/* ── MISC ──────────────────────────────────────────────────────── */
+.page-title { font-family:var(--font-ui); font-size:.95rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; margin-bottom:14px; }
+.back-btn {
+  display:inline-flex; align-items:center; gap:5px;
+  background:transparent; border:1px solid var(--crimson-bd); border-radius:20px;
+  padding:5px 14px; font-family:var(--font-ui); font-size:.7rem;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--crimson);
+  cursor:pointer; transition:all .2s; white-space:nowrap;
+}
+.back-btn:hover { background:var(--crimson-dim); border-color:var(--crimson); color:var(--text); }
+.placeholder-map {
+  width:100%; height:400px; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:14px;
+}
+.placeholder-label { font-family:var(--font-ui); font-size:.6rem; letter-spacing:.16em; text-transform:uppercase; color:var(--text-dim); }
+.empty-state {
+  background:var(--surface); border:1px solid var(--border-soft);
+  border-radius:12px; padding:40px; text-align:center;
+  font-style:italic; color:var(--text-muted);
+}
+.error-notice {
+  background:var(--surface); border:1px solid var(--crimson-bd);
+  border-radius:12px; padding:14px 20px; margin-bottom:12px;
+  font-size:.8rem; color:var(--crimson);
+}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script src="vendor/leaflet.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/nav-v2.js"></script>
+<script>
+'use strict';
+const NIVEAUX = { region: 'R\u00e9gion', ville: 'Ville', batiment: 'B\u00e2timent', battlemap: 'B\u00e2timent', monde: 'Monde' };
+
+let _cartes = [];
+let _lieux = [];
+let _navStack = [];
+let _leaflet = null;
+
+function isMJ() { return localStorage.getItem('sw_mj_mode') === 'true'; }
+function esc(s) { return !s ? '' : String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ── ÉTAGES ────────────────────────────────────────────────────────
+let _currentEtageIdx = 0;
+
+function showEtage(carte, idx) {
+  _currentEtageIdx = idx;
+  renderBattlemap(carte);
+}
+
+// ── RETOUR CARTE PARENTE ──────────────────────────────────────────
+const PARENT_LABELS = {
+  monde: 'du monde',
+  region: 'de la r\u00e9gion',
+  ville: 'de la ville',
+  batiment: 'du b\u00e2timent',
+  battlemap: 'du b\u00e2timent'
+};
+function buildBackBtn(carte) {
+  if (!carte.parent_id) return '';
+  const parent = _cartes.find(c => c.id === carte.parent_id && (isMJ() || c.visible_joueurs !== false));
+  if (!parent) return '';
+  const label = PARENT_LABELS[parent.niveau] || 'de la carte parente';
+  return `<button class="back-btn" onclick="goToParent('${parent.id}')">&#8592; Retour \u00e0 la carte ${label}</button>`;
+}
+function goToParent(parentId) {
+  if (_navStack.length > 0) _navStack.pop();
+  showCarte(parentId);
+}
+
+// ── INIT ──────────────────────────────────────────────────────────
+async function init() {
+  if (window._swCampaignReady) await window._swCampaignReady;
+  const app = document.getElementById('app');
+  try {
+    [_cartes, _lieux] = await Promise.all([
+      loadData('cartes.json').catch(() => null),
+      loadData('lieux.json').catch(() => null),
+    ]);
+  } catch(err) {
+    console.error('[carte] init error:', err);
+  }
+  _cartes = Array.isArray(_cartes) ? _cartes : [];
+  _lieux  = Array.isArray(_lieux)  ? _lieux  : [];
+
+  const roots = _cartes.filter(c => !c.parent_id && (isMJ() || c.visible_joueurs !== false));
+  (function(){ var d=document.createElement('div'); d.id='_carte_diag'; d.style.cssText='position:fixed;bottom:8px;right:8px;background:rgba(0,0,0,.85);color:#fff;font:10px/1.4 monospace;padding:6px 10px;border-radius:5px;z-index:99999;pointer-events:none;'; d.textContent='cid:'+getCampaignId()+'|cartes:'+_cartes.length+'|roots:'+roots.length; document.body.appendChild(d); })();
+  if (roots.length === 0) {
+    app.innerHTML = '<div class="empty-state">Aucune carte disponible \u2014 cr\u00e9ez des cartes dans l\'admin.</div>';
+  } else if (roots.length === 1) {
+    var _diagEl=document.getElementById('_carte_diag'); if(_diagEl) _diagEl.textContent+=' | L:'+(typeof L);
+    showCarte(roots[0].id);
+  } else {
+    showList(roots);
+  }
+}
+
+// ── LISTE DES CARTES RACINES ───────────────────────────────────────
+function showList(cartes) {
+  document.getElementById('app').innerHTML =
+    '<div class="page-title">Cartes</div>' +
+    '<div class="carte-grid">' +
+    cartes.map(c =>
+      `<div class="carte-card" onclick="showCarte('${c.id}')">` +
+        (c.image
+          ? `<img src="${esc(c.image)}" alt="${esc(c.nom)}" class="carte-thumb" onerror="this.style.display='none'">`
+          : '<div class="carte-thumb-placeholder">\ud83d\uddfa</div>') +
+        `<div class="carte-card-info">` +
+          `<div class="carte-card-nom">${esc(c.nom)}</div>` +
+          `<div class="carte-card-niveau">${esc(NIVEAUX[c.niveau] || c.niveau || '')}</div>` +
+        `</div>` +
+      `</div>`
+    ).join('') +
+    '</div>';
+}
+
+// ── NAVIGATION ──────────────────────────────────────────────────────
+function showCarte(carteId) {
+  _currentEtageIdx = 0;
+  const carte = _cartes.find(c => c.id === carteId);
+  if (!carte) return;
+  if (_navStack[_navStack.length - 1] !== carteId) _navStack.push(carteId);
+  if (carte.niveau === 'battlemap' || carte.niveau === 'batiment') renderBattlemap(carte);
+  else renderLeaflet(carte);
+}
+
+function navTo(idx) {
+  _navStack = _navStack.slice(0, idx + 1);
+  const carte = _cartes.find(c => c.id === _navStack[idx]);
+  if (!carte) return;
+  _navStack.pop();
+  showCarte(carte.id);
+}
+
+// ── BREADCRUMB ──────────────────────────────────────────────────────
+function buildBreadcrumb() {
+  if (_navStack.length <= 1) return '';
+  const items = _navStack.map((id, i) => {
+    const c = _cartes.find(x => x.id === id);
+    const nom = c ? c.nom : id;
+    if (i < _navStack.length - 1) {
+      return `<span class="bc-item bc-link" onclick="navTo(${i})">${esc(nom)}</span>`;
+    }
+    return `<span class="bc-item bc-current">${esc(nom)}</span>`;
+  });
+  return '<div class="breadcrumb">' + items.join('<span class="bc-sep">\u203a</span>') + '</div>';
+}
+
+// ── BATTLEMAP (Leaflet) ─────────────────────────────────────────────
+function renderBattlemap(carte) {
+  destroyLeaflet();
+  const etages = (carte.etages && carte.etages.length > 0) ? carte.etages : null;
+  const etage = etages ? (etages[_currentEtageIdx] || etages[0]) : null;
+  const imgSrc = etage ? etage.image : carte.image;
+  const W = (etage ? etage.largeur : carte.largeur) || 1000;
+  const H = (etage ? etage.hauteur : carte.hauteur) || 800;
+
+  document.getElementById('app').innerHTML =
+    buildBreadcrumb() +
+    `<div class="map-wrap">` +
+      `<div class="map-header">` +
+        buildBackBtn(carte) +
+        `<span class="map-title">${esc(carte.nom)}</span>` +
+        `<span class="niveau-badge">${NIVEAUX[carte.niveau] || ''}</span>` +
+        (etage && etage.nom ? `<span class="etage-badge">${esc(etage.nom)}</span>` : '') +
+      `</div>` +
+      `<div id="leaflet-map"></div>` +
+    `</div>`;
+
+  if (!imgSrc) {
+    document.getElementById('leaflet-map').innerHTML =
+      '<div class="placeholder-map"><span class="placeholder-label">Aucune image \u2014 configurez les \u00e9tages dans l\'admin</span></div>';
+    return;
+  }
+
+  const bounds = [[0, 0], [H, W]];
+  var map; try { map = L.map('leaflet-map', {
+    crs: L.CRS.Simple,
+    minZoom: -5,
+    maxZoom: 3,
+    zoomSnap: 0.25,
+    zoomControl: true,
+    attributionControl: false
+  }); } catch(err) { var _d2=document.getElementById('_carte_diag'); if(_d2) _d2.textContent+=' | LMAP_ERR:'+err.message; return; }
+  _leaflet = map;
+
+  if (carte.parent_id) {
+    const _parent = _cartes.find(c => c.id === carte.parent_id && (isMJ() || c.visible_joueurs !== false));
+    if (_parent) {
+      const BackCtrl = L.Control.extend({
+        options: { position: 'topleft' },
+        onAdd: function() {
+          const btn = L.DomUtil.create('button', 'leaflet-back-control');
+          btn.innerHTML = '&#8592;';
+          btn.title = 'Retour \u00e0 la carte ' + (PARENT_LABELS[_parent.niveau] || 'parente');
+          L.DomEvent.on(btn, 'click', function(e) {
+            L.DomEvent.stopPropagation(e);
+            goToParent(_parent.id);
+          });
+          return btn;
+        }
+      });
+      new BackCtrl().addTo(map);
+    }
+  }
+
+  if (etages && etages.length > 1) {
+    const currIdx = _currentEtageIdx < etages.length ? _currentEtageIdx : 0;
+    const FloorCtrl = L.Control.extend({
+      options: { position: 'topleft' },
+      onAdd: function() {
+        const div = L.DomUtil.create('div', 'leaflet-floor-nav');
+        etages.forEach((et, i) => {
+          if (i === currIdx) {
+            const span = L.DomUtil.create('span', 'leaflet-floor-active', div);
+            span.textContent = et.nom || ('\u00c9tage ' + (i + 1));
+          } else {
+            const btn = L.DomUtil.create('button', 'leaflet-floor-btn', div);
+            btn.textContent = et.nom || ('\u00c9tage ' + (i + 1));
+            L.DomEvent.on(btn, 'click', function(e) {
+              L.DomEvent.stopPropagation(e);
+              showEtage(carte, i);
+            });
+          }
+        });
+        return div;
+      }
+    });
+    new FloorCtrl().addTo(map);
+  }
+
+  L.imageOverlay(imgSrc, bounds).addTo(map);
+  map.fitBounds(bounds, {padding: [2, 2]});
+  map.setMinZoom(map.getZoom());
+  setTimeout(function(){ if(_leaflet){ _leaflet.invalidateSize(); _leaflet.fitBounds(bounds,{padding:[2,2]}); _leaflet.setMinZoom(_leaflet.getZoom()); }},150);
+}
+
+// ── LEAFLET MAP ────────────────────────────────────────────────────
+function renderLeaflet(carte) {
+  destroyLeaflet();
+  const marqueurs = (carte.marqueurs || []).filter(m => isMJ() || m.visible_joueurs !== false);
+
+  document.getElementById('app').innerHTML =
+    buildBreadcrumb() +
+    `<div class="map-wrap">` +
+      `<div class="map-header">` +
+        `<span class="map-title">${esc(carte.nom)}</span>` +
+        `<span class="niveau-badge">${esc(NIVEAUX[carte.niveau] || carte.niveau || '')}</span>` +
+        `<span class="mkr-count">${marqueurs.length} marqueur(s)</span>` +
+      `</div>` +
+      `<div id="leaflet-map"></div>` +
+    `</div>`;
+
+  if (!carte.image) {
+    document.getElementById('leaflet-map').innerHTML =
+      '<div class="placeholder-map"><span class="placeholder-label">Aucune image \u2014 configurez une image dans l\'admin</span></div>';
+    return;
+  }
+
+  const W = carte.largeur || 1000;
+  const H = carte.hauteur || 800;
+  const bounds = [[0, 0], [H, W]];
+
+  var map; try { map = L.map('leaflet-map', {
+    crs: L.CRS.Simple,
+    minZoom: -5,
+    maxZoom: 3,
+    zoomSnap: 0.25,
+    zoomControl: true,
+    attributionControl: false
+  }); } catch(err) { var _d2=document.getElementById('_carte_diag'); if(_d2) _d2.textContent+=' | LMAP_ERR:'+err.message; return; }
+  _leaflet = map;
+
+  if (carte.parent_id) {
+    const _parent = _cartes.find(c => c.id === carte.parent_id && (isMJ() || c.visible_joueurs !== false));
+    if (_parent) {
+      const BackCtrl = L.Control.extend({
+        options: { position: 'topleft' },
+        onAdd: function() {
+          const btn = L.DomUtil.create('button', 'leaflet-back-control');
+          btn.innerHTML = '&#8592;';
+          btn.title = 'Retour \u00e0 la carte ' + (PARENT_LABELS[_parent.niveau] || 'parente');
+          L.DomEvent.on(btn, 'click', function(e) {
+            L.DomEvent.stopPropagation(e);
+            goToParent(_parent.id);
+          });
+          return btn;
+        }
+      });
+      new BackCtrl().addTo(map);
+    }
+  }
+
+  L.imageOverlay(carte.image, bounds).addTo(map);
+  map.fitBounds(bounds, {padding: [2, 2]});
+  map.setMinZoom(map.getZoom());
+  (function(m,b){ setTimeout(function(){ if(_leaflet){ _leaflet.invalidateSize(); _leaflet.fitBounds(b,{padding:[2,2]}); _leaflet.setMinZoom(_leaflet.getZoom()); var el=document.getElementById('leaflet-map'); var d=document.getElementById('_carte_diag'); if(d&&el)d.textContent+=' | mapH:'+el.offsetHeight; }},150); })(map,bounds);
+
+  marqueurs.forEach((m, idx) => {
+    const lieu = _lieux.find(l => l.id === m.lieu_id);
+    const enfantCarte = m.enfant_carte_id
+      ? _cartes.find(c => c.id === m.enfant_carte_id && (isMJ() || c.visible_joueurs !== false))
+      : null;
+
+    const isMJOnly = m.visible_joueurs === false;
+    const STATUT_COLORS = {'visit\u00e9':'#44AA99','connu':'#88C4B0','inexplor\u00e9':'#88C4B0','inconnu':'#888888'};
+    const color = m.couleur || (isMJOnly ? '#c44' : (STATUT_COLORS[lieu?.statut] || '#44AA99'));
+    const latLng = [H - m.y, m.x];
+
+    const icon = L.divIcon({
+      className: '',
+      html: `<div style="width:22px;height:22px;border-radius:50%;background:${color};border:2px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--text);cursor:pointer;">${idx + 1}</div>`,
+      iconSize: [22, 22],
+      iconAnchor: [11, 11]
+    });
+
+    const nomLieu = lieu ? lieu.nom : (m.lieu_id || 'Marqueur');
+    const typeLieu = lieu ? (lieu.type || lieu.statut || '') : '';
+    const mjTag = isMJOnly && isMJ() ? '<div style="font-size:.65rem;color:var(--crimson);margin-top:2px;">\ud83d\udd12 MJ seulement</div>' : '';
+    const zoomBtn = enfantCarte
+      ? `<div style="margin-top:8px"><button onclick="showCarte('${enfantCarte.id}')" style="background:var(--crimson);color:var(--text);border:none;border-radius:6px;padding:4px 12px;font-size:.72rem;cursor:pointer;font-family:inherit;letter-spacing:.04em;">Voir carte \u2192</button></div>`
+      : '';
+
+    const descTag = (lieu && lieu.statut === 'visit\u00e9' && lieu.description)
+      ? `<div style="font-size:.78rem;font-style:italic;color:var(--text-muted);margin:6px 0 4px;line-height:1.55;border-top:1px solid var(--border-soft);padding-top:6px;">${esc(lieu.description)}</div>`
+      : '';
+    const popup = L.popup({ maxWidth: 260, className: '' }).setContent(
+      `<div style="font-family:var(--font-body);">` +
+        `<div style="font-family:var(--font-ui);font-size:.78rem;font-weight:700;margin-bottom:3px;">${esc(nomLieu)}</div>` +
+        (typeLieu ? `<div style="font-size:.75rem;font-style:italic;color:var(--text-muted);margin-bottom:4px;">${esc(typeLieu)}</div>` : '') +
+        mjTag +
+        descTag +
+        zoomBtn +
+      `</div>`
+    );
+
+    L.marker(latLng, { icon }).addTo(map)
+      .bindTooltip(nomLieu, { direction: 'top', offset: [0, -13] })
+      .bindPopup(popup);
+  });
+}
+
+function destroyLeaflet() {
+  if (_leaflet) { _leaflet.remove(); _leaflet = null; }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

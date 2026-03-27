@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Combat — La Larme d'Argent</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;1,400&family=Manrope:wght@400;600;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  /* bg/border/text viennent de sw-v2.css */
+  --t2:var(--text);--t3:var(--text-dim);
+  --amber:var(--crimson);--amber2:var(--surface-mid);--amber3:var(--crimson-dark);
+  --pj:#4a8a7a;--pnj:#4a9ecf;--mon:#c84a4a;
+  --ok:#4a8a5a;--hp-hi:#4a8a5a;--hp-mid:#b87820;--hp-lo:#c84a4a;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;min-height:100vh}
+button{cursor:pointer;font-family:inherit}
+input,select{font-family:inherit;font-size:inherit}
+a{color:var(--amber)}
+
+
+/* PAGE */
+.page{max-width:1500px;margin:0 auto;padding:16px 12px 40px}
+
+/* ÉTAPES */
+.steps{display:flex;gap:0;margin-bottom:20px;border-radius:8px;overflow:hidden;border:1px solid var(--border)}
+.step{flex:1;padding:9px 12px;text-align:center;font-family:var(--font-ui);font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);background:var(--bg2);border-right:1px solid var(--border);transition:all .2s}
+.step:last-child{border-right:none}
+.step.active{color:var(--amber);background:var(--amber2)}
+.step.done{color:var(--text-dim)}
+
+/* BOUTONS */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:6px;border:1.5px solid var(--border2);background:transparent;color:var(--t2);font-family:var(--font-ui);font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;transition:all .15s}
+.btn:hover{border-color:var(--text);color:#fff}
+.btn.primary{background:var(--amber2);border-color:var(--amber3);color:var(--amber)}
+.btn.primary:hover{background:var(--surface-hi)}
+.btn.danger{border-color:rgba(200,74,74,.4);color:#c84a4a}
+.btn.danger:hover{background:rgba(200,74,74,.15);border-color:#c84a4a}
+.btn.sm{padding:4px 9px;font-size:.46rem}
+.btn:disabled{opacity:.35;cursor:default;pointer-events:none}
+
+/* BANNIÈRE JOUEUR */
+.joueur-banner{background:var(--amber2);border:1px solid var(--amber3);border-radius:8px;padding:10px 16px;margin-bottom:16px;font-family:var(--font-ui);font-size:.62rem;letter-spacing:.1em;color:var(--amber);text-align:center}
+
+/* SÉLECTION */
+.sel-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px}
+.sel-section{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px}
+.sel-section-hd{font-family:var(--font-ui);font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.sel-filters{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;}
+.f-pill{font-family:var(--font-ui);font-size:.42rem;letter-spacing:.07em;padding:3px 8px;border-radius:10px;border:1px solid var(--border-soft);background:transparent;color:var(--text-dim);cursor:pointer;transition:all .15s;}
+.f-pill.on{background:var(--surface-mid);border-color:var(--crimson);color:var(--text);}
+.f-pill:hover{border-color:var(--text-dim);color:var(--text);}
+.sel-item{display:flex;align-items:center;gap:8px;padding:8px 9px;border:1px solid var(--border);border-radius:7px;margin-bottom:6px;cursor:pointer;transition:all .15s}
+.sel-item:hover{background:var(--surface-mid)}
+.sel-item.on{border-color:var(--amber3);background:var(--amber2)}
+.sel-av-ph{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-size:.78rem;font-weight:700;flex-shrink:0}
+.av-pj{background:var(--pj);color:var(--text);border:1.5px solid var(--pj)}
+.av-pnj{background:var(--pnj);color:var(--text);border:1.5px solid var(--pnj)}
+.av-monstre{background:var(--mon);color:var(--text);border:1.5px solid var(--mon)}
+.sel-info{flex:1;min-width:0}
+.sel-name{font-family:var(--font-ui);font-size:.65rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sel-sub{font-size:.72rem;color:var(--t3);font-style:italic}
+.sel-qty{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.sel-qty-btn{width:22px;height:22px;border-radius:5px;border:1px solid var(--border);background:transparent;color:var(--t2);font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.sel-qty-btn:hover{border-color:var(--text);color:#fff}
+.sel-qty-val{font-family:var(--font-ui);font-size:.72rem;min-width:18px;text-align:center;color:var(--text);font-weight:600}
+
+/* INITIATIVE */
+.init-list{margin-bottom:16px}
+.init-row{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;margin-bottom:6px}
+.init-info{flex:1;min-width:0}
+.init-name{font-family:var(--font-ui);font-size:.68rem;font-weight:600}
+.init-sub{font-size:.72rem;color:var(--t3);font-style:italic}
+.init-badge{font-family:var(--font-ui);font-size:.42rem;letter-spacing:.08em;padding:2px 6px;border-radius:10px;flex-shrink:0}
+.init-badge.pj{background:#3d2c10;border:1px solid var(--pj);color:var(--pj)}
+.init-badge.pnj{background:#1a3045;border:1px solid var(--pnj);color:var(--pnj)}
+.init-badge.monstre{background:#3d1515;border:1px solid var(--mon);color:var(--mon)}
+.init-input{width:62px;background:var(--bg);border:1.5px solid var(--border2);border-radius:6px;color:var(--text);font-family:var(--font-ui);font-size:.95rem;text-align:center;padding:6px;outline:none;transition:border-color .15s}
+.init-input:focus{border-color:var(--amber)}
+.dice-btn{background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--t2);padding:5px 8px;font-size:.82rem;transition:all .15s;flex-shrink:0}
+.dice-btn:hover{border-color:var(--text);color:#fff}
+
+/* COMBAT */
+.cbt-header{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;margin-bottom:12px}
+.round-lbl{font-family:var(--font-ui);font-size:.85rem;font-weight:700;color:var(--amber)}
+.active-lbl{flex:1;font-style:italic;color:var(--t2);font-size:.82rem}
+.cbt-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px;margin-bottom:16px;align-items:start}
+.cbt-col{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.cbt-col-hd{padding:8px 12px;font-family:var(--font-ui);font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid var(--border)}
+.cbt-col-hd.pj{color:var(--pj);border-bottom-color:var(--pj)}
+.cbt-col-hd.pnj{color:var(--pnj);border-bottom-color:var(--pnj)}
+.cbt-col-hd.monstre{color:var(--mon);border-bottom-color:var(--mon)}
+.cbt-col-body{padding:8px}
+
+/* CARTE COMBATTANT */
+.ccard{background:var(--bg3);border:1.5px solid var(--border);border-radius:8px;margin-bottom:6px;padding:10px;transition:border-color .2s,box-shadow .2s,opacity .2s,filter .2s}
+.ccard.active{border-color:var(--amber);box-shadow:0 0 0 1px rgba(158,58,68,.3)}
+.ccard.dead{opacity:.28;filter:grayscale(.8)}
+.ccard.can-target{border-color:var(--mon);cursor:crosshair;box-shadow:0 0 0 2px rgba(200,74,74,.3)}
+.ccard.can-target:hover{background:rgba(200,74,74,.18)}
+.ccard-top{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.ccard-av{width:46px;height:58px;border-radius:6px;object-fit:cover;flex-shrink:0}
+.ccard-av-ph{width:46px;height:58px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-size:.7rem;font-weight:700;flex-shrink:0}
+.ccard-name{flex:1;font-family:var(--font-ui);font-size:.65rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ccard-init{font-family:var(--font-ui);font-size:.72rem;color:var(--t3);min-width:20px;text-align:right;flex-shrink:0}
+.ca-badge{font-family:var(--font-ui);font-size:.56rem;color:var(--t3);flex-shrink:0;white-space:nowrap}
+
+/* PV */
+.hp-row{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+.hp-track{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.hp-fill{height:100%;border-radius:3px;transition:width .3s,background .3s}
+.hp-txt{font-family:var(--font-ui);font-size:.7rem;color:var(--t2);min-width:52px;text-align:right;flex-shrink:0}
+.hp-btns{display:flex;align-items:center;gap:2px;flex-shrink:0}
+.hp-btn{width:22px;height:20px;border-radius:4px;border:1px solid var(--border);background:transparent;font-size:.7rem;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.hp-btn.dmg{border-color:rgba(200,74,74,.35);color:#c84a4a}
+.hp-btn.dmg:hover{background:rgba(200,74,74,.15)}
+.hp-btn.heal{border-color:rgba(74,138,90,.35);color:#4a8a5a}
+.hp-btn.heal:hover{background:rgba(74,138,90,.15)}
+.hp-btn.edit{color:var(--t3)}
+.hp-btn.edit:hover{color:var(--t2);border-color:var(--border2)}
+
+/* ATTAQUES */
+.atk-row{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:4px}
+.atk-btn{font-family:var(--font-ui);font-size:.44rem;letter-spacing:.06em;padding:3px 8px;border-radius:4px;border:1px solid var(--amber3);background:transparent;color:var(--amber);cursor:pointer;transition:all .15s}
+.atk-btn:hover,.atk-btn.selected{background:var(--amber2);border-color:var(--amber)}
+.targeting-hint{font-size:.72rem;font-style:italic;color:var(--amber);margin-top:4px;animation:tblink .8s step-end infinite}
+@keyframes tblink{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* STATUTS */
+.s-row{display:flex;flex-wrap:wrap;gap:3px;min-height:5px;margin-top:2px}
+.s-chip{font-family:var(--font-ui);font-size:.44rem;padding:2px 6px;border-radius:10px;border:1px solid rgba(255,255,255,.2);color:var(--t2);cursor:pointer;transition:all .15s}
+.s-chip:hover{border-color:#c84a4a;color:#c84a4a}
+.s-add{background:transparent;border:1px dashed var(--border);border-radius:10px;color:var(--t3);font-size:.62rem;padding:1px 6px;cursor:pointer;transition:all .15s}
+.s-add:hover{border-color:var(--border2);color:var(--t2)}
+
+/* MODAL */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9999;align-items:center;justify-content:center}
+.modal-ov.open{display:flex}
+.modal-box{background:var(--bg2);border:1.5px solid var(--border2);border-radius:12px;padding:20px 22px;min-width:280px;max-width:420px;width:90%;max-height:90vh;overflow-y:auto}
+.modal-title{font-family:var(--font-ui);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
+.statut-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}
+.statut-opt{padding:8px 10px;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:.8rem;transition:all .15s;text-align:center}
+.statut-opt:hover{border-color:var(--amber3);background:var(--amber2);color:var(--amber)}
+.fi{margin-bottom:10px}
+.fi label{display:block;font-family:var(--font-ui);font-size:.46rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:4px}
+.finput{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:5px;color:var(--text);padding:7px 10px;outline:none}
+.finput:focus{border-color:var(--amber)}
+.fi-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.atk-builder-row{display:flex;gap:4px;margin-bottom:4px}
+.atk-builder-row input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);padding:4px 7px;outline:none;min-width:0}
+.atk-builder-row input:focus{border-color:var(--amber)}
+.atk-del-btn{background:transparent;border:1px solid rgba(200,74,74,.3);border-radius:4px;color:#c84a4a;padding:0 7px;cursor:pointer;flex-shrink:0}
+
+/* BATTLEMAP */
+.bm-section{background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin:0 12px 20px;max-width:1300px;margin-left:auto;margin-right:auto}
+.bm-section-hd{display:flex;align-items:center;gap:8px;padding:10px 14px;cursor:pointer;user-select:none;border-bottom:1px solid transparent;transition:border-color .2s}
+.bm-section.open .bm-section-hd{border-bottom-color:var(--border)}
+.bm-section-title{font-family:var(--font-ui);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t2)}
+.bm-toolbar{display:flex;align-items:center;gap:5px;padding:7px 10px;border-bottom:1px solid var(--border);flex-wrap:wrap;flex-shrink:0;background:var(--bg3)}
+.bm-tool-btn{background:transparent;border:1px solid var(--border);border-radius:5px;color:var(--t2);padding:4px 9px;font-family:var(--font-ui);font-size:.44rem;letter-spacing:.06em;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;align-items:center;gap:1px;white-space:nowrap}
+.bm-tool-btn:hover{border-color:var(--border2);color:var(--text)}
+.bm-tool-btn.on{border-color:var(--amber3);color:var(--amber);background:var(--amber2)}
+.bm-tool-icon{font-size:.82rem;line-height:1}
+.bm-sep{width:1px;height:20px;background:var(--border);flex-shrink:0;margin:0 2px}
+.bm-body{display:none;flex-direction:column}
+.bm-section.open .bm-body{display:flex}
+.bm-canvas-wrap{position:relative;overflow:hidden;background:#0a0a0a;flex:1;aspect-ratio:1/1}
+#bm-canvas{display:block}
+#bm-canvas.tcrosshair{cursor:crosshair}
+#bm-canvas.tcell{cursor:cell}
+#bm-canvas.tpan{cursor:grabbing}
+.bm-chevron{color:var(--t3);font-size:.8rem;transition:transform .2s;margin-left:auto}
+.bm-chevron.open{transform:rotate(180deg)}
+
+.expand-btn{background:transparent;border:none;color:var(--t3);font-size:.7rem;padding:0 3px;cursor:pointer;line-height:1;flex-shrink:0}
+.expand-btn:hover{color:var(--t2)}
+.order-badge{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.07);border:2px solid var(--border2);font-family:Cinzel,serif;font-size:.72rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--t2);margin-right:2px}
+.ccard.active .order-badge{border-color:var(--amber);color:var(--amber);background:var(--amber2)}
+.order-badge.pj{background:var(--pj) !important;border-color:var(--pj);color:var(--text) !important;}
+.order-badge.pnj{background:var(--pnj) !important;border-color:var(--pnj);color:var(--text) !important;}
+.order-badge.monstre{background:var(--mon) !important;border-color:var(--mon);color:var(--text) !important;}
+.card-det{border-top:1px solid var(--border);margin-top:8px;padding-top:8px}
+.det-stats{display:flex;flex-wrap:wrap;gap:6px 14px;margin-bottom:8px}
+.det-stat{font-size:.74rem;color:var(--t2);display:flex;align-items:center;gap:4px}
+.det-stat strong{color:var(--text);font-size:.82rem}
+.det-role{font-size:.72rem;color:var(--t3);font-style:italic;margin-bottom:6px}
+.det-atk-table{width:100%;border-collapse:collapse;margin-bottom:4px}
+.det-atk-table th{font-family:Cinzel,serif;font-size:.38rem;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);padding:2px 8px 3px 0;text-align:left;border-bottom:1px solid var(--border)}
+.det-atk-table td{font-size:.74rem;padding:4px 8px 4px 0;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle}
+.det-atk-name{color:var(--amber);font-weight:600}
+.det-atk-btn{font-family:Cinzel,serif;font-size:.42rem;padding:2px 7px;border-radius:4px;border:1px solid var(--amber3);background:transparent;color:var(--amber);cursor:pointer;transition:all .15s}
+.det-atk-btn:hover,.det-atk-btn.sel{background:var(--amber2);border-color:var(--amber)}
+.no-atk{font-size:.72rem;color:var(--t3);font-style:italic;padding:4px 0}
+.det-desc{font-size:.76rem;color:var(--t2);font-style:italic;line-height:1.5;margin-top:6px;border-top:1px solid var(--border);padding-top:6px}
+.p3-page{padding:12px}
+body.p3-mode{overflow:hidden}
+body.p3-mode #app{position:fixed;top:var(--topbar-h);bottom:0;left:var(--band-w);width:var(--p3-split,380px);overflow-y:auto;border-right:1px solid var(--border2);z-index:1;background:var(--bg);transition:left .28s cubic-bezier(.4,0,.2,1)}
+body.p3-mode #app::-webkit-scrollbar{width:5px}
+body.p3-mode #app::-webkit-scrollbar-track{background:transparent}
+body.p3-mode #app::-webkit-scrollbar-thumb{background:var(--border-soft);border-radius:3px}
+body.p3-mode #app::-webkit-scrollbar-thumb:hover{background:var(--border-mid)}
+body.p3-mode #bm-section{position:fixed!important;top:var(--topbar-h);bottom:0;left:calc(var(--band-w) + var(--p3-split,380px));right:0;display:flex!important;flex-direction:column;border-radius:0;border:none;border-left:1px solid var(--border2);margin:0}
+body.p3-mode #bm-section .bm-body{display:flex!important;flex:1;min-height:0}
+body.p3-mode .bm-canvas-wrap{aspect-ratio:unset;height:100%}
+body.p3-mode .bm-section-title{display:none}
+body.p3-mode .bm-chevron{display:none}
+body.p3-mode .bm-section-hd{cursor:default;border-bottom-color:var(--border)!important}
+
+#p3-resize{display:none;position:fixed;top:var(--topbar-h);bottom:0;left:calc(var(--band-w) + var(--p3-split,380px));width:6px;cursor:col-resize;z-index:10;background:transparent;transition:background .15s}
+#p3-resize:hover,#p3-resize.dragging{background:rgba(255,255,255,.18)}
+body.p3-mode #p3-resize{display:block}
+body.p3-mode.bm-hidden #bm-section{display:none!important}
+body.p3-mode.bm-hidden #p3-resize{display:none}
+body.p3-mode.bm-hidden #app{left:var(--band-w);right:0;width:auto!important}
+body.p3-mode .sidebar-wrap:hover~.main #app{left:var(--sidebar-w)}
+/* RESPONSIVE */
+@media(max-width:900px){.sel-grid,.cbt-cols{grid-template-columns:1fr}}
+@media(max-width:540px){.fi-row{grid-template-columns:1fr 1fr}}
+/* ── CARROUSEL (bm-hidden) ── */
+@keyframes carouselIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.carousel-wrap{display:flex;flex-direction:column;gap:10px;flex:1;min-height:0;overflow:hidden;}
+.turn-strip{
+  display:flex;align-items:center;overflow-x:auto;padding:6px 12px;
+  background:var(--surface);border-radius:10px;flex-shrink:0;
+  scrollbar-width:none;gap:0;
+}
+.turn-strip::-webkit-scrollbar{display:none}
+.turn-pill{
+  display:flex;align-items:center;gap:5px;
+  font-family:var(--font-ui);font-size:.5rem;letter-spacing:.06em;
+  padding:4px 10px;border-radius:20px;white-space:nowrap;
+  color:var(--text-dim);transition:all .2s;flex-shrink:0;
+}
+.turn-pill.cur{background:var(--surface-mid);color:var(--text);font-weight:700;border:1px solid var(--crimson);}
+.turn-pill.dead{opacity:.28;text-decoration:line-through;}
+.turn-arrow{color:var(--text-dim);font-size:.55rem;margin:0 1px;flex-shrink:0;user-select:none;}
+.carousel-area{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  gap:14px;overflow:hidden;padding:0 12px;min-height:0;
+}
+.car-slot{transition:all .25s ease;flex-shrink:0;max-width:100%;}
+.car-slot.center{flex:0 0 clamp(280px,38vw,420px);}
+.car-slot.center .ccard{
+  border-color:var(--crimson) !important;
+  box-shadow:0 0 0 2px rgba(158,58,68,.25),0 8px 32px rgba(0,0,0,.5) !important;
+  animation:carouselIn .22s ease;
+}
+.car-slot.side{flex:0 0 clamp(200px,24vw,280px);opacity:.38;pointer-events:none;}
+.car-slot.side .ccard{transform:scale(.94);transition:transform .25s;}
+/* En mode carrousel, on cache les col-hd et on affiche les cartes directement */
+body.carousel-mode .cbt-list{display:none;}
+body.carousel-mode .p3-page{display:flex;flex-direction:column;height:100%;padding:8px;}
+
+
+/* ===== OVERRIDES CHARTE V2 ===== */
+/* Étapes bandeau */
+.step{font-family:var(--font-body);font-size:.8rem;font-weight:600;letter-spacing:0;
+  text-transform:none;color:var(--text-dim);}
+.step.active{color:var(--text);background:var(--surface-mid);box-shadow:inset 0 -2px 0 var(--crimson);}
+
+/* Boutons : base visible */
+.btn{background:var(--surface-mid);border:1.5px solid var(--border-soft);color:var(--text);}
+.btn:hover{background:var(--surface-hi);border-color:var(--text-dim);color:var(--text);}
+/* Primary : crimson plein */
+.btn.primary{background:var(--crimson);border-color:var(--crimson);color:var(--text);}
+.btn.primary:hover{background:var(--crimson-dark);border-color:var(--crimson-dark);}
+/* Danger : crimson plein aussi */
+.btn.danger{background:var(--crimson);border-color:var(--crimson);color:var(--text);}
+.btn.danger:hover{background:var(--crimson-dark);border-color:var(--crimson-dark);}
+.btn:disabled{opacity:.35;cursor:default;pointer-events:none;}
+
+/* Titres colonnes sélection */
+.sel-section-hd{color:var(--text);}
+
+/* Avatars : texte beige */
+.av-pj,.av-pnj,.av-monstre{color:var(--text);}
+
+/* Filtres */
+.f-pill{border:1px solid var(--text-dim);color:var(--text);background:transparent;}
+.f-pill.on{background:var(--crimson);border-color:var(--crimson);color:var(--text);}
+.f-pill:hover{background:var(--surface-mid);border-color:var(--text);}
+
+/* Quantité +/- */
+.sel-qty-btn{background:var(--surface-mid);border:1px solid var(--text-dim);color:var(--text);}
+.sel-qty-btn:hover{background:var(--surface-hi);border-color:var(--text);}
+
+/* HP buttons */
+.hp-btn.dmg{background:#c84a4a;border-color:#c84a4a;color:var(--text);}
+.hp-btn.dmg:hover{background:#a33a3a;}
+.hp-btn.heal{background:#4a8a5a;border-color:#4a8a5a;color:var(--text);}
+.hp-btn.heal:hover{background:#3a6f48;}
+.hp-btn.edit{background:var(--surface-mid);border-color:var(--border-soft);color:var(--text-dim);}
+.hp-btn.edit:hover{background:var(--surface-hi);color:var(--text);}
+
+/* Boutons attaques */
+.atk-btn,.det-atk-btn{background:var(--crimson);border-color:var(--crimson);color:var(--text);}
+.atk-btn:hover,.atk-btn.selected,.det-atk-btn:hover,.det-atk-btn.sel{
+  background:var(--crimson-dark);border-color:var(--crimson-dark);}
+
+/* Numéro de tour */
+.order-badge{background:var(--crimson);border-color:var(--crimson);color:var(--text);}
+
+
+/* ── Turn strip : plus grand, retour à la ligne, portraits rectangulaires ── */
+.turn-strip{
+  flex-wrap:wrap;overflow-x:visible;overflow-y:visible;
+  padding:10px 14px;gap:5px 0;align-items:center;
+}
+.turn-pill{padding:6px 12px;font-size:.56rem;gap:6px;align-items:center;}
+.tp-av{
+  width:28px;height:36px;border-radius:4px;object-fit:cover;
+  flex-shrink:0;display:inline-flex;align-items:center;
+  justify-content:center;font-size:.52rem;font-weight:700;
+}
+.turn-arrow{font-size:1rem;margin:0 3px;color:var(--text-dim);}
+.turn-pill.targetable{
+  border:1px solid var(--mon);color:var(--text);cursor:crosshair;
+  background:rgba(200,74,74,.1);
+}
+.turn-pill.targetable:hover{background:rgba(200,74,74,.3);}
+
+/* ── Carrousel : cartes étroites, animées, en hauteur ── */
+@keyframes cFromRight{
+  from{opacity:0;transform:translateX(55px) scale(.95)}
+  to{opacity:1;transform:translateX(0) scale(1)}
+}
+@keyframes cFromLeft{
+  from{opacity:0;transform:translateX(-55px) scale(.95)}
+  to{opacity:1;transform:translateX(0) scale(1)}
+}
+.car-slot.center{flex:0 0 clamp(200px,20vw,260px);}
+.car-slot.center.dir-next{animation:cFromRight .28s ease;}
+.car-slot.center.dir-prev{animation:cFromLeft .28s ease;}
+.car-slot.side{flex:0 0 clamp(150px,14vw,200px);}
+.carousel-area{align-items:stretch;}
+.sel-filter-sel{
+  font-family:var(--font-ui);font-size:.52rem;background:var(--surface-mid);
+  border:1px solid var(--border-soft);color:var(--text);border-radius:6px;
+  padding:5px 8px;cursor:pointer;margin-bottom:8px;width:100%;outline:none;
+}
+.sel-filter-sel option{background:var(--surface);}
+.sel-filter-sel:focus{border-color:var(--crimson);}
+
+/* correctifs E */
+.carousel-area{align-items:center !important;}
+.car-slot.side{opacity:1 !important;filter:brightness(.55) saturate(.45);pointer-events:none;}
+.car-slot.side .ccard{transform:scale(.93);}
+.carousel-mode .ccard.type-pj{border-top:2px solid var(--pj);}
+.carousel-mode .ccard.type-pnj{border-top:2px solid var(--pnj);}
+.carousel-mode .ccard.type-monstre{border-top:2px solid var(--mon);}
+.ccard-av-ph.av-pj,.sel-av-ph.av-pj{background:var(--pj) !important;color:var(--text) !important;}
+.ccard-av-ph.av-pnj,.sel-av-ph.av-pnj{background:var(--pnj) !important;color:var(--text) !important;}
+.ccard-av-ph.av-monstre,.sel-av-ph.av-monstre{background:var(--mon) !important;color:var(--text) !important;}
+.ccard.active .order-badge{background:#9E3A44 !important;border-color:#9E3A44 !important;color:var(--text) !important;}
+
+/* ── Carrousel scroll-snap natif ── */
+.car-track{
+  display:flex;
+  overflow-x:scroll;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  scrollbar-width:none;
+  align-items:center;
+  flex:1;
+  min-height:0;
+  gap:14px;
+}
+/* Carrousel joueur (IS_JOUEUR) */
+body.joueur-carousel .car-item{flex:0 0 clamp(260px,28vw,340px);}
+body.joueur-carousel .car-track::before,body.joueur-carousel .car-track::after{flex:0 0 max(0px,calc(50% - 130px));}
+.jcard{display:flex;flex-direction:column;border-radius:12px;overflow:hidden;background:var(--surface);border:2px solid var(--border-soft);transition:border-color .15s;}
+.jcard.active{border-color:var(--crimson);}
+.jcard.dead{opacity:.28;filter:grayscale(.8);}
+.jcard-portrait{position:relative;width:100%;aspect-ratio:3/4;background:var(--surface-mid);overflow:hidden;flex-shrink:0;}
+.jcard-portrait img{width:100%;height:100%;object-fit:cover;display:block;}
+.jcard-portrait-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem;color:var(--text-muted);}
+.jcard-dot{position:absolute;top:8px;left:8px;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-size:.62rem;font-weight:700;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.5);}
+.jcard-name{padding:7px 8px;font-family:var(--font-ui);font-size:.68rem;font-weight:700;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-top:1px solid var(--border-soft);color:var(--text);}
+.jcard-statuts{display:flex;flex-wrap:wrap;gap:3px;padding:0 6px 7px;justify-content:center;}
+.jcard-statuts .s-chip{font-size:.55rem;padding:2px 6px;cursor:default;}
+.car-track::-webkit-scrollbar{display:none;}
+.car-track::before,.car-track::after{
+  content:'';
+  flex:0 0 max(0px, calc(50% - 200px));
+}
+.car-item{
+  flex:0 0 clamp(400px,40vw,520px);
+  scroll-snap-align:center;
+  scroll-snap-stop:always;
+  transition:transform 320ms cubic-bezier(.25,0,.25,1), opacity 320ms ease, filter 320ms ease;
+  transform:scale(0.85);
+  opacity:0.4;
+  filter:brightness(0.55) saturate(0.4);
+}
+.car-item.active{
+  transform:scale(1);
+  opacity:1;
+  filter:none;
+}
+</style>
+<link rel="stylesheet" href="css/sw-v2.css">
+</head>
+<body>
+<div id="app"></div>
+<div id="p3-resize"></div>
+
+<!-- Battlemap (visible en phase 3) -->
+<div class="bm-section" id="bm-section" style="display:none">
+  <div class="bm-section-hd" onclick="toggleBM()">
+    <span class="bm-section-title">🗺 Battlemap</span>
+    <div id="bm-toolbar-wrap" style="display:flex;gap:4px;align-items:center;flex-wrap:wrap;flex:1;margin:0 10px" onclick="event.stopPropagation()"></div>
+    <span class="bm-chevron" id="bm-chevron">▼</span>
+  </div>
+  <div class="bm-body" id="bm-body">
+    <div class="bm-canvas-wrap" id="bm-wrap">
+      <canvas id="bm-canvas"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="modal-ov">
+  <div class="modal-box" id="modal-box"></div>
+</div>
+
+<script src="js/nav-v2.js"></script>
+<script src="js/storage.js"></script>
+<script>
+'use strict';
+// ── CONSTANTES ──────────────────────────────────────────────────────────────
+const IS_JOUEUR = location.search.includes('vue=joueurs');
+const STATUTS = ['Empoisonné','Étourdi','Paralysé','Aveugle','Charmé','Effrayé','Concentré','Invisible','Affaibli','Ralenti','Mort','À terre'];
+const TYPE_C = {pj:'#c87a15', pnj:'#4a9ecf', monstre:'#c84a4a'};
+
+// ── ÉTAT ────────────────────────────────────────────────────────────────────
+let S = {
+  phase:1, round:1, turnIdx:0,
+  pending:[],      // [{id,nom,type,pv_max,pv,ca,portrait_url,attaques,statuts,initBonus,_pj_ref,_mon_ref}]
+  combatants:[],   // triés par initiative
+  bmOpen:false,
+  bmTokens:{},     // {id:{cx,cy}} — positions synced via BroadcastChannel
+  targeting:null,  // {fromId,atkName}
+};
+let allPJs=[], allPNJs=[], allMonstres=[];
+let pnjLocFilter='', monTypeFilter='';
+let monAtks=[{nom:'',jet:'',deg:''}];
+let bc;
+let expandedCards = new Set();
+let carouselDir = 0;
+
+// ── BROADCAST ───────────────────────────────────────────────────────────────
+function getCid(){ return typeof getCampaignId==='function' ? getCampaignId() : 'def'; }
+
+function bcInit(){
+  try{
+    bc = new BroadcastChannel('lca_'+getCid());
+    bc.onmessage = e => {
+      if(e.data.type==='state'){
+        const d = e.data.state;
+        S.phase=d.phase; S.round=d.round; S.turnIdx=d.turnIdx;
+        S.combatants=d.combatants; S.bmOpen=d.bmOpen; S.bmTokens=d.bmTokens||{};
+        S.targeting=d.targeting;
+        render();
+        if(S.phase===3) bmSyncTokens();
+      } else if(e.data.type==='bmstate' && IS_JOUEUR){
+        const bm=e.data.bm;
+        BM.cols=bm.cols||BM.cols; BM.rows=bm.rows||BM.rows; BM.cellSize=bm.cellSize||BM.cellSize;
+        BM.bgScale=bm.bgScale||1; BM.bgX=bm.bgX||0; BM.bgY=bm.bgY||0;
+        BM.gridColor=bm.gridColor||'#ffffff'; BM.walls=bm.walls||[]; BM.obstacles=bm.obstacles||{};
+        if(bm.bgData!==BM.bgData){ BM.bgData=bm.bgData; if(BM.bgData){ bmBgImg=new Image(); bmBgImg.onload=()=>{if(bmCanvas)bmRender();}; bmBgImg.src=BM.bgData; } else { bmBgImg=null; } }
+        if(bmCanvas) bmRender();
+      } else if(e.data.type==='req' && !IS_JOUEUR){
+        bcSend(); bmBcSend();
+      }
+    };
+    if(IS_JOUEUR){
+      bc.postMessage({type:'req'});
+      const sv = localStorage.getItem('lca_s_'+getCid());
+      if(sv) try{ const d=JSON.parse(sv); Object.assign(S,d); render(); if(S.phase===3) bmSyncTokens(); }catch(e){}
+    }
+  }catch(e){ console.warn('BroadcastChannel non supporté'); }
+}
+
+function bcSend(){
+  const share = {phase:S.phase,round:S.round,turnIdx:S.turnIdx,combatants:S.combatants,bmOpen:S.bmOpen,bmTokens:S.bmTokens,targeting:S.targeting};
+  localStorage.setItem('lca_s_'+getCid(), JSON.stringify(share));
+  if(bc) bc.postMessage({type:'state', state:share});
+}
+function bmBcSend(){
+  if(!bc||IS_JOUEUR) return;
+  bc.postMessage({type:'bmstate', bm:{cols:BM.cols,rows:BM.rows,cellSize:BM.cellSize,bgData:BM.bgData||null,bgScale:BM.bgScale||1,bgX:BM.bgX||0,bgY:BM.bgY||0,gridColor:BM.gridColor||'#ffffff',walls:BM.walls||[],obstacles:BM.obstacles||{}}});
+}
+
+// ── MODAL ────────────────────────────────────────────────────────────────────
+function showModal(html){ document.getElementById('modal-box').innerHTML=html; document.getElementById('modal-ov').classList.add('open'); }
+function hideModal(){ document.getElementById('modal-ov').classList.remove('open'); }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !['INPUT','TEXTAREA'].includes(document.activeElement?.tagName)) hideModal(); });
+
+// ── HELPERS ──────────────────────────────────────────────────────────────────
+function mkUid(){ return 'c'+Math.random().toString(36).slice(2,7); }
+function hpColor(pv,mx){ const p=pv/Math.max(1,mx); return p>0.6?'var(--hp-hi)':p>0.25?'var(--hp-mid)':'var(--hp-lo)'; }
+function hpPct(pv,mx){ return Math.max(0,Math.min(100,Math.round(pv/Math.max(1,mx)*100))); }
+function initial(nom){ return (nom||'?').charAt(0).toUpperCase(); }
+
+function _avFallback(el,type,ini,sz,sy){
+  const d=document.createElement('div');
+  d.className='ccard-av-ph av-'+type;
+  d.style.width=sz+'px'; d.style.height=(sy||sz)+'px';
+  d.textContent=ini;
+  el.replaceWith(d);
+}
+function mkAvatar(c, sz){
+  sz = sz||46; const sy = Math.round(sz*58/46);
+  const cls='ccard-av-ph av-'+c.type;
+  if(c.portrait_url) return `<img class="ccard-av" style="width:${sz}px;height:${sy}px" src="${c.portrait_url}" onerror="_avFallback(this,'${c.type}','${initial(c.nom)}',${sz},${sy})">`;
+  return `<div class="${cls}" style="width:${sz}px;height:${sy}px">${initial(c.nom)}</div>`;
+}
+function mkSelAv(c){
+  const cls='sel-av-ph av-'+c.type;
+  if(c.portrait_url) return `<img style="width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0" src="${c.portrait_url}" onerror="var d=document.createElement('div');d.className='sel-av-ph av-${c.type}';d.textContent='${initial(c.nom)}';this.replaceWith(d)">` ;
+  return `<div class="${cls}">${initial(c.nom)}</div>`;
+}
+
+// ── PHASE 1 — SÉLECTION ──────────────────────────────────────────────────────
+function renderP1(){
+  const pjHtml = allPJs.map(pj=>{
+    const sel = S.pending.find(p=>p.id===pj.id);
+    return `<div class="sel-item${sel?' on':''}" onclick="togglePJ('${pj.id}')">
+      <input type="checkbox" ${sel?'checked':''} onclick="event.stopPropagation();togglePJ('${pj.id}')">
+      ${mkSelAv({...pj,type:'pj'})}
+      <div class="sel-info">
+        <div class="sel-name">${pj.nom}</div>
+        <div class="sel-sub">${[pj.classe,pj.race].filter(Boolean).join(' · ')}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  const pnjLocs = [...new Set(allPNJs.map(p=>p.localisation).filter(Boolean))].sort();
+  const filteredPNJs = pnjLocFilter ? allPNJs.filter(p=>p.localisation===pnjLocFilter) : allPNJs;
+  const pnjHtml = filteredPNJs.map(pnj=>{
+    const sel = S.pending.find(p=>p.id===pnj.id);
+    return `<div class="sel-item${sel?' on':''}" onclick="togglePNJ('${pnj.id}')">
+      <input type="checkbox" ${sel?'checked':''} onclick="event.stopPropagation();togglePNJ('${pnj.id}')">
+      ${mkSelAv({...pnj,type:'pnj'})}
+      <div class="sel-info">
+        <div class="sel-name">${pnj.nom}</div>
+        <div class="sel-sub">${pnj.role||''}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  const monTypes = [...new Set(allMonstres.map(m=>m.type).filter(Boolean))].sort();
+  const filteredMons = monTypeFilter ? allMonstres.filter(m=>m.type===monTypeFilter) : allMonstres;
+  const monHtml = filteredMons.map(m=>{
+    const qty = S.pending.filter(p=>p._mon_ref===m.id).length;
+    return `<div class="sel-item${qty>0?' on':''}" onclick="changeMonQty('${m.id}',1)">
+      ${mkSelAv({...m,type:'monstre'})}
+      <div class="sel-info">
+        <div class="sel-name">${m.nom}</div>
+        <div class="sel-sub">PV ${m.pv||'?'} · CA ${m.ca||'?'}${m.fp?' · FP '+m.fp:''}</div>
+      </div>
+      <div class="sel-qty">
+        <button class="sel-qty-btn" onclick="event.stopPropagation();changeMonQty('${m.id}',-1)">−</button>
+        <span class="sel-qty-val" id="mqty_${m.id}">${qty}</span>
+        <button class="sel-qty-btn" onclick="event.stopPropagation();changeMonQty('${m.id}',1)">+</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Monstres créés à la volée (non référencés dans allMonstres)
+  const voleeHtml = S.pending.filter(p=>p.type==='monstre'&&!p._mon_ref).map(m=>`
+    <div class="sel-item on">
+      ${mkSelAv(m)}
+      <div class="sel-info"><div class="sel-name">${m.nom}</div><div class="sel-sub">PV ${m.pv_max} · CA ${m.ca}</div></div>
+      <button class="btn sm danger" style="flex-shrink:0" onclick="removePending('${m.id}')">✕</button>
+    </div>`).join('');
+
+  document.getElementById('app').innerHTML = `
+    <div class="page">
+      ${IS_JOUEUR?'<div class="joueur-banner">⚔ Vue Joueurs — En attente du MJ</div>':''}
+      <div class="steps">
+        <div class="step active">1 · Sélection</div>
+        <div class="step">2 · Initiative</div>
+        <div class="step">3 · Combat</div>
+      </div>
+      <div class="sel-grid">
+        <div class="sel-section">
+          <div class="sel-section-hd">Aventuriers</div>
+          ${pjHtml||'<div style="color:var(--t3);font-size:.75rem">Aucun personnage chargé</div>'}
+        </div>
+        <div class="sel-section">
+          <div class="sel-section-hd">PNJs</div>
+          ${pnjLocs.length>1?`<select class="sel-filter-sel" onchange="setPnjFilter(this.value)">
+            <option value="">Toutes localisations</option>
+            ${pnjLocs.map(l=>`<option value="${l}"${pnjLocFilter===l?' selected':''}>${l}</option>`).join('')}
+          </select>`:''}
+          ${pnjHtml||'<div style="color:var(--t3);font-size:.75rem">Aucun PNJ</div>'}
+        </div>
+        <div class="sel-section">
+          <div class="sel-section-hd">
+            Monstres
+            <button class="btn sm primary" onclick="openNewMonsterModal()">+ Créer</button>
+          </div>
+          ${monTypes.length>1?`<select class="sel-filter-sel" onchange="setMonFilter(this.value)">
+            <option value="">Tous types</option>
+            ${monTypes.map(t=>`<option value="${t}"${monTypeFilter===t?' selected':''}>${t}</option>`).join('')}
+          </select>`:''}
+          ${monHtml||'<div style="color:var(--t3);font-size:.75rem;margin-bottom:8px">Aucun monstre enregistré</div>'}
+          ${voleeHtml}
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;align-items:center">
+        <span style="font-size:.75rem;color:var(--t3)">${S.pending.length} combattant${S.pending.length>1?'s':''}</span>
+        <button class="btn primary" onclick="goPhase2()" ${S.pending.length<1?'disabled':''}>Initiative →</button>
+      </div>
+    </div>`;
+}
+
+function togglePJ(pjId){
+  const idx = S.pending.findIndex(p=>p.id===pjId);
+  if(idx>=0){ S.pending.splice(idx,1); }
+  else{
+    const pj = allPJs.find(p=>p.id===pjId); if(!pj) return;
+    S.pending.push({id:pj.id, nom:pj.nom, type:'pj',
+      pv_max:parseInt(pj.pv_max)||20, pv:parseInt(pj.pv_actuels??pj.pv_max)??20,
+      ca:parseInt(pj.ca)||10, portrait_url:pj.portrait_url||'',
+      attaques:pj.attaques||[], statuts:[], initBonus:parseInt(pj.initiative)||0,
+      _pj_ref:true, classe:pj.classe||'', race:pj.race||'', sorts:[...(pj.sorts_mineurs||[]),...(pj.capacites||[])], competences:pj.competences||[]});
+  }
+  renderP1();
+}
+
+function togglePNJ(pnjId){
+  const idx = S.pending.findIndex(p=>p.id===pnjId);
+  if(idx>=0){ S.pending.splice(idx,1); }
+  else{
+    const pnj = allPNJs.find(p=>p.id===pnjId); if(!pnj) return;
+    const pvMax = parseInt(pnj.stats?.pv)||10;
+    S.pending.push({id:pnj.id, nom:pnj.nom, type:'pnj',
+      pv_max:pvMax, pv:pvMax, ca:parseInt(pnj.stats?.ca)||10,
+      portrait_url:pnj.portrait_url||'', attaques:pnj.actions||[],
+      statuts:[], initBonus:parseInt(pnj.stats?.initiative)||0, role:pnj.role||'', sorts:pnj.sorts||[]});
+  }
+  renderP1();
+}
+
+function changeMonQty(monId, delta){
+  const m = allMonstres.find(x=>x.id===monId); if(!m) return;
+  const cur = S.pending.filter(p=>p._mon_ref===monId);
+  const next = Math.max(0, Math.min(10, cur.length+delta));
+  if(next > cur.length){
+    for(let i=cur.length; i<next; i++){
+      const n = next>1||i>0 ? ' '+(i+1) : '';
+      S.pending.push({id:mkUid(), nom:m.nom+n, type:'monstre',
+        pv_max:parseInt(m.pv)||10, pv:parseInt(m.pv)||10,
+        ca:parseInt(m.ca)||12, portrait_url:m.portrait_url||'',
+        attaques:m.attaques||m.actions||[], statuts:[],
+        sorts:m.sorts||[], initBonus:parseInt(m.initiative)||0, _mon_ref:monId});
+    }
+  } else {
+    for(let i=cur.length-1; i>=next; i--){
+      const idx = S.pending.indexOf(cur[i]); if(idx>=0) S.pending.splice(idx,1);
+    }
+  }
+  renderP1();
+}
+
+function removePending(id){ S.pending=S.pending.filter(p=>p.id!==id); renderP1(); }
+function setPnjFilter(v){ pnjLocFilter=v; renderP1(); }
+function setMonFilter(v){ monTypeFilter=v; renderP1(); }
+
+// Créer monstre à la volée
+function openNewMonsterModal(){
+  monAtks = [{nom:'',jet:'',deg:''}];
+  showModal(`<div class="modal-title">+ Nouveau monstre</div>
+    <div class="fi"><label>Nom *</label><input class="finput" id="nm-nom" placeholder="Gobelin éclaireur"></div>
+    <div class="fi-row">
+      <div class="fi"><label>PV</label><input class="finput" id="nm-pv" type="number" value="10" min="1"></div>
+      <div class="fi"><label>CA</label><input class="finput" id="nm-ca" type="number" value="12" min="1"></div>
+      <div class="fi"><label>Qté</label><input class="finput" id="nm-qty" type="number" value="1" min="1" max="20"></div>
+    </div>
+    <div class="fi">
+      <label>Initiative (bonus)</label>
+      <input class="finput" id="nm-init" type="number" value="0" style="width:80px">
+    </div>
+    <div class="fi">
+      <label>Attaques</label>
+      <div id="nm-atks"></div>
+      <button class="btn sm" onclick="addNmAtk()" style="margin-top:4px">+ Attaque</button>
+    </div>
+    <div class="fi"><label>Portrait URL</label><input class="finput" id="nm-portrait" placeholder="https://..."></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="hideModal()">Annuler</button>
+      <button class="btn primary" onclick="confirmNewMonster()">Ajouter</button>
+    </div>`);
+  renderNmAtks();
+}
+function renderNmAtks(){
+  const w=document.getElementById('nm-atks'); if(!w) return;
+  w.innerHTML = monAtks.map((a,i)=>`
+    <div class="atk-builder-row">
+      <input placeholder="Nom" value="${a.nom}" onchange="monAtks[${i}].nom=this.value">
+      <input placeholder="+5" value="${a.jet}" onchange="monAtks[${i}].jet=this.value" style="max-width:55px">
+      <input placeholder="2d6+3" value="${a.deg}" onchange="monAtks[${i}].deg=this.value" style="max-width:70px">
+      <button class="atk-del-btn" onclick="delNmAtk(${i})">✕</button>
+    </div>`).join('');
+}
+function addNmAtk(){ monAtks.push({nom:'',jet:'',deg:''}); renderNmAtks(); }
+function delNmAtk(i){ monAtks.splice(i,1); if(!monAtks.length) monAtks=[{nom:'',jet:'',deg:''}]; renderNmAtks(); }
+
+async function confirmNewMonster(){
+  const nom = (document.getElementById('nm-nom').value||'').trim();
+  if(!nom){ alert('Nom requis'); return; }
+  const pv = parseInt(document.getElementById('nm-pv').value)||10;
+  const ca = parseInt(document.getElementById('nm-ca').value)||12;
+  const qty = Math.max(1,Math.min(20,parseInt(document.getElementById('nm-qty').value)||1));
+  const initBonus = parseInt(document.getElementById('nm-init').value)||0;
+  const portrait = document.getElementById('nm-portrait').value||'';
+  const atks = monAtks.filter(a=>a.nom).map(a=>({nom:a.nom,jet:a.jet||'',degats:a.deg||''}));
+  const newMon = {id:mkUid(), nom, pv, ca, portrait_url:portrait, attaques:atks, initiative:initBonus};
+  try{
+    const existing = await loadData('monstres.json').catch(()=>[]) || [];
+    existing.push(newMon);
+    saveLocal('monstres.json', existing);
+    allMonstres = existing;
+  }catch(e){}
+  for(let i=0; i<qty; i++){
+    const sfx = qty>1 ? ' '+(i+1) : '';
+    S.pending.push({id:mkUid(), nom:nom+sfx, type:'monstre', pv_max:pv, pv, ca, portrait_url:portrait, attaques:atks, statuts:[], initBonus, _mon_ref:newMon.id});
+  }
+  hideModal(); renderP1();
+}
+
+// ── PHASE 2 — INITIATIVE ──────────────────────────────────────────────────────
+function goPhase2(){
+  if(!S.pending.length) return;
+  S.phase=2;
+  S.combatants = S.pending.map(c=>({...c, initiative:0}));
+  renderP2();
+}
+
+function renderP2(){
+  const rows = S.combatants.map(c=>`
+    <div class="init-row">
+      ${mkSelAv(c)}
+      <div class="init-info">
+        <div class="init-name">${c.nom}</div>
+        <div class="init-sub">${c.type==='pj'?[c.classe,c.race].filter(Boolean).join(' · '):c.type==='pnj'?(c.role||'PNJ'):'PV '+c.pv_max+' · CA '+c.ca}</div>
+      </div>
+      <span class="init-badge ${c.type}">${c.type==='pj'?'PJ':c.type==='pnj'?'PNJ':'M'}</span>
+      ${c.initBonus?`<span style="font-size:.72rem;color:var(--t3)">(${c.initBonus>=0?'+':''}${c.initBonus})</span>`:''}
+      <button class="dice-btn" title="d20+${c.initBonus||0}" onclick="rollInit('${c.id}')">⚄</button>
+      <input class="init-input" type="number" id="ii_${c.id}" value="${c.initiative||''}" placeholder="—"
+             oninput="setInit('${c.id}',this.value)">
+    </div>`).join('');
+
+  document.getElementById('app').innerHTML = `
+    <div class="page">
+      <div class="steps">
+        <div class="step done">1 · Sélection</div>
+        <div class="step active">2 · Initiative</div>
+        <div class="step">3 · Combat</div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
+        <button class="btn sm" onclick="rollAllNonPJ()" title="Lancer d20+bonus pour PNJs et monstres">⚄ Roll non-PJ</button>
+      </div>
+      <div class="init-list">${rows}</div>
+      <div style="display:flex;gap:10px;justify-content:space-between">
+        <button class="btn" onclick="S.phase=1;renderP1()">← Retour</button>
+        <button class="btn primary" onclick="goPhase3()">Lancer ⚔</button>
+      </div>
+    </div>`;
+}
+
+function rollInit(id){
+  const c = S.combatants.find(x=>x.id===id); if(!c) return;
+  c.initiative = Math.floor(Math.random()*20)+1+(c.initBonus||0);
+  const inp = document.getElementById('ii_'+id);
+  if(inp){ inp.value=c.initiative; inp.style.borderColor='var(--amber)'; setTimeout(()=>inp.style.borderColor='',700); }
+}
+function rollAllNonPJ(){
+  S.combatants.filter(c=>c.type!=='pj').forEach(c=>{
+    c.initiative = Math.floor(Math.random()*20)+1+(c.initBonus||0);
+    const inp=document.getElementById('ii_'+c.id);
+    if(inp){ inp.value=c.initiative; inp.style.borderColor='var(--amber)'; setTimeout(()=>inp.style.borderColor='',700); }
+  });
+}
+function setInit(id,v){ const c=S.combatants.find(x=>x.id===id); if(c) c.initiative=parseInt(v)||0; }
+
+// ── PHASE 3 — COMBAT ─────────────────────────────────────────────────────────
+function goPhase3(){
+  S.combatants.sort((a,b)=>b.initiative-a.initiative || (b.initBonus||0)-(a.initBonus||0));
+  S.combatants.forEach((c,i)=>{
+    if(!S.bmTokens[c.id]) S.bmTokens[c.id]={cx:i%8, cy:Math.floor(i/8)+1};
+  });
+  S.phase=3; S.round=1; S.turnIdx=0; S.targeting=null;
+  bcSend(); renderP3();
+  document.getElementById('bm-section').style.display='';
+  if(!bmCanvas) bmInitCanvas();
+  else bmResizeCanvas();
+  bmSyncTokens();
+}
+
+function renderP3(){
+  const cur = S.combatants[S.turnIdx]||{};
+  const isMJ = !IS_JOUEUR;
+  const bmHidden = document.body.classList.contains('bm-hidden');
+  document.body.classList.add('p3-mode');
+  if(bmHidden){ document.body.classList.add('carousel-mode'); if(IS_JOUEUR) document.body.classList.add('joueur-carousel'); }
+  else { document.body.classList.remove('carousel-mode'); document.body.classList.remove('joueur-carousel'); }
+
+  const _header = `<div class="cbt-header">
+    <span class="round-lbl">Round ${S.round}</span>
+    <span class="active-lbl">${cur.nom?`<strong style="color:var(--text)">${cur.nom}</strong> joue`:''}</span>
+    ${isMJ?`
+      <button class="btn sm" onclick="prevTurn()">← Préc</button>
+      <button class="btn sm primary" onclick="nextTurn()">Suivant</button>
+      ${S.targeting?`<button class="btn sm danger" onclick="cancelTarget()">✕ Ciblage</button>`:''}
+      <button class="btn sm" onclick="savePVs(false)">💾 PV</button>
+      <button class="btn sm" onclick="openJoueurs()">📺 Joueurs</button>
+      <button class="btn sm primary" onclick="confirmEndCombat()">Fin</button>
+    `:''}
+    <button class="btn sm bm-toggle" onclick="toggleBmPanel()" title="${bmHidden?'Afficher':'Masquer'} la battlemap">&#x1F5FA;</button>
+  </div>`;
+
+  if(bmHidden){
+    const _dir = carouselDir;
+    carouselDir = 0;
+
+    if(_dir !== 0 && updateCarouselAnimated(isMJ)){
+      // Mise a jour douce : seul le header est reconstruit
+      const _h = document.querySelector('.cbt-header');
+      if(_h) _h.outerHTML = _header;
+    } else {
+      // Rendu complet (premier affichage, toggle BM, ciblage, etc.)
+      document.getElementById('app').innerHTML = `
+        <div class="p3-page">
+          ${IS_JOUEUR?'<div class="joueur-banner">⚔ Vue Joueurs</div>':''}
+          ${_header}
+          ${renderCarousel(isMJ)}
+        </div>`;
+      requestAnimationFrame(()=>{
+        const _act = document.querySelector('.car-item.active');
+        if(_act) _act.scrollIntoView({behavior:'instant', block:'nearest', inline:'center'});
+        const pill = document.getElementById('tpill_'+((S.combatants[S.turnIdx]||{}).id||''));
+        if(pill) pill.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+      });
+    }
+  } else {
+    document.getElementById('app').innerHTML = `
+      <div class="p3-page">
+        ${IS_JOUEUR?'<div class="joueur-banner">⚔ Vue Joueurs</div>':''}
+        ${_header}
+        <div class="cbt-list">${S.combatants.map(c=>renderCard(c,isMJ)).join('')}</div>
+      </div>`;
+  }
+  initP3Resize();
+  const bmSec = document.getElementById('bm-section');
+  bmSec.style.display='';
+  bmSec.classList.toggle('open', S.bmOpen);
+  document.getElementById('bm-chevron')?.classList.toggle('open', S.bmOpen);
+  if(!bmCanvas) bmInitCanvas();
+  requestAnimationFrame(()=>requestAnimationFrame(bmResizeCanvas)); setTimeout(bmResizeCanvas,150);
+  if(bmCanvas) bmSyncTokens();
+}
+
+function renderCard(c, isMJ){
+  const isActive = S.combatants[S.turnIdx]?.id===c.id;
+  const isExpanded = (isMJ && expandedCards.has(c.id)) || (!isMJ && c.type==='pj');
+  const isDead   = c.pv<=0 || c.statuts.includes('Mort');
+  const isEnemy  = c.type==='pnj'||c.type==='monstre';
+  const canTarget= isMJ && S.targeting && c.id!==S.targeting.fromId && !isDead;
+  const isSrc    = S.targeting?.fromId===c.id;
+  const turnOrder = S.combatants.findIndex(x=>x.id===c.id) + 1;
+
+  // Vue joueur — ennemi : nom + statuts uniquement
+  if(IS_JOUEUR && isEnemy){
+    const chips = c.statuts.map(s=>`<span class="s-chip" style="cursor:default">${s}</span>`).join('');
+    return `<div class="ccard${isActive?' active':''}${isDead?' dead':''}">
+      <div class="ccard-top">
+        <div class="order-badge ${c.type}">${turnOrder}</div>${mkAvatar(c)}
+        <span class="ccard-name">${c.nom}${isDead?' 💀':''}</span>
+        <span class="ccard-init">${c.initiative}</span>
+      </div>
+      ${chips?`<div class="s-row" style="margin-top:2px">${chips}</div>`:''}
+    </div>`;
+  }
+
+  const pct = hpPct(c.pv,c.pv_max);
+  const col = hpColor(c.pv,c.pv_max);
+  const chips = c.statuts.map(s=>`<span class="s-chip" onclick="${isMJ?`removeStatut('${c.id}','${s}')`:''}">${s}</span>`).join('');
+
+  // Attaques : afficher si c'est le tour du combattant (MJ) ou toujours pour PJ (joueur)
+  const showAtks = isMJ ? (isActive && !isExpanded) : c.type==='pj';
+  const atks = showAtks && c.attaques?.length ?
+    `<div class="atk-row">${c.attaques.map(a=>`<span class="atk-btn${isSrc&&S.targeting?.atkName===a.nom?' selected':''}" onclick="${isMJ&&isActive?`startTarget('${c.id}','${a.nom}')`:''}">${a.nom}${a.jet?' '+a.jet:''}</span>`).join('')}</div>` : '';
+
+  return `<div class="ccard type-${c.type}${isActive?' active':''}${isDead?' dead':''}${canTarget?' can-target':''}"
+      id="cc_${c.id}" onclick="${canTarget?`applyTarget('${c.id}')`:''}" >
+    <div class="ccard-top">
+      <div class="order-badge ${c.type}">${turnOrder}</div>${mkAvatar(c)}
+      <span class="ccard-name">${c.nom}${isDead?' 💀':''}</span>
+      <span class="ccard-init">${c.initiative}</span>
+      ${isMJ?`<span class="ca-badge">CA ${c.ca}</span><button class="expand-btn" onclick="event.stopPropagation();toggleCardExpand('${c.id}')" title="Stats">${isExpanded?'▲':'▼'}</button>`:''}
+    </div>
+    <div class="hp-row">
+      <div class="hp-track"><div class="hp-fill" style="width:${pct}%;background:${col}"></div></div>
+      <span class="hp-txt">${c.pv}/${c.pv_max}</span>
+      ${isMJ?`<div class="hp-btns">
+        <button class="hp-btn dmg" onclick="event.stopPropagation();adjPV('${c.id}',-1)" title="-1 PV">−</button>
+        <button class="hp-btn heal" onclick="event.stopPropagation();adjPV('${c.id}',1)" title="+1 PV">+</button>
+        <button class="hp-btn edit" onclick="event.stopPropagation();openPVModal('${c.id}')" title="Saisie rapide">✎</button>
+      </div>`:''}
+    </div>
+    <div class="s-row">${chips}${isMJ?`<button class="s-add" onclick="event.stopPropagation();openAddStatut('${c.id}')">+</button>`:''}</div>
+    ${atks}
+    ${isExpanded ? mkExpandedPanel(c, isSrc) : ''}
+    ${isSrc&&S.targeting?`<div class="targeting-hint">Cliquez sur la cible…</div>`:''}
+  </div>`;
+}
+
+// ── ACTIONS COMBAT ────────────────────────────────────────────────────────────
+function mkExpandedPanel(c, isSrc){
+  var h = '<div class="card-det">';
+  var infos = [];
+  if(c.classe||c.race) infos.push([c.classe,c.race].filter(Boolean).join(' \u00b7 '));
+  if(c.role) h += '<div class="det-role">' + c.role + '</div>';
+  h += '<div class="det-stats">';
+  h += '<div class="det-stat"><span>CA</span><strong>' + c.ca + '</strong></div>';
+  h += '<div class="det-stat"><span>PV max</span><strong>' + c.pv_max + '</strong></div>';
+  h += '<div class="det-stat"><span>Init.</span><strong>' + c.initiative + '</strong>'+(c.initBonus?(' <small style="color:var(--t3);">('+((c.initBonus>=0)?'+':'')+c.initBonus+')</small>'):'')+'</div>';
+  if(infos.length) h += '<div class="det-stat" style="color:var(--t3)">' + infos.join(' \u00b7 ') + '</div>';
+  h += '</div>';
+  if(c.attaques && c.attaques.length){
+    h += '<table class="det-atk-table"><thead><tr><th>Attaque</th><th>Jet</th><th>D\u00e9g\u00e2ts</th><th></th></tr></thead><tbody>';
+    c.attaques.forEach(function(a){
+      var sel = isSrc && S.targeting && S.targeting.atkName === a.nom;
+      var safeNom = (a.nom||'').replace(/"/g,'&quot;');
+      h += '<tr>';
+      h += '<td class="det-atk-name">' + (a.nom||'?') + '</td>';
+      h += '<td>' + (a.jet||'\u2014') + '</td>';
+      h += '<td>' + (a.degats||a.deg||'\u2014') + '</td>';
+      h += '<td><button class="det-atk-btn' + (sel?' sel':'') + '" data-src="' + c.id + '" data-atk="' + safeNom + '" onclick="event.stopPropagation();startTarget(this.dataset.src,this.dataset.atk)">' + (sel?'\u2713 Annuler':'\u2192 Viser') + '</button></td>';
+      h += '</tr>';
+    });
+    h += '</tbody></table>';
+  } else {
+    h += '<div class="no-atk">Aucune attaque renseign\u00e9e</div>';
+  }
+  if(c.sorts && c.sorts.length){
+    h += '<div style="margin-top:8px;border-top:1px solid var(--border);padding-top:6px">';
+    h += '<div style="font-family:Cinzel,serif;font-size:.38rem;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);margin-bottom:5px">Sorts</div>';
+    h += '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:4px">';
+    c.sorts.forEach(function(s){
+      var nm = String(s.nom||s.name||s||'?');
+      var safeNm = nm.replace(/"/g,'&quot;');
+      var val = s.valeur||'';
+      var uses = s.utilisations ? s.utilisations+'\u00d7' : '';
+      var rech = s.recharge||'';
+      var usesRech = (uses&&rech) ? uses+' / '+rech : (uses||rech);
+      var meta = [val, usesRech].filter(Boolean).join(' \u00b7 ');
+      var chips = (s.chips||[]).map(function(ch){
+        return '<span style="font-size:.44rem;padding:1px 5px;border-radius:8px;border:1px solid rgba(255,255,255,.15);color:var(--t3);flex-shrink:0">'+ch+'</span>';
+      }).join(' ');
+      h += '<div style="margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.05)">';
+      h += '<div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:3px">';
+      h += '<button class="det-atk-btn" data-src="' + c.id + '" data-atk="' + safeNm + '" onclick="event.stopPropagation();startTarget(this.dataset.src,this.dataset.atk)">' + nm + '</button>';
+      if(meta) h += '<span style="font-size:.72rem;color:var(--t2)">'+meta+'</span>';
+      if(chips) h += chips;
+      h += '</div>';
+      if(s.description) h += '<div style="font-size:.7rem;color:var(--t3);font-style:italic;line-height:1.4;padding:0 2px">'+s.description+'</div>';
+      h += '</div>';
+    });
+    h += '</div></div>';
+  }
+  if(c.competences && c.competences.length){
+    h += '<div style="margin-top:6px;border-top:1px solid var(--border);padding-top:6px">';
+    h += '<div style="font-family:Cinzel,serif;font-size:.38rem;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);margin-bottom:5px">Comp\u00e9tences</div>';
+    h += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
+    c.competences.forEach(function(k){
+      var nm = k.nom||k.name||k||'?';
+      var bon = k.bonus!=null ? ' ('+((k.bonus>=0)?'+':'')+k.bonus+')' : '';
+      h += '<span style="font-size:.74rem;color:var(--t2)">' + nm + bon + '</span>';
+    });
+    h += '</div></div>';
+  }
+  if(c.description) h += '<div class="det-desc">' + c.description + '</div>';
+  h += '</div>';
+  return h;
+}
+function toggleBmPanel(){
+  document.body.classList.toggle('bm-hidden');
+  S.bmOpen=!document.body.classList.contains('bm-hidden');
+  bcSend();
+  renderP3();
+  if(!document.body.classList.contains('bm-hidden')){
+    requestAnimationFrame(()=>requestAnimationFrame(bmResizeCanvas));
+    setTimeout(bmResizeCanvas,150);
+  }
+}
+
+function initP3Resize(){
+
+  const handle=document.getElementById('p3-resize');
+
+  if(!handle||handle._p3init) return;
+
+  handle._p3init=true;
+
+  let drag=false, x0=0, w0=380;
+
+  handle.addEventListener('mousedown',e=>{
+
+    drag=true; x0=e.clientX;
+
+    w0=parseInt(document.body.style.getPropertyValue('--p3-split'))||380;
+
+    handle.classList.add('dragging');
+
+    document.body.style.userSelect='none';
+
+    e.preventDefault();
+
+  });
+
+  document.addEventListener('mousemove',e=>{
+
+    if(!drag) return;
+
+    const w=Math.max(200,Math.min(window.innerWidth-272,w0+e.clientX-x0));
+
+    document.body.style.setProperty('--p3-split',w+'px');
+
+    if(bmCanvas) bmResizeCanvas();
+
+  });
+
+  document.addEventListener('mouseup',()=>{
+
+    drag=false; handle.classList.remove('dragging');
+
+    document.body.style.userSelect='';
+
+  });
+
+}
+function bmGetSpeed(c){
+  const s=String(c.vitesse||'9m'); const m=parseFloat(s);
+  return m?Math.round(m/1.5):6;
+}
+function bmDrawZone(tok){
+  const c=S.combatants.find(x=>x.id===tok.combId); if(!c) return;
+  const maxC=bmGetSpeed(c);
+  const used=(S.bmMoved||{})[tok.combId]||0;
+  const rem=Math.max(0,maxC-used);
+  const C=BM.cellSize;
+  for(let cx=0;cx<BM.cols;cx++){
+    for(let cy=0;cy<BM.rows;cy++){
+      const d=Math.sqrt((cx-tok.cx)**2+(cy-tok.cy)**2);
+      if(d===0) continue;
+      if(d<=rem){ bmCtx.fillStyle='rgba(80,200,100,.22)'; bmCtx.fillRect(cx*C,cy*C,C,C); }
+      else if(rem>=0&&d<=rem+maxC){ bmCtx.fillStyle='rgba(220,130,50,.17)'; bmCtx.fillRect(cx*C,cy*C,C,C); }
+    }
+  }
+}
+function nextTurn(){
+  if(document.body.classList.contains('bm-hidden')) carouselDir=1;
+  S.targeting=null;
+  let next=(S.turnIdx+1)%S.combatants.length;
+  if(next===0) S.round++;
+  let guard=0;
+  while(S.combatants[next]?.pv<=0 && guard++<S.combatants.length){
+    next=(next+1)%S.combatants.length;
+    if(next===0) S.round++;
+  }
+  S.turnIdx=next; if(!S.bmMoved)S.bmMoved={}; const _nt=S.combatants[next]; if(_nt)delete S.bmMoved[_nt.id]; bcSend(); renderP3();
+}
+function prevTurn(){
+  if(document.body.classList.contains('bm-hidden')) carouselDir=-1;
+  S.targeting=null;
+  S.turnIdx=(S.turnIdx-1+S.combatants.length)%S.combatants.length;
+  bcSend(); renderP3();
+}
+
+function adjPV(id, delta){
+  const c=S.combatants.find(x=>x.id===id); if(!c) return;
+  c.pv=Math.max(0,Math.min(c.pv_max, delta===999?c.pv_max:c.pv+delta));
+  bcSend();
+  const el=document.getElementById('cc_'+id);
+  if(el){ const t=document.createElement('div'); t.innerHTML=renderCard(c,!IS_JOUEUR); el.replaceWith(t.firstElementChild); }
+  if(bmCanvas) bmRender();
+}
+
+function openPVModal(id){
+  const c=S.combatants.find(x=>x.id===id); if(!c) return;
+  showModal(`<div class="modal-title">PV — ${c.nom}</div>
+    <div style="margin-bottom:12px">
+      <div style="font-size:.78rem;color:var(--t3);margin-bottom:10px">PV actuels : <strong>${c.pv} / ${c.pv_max}</strong></div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px">
+        <button class="btn sm danger" onclick="adjPV('${id}',-10)">−10</button>
+        <button class="btn sm danger" onclick="adjPV('${id}',-5)">−5</button>
+        <button class="btn sm danger" onclick="adjPV('${id}',-1)">−1</button>
+        <button class="btn sm" style="border-color:rgba(74,138,90,.45);color:#4a8a5a" onclick="adjPV('${id}',1)">+1</button>
+        <button class="btn sm" style="border-color:rgba(74,138,90,.45);color:#4a8a5a" onclick="adjPV('${id}',5)">+5</button>
+        <button class="btn sm" style="border-color:rgba(74,138,90,.45);color:#4a8a5a" onclick="adjPV('${id}',10)">+10</button>
+        <button class="btn sm" style="border-color:rgba(74,138,90,.45);color:#4a8a5a" onclick="adjPV('${id}',999)">Max</button>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <label style="font-size:.72rem;color:var(--t3);flex-shrink:0">Valeur directe</label>
+        <input id="pv-direct" type="number" value="${c.pv}" style="width:70px;background:var(--bg);border:1px solid var(--border2);color:var(--text);border-radius:4px;padding:5px 8px;outline:none">
+        <span style="font-size:.72rem;color:var(--t3)">/ ${c.pv_max}</span>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="hideModal()">Fermer</button>
+      <button class="btn primary" onclick="setPVDirect('${id}')">Appliquer</button>
+    </div>`);
+}
+function setPVDirect(id){
+  const c=S.combatants.find(x=>x.id===id); if(!c) return;
+  c.pv=Math.max(0,Math.min(c.pv_max,parseInt(document.getElementById('pv-direct').value)||0));
+  hideModal(); bcSend(); renderP3();
+}
+
+function openAddStatut(id){
+  showModal(`<div class="modal-title">Ajouter un statut</div>
+    <div class="statut-grid">${STATUTS.map(s=>`<div class="statut-opt" onclick="addStatut('${id}','${s}')">${s}</div>`).join('')}</div>
+    <div class="modal-actions"><button class="btn" onclick="hideModal()">Fermer</button></div>`);
+}
+function addStatut(id,s){ const c=S.combatants.find(x=>x.id===id); if(c&&!c.statuts.includes(s)) c.statuts.push(s); hideModal(); bcSend(); renderP3(); }
+function removeStatut(id,s){ const c=S.combatants.find(x=>x.id===id); if(c) c.statuts=c.statuts.filter(x=>x!==s); bcSend(); renderP3(); }
+
+// Ciblage d'attaque
+function startTarget(fromId, atkName){
+  if(S.targeting?.fromId===fromId && S.targeting?.atkName===atkName){ S.targeting=null; }
+  else{ S.targeting={fromId,atkName}; }
+  bcSend(); renderP3();
+}
+function cancelTarget(){ S.targeting=null; bcSend(); renderP3(); }
+
+function renderJoueurCard(c){
+  var isActive=S.combatants[S.turnIdx]&&S.combatants[S.turnIdx].id===c.id;
+  var isDead=c.pv<=0||c.statuts.includes('Mort');
+  var turnOrder=S.combatants.findIndex(function(x){return x.id===c.id;})+1;
+  var dotColor=c.type==='pj'?'var(--pj)':c.type==='pnj'?'var(--pnj)':'var(--mon)';
+  var portrait=c.portrait_url
+    ?('<img src="'+c.portrait_url+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'
+      +'<div class="jcard-portrait-ph" style="display:none">\u2694</div>')
+    :'<div class="jcard-portrait-ph">\u2694</div>';
+  var statuts=c.statuts.length
+    ?('<div class="jcard-statuts">'+c.statuts.map(function(s){return '<span class="s-chip">'+s+'</span>';}).join('')+'</div>')
+    :'';
+  return '<div class="jcard'+(isActive?' active':'')+(isDead?' dead':'')+'"><div class="jcard-portrait">'+portrait+'<div class="jcard-dot" style="background:'+dotColor+'">'+turnOrder+'</div></div><div class="jcard-name">'+c.nom+(isDead?' \u{1F480}':'')+'</div>'+statuts+'</div>';
+}
+function renderCarousel(isMJ){
+  const n = S.combatants.length;
+  if(n===0) return '<div class="carousel-wrap"><div style="color:var(--text-dim);padding:20px">Aucun combattant</div></div>';
+
+  const roundBadge = `<span style="font-family:var(--font-ui);font-size:.52rem;font-weight:700;color:var(--text);padding:5px 10px;border-radius:20px;background:var(--crimson);white-space:nowrap;flex-shrink:0;margin-right:8px">R.${S.round}</span>`;
+
+  const stripItems = S.combatants.map((c,i)=>{
+    const isDead = c.pv<=0||c.statuts.includes('Mort');
+    const isCur  = i===S.turnIdx;
+    const isTargetable = isMJ && S.targeting && c.id !== S.targeting.fromId && !isDead;
+    const bg = c.type==='pj'?'var(--pj)':c.type==='pnj'?'var(--pnj)':'var(--mon)';
+    const av = c.portrait_url
+      ? `<img class="tp-av" src="${c.portrait_url}" style="width:28px;height:36px;border-radius:4px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">`
+      : `<span class="tp-av" style="background:${bg};color:var(--text);width:28px;height:36px;border-radius:4px;">${(c.nom||'?')[0].toUpperCase()}</span>`;
+    const sep = i>0?'<span class="turn-arrow">›</span>':'';
+    const onclick = isTargetable ? `onclick="applyTarget('${c.id}')"` : '';
+    return sep+`<span class="turn-pill${isCur?' cur':''}${isDead?' dead':''}${isTargetable?' targetable':''}" id="tpill_${c.id}" ${onclick}>${av} ${c.nom}</span>`;
+  }).join('');
+
+  const trackItems = S.combatants.map((c,i)=>`<div class="car-item${i===S.turnIdx?' active':''}" data-id="${c.id}" data-idx="${i}">${IS_JOUEUR?renderJoueurCard(c):renderCard(c,isMJ)}</div>`).join('');
+
+  return `<div class="carousel-wrap">
+    <div class="turn-strip" id="turn-strip">${roundBadge}${stripItems}</div>
+    <div class="car-track" id="car-track">${trackItems}</div>
+  </div>`;
+}
+
+function updateCarouselAnimated(isMJ){
+  const track = document.getElementById('car-track');
+  if(!track) return false;
+  const items = track.querySelectorAll('.car-item');
+  if(items.length !== S.combatants.length) return false;
+
+  // Mettre a jour le contenu et la classe active de chaque carte
+  S.combatants.forEach((c,i)=>{
+    items[i].innerHTML = renderCard(c,isMJ);
+    items[i].classList.toggle('active', i===S.turnIdx);
+  });
+
+  // Scroll natif vers la carte active
+  const active = track.querySelector('.car-item.active');
+  if(active) active.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+
+  // Mettre a jour le bandeau tour
+  const strip = document.getElementById('turn-strip');
+  if(strip){
+    const roundBadge = `<span style="font-family:var(--font-ui);font-size:.52rem;font-weight:700;color:var(--text);padding:5px 10px;border-radius:20px;background:var(--crimson);white-space:nowrap;flex-shrink:0;margin-right:8px">R.${S.round}</span>`;
+    const stripItems = S.combatants.map((c,i)=>{
+      const isDead = c.pv<=0||c.statuts.includes('Mort');
+      const isCur  = i===S.turnIdx;
+      const isTargetable = isMJ && S.targeting && c.id !== S.targeting.fromId && !isDead;
+      const bg = c.type==='pj'?'var(--pj)':c.type==='pnj'?'var(--pnj)':'var(--mon)';
+      const av = c.portrait_url
+        ? `<img class="tp-av" src="${c.portrait_url}" style="width:28px;height:36px;border-radius:4px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">`
+        : `<span class="tp-av" style="background:${bg};color:var(--text);width:28px;height:36px;border-radius:4px;">${(c.nom||'?')[0].toUpperCase()}</span>`;
+      const sep = i>0?'<span class="turn-arrow">›</span>':'';
+      const onclick = isTargetable ? `onclick="applyTarget('${c.id}')"` : '';
+      return sep+`<span class="turn-pill${isCur?' cur':''}${isDead?' dead':''}${isTargetable?' targetable':''}" id="tpill_${c.id}" ${onclick}>${av} ${c.nom}</span>`;
+    }).join('');
+    strip.innerHTML = roundBadge + stripItems;
+    const pill = strip.querySelector('#tpill_'+((S.combatants[S.turnIdx]||{}).id||''));
+    if(pill) pill.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  }
+  return true;
+}
+
+function toggleCardExpand(id){
+  if(expandedCards.has(id)) expandedCards.delete(id); else expandedCards.add(id);
+  renderP3();
+}
+
+function applyTarget(targetId){
+  if(!S.targeting) return;
+  const tgt = S.combatants.find(x=>x.id===targetId);
+  const src = S.combatants.find(x=>x.id===S.targeting.fromId);
+  if(!tgt||!src) return;
+  const atkName = S.targeting.atkName;
+  showModal(`<div class="modal-title">⚔ ${src.nom} → ${tgt.nom}</div>
+    <div style="font-size:.78rem;color:var(--t3);margin-bottom:10px">Attaque : <strong style="color:var(--amber)">${atkName}</strong></div>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
+      <label style="font-size:.72rem;color:var(--t3);flex-shrink:0">Dégâts</label>
+      <input id="dmg-val" type="number" value="0" min="0"
+        style="width:70px;background:var(--bg);border:1px solid var(--border2);color:var(--text);border-radius:4px;padding:5px 8px;outline:none"
+        oninput="document.getElementById('pv-after').textContent=Math.max(0,${tgt.pv}-parseInt(this.value||0))">
+      <span style="font-size:.72rem;color:var(--t3)">→ PV restants : <strong id="pv-after">${tgt.pv}</strong></span>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="hideModal();cancelTarget()">Annuler</button>
+      <button class="btn danger" onclick="applyDmgTarget('${targetId}')">Appliquer</button>
+    </div>`);
+  setTimeout(()=>{ const el=document.getElementById('dmg-val'); if(el){el.focus();el.select();} }, 50);
+}
+function applyDmgTarget(targetId){
+  const dmg=parseInt((document.getElementById('dmg-val')||{}).value)||0;
+  const c=S.combatants.find(x=>x.id===targetId); if(!c) return;
+  c.pv=Math.max(0,c.pv-dmg);
+  hideModal(); S.targeting=null; bcSend(); renderP3();
+}
+
+function confirmEndCombat(){
+  showModal(`<div class="modal-title">Terminer le combat</div>
+    <div style="font-size:.82rem;color:var(--t2);margin-bottom:8px">Sauvegarder les PV dans les fiches personnages ?</div>
+    <div class="modal-actions">
+      <button class="btn" onclick="hideModal();resetCombat()">Non, terminer</button>
+      <button class="btn primary" onclick="savePVs(true)">Oui, sauvegarder</button>
+    </div>`);
+}
+function resetCombat(){
+  S={...S,phase:1,round:1,turnIdx:0,pending:[],combatants:[],bmTokens:{},bmMoved:{},targeting:null,bmOpen:false};
+  document.getElementById('bm-section').style.display='none';
+  document.body.classList.remove('p3-mode');
+  bcSend(); renderP1();
+}
+async function savePVs(andEnd=false){
+  try{
+    const data = await loadData('personnages.json');
+    S.combatants.filter(c=>c.type==='pj').forEach(c=>{
+      const pj=data.find(p=>p.id===c.id); if(pj){ pj.pv_actuels=c.pv; pj.pv_max=c.pv_max; }
+    });
+    saveLocal('personnages.json', data);
+    if(andEnd){ hideModal(); resetCombat(); }
+    else alert('PV sauvegardés !');
+  }catch(e){ alert('Erreur : '+e.message); }
+}
+function openJoueurs(){ window.open(location.pathname+'?vue=joueurs','cv2_joueurs','width=1200,height=780'); }
+
+// ── RENDER DISPATCHER ─────────────────────────────────────────────────────────
+function render(){
+  if(IS_JOUEUR && S.phase===1){
+    document.getElementById('app').innerHTML=`<div class="page"><div class="joueur-banner">⚔ Vue Joueurs — En attente du début du combat…</div></div>`;
+    document.getElementById('bm-section').style.display='none';
+    return;
+  }
+  if(S.phase===1) renderP1();
+  else if(S.phase===2) renderP2();
+  else if(S.phase===3){
+    renderP3();
+    document.getElementById('bm-section').style.display=''; if(IS_JOUEUR) document.body.classList.toggle('bm-hidden',!S.bmOpen);
+    if(!bmCanvas){ bmInitCanvas(); }
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// BATTLEMAP — Canvas complet avec murs, obstacles, pan/zoom, grille infinie
+// ══════════════════════════════════════════════════════════════════════════════
+const BM_KEY = ()=>'lca_bm_'+getCid();
+let BM = {
+  cols:30, rows:22, cellSize:44,
+  bgData:null, bgScale:1, bgX:0, bgY:0,
+  gridColor:'#ffffff',
+  walls:[],       // ["h:x:y","v:x:y"]
+  obstacles:{}    // {"x,y":"mur"|"eau"|"difficile"}
+};
+let BV = {x:40, y:40, scale:1};
+let bmCanvas=null, bmCtx=null;
+let bmTool='select';
+let bmSelTok=null;
+let bmDrag=null, bmPanning=false, bmPanBase=null, bmSpaceDown=false;
+let bmBrushing=false, bmBrushAdd=true, bmBrushed=new Set();
+let bmBgImg=null;
+
+const BM_OBS_SEQ  = ['mur','eau','difficile'];
+const BM_OBS_FILL = {mur:'rgba(70,70,70,.82)',eau:'rgba(25,80,190,.5)',difficile:'rgba(100,65,15,.55)'};
+const BM_OBS_ICO  = {mur:'▪',eau:'≈',difficile:'~'};
+
+function bmLoadState(){
+  const sv=localStorage.getItem(BM_KEY());
+  if(sv) try{
+    const d=JSON.parse(sv);
+    BM.cols=d.cols||30; BM.rows=d.rows||22; BM.cellSize=d.cellSize||44;
+    BM.bgData=d.bgData||null; BM.bgScale=d.bgScale||1; BM.bgX=d.bgX||0; BM.bgY=d.bgY||0;
+    BM.gridColor=d.gridColor||'#ffffff'; BM.walls=d.walls||[]; BM.obstacles=d.obstacles||{};
+  }catch(e){}
+  if(BM.bgData){ bmBgImg=new Image(); bmBgImg.onload=()=>bmRender(); bmBgImg.src=BM.bgData; }
+}
+function bmSaveState(){
+  localStorage.setItem(BM_KEY(), JSON.stringify({...BM}));
+  bmBcSend();
+}
+
+function bmSyncTokens(){
+  if(!bmCanvas) return;
+  // Retirer les tokens sans combattant correspondant
+  BM._tokens = (BM._tokens||[]).filter(t=>S.combatants.some(c=>c.id===t.combId));
+  // Ajouter les manquants
+  S.combatants.forEach((c,i)=>{
+    if((BM._tokens||[]).some(t=>t.combId===c.id)) return;
+    const pos = S.bmTokens[c.id]||{cx:i%8, cy:Math.floor(i/8)+1};
+    if(!BM._tokens) BM._tokens=[];
+    BM._tokens.push({id:c.id, combId:c.id, name:c.nom, type:c.type, cx:pos.cx, cy:pos.cy});
+  });
+  // Mettre à jour les noms et positions depuis S.bmTokens
+  (BM._tokens||[]).forEach(t=>{ const c=S.combatants.find(x=>x.id===t.combId); if(c){ t.name=c.nom; const p=S.bmTokens[t.combId]; if(p){ t.cx=p.cx; t.cy=p.cy; } } });
+  bmRender();
+}
+
+function bmInitCanvas(){
+  bmCanvas = document.getElementById('bm-canvas'); if(!bmCanvas) return;
+  bmCtx = bmCanvas.getContext('2d');
+  new ResizeObserver(bmResizeCanvas).observe(document.getElementById('bm-wrap'));
+  bmLoadState();
+  bmCanvas.addEventListener('mousedown',  bmOnMouseDown);
+  bmCanvas.addEventListener('mousemove',  bmOnMouseMove);
+  bmCanvas.addEventListener('mouseup',    bmOnMouseUp);
+  bmCanvas.addEventListener('mouseleave', bmOnMouseLeave);
+  bmCanvas.addEventListener('contextmenu',e=>e.preventDefault());
+  bmCanvas.addEventListener('wheel',      bmOnWheel, {passive:false});
+  bmCanvas.addEventListener('dblclick',   bmOnDblClick);
+  document.addEventListener('keydown',    bmOnKeyDown);
+  document.addEventListener('keyup',      bmOnKeyUp);
+  if(!IS_JOUEUR) bmRenderToolbar();
+  bmSyncTokens();
+}
+
+function bmResizeCanvas(){
+  const wrap=document.getElementById('bm-wrap'); if(!wrap||!bmCanvas) return;
+  const w=wrap.clientWidth, h=wrap.clientHeight;
+  if(!w||!h) return;
+  bmCanvas.width=w; bmCanvas.height=h;
+  bmRender();
+}
+
+function bmRender(){
+  if(!bmCtx||!bmCanvas) return;
+  bmCtx.clearRect(0,0,bmCanvas.width,bmCanvas.height);
+  bmCtx.save();
+  bmCtx.translate(BV.x,BV.y);
+  bmCtx.scale(BV.scale,BV.scale);
+  bmDrawBg(); bmDrawObstacles(); bmDrawGrid(); bmDrawWalls(); if(!IS_JOUEUR&&bmSelTok)bmDrawZone(bmSelTok); bmDrawTokens();
+  bmCtx.restore();
+}
+
+function bmDrawBg(){
+  if(!bmBgImg||!bmBgImg.complete||!bmBgImg.naturalWidth) return;
+  bmCtx.globalAlpha=.75;
+  bmCtx.drawImage(bmBgImg,BM.bgX,BM.bgY,bmBgImg.naturalWidth*BM.bgScale,bmBgImg.naturalHeight*BM.bgScale);
+  bmCtx.globalAlpha=1;
+}
+
+function hexToRgba(hex,a){ const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16); return`rgba(${r},${g},${b},${a})`; }
+
+function bmDrawGrid(){
+  // Grille infinie — dessine sur tout le viewport
+  const C=BM.cellSize, gc=BM.gridColor||'#ffffff';
+  const x0=-BV.x/BV.scale, y0=-BV.y/BV.scale;
+  const x1=x0+bmCanvas.width/BV.scale, y1=y0+bmCanvas.height/BV.scale;
+  const sx=Math.floor(x0/C)*C, sy=Math.floor(y0/C)*C;
+  const go=BM.gridOpacity!=null?BM.gridOpacity:0.08;
+  bmCtx.strokeStyle=hexToRgba(gc,go); bmCtx.lineWidth=1/BV.scale;
+  bmCtx.beginPath();
+  for(let x=sx;x<=x1;x+=C){ bmCtx.moveTo(x,y0); bmCtx.lineTo(x,y1); }
+  for(let y=sy;y<=y1;y+=C){ bmCtx.moveTo(x0,y); bmCtx.lineTo(x1,y); }
+  bmCtx.stroke();
+  // Bordure de la zone définie
+  bmCtx.strokeStyle=hexToRgba(gc,Math.min(1,go*3.75)); bmCtx.lineWidth=2/BV.scale;
+  bmCtx.strokeRect(0,0,BM.cols*C,BM.rows*C);
+}
+
+function bmDrawObstacles(){
+  const C=BM.cellSize;
+  bmCtx.textAlign='center'; bmCtx.textBaseline='middle';
+  for(const [k,t] of Object.entries(BM.obstacles)){
+    const [cx,cy]=k.split(',').map(Number);
+    bmCtx.fillStyle=BM_OBS_FILL[t]||BM_OBS_FILL.mur;
+    bmCtx.fillRect(cx*C,cy*C,C,C);
+    bmCtx.fillStyle='rgba(255,255,255,.4)';
+    bmCtx.font=`${C*.42}px serif`;
+    bmCtx.fillText(BM_OBS_ICO[t]||'▪',(cx+.5)*C,(cy+.5)*C);
+  }
+}
+
+function bmDrawWalls(){
+  const C=BM.cellSize;
+  bmCtx.strokeStyle='#ddd'; bmCtx.lineWidth=Math.max(2,3/BV.scale); bmCtx.lineCap='square';
+  for(const w of BM.walls){
+    const [type,x,y]=w.split(':'); const xi=+x,yi=+y;
+    bmCtx.beginPath();
+    if(type==='h'){ bmCtx.moveTo(xi*C,yi*C); bmCtx.lineTo((xi+1)*C,yi*C); }
+    else{ bmCtx.moveTo(xi*C,yi*C); bmCtx.lineTo(xi*C,(yi+1)*C); }
+    bmCtx.stroke();
+  }
+}
+
+function bmDrawTokens(){
+  const C=BM.cellSize, R=C*.42;
+  const curC = S.combatants[S.turnIdx];
+  for(const t of (BM._tokens||[])){
+    if(bmDrag&&bmDrag.tok===t) continue;
+    const c = S.combatants.find(x=>x.id===t.combId);
+    const isActive = curC && t.combId===curC.id;
+    const isDead = c && c.pv<=0;
+    bmDrawTok(t,(t.cx+.5)*C,(t.cy+.5)*C,R,false,isActive,isDead);
+  }
+  if(bmDrag){
+    bmCtx.globalAlpha=.3;
+    bmDrawTok(bmDrag.tok,(bmDrag.tok.cx+.5)*C,(bmDrag.tok.cy+.5)*C,R,false,false,false);
+    bmCtx.globalAlpha=1;
+    bmDrawTok(bmDrag.tok,bmDrag.wx,bmDrag.wy,R,true,false,false);
+    const _tc=bmW2C(bmDrag.wx,bmDrag.wy);
+    const _dx=Math.abs(_tc.cx-(bmDrag.startCx??bmDrag.tok.cx)),_dy=Math.abs(_tc.cy-(bmDrag.startCy??bmDrag.tok.cy));
+    const _dist=Math.sqrt(_dx*_dx+_dy*_dy);
+    if(_dist>0){
+      const _m=_dist*1.5; const _lbl=_dist+'c '+(_m%1?_m.toFixed(1):_m)+'m';
+      const _fs=Math.max(10,C*.28);
+      bmCtx.font='bold '+_fs+'px sans-serif';
+      bmCtx.textAlign='center'; bmCtx.textBaseline='bottom';
+      bmCtx.fillStyle='rgba(0,0,0,.7)';
+      bmCtx.fillText(_lbl,bmDrag.wx+1/BV.scale,bmDrag.wy-R-4/BV.scale+1/BV.scale);
+      bmCtx.fillStyle='#ffd700';
+      bmCtx.fillText(_lbl,bmDrag.wx,bmDrag.wy-R-4/BV.scale);
+    }
+  }
+}
+
+function bmDrawTok(tok,wx,wy,R,isDrag,isActive,isDead){
+  const col=TYPE_C[tok.type]||'#888';
+  if(isActive){
+    bmCtx.beginPath(); bmCtx.arc(wx,wy,R+5/BV.scale,0,Math.PI*2);
+    bmCtx.strokeStyle='#ffd700'; bmCtx.lineWidth=3/BV.scale; bmCtx.stroke();
+  }
+  if(bmSelTok===tok||isDrag){
+    bmCtx.beginPath(); bmCtx.arc(wx,wy,R+3/BV.scale,0,Math.PI*2);
+    bmCtx.strokeStyle='#fff'; bmCtx.lineWidth=2/BV.scale; bmCtx.stroke();
+  }
+  bmCtx.globalAlpha = isDead?0.25:1;
+  bmCtx.beginPath(); bmCtx.arc(wx,wy,R,0,Math.PI*2);
+  bmCtx.fillStyle=col+'50'; bmCtx.fill();
+  bmCtx.strokeStyle=col; bmCtx.lineWidth=2/BV.scale; bmCtx.stroke();
+  const lbl=(tok.name||'?').substring(0,5);
+  const fs=Math.max(7,R*.55);
+  bmCtx.font=`600 ${fs}px 'Cinzel',serif`;
+  bmCtx.fillStyle=isDead?'rgba(255,255,255,.25)':'#fff';
+  bmCtx.textAlign='center'; bmCtx.textBaseline='middle';
+  bmCtx.fillText(lbl,wx,wy);
+  bmCtx.globalAlpha=1;
+}
+
+// ── BM Coords & helpers ───────────────────────────────────────────────────────
+function bmS2W(sx,sy){ return{x:(sx-BV.x)/BV.scale, y:(sy-BV.y)/BV.scale}; }
+function bmW2C(wx,wy){ return{cx:Math.floor(wx/BM.cellSize), cy:Math.floor(wy/BM.cellSize)}; }
+function bmInBounds(cx,cy){ return cx>=0&&cx<BM.cols&&cy>=0&&cy<BM.rows; }
+function bmTokAt(wx,wy){
+  const R=BM.cellSize*.42;
+  for(let i=(BM._tokens||[]).length-1;i>=0;i--){
+    const t=BM._tokens[i];
+    if(Math.hypot(wx-(t.cx+.5)*BM.cellSize,wy-(t.cy+.5)*BM.cellSize)<=R) return t;
+  }
+  return null;
+}
+function bmGetEdge(wx,wy){
+  const C=BM.cellSize,gx=wx/C,gy=wy/C;
+  const fx=gx-Math.floor(gx),fy=gy-Math.floor(gy);
+  const cx=Math.floor(gx),cy=Math.floor(gy);
+  const dH=Math.min(fy,1-fy),dV=Math.min(fx,1-fx);
+  if(dH<dV&&dH<.28){const ey=fy<.5?cy:cy+1; if(cx<0||cx>=BM.cols||ey<0||ey>BM.rows)return null; return`h:${cx}:${ey}`;}
+  if(dV<=dH&&dV<.28){const ex=fx<.5?cx:cx+1; if(ex<0||ex>BM.cols||cy<0||cy>=BM.rows)return null; return`v:${ex}:${cy}`;}
+  return null;
+}
+function bmToggleWall(k){ if(!k)return; const i=BM.walls.indexOf(k); if(i>=0){BM.walls.splice(i,1);return false;} BM.walls.push(k); return true; }
+function bmCycleObs(cx,cy){ const k=`${cx},${cy}`,cur=BM.obstacles[k],idx=BM_OBS_SEQ.indexOf(cur); if(idx===BM_OBS_SEQ.length-1)delete BM.obstacles[k]; else BM.obstacles[k]=BM_OBS_SEQ[idx+1]||BM_OBS_SEQ[0]; }
+function bmEraseAt(wx,wy,cx,cy){ const edge=bmGetEdge(wx,wy); if(edge&&BM.walls.includes(edge)){BM.walls.splice(BM.walls.indexOf(edge),1);return;} const k=`${cx},${cy}`; if(k in BM.obstacles) delete BM.obstacles[k]; }
+
+// ── BM Events ─────────────────────────────────────────────────────────────────
+function bmOnMouseDown(e){
+  e.preventDefault();
+  const {x:wx,y:wy}=bmS2W(e.offsetX,e.offsetY);
+  const {cx,cy}=bmW2C(wx,wy);
+  if(e.button===2||bmSpaceDown){ bmPanning=true; bmPanBase={sx:e.clientX,sy:e.clientY,vx:BV.x,vy:BV.y}; bmCanvas.classList.add('tpan'); return; }
+  if(IS_JOUEUR) return;
+  if(bmTool==='select'){ const t=bmTokAt(wx,wy); bmSelTok=t||null; if(t) bmDrag={tok:t,wx,wy,startCx:t.cx,startCy:t.cy}; bmRender(); return; }
+  if(bmTool==='wall'){ const edge=bmGetEdge(wx,wy); if(edge){bmBrushAdd=!BM.walls.includes(edge);bmBrushed.clear();bmBrushing=true;bmToggleWall(edge);bmBrushed.add(edge);bmRender();bmSaveState();} return; }
+  if(bmTool==='obstacle'){ if(bmInBounds(cx,cy)){bmBrushing=true;bmCycleObs(cx,cy);bmRender();bmSaveState();} return; }
+  if(bmTool==='eraser'){ bmBrushing=true; bmEraseAt(wx,wy,cx,cy); bmRender(); bmSaveState(); }
+}
+function bmOnMouseMove(e){
+  if(bmPanning){ BV.x=bmPanBase.vx+e.clientX-bmPanBase.sx; BV.y=bmPanBase.vy+e.clientY-bmPanBase.sy; bmRender(); return; }
+  const {x:wx,y:wy}=bmS2W(e.offsetX,e.offsetY);
+  const {cx,cy}=bmW2C(wx,wy);
+  if(bmDrag&&!IS_JOUEUR){ bmDrag.wx=wx; bmDrag.wy=wy; bmRender(); return; }
+  if(!bmBrushing||IS_JOUEUR) return;
+  if(bmTool==='wall'){ const edge=bmGetEdge(wx,wy); if(edge&&!bmBrushed.has(edge)){bmBrushed.add(edge);if(bmBrushAdd&&!BM.walls.includes(edge))BM.walls.push(edge);else if(!bmBrushAdd){const i=BM.walls.indexOf(edge);if(i>=0)BM.walls.splice(i,1);}bmRender();} }
+  else if(bmTool==='obstacle'){ if(bmInBounds(cx,cy)&&!(cx+','+cy in BM.obstacles)){bmCycleObs(cx,cy);bmRender();} }
+  else if(bmTool==='eraser'){ bmEraseAt(wx,wy,cx,cy); bmRender(); }
+}
+function bmOnMouseUp(e){
+  bmCanvas.classList.remove('tpan');
+  if(bmPanning){ bmPanning=false; return; }
+  if(bmDrag&&!IS_JOUEUR){
+    const {x:wx,y:wy}=bmS2W(e.offsetX,e.offsetY);
+    bmDrag.tok.cx=Math.max(0,Math.min(BM.cols-1,Math.floor(wx/BM.cellSize)));
+    bmDrag.tok.cy=Math.max(0,Math.min(BM.rows-1,Math.floor(wy/BM.cellSize)));
+    S.bmTokens[bmDrag.tok.combId]={cx:bmDrag.tok.cx, cy:bmDrag.tok.cy};
+    const _dd=Math.sqrt(Math.pow(bmDrag.tok.cx-bmDrag.startCx,2)+Math.pow(bmDrag.tok.cy-bmDrag.startCy,2));
+    if(!S.bmMoved)S.bmMoved={}; S.bmMoved[bmDrag.tok.combId]=(S.bmMoved[bmDrag.tok.combId]||0)+_dd;
+    bmDrag=null; bmRender(); bcSend();
+  }
+  if(bmBrushing){ bmBrushing=false; bmBrushed.clear(); bmSaveState(); }
+}
+function bmOnMouseLeave(e){
+  bmCanvas.classList.remove('tpan');
+  if(bmPanning){ bmPanning=false; return; }
+  if(bmDrag&&!IS_JOUEUR){ bmDrag=null; bmRender(); }
+  if(bmBrushing){ bmBrushing=false; bmBrushed.clear(); }
+}
+function bmOnWheel(e){
+  e.preventDefault();
+  const f=e.deltaY<0?1.12:1/1.12;
+  BV.x=e.offsetX-(e.offsetX-BV.x)*f;
+  BV.y=e.offsetY-(e.offsetY-BV.y)*f;
+  BV.scale=Math.max(.08,Math.min(10,BV.scale*f));
+  bmRender();
+}
+function bmOnDblClick(e){
+  if(bmTool!=='select'||IS_JOUEUR) return;
+  const {x:wx,y:wy}=bmS2W(e.offsetX,e.offsetY);
+  const t=bmTokAt(wx,wy); if(!t) return;
+  const n=prompt('Renommer :',t.name);
+  if(n!==null&&n.trim()){ t.name=n.trim().substring(0,20); bmRender(); }
+}
+function bmOnKeyDown(e){
+  if(['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) return;
+  if(e.code==='Space'){ bmSpaceDown=true; e.preventDefault(); }
+  if(!IS_JOUEUR){
+    if(e.key==='s'||e.key==='S') bmSetTool('select');
+    if(e.key==='w'||e.key==='W') bmSetTool('wall');
+    if(e.key==='o'||e.key==='O') bmSetTool('obstacle');
+    if(e.key==='e'||e.key==='E') bmSetTool('eraser');
+  }
+}
+function bmOnKeyUp(e){ if(e.code==='Space') bmSpaceDown=false; }
+
+function bmSetTool(t){
+  bmTool=t;
+  document.querySelectorAll('.bm-tool-btn').forEach(b=>b.classList.remove('on'));
+  const b=document.getElementById('bm-tool-'+t); if(b) b.classList.add('on');
+  if(!bmCanvas) return;
+  bmCanvas.className = ['wall','obstacle','eraser'].includes(t)?'t'+{wall:'crosshair',obstacle:'cell',eraser:'cell'}[t]:'';
+}
+
+function bmRenderToolbar(){
+  const wrap=document.getElementById('bm-toolbar-wrap'); if(!wrap) return;
+  wrap.innerHTML=`
+    <button class="bm-tool-btn on" id="bm-tool-select" onclick="bmSetTool('select')" title="Sélection / déplacer (S)"><span class="bm-tool-icon">↖</span>Sel</button>
+    <button class="bm-tool-btn" id="bm-tool-wall" onclick="bmSetTool('wall')" title="Tracer murs (W)"><span class="bm-tool-icon">─</span>Mur</button>
+    <button class="bm-tool-btn" id="bm-tool-obstacle" onclick="bmSetTool('obstacle')" title="Obstacles (O)"><span class="bm-tool-icon">■</span>Obs</button>
+    <button class="bm-tool-btn" id="bm-tool-eraser" onclick="bmSetTool('eraser')" title="Gomme (E)"><span class="bm-tool-icon">✕</span>Eff</button>
+    <div class="bm-sep"></div>
+    <label style="font-family:var(--font-ui);font-size:.44rem;color:var(--t3)">Grille</label>
+    <input type="color" id="bm-grid-color" value="${BM.gridColor||'#ffffff'}"
+      oninput="BM.gridColor=this.value;bmRender();bmSaveState()"
+      style="width:26px;height:22px;border:1px solid var(--border);border-radius:3px;cursor:pointer;padding:1px;background:transparent">
+    <input type="range" min="0" max="100" step="1" value="${Math.round((BM.gridOpacity!=null?BM.gridOpacity:0.08)*100)}"
+      oninput="BM.gridOpacity=+this.value/100;bmRender();bmSaveState()"
+      title="Opacite grille"
+      style="width:55px;accent-color:var(--amber);cursor:pointer">
+    <div class="bm-sep"></div>
+    <button class="bm-tool-btn" onclick="document.getElementById('bm-bg-file').click()" title="Image de fond">🖼 Fond</button>
+    <input type="file" id="bm-bg-file" accept="image/*" style="display:none" onchange="bmOnBgPick(event)">
+    <button class="bm-tool-btn" onclick="bmClearBg()" title="Retirer fond">✕bg</button>
+    <div class="bm-sep"></div>
+
+    <label style="font-family:var(--font-ui);font-size:.44rem;color:var(--t3)">Échelle</label>
+
+    <input type="range" min="5" max="500" step="5" value="${Math.round((BM.bgScale||1)*100)}" id="bm-bg-scale" oninput="BM.bgScale=+this.value/100;document.getElementById('bm-scale-num').value=this.value;bmRender();bmSaveState()" style="width:70px;accent-color:var(--amber);cursor:pointer">
+
+    <input type="number" min="0.5" max="1000" step="0.5" id="bm-scale-num" value="${Math.round((BM.bgScale||1)*100)}" oninput="const v=Math.max(0.5,Math.min(1000,+this.value||100));BM.bgScale=v/100;document.getElementById('bm-bg-scale').value=v;bmRender();bmSaveState()" style="width:52px;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);padding:2px 4px;font-family:var(--font-ui);font-size:.5rem;text-align:right">
+
+    <span style="font-family:var(--font-ui);font-size:.44rem;color:var(--t3)">%</span>
+    <div class="bm-sep"></div>
+    <button class="bm-tool-btn" onclick="bmClearMap()" title="Effacer murs et obstacles" style="color:#c84a4a;border-color:rgba(200,74,74,.3)">🗑 Carte</button>
+    <span style="font-family:var(--font-ui);font-size:.4rem;color:var(--t3);margin-left:4px">Espace+glisser = pan · Molette = zoom</span>`;
+}
+
+function bmOnBgPick(e){
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=ev=>{ BM.bgData=ev.target.result; bmBgImg=new Image(); bmBgImg.onload=()=>bmRender(); bmBgImg.src=BM.bgData; bmSaveState(); };
+  r.readAsDataURL(f); e.target.value='';
+}
+function bmClearBg(){ BM.bgData=null; bmBgImg=null; bmRender(); bmSaveState(); }
+function bmClearMap(){ if(!confirm('Effacer murs et obstacles ?')) return; BM.walls=[]; BM.obstacles={}; bmSaveState(); bmRender(); }
+
+// ── TOGGLE BATTLEMAP ──────────────────────────────────────────────────────────
+function toggleBM(){
+  S.bmOpen=!S.bmOpen;
+  const sec=document.getElementById('bm-section');
+  const chev=document.getElementById('bm-chevron');
+  sec.classList.toggle('open',S.bmOpen);
+  if(chev) chev.classList.toggle('open',S.bmOpen);
+  if(S.bmOpen){ requestAnimationFrame(()=>requestAnimationFrame(bmResizeCanvas)); setTimeout(bmResizeCanvas,150); }
+  bcSend();
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async()=>{
+  // nav.js appelle injectNav() via son propre DOMContentLoaded — ne pas le rappeler ici
+  bcInit();
+  if(!IS_JOUEUR){
+    try{ allPJs = await loadData('personnages.json').catch(()=>[]) || []; allPJs=allPJs.filter(p=>p.id); }catch(e){ allPJs=[]; }
+    try{ allPNJs = await loadData('pnjs.json').catch(()=>[]) || []; }catch(e){ allPNJs=[]; }
+    try{ allMonstres = await loadData('monstres.json').catch(()=>[]) || []; }catch(e){ allMonstres=[]; }
+    render();
+  }
+  document.addEventListener('larme-mj-change', ()=>render());
+});
+</script>
+</body>
+</html>

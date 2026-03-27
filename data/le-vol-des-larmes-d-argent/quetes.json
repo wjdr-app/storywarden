@@ -1,0 +1,222 @@
+[
+  {
+    "id": "quete_01",
+    "titre": "Le vol de la Larme d'Argent",
+    "statut": "terminée",
+    "priorite": null,
+    "description": "La Larme d'Argent de la Borne-Cœur de Valmorne a été dérobée. Les morts se lèvent. Retrouver la Larme avant que la protection ne cède définitivement.",
+    "objectifs": [
+      {
+        "texte": "Comprendre comment la Larme a été volée",
+        "accompli": true
+      },
+      {
+        "texte": "Identifier le voleur (Renn)",
+        "accompli": true
+      },
+      {
+        "texte": "Remonter la chaîne jusqu'à la Larme (Corvin → Ysolda)",
+        "accompli": true
+      },
+      {
+        "texte": "Récupérer la Larme chez Ysolda",
+        "accompli": true
+      },
+      {
+        "texte": "Replacer la Larme dans la Borne-Cœur",
+        "accompli": true
+      },
+      {
+        "texte": "Neutraliser les morts-vivants sur la place centrale",
+        "accompli": true
+      }
+    ],
+    "lieux_impliques": [
+      "lieu_01",
+      "lieu_03",
+      "lieu_05",
+      "lieu_08"
+    ],
+    "pnjs_impliques": [
+      "pnj_edward",
+      "pnj_mael",
+      "pnj_rulven",
+      "pnj_renn",
+      "pnj_corvin",
+      "pnj_ysolda",
+      "pnj_mila"
+    ],
+    "recompense": "Liberté — intégration dans la Brigade du Saumon Noir."
+  },
+  {
+    "id": "finn_quest",
+    "titre": "L'Argent des Ombres.",
+    "statut": "active",
+    "priorite": "secondaire",
+    "description": "Finn a mis la main sur une étrange monnaie au moulin désaffecté, le lieu de rendez-vous supposé de l'homme à la capuche. Pour découvrir qui finance ces opérations de l'ombre, il doit renouer avec ses anciens contacts et remonter la piste de la contrebande.",
+    "objectifs": [
+      {
+        "texte": "Fouiller le moulin désaffecté pour récupérer la pièce d'argent frappée d'un dragon",
+        "accompli": true
+      },
+      {
+        "texte": "Infiltrer les réseaux de contrebandiers pour remonter la piste des fonds de l'homme à la capuche.",
+        "accompli": false
+      }
+    ],
+    "recompense": "",
+    "lieux_impliques": [],
+    "pnjs_impliques": [],
+    "indices": [],
+    "visible_joueurs": true
+  },
+  {
+    "id": "illwen_quest",
+    "titre": "L'Étreinte du Dessous",
+    "statut": "active",
+    "priorite": "secondaire",
+    "description": "En route vers le moulin désaffecté, le groupe subit une attaque de brigands qui tourne mal et détruit leur seule protection lumineuse contre la brume. Alors que le Souffle du Dessous menace d'engloutir les aventuriers, Illwen découvre qu'elle peut entendre et guider cette force.",
+    "objectifs": [
+      {
+        "texte": "Survivre à l'embuscade tendue par des bandits sur la route du moulin et gérer la destruction de la lanterne de Sel-Lune.",
+        "accompli": true
+      },
+      {
+        "texte": "Enquêter sur le pouvoir d'Illwen",
+        "accompli": false
+      }
+    ],
+    "recompense": "",
+    "lieux_impliques": [],
+    "pnjs_impliques": [],
+    "indices": [],
+    "visible_joueurs": true
+  },
+  {
+    "id": "Osric_quest",
+    "titre": "L'Écho",
+    "statut": "active",
+    "priorite": "secondaire",
+    "description": "Depuis qu'il a touché la poudre d'argent profanée sur les restes du mort-vivant, le sang d'Osric bouillonne.",
+    "objectifs": [
+      {
+        "texte": "Suivre la \"résonance magnétique\" qu'Osric",
+        "accompli": true
+      },
+      {
+        "texte": "Survivre à l'interaction magique avec l'homme à la capuche au moulin.",
+        "accompli": true
+      },
+      {
+        "texte": "Utiliser la \"boussole interne\" générée par cette résonance pour guider le groupe",
+        "accompli": false
+      }
+    ],
+    "recompense": "",
+    "lieux_impliques": [],
+    "pnjs_impliques": [],
+    "indices": [],
+    "visible_joueurs": true
+  },
+  {
+    "id": "Darg_quest",
+    "titre": "L'Héritage des Bâtisseurs",
+    "statut": "active",
+    "priorite": "secondaire",
+    "description": "Sur les murs délabrés du moulin, l'homme à la capuche a laissé derrière lui une série de schémas, d'angles et de calculs qui échappent totalement à la compréhension du groupe. Mais pour les yeux d'un nain ayant connu les profondeurs et le chant de la roche, ces tracés ont un sens terrifiant. Ils décrivent une méthode de percussion, une façon de contraindre la pierre noire que Darg croyait n'être qu'un mythe de vieux mineur. Quiconque a gravé ces plans cherchait à percer le secret des fondations physiques de la Marche.",
+    "objectifs": [
+      {
+        "texte": "Analyser les schémas gravés sur les murs du moulin et être le seul à comprendre qu'il s'agit de plans de taille de la \"pierre sourde\".",
+        "accompli": true
+      },
+      {
+        "texte": "Étudier les documents",
+        "accompli": false
+      },
+      {
+        "texte": "Suivre les indications techniques déduites",
+        "accompli": false
+      }
+    ],
+    "recompense": "",
+    "lieux_impliques": [],
+    "pnjs_impliques": [],
+    "indices": [],
+    "visible_joueurs": true
+  },
+  {
+    "id": "quete_02",
+    "titre": "L'homme à la capuche",
+    "statut": "active",
+    "priorite": "critique",
+    "description": "Un individu inconnu a manipulé Renn pour tester la résilience de Valmorne sans sa Larme. Il reviendra.",
+    "objectifs": [
+      {
+        "texte": "Identifier l'homme à la capuche",
+        "accompli": false
+      },
+      {
+        "texte": "Comprendre son objectif",
+        "accompli": false
+      },
+      {
+        "texte": "L'arrêter et le livrer à la justice de la brigade",
+        "accompli": false
+      }
+    ],
+    "recompense": "",
+    "lieux_impliques": [],
+    "pnjs_impliques": [],
+    "indices": []
+  },
+  {
+    "id": "moulin",
+    "titre": "Le moulin abandonné",
+    "statut": "terminée",
+    "priorite": null,
+    "description": "Edward a missionné l'escouade d'enquêter sur le moulin abandonné, pour tenter de trouver l'homme à la capuche.",
+    "objectifs": [
+      {
+        "texte": "Se rendre au moulin",
+        "accompli": false
+      },
+      {
+        "texte": "Trouver des informations sur l'homme à la capuche",
+        "accompli": false
+      },
+      {
+        "texte": "Arrêter l'homme à la capuche.",
+        "accompli": false
+      }
+    ],
+    "recompense": "",
+    "lieux_impliques": [],
+    "pnjs_impliques": [],
+    "indices": []
+  },
+  {
+    "id": "fabrice_quest",
+    "titre": "La traque du barde rouge",
+    "statut": "active",
+    "priorite": "secondaire",
+    "description": "Fabrice voue une haine féroce aux beaux parleurs et aux manipulateurs. Il traque avec obstination un mystérieux barde elfe à la peau rouge. Il a fini par le coincer dans une taverne à l'entrée de la Marche de Roncebrume et lui est tombé dessus sans sommation. Au lieu de se battre, l'elfe a déclenché une capacité sonore dévastatrice qui a fait exploser toutes les vitres de l'établissement, créant un chaos qui lui a permis de s'enfuir. Resté seul au milieu des débris, Fabrice a été cueilli par la Brigade du Saumon Noir et enrôlé de force pour éviter la potence. Avant que la bagarre n'éclate, Fabrice a pu espionner sa cible : l'elfe affirmait être venu dans la région spécifiquement pour trouver et étudier ce qu'il nomme la \"fréquence primordiale\".",
+    "objectifs": [
+      {
+        "texte": "Retrouver la piste du barde elfe rouge à l'intérieur de la Marche de Roncebrume.",
+        "accompli": false
+      },
+      {
+        "texte": "Découvrir ce que signifie cette fameuse \"fréquence primordiale\" qu'il recherche.",
+        "accompli": false
+      },
+      {
+        "texte": "Se venger de l'elfe pour l'humiliation subie et l'arrestation par la Brigade.",
+        "accompli": false
+      }
+    ],
+    "recompense": "",
+    "lieux_impliques": [],
+    "pnjs_impliques": [],
+    "indices": []
+  }
+]

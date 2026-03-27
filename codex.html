@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Codex — La Larme d'Argent</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/sw-v2.css">
+<style>
+/* ── FILTERS ───────────────────────────────────────────────────── */
+.filters-bar { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-bottom:16px; }
+.filter-btn {
+  font-family:var(--font-ui); font-size:.68rem; font-weight:500;
+  letter-spacing:.06em; text-transform:uppercase;
+  padding:5px 16px; background:transparent;
+  color:var(--text-muted); border:1px solid var(--border-soft);
+  border-radius:20px; cursor:pointer; transition:all .15s; outline:none;
+}
+.filter-btn:hover { border-color:var(--border-mid); color:var(--text); }
+.filter-btn.active { background:var(--crimson); border-color:var(--crimson); color:var(--text); }
+
+.search-input {
+  padding:5px 14px; background:var(--surface);
+  border:1px solid var(--border-soft); border-radius:20px;
+  font-family:var(--font-body); font-size:.85rem; font-style:italic;
+  color:var(--text); outline:none; transition:border-color .15s; margin-left:auto;
+}
+.search-input::placeholder { color:var(--text-dim); }
+.search-input:focus { border-color:var(--border-mid); }
+
+.count-line {
+  font-family:var(--font-ui); font-size:.56rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--text-dim); margin-bottom:12px;
+}
+
+/* ── GRID ──────────────────────────────────────────────────────── */
+.codex-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:10px; align-items:start;
+}
+
+/* ── CARD ──────────────────────────────────────────────────────── */
+.codex-card {
+  background:var(--surface); border:1px solid var(--border-soft);
+  border-radius:10px; overflow:hidden; cursor:pointer;
+  transition:background .15s, border-color .15s;
+}
+.codex-card:not(.open):hover { background:var(--surface-mid); border-color:var(--border-mid); }
+.codex-card.open { border-color:var(--border-mid); cursor:default; }
+.codex-card.mj-only { border-color:var(--crimson-bd); }
+
+.codex-head { padding:12px 14px 10px; display:flex; align-items:flex-start; gap:10px; }
+.codex-icon { font-size:1.2rem; flex-shrink:0; margin-top:1px; opacity:.75; display:flex; align-items:center; }
+.codex-icon-svg { background:var(--text); width:2.4rem; height:2.4rem; mask-size:contain; mask-repeat:no-repeat; mask-position:center; -webkit-mask-size:contain; -webkit-mask-repeat:no-repeat; -webkit-mask-position:center; }
+.codex-head-info { flex:1; min-width:0; }
+.codex-titre { font-family:var(--font-ui); font-size:.82rem; font-weight:700; letter-spacing:.04em; line-height:1.2; margin-bottom:3px; }
+.codex-meta { font-size:.74rem; font-style:italic; color:var(--text-muted); display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.codex-statut {
+  font-family:var(--font-ui); font-size:.44rem; letter-spacing:.1em; text-transform:uppercase;
+  border:1px solid; border-radius:20px; padding:2px 9px; white-space:nowrap; flex-shrink:0;
+}
+.codex-statut.revele { border-color:#3a8a3a; color:#6abf6a; }
+.codex-statut.partiel { border-color:#a07020; color:#d4a030; }
+.codex-statut.cache { border-color:var(--crimson-bd); color:var(--crimson); }
+.codex-chevron { font-size:.62rem; color:var(--text-dim); transition:transform .2s; margin-top:2px; flex-shrink:0; }
+.codex-card.open .codex-chevron { transform:rotate(180deg); }
+
+.codex-div { height:1px; background:var(--border-soft); margin:0 14px; display:none; }
+.codex-card.open .codex-div { display:block; }
+.codex-body { padding:0 14px 14px; display:none; }
+.codex-card.open .codex-body { display:block; }
+
+.codex-contenu { font-size:.85rem; line-height:1.7; color:var(--text-muted); font-style:italic; margin:10px 0 6px; white-space:pre-wrap; }
+.codex-notes-mj {
+  margin-top:10px; padding:8px 10px;
+  background:var(--crimson-dim); border-left:3px solid var(--crimson-bd);
+  border-radius:0 6px 6px 0; font-size:.78rem; color:var(--text-muted); font-style:italic;
+}
+.codex-notes-mj-lbl { font-family:var(--font-ui); font-size:.5rem; letter-spacing:.1em; text-transform:uppercase; color:var(--crimson); display:block; margin-bottom:3px; }
+.codex-session { font-size:.72rem; color:var(--text-dim); margin-top:8px; font-style:italic; }
+
+.empty-msg { font-family:var(--font-ui); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-dim); text-align:center; padding:40px; grid-column:1/-1; }
+
+@media(max-width:640px){ .codex-grid{ grid-template-columns:1fr; } .search-input{ margin-left:0; width:100%; } }
+</style>
+</head>
+<body>
+
+<div class="page-header"><h1 class="page-title">Le <span>Codex</span></h1><p class="page-sub">Encyclop&eacute;die de la campagne</p></div>
+<div class="filters-bar" id="filters-bar">
+  <button class="filter-btn active" data-filter="tous" onclick="setFilter('tous',this)">Tous</button>
+  <input class="search-input" type="text" id="search-input" placeholder="Rechercher…" oninput="applyFilters()">
+</div>
+<div class="count-line" id="count-line"></div>
+<div class="codex-grid" id="codex-grid">
+  <p style="font-style:italic;color:var(--text-muted);font-size:.82rem;grid-column:1/-1;text-align:center;padding:24px;">Chargement\u2026</p>
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/nav-v2.js"></script>
+<script>
+let CODEX_DATA = [];
+let currentFilter = 'tous';
+
+const TYPE_ICONS = {
+  livre: '\ud83d\udcd6',
+  parchemin: '<div class="codex-icon-svg" style="mask-image:url(assets/pictos/Divers/parchemin.svg);-webkit-mask-image:url(assets/pictos/Divers/parchemin.svg)"></div>',
+  inscription: '\u270e',
+  oral: '\u25ce',
+  carte: '\u25c8'
+};
+const TYPE_LABELS = {
+  livre: 'Livre',
+  parchemin: 'Parchemin',
+  inscription: 'Inscription',
+  oral: 'Tradition orale',
+  carte: 'Carte'
+};
+
+function buildFilters() {
+  const types = [...new Set(CODEX_DATA.map(c => c.type).filter(Boolean))];
+  const bar = document.getElementById('filters-bar');
+  const search = document.getElementById('search-input');
+  bar.querySelectorAll('.filter-btn:not([data-filter="tous"])').forEach(b => b.remove());
+  types.forEach(t => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.dataset.filter = t;
+    btn.onclick = () => setFilter(t, btn);
+    btn.textContent = TYPE_LABELS[t] || t;
+    bar.insertBefore(btn, search);
+  });
+  const active = bar.querySelector('[data-filter="' + currentFilter + '"]');
+  if (active) active.classList.add('active');
+}
+
+async function init() {
+  try {
+    const cfg = JSON.parse(localStorage.getItem('sw_settings') || '{}');
+    if (cfg.codex_visible_joueurs === false && !getMJMode()) {
+      document.getElementById('codex-grid').innerHTML = '<p class="empty-msg">Page non disponible.</p>';
+      document.getElementById('count-line').textContent = '';
+      return;
+    }
+    CODEX_DATA = await loadData('codex.json');
+    buildFilters();
+    applyFilters();
+  } catch(e) {
+    document.getElementById('codex-grid').innerHTML =
+      '<p style="color:var(--crimson);font-size:.82rem;font-style:italic;grid-column:1/-1;text-align:center;padding:24px;">\u26a0 Donn\u00e9es inaccessibles en file://. Utiliser un serveur local.</p>';
+  }
+}
+
+function setFilter(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+
+function applyFilters() {
+  const q = (document.getElementById('search-input').value || '').toLowerCase().trim();
+  const isMJ = getMJMode();
+  let filtered = isMJ
+    ? CODEX_DATA
+    : CODEX_DATA.filter(c => c.visible_joueurs === true && c.statut !== 'cache');
+  if (currentFilter !== 'tous') filtered = filtered.filter(c => c.type === currentFilter);
+  if (q) filtered = filtered.filter(c =>
+    (c.titre || '').toLowerCase().includes(q) ||
+    (c.contenu || '').toLowerCase().includes(q));
+  renderGrid(filtered);
+  const total = isMJ ? CODEX_DATA.length : CODEX_DATA.filter(c => c.visible_joueurs === true && c.statut !== 'cache').length;
+  document.getElementById('count-line').textContent =
+    filtered.length === total ? `${total} entr${total > 1 ? '\u00e9es' : '\u00e9e'}` : `${filtered.length} / ${total} entr\u00e9es`;
+}
+
+function esc(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function buildCard(c) {
+  const icon = TYPE_ICONS[c.type] || '\u25c8';
+  const typeLabel = TYPE_LABELS[c.type] || c.type || '';
+  const statut = c.statut || 'cache';
+  const isMJ = getMJMode();
+  const mjOnly = c.visible_joueurs === false || c.visible_joueurs === undefined;
+  const sessionLine = c.session_decouverte
+    ? `<div class="codex-session">Session de d\u00e9couverte : ${esc(c.session_decouverte)}</div>` : '';
+  const notesMJ = (isMJ && c.notes_mj)
+    ? `<div class="codex-notes-mj mj-only"><span class="codex-notes-mj-lbl">Notes MJ</span>${esc(c.notes_mj)}</div>` : '';
+  const showContent = isMJ || statut === 'revele' || statut === 'partiel';
+  const contenu = showContent && c.contenu
+    ? `<div class="codex-contenu">${esc(c.contenu)}</div>` : '';
+  return `<div class="codex-card${isMJ && mjOnly ? ' mj-only' : ''}" onclick="toggleCard(this)">
+  <div class="codex-head">
+    <div class="codex-icon">${icon}</div>
+    <div class="codex-head-info">
+      <div class="codex-titre">${esc(c.titre)}</div>
+      <div class="codex-meta"><span>${typeLabel}</span>${isMJ ? `<span class="codex-statut ${statut}">${statut}</span>` : ''}</div>
+    </div>
+    <div class="codex-chevron">\u25be</div>
+  </div>
+  <div class="codex-div"></div>
+  <div class="codex-body">
+    ${contenu}
+    ${sessionLine}
+    ${notesMJ}
+  </div>
+</div>`;
+}
+
+function toggleCard(el) {
+  el.classList.toggle('open');
+}
+
+function renderGrid(data) {
+  const grid = document.getElementById('codex-grid');
+  if (!data.length) { grid.innerHTML = '<p class="empty-msg">Aucune entr\u00e9e correspondante.</p>'; return; }
+  grid.innerHTML = data.map(buildCard).join('');
+  applyMJMode(getMJMode());
+}
+
+window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

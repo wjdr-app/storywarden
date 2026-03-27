@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dés — La Larme d'Argent</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/sw-v2.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);font-family:var(--font-body);color:var(--text);}
+
+.page-wrap{padding:28px 20px 60px !important;}
+
+/* ── Layout 2 colonnes ── */
+.dice-grid{
+  display:grid;
+  grid-template-columns:1fr 340px;
+  gap:16px;
+  align-items:start;
+  max-width:1000px;
+  margin:0 auto;
+}
+.dice-right{position:sticky;top:80px;}
+
+/* ── Panels ── */
+.panel{
+  background:var(--surface);
+  border:1px solid var(--border-soft);
+  border-radius:12px;
+  padding:20px 22px;
+  margin-bottom:14px;
+}
+.panel:last-child{margin-bottom:0;}
+.panel-ttl{
+  font-family:var(--font-ui);
+  font-size:.58rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text-dim);
+  margin-bottom:16px;padding-bottom:10px;
+  border-bottom:1px solid var(--border-soft);
+  display:flex;align-items:center;justify-content:space-between;
+}
+
+/* ── Dés rapides ── */
+.dice-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.die-btn{
+  width:76px;height:76px;
+  background:var(--surface-mid);
+  border:1px solid var(--border-soft);
+  border-radius:12px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:all .15s;font-family:var(--font-ui);color:var(--text);outline:none;
+  user-select:none;
+}
+.die-btn:hover{background:var(--surface-hi);border-color:var(--crimson);transform:translateY(-2px);box-shadow:0 4px 14px rgba(158,58,68,.25);}
+.die-btn:active{transform:translateY(0);}
+.die-btn.rolled{border-color:var(--crimson);box-shadow:0 0 0 2px rgba(158,58,68,.25);}
+.die-name{font-size:1.1rem;font-weight:700;letter-spacing:.02em;}
+.die-sub{font-size:.38rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-top:3px;}
+
+/* ── Avantage / Désavantage ── */
+.adv-row{display:flex;gap:8px;}
+.adv-btn{
+  flex:1;padding:13px 10px;border-radius:10px;cursor:pointer;
+  font-family:var(--font-ui);border:1px solid;
+  transition:all .15s;display:flex;flex-direction:column;align-items:center;gap:4px;
+  user-select:none;
+}
+.adv-lbl{font-size:.72rem;font-weight:700;letter-spacing:.04em;}
+.adv-hint{font-size:.44rem;letter-spacing:.08em;text-transform:uppercase;opacity:.65;}
+.adv-up{background:#3a7a54;border-color:#3a7a54;color:var(--text);}
+.adv-up:hover{background:#2e6243;border-color:#2e6243;}
+.adv-dn{background:var(--crimson);border-color:var(--crimson);color:var(--text);}
+.adv-dn:hover{background:var(--crimson-dark);border-color:var(--crimson-dark);}
+
+/* ── Inputs communs ── */
+.ci{
+  background:var(--surface-mid);border:1px solid var(--border-soft);
+  border-radius:8px;color:var(--text);font-family:var(--font-ui);
+  padding:8px 10px;outline:none;font-size:.88rem;transition:border-color .15s;
+}
+.ci:focus{border-color:var(--crimson);}
+input.ci[type=number]{width:58px;text-align:center;}
+select.ci{flex:1;min-width:90px;}
+select.ci option{background:var(--surface);}
+
+/* ── Lancer personnalisé ── */
+.cr-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+.cr-sep{color:var(--text-dim);font-family:var(--font-ui);font-size:1rem;flex-shrink:0;user-select:none;}
+.cr-opts{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--text-dim);}
+.cr-opts label{display:flex;align-items:center;gap:5px;cursor:pointer;}
+
+/* ── Expression libre ── */
+.expr-row{display:flex;gap:8px;}
+.expr-inp{
+  flex:1;background:var(--surface-mid);border:1px solid var(--border-soft);
+  border-radius:8px;color:var(--text);font-family:var(--font-ui);
+  font-size:.88rem;padding:10px 12px;outline:none;transition:border-color .15s;
+}
+.expr-inp:focus{border-color:var(--crimson);}
+.expr-hint{font-size:.62rem;color:var(--text-dim);margin-top:8px;line-height:1.7;}
+.expr-hint code{background:var(--surface-mid);padding:1px 5px;border-radius:4px;font-family:monospace;font-size:.68rem;color:var(--text);}
+
+/* ── Bouton lancer ── */
+.roll-btn{
+  font-family:var(--font-ui);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:10px 20px;background:var(--crimson);border:none;border-radius:8px;
+  color:var(--text);cursor:pointer;transition:background .15s;font-weight:700;white-space:nowrap;
+}
+.roll-btn:hover{background:var(--crimson-dark);}
+
+/* ── Résultat ── */
+.result-panel{text-align:center;padding:26px 20px 22px;}
+.result-label{font-family:var(--font-ui);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim);min-height:1em;margin-bottom:4px;}
+.result-total{font-family:var(--font-ui);font-size:5.5rem;font-weight:700;line-height:1;letter-spacing:-.02em;color:var(--text);transition:color .2s;}
+.result-total.crit{color:#f0c040;}
+.result-total.fumble{color:var(--crimson);}
+.result-detail{font-size:.78rem;font-style:italic;color:var(--text-dim);margin-top:8px;line-height:1.6;min-height:1.2em;}
+.result-badge{display:inline-block;font-family:var(--font-ui);font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-top:10px;}
+.result-badge.crit{background:rgba(240,192,64,.12);border:1px solid #f0c040;color:#f0c040;}
+.result-badge.fumble{background:rgba(158,58,68,.12);border:1px solid var(--crimson);color:var(--crimson);}
+
+/* Affichage 2 dés avantage/désavantage */
+.adv-dice{display:flex;justify-content:center;gap:14px;margin:14px 0 6px;}
+.adv-die{
+  font-family:var(--font-ui);font-size:1.9rem;font-weight:700;
+  width:60px;height:60px;border-radius:10px;border:2px solid;
+  display:flex;align-items:center;justify-content:center;transition:all .15s;
+}
+.adv-die.kept{background:var(--surface-mid);border-color:var(--crimson);color:var(--text);}
+.adv-die.kept.is-crit{border-color:#f0c040;color:#f0c040;}
+.adv-die.kept.is-fumble{border-color:var(--crimson);color:var(--crimson);}
+.adv-die.dropped{background:transparent;border-color:var(--border-soft);color:var(--text-dim);opacity:.45;text-decoration:line-through;}
+
+/* ── Historique ── */
+.hist-clear{background:transparent;border:none;cursor:pointer;font-family:var(--font-ui);font-size:.48rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);padding:0;transition:color .15s;}
+.hist-clear:hover{color:var(--crimson);}
+.hist-item{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border-soft);}
+.hist-item:last-child{border-bottom:none;}
+#hist-list{max-height:320px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border-soft) transparent;}
+.hist-lbl{font-family:var(--font-ui);font-size:.54rem;letter-spacing:.05em;color:var(--text-dim);min-width:80px;flex-shrink:0;}
+.hist-detail{flex:1;color:var(--text-dim);font-style:italic;font-size:.7rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.hist-tot{font-family:var(--font-ui);font-weight:700;font-size:.92rem;min-width:30px;text-align:right;flex-shrink:0;}
+.hist-item.crit .hist-tot{color:#f0c040;}
+.hist-item.fumble .hist-tot{color:var(--crimson);}
+
+@media(max-width:700px){
+  .dice-grid{grid-template-columns:1fr;}
+  .dice-right{position:static;}
+  .die-btn{width:66px;height:66px;}
+  .die-name{font-size:1rem;}
+}
+@media(max-width:420px){
+  .die-btn{width:58px;height:58px;}
+  .adv-row{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <div class="page-header">
+    <h1 class="page-title">Les <span>Dés</span></h1>
+    <p class="page-sub">Lancers &bull; D&amp;D 5e</p>
+  </div>
+
+  <div class="dice-grid">
+
+    <!-- ════ Colonne gauche : contrôles ════ -->
+    <div class="dice-left">
+
+      <!-- Lancer rapide -->
+      <div class="panel">
+        <div class="panel-ttl">Lancer rapide</div>
+        <div class="dice-row" id="dice-row"></div>
+      </div>
+
+      <!-- Avantage / Désavantage -->
+      <div class="panel">
+        <div class="panel-ttl">Avantage &middot; Désavantage &mdash; d20</div>
+        <div class="adv-row">
+          <button class="adv-btn adv-up" onclick="rollAdv(1)">
+            <span class="adv-lbl">&#9650; Avantage</span>
+            <span class="adv-hint">2d20 &mdash; garder le plus haut</span>
+          </button>
+          <button class="adv-btn adv-dn" onclick="rollAdv(-1)">
+            <span class="adv-lbl">&#9660; Désavantage</span>
+            <span class="adv-hint">2d20 &mdash; garder le plus bas</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Lancer personnalisé -->
+      <div class="panel">
+        <div class="panel-ttl">Lancer personnalisé</div>
+        <div class="cr-row">
+          <input class="ci" type="number" id="qty" value="1" min="1" max="99" title="Nombre de dés">
+          <span class="cr-sep">&times;</span>
+          <select class="ci" id="die-sel">
+            <option value="4">d4</option>
+            <option value="6" selected>d6</option>
+            <option value="8">d8</option>
+            <option value="10">d10</option>
+            <option value="12">d12</option>
+            <option value="20">d20</option>
+            <option value="100">d100</option>
+          </select>
+          <span class="cr-sep">+</span>
+          <input class="ci" type="number" id="mod" value="0" title="Modificateur">
+          <button class="roll-btn" onclick="customRoll()">Lancer</button>
+        </div>
+        <div class="cr-opts">
+          <label>
+            <input type="checkbox" id="kh-chk" style="accent-color:var(--crimson)">
+            Garder les
+          </label>
+          <input class="ci" type="number" id="kh-n" value="3" min="1" max="98">
+          <span>plus hauts</span>
+          <span style="font-size:.6rem;opacity:.5">(ex : 4d6kh3 pour stats)</span>
+        </div>
+      </div>
+
+      <!-- Expression libre -->
+      <div class="panel">
+        <div class="panel-ttl">Expression libre</div>
+        <div class="expr-row">
+          <input class="expr-inp" id="expr-inp" type="text"
+            placeholder="ex : 2d6+3, 4d6kh3, 1d20+1d6+5"
+            autocomplete="off"
+            onkeydown="if(event.key==='Enter')rollExpr()">
+          <button class="roll-btn" onclick="rollExpr()">&#9654;</button>
+        </div>
+        <div class="expr-hint">
+          <code>2d6+3</code> &nbsp;&middot;&nbsp;
+          <code>4d6kh3</code> garder 3 plus hauts &nbsp;&middot;&nbsp;
+          <code>3d8kl2</code> garder 2 plus bas &nbsp;&middot;&nbsp;
+          <code>1d20+1d4+5</code> multi-dés
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ════ Colonne droite : résultat + historique ════ -->
+    <div class="dice-right">
+
+      <div class="panel result-panel" id="result-panel" style="display:none">
+        <div class="result-label" id="result-label"></div>
+        <div class="result-total" id="result-total">—</div>
+        <div class="adv-dice" id="adv-dice-wrap" style="display:none"></div>
+        <div class="result-detail" id="result-detail"></div>
+        <div id="result-badge-wrap"></div>
+      </div>
+
+      <div class="panel" id="hist-panel" style="display:none">
+        <div class="panel-ttl">
+          Historique
+          <button class="hist-clear" onclick="clearHistory()">Effacer</button>
+        </div>
+        <div id="hist-list"></div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/nav-v2.js"></script>
+<script>
+const DICE = [4, 6, 8, 10, 12, 20, 100];
+let rollHistory = [];
+let lastRolled = null;
+
+// ── Boutons dés rapides ────────────────────────────────────────────────────
+document.getElementById('dice-row').innerHTML = DICE.map(n =>
+  `<button class="die-btn" id="die-${n}" onclick="quickRoll(${n})">
+    <span class="die-name">d${n}</span>
+    <span class="die-sub">${n} faces</span>
+  </button>`
+).join('');
+
+function rollDie(n) { return Math.floor(Math.random() * n) + 1; }
+
+function flashDie(n) {
+  if (lastRolled) document.getElementById('die-' + lastRolled)?.classList.remove('rolled');
+  document.getElementById('die-' + n)?.classList.add('rolled');
+  lastRolled = n;
+}
+
+// ── Lancer rapide ──────────────────────────────────────────────────────────
+function quickRoll(n) {
+  flashDie(n);
+  const r = rollDie(n);
+  showResult({ label: 'd' + n, rolls: [r], mod: 0, die: n, total: r });
+}
+
+// ── Avantage / Désavantage ─────────────────────────────────────────────────
+function rollAdv(dir) {
+  const r1 = rollDie(20), r2 = rollDie(20);
+  const kept = dir === 1 ? Math.max(r1, r2) : Math.min(r1, r2);
+  const keptIsFirst = dir === 1 ? r1 >= r2 : r1 <= r2;
+  const label = dir === 1 ? 'd20 (avantage)' : 'd20 (désavantage)';
+  showResult({ label, rolls: [kept], mod: 0, die: 20, total: kept,
+    adv: { dir, kept, r1, r2, keptIsFirst } });
+}
+
+// ── Lancer personnalisé ────────────────────────────────────────────────────
+function customRoll() {
+  const qty   = Math.max(1, Math.min(99, parseInt(document.getElementById('qty').value) || 1));
+  const die   = parseInt(document.getElementById('die-sel').value);
+  const mod   = parseInt(document.getElementById('mod').value) || 0;
+  const useKh = document.getElementById('kh-chk').checked;
+  const khN   = Math.max(1, Math.min(qty - 1, parseInt(document.getElementById('kh-n').value) || 3));
+
+  const rolls = Array.from({length: qty}, () => rollDie(die));
+  let used = rolls, dropped = [];
+
+  if (useKh && qty > 1 && khN < qty) {
+    const ranked = rolls.map((v, i) => ({v, i})).sort((a, b) => b.v - a.v);
+    const keptIdx = new Set(ranked.slice(0, khN).map(x => x.i));
+    used    = rolls.filter((_, i) => keptIdx.has(i));
+    dropped = rolls.filter((_, i) => !keptIdx.has(i));
+  }
+
+  const total = used.reduce((a, b) => a + b, 0) + mod;
+  const label = (qty > 1 ? qty : '') + 'd' + die
+    + (useKh && qty > 1 ? 'kh' + khN : '')
+    + (mod !== 0 ? (mod > 0 ? '+' + mod : mod) : '');
+  showResult({ label, rolls: used, dropped, mod, die, total });
+}
+
+// ── Expression libre ───────────────────────────────────────────────────────
+function rollExpr() {
+  const raw = document.getElementById('expr-inp').value.trim();
+  if (!raw) return;
+  try {
+    const res = parseExpr(raw);
+    showResult({ label: raw, rolls: res.rolls, mod: 0, die: null, total: res.total, exprDetail: res.detail });
+  } catch(e) {
+    const el = document.getElementById('result-panel');
+    el.style.display = 'block';
+    document.getElementById('result-total').textContent = '!';
+    document.getElementById('result-detail').textContent = 'Expression invalide : ' + e.message;
+    document.getElementById('adv-dice-wrap').style.display = 'none';
+    document.getElementById('result-badge-wrap').innerHTML = '';
+  }
+}
+
+function parseExpr(expr) {
+  const src = expr.trim().toLowerCase().replace(/\s/g, '');
+  const tokens = src.match(/[+-]?[^+-]+/g) || [];
+  let total = 0;
+  const allRolls = [], parts = [];
+
+  for (const tok of tokens) {
+    const sign = tok.startsWith('-') ? -1 : 1;
+    const t = tok.replace(/^[+-]/, '');
+    const dm = t.match(/^(\d*)d(\d+)(?:k([hl])(\d+))?$/);
+    if (dm) {
+      const qty  = Math.min(parseInt(dm[1] || '1'), 99);
+      const die  = parseInt(dm[2]);
+      const keep = dm[3], keepN = dm[4] ? parseInt(dm[4]) : null;
+      if (die < 2 || die > 10000) throw new Error('dé invalide : d' + die);
+      const rolls = Array.from({length: qty}, () => rollDie(die));
+      let used = rolls, dropped = [];
+      if (keep && keepN && keepN < qty) {
+        const s = rolls.map((v,i)=>({v,i})).sort((a,b)=> keep==='h' ? b.v-a.v : a.v-b.v);
+        const ki = new Set(s.slice(0, keepN).map(x => x.i));
+        used    = rolls.filter((_,i) => ki.has(i));
+        dropped = rolls.filter((_,i) => !ki.has(i));
+      }
+      const sub = used.reduce((a,b)=>a+b,0) * sign;
+      total += sub;
+      allRolls.push(...used);
+      const dropStr = dropped.length ? ' (−' + dropped.join(',') + ')' : '';
+      parts.push((sign < 0 ? '−' : parts.length ? '+' : '') + qty + 'd' + die
+        + (keep ? 'k' + keep + keepN : '') + ' [' + used.join('+') + ']' + dropStr);
+    } else {
+      const n = parseInt(t) * sign;
+      if (isNaN(n)) throw new Error('token invalide : ' + t);
+      total += n;
+      if (n !== 0) parts.push((n > 0 && parts.length ? '+' : '') + n);
+    }
+  }
+  return { rolls: allRolls, total, detail: parts.join('  ') };
+}
+
+// ── Afficher le résultat ───────────────────────────────────────────────────
+function showResult({ label, rolls, dropped, mod, die, total, adv, exprDetail }) {
+  const isCrit   = !adv && die === 20 && rolls.length === 1 && rolls[0] === 20;
+  const isFumble = !adv && die === 20 && rolls.length === 1 && rolls[0] === 1;
+  const isCritA  = adv && adv.kept === 20;
+  const isFumblA = adv && adv.kept === 1;
+  const anyC = isCrit  || isCritA;
+  const anyF = isFumble || isFumblA;
+
+  document.getElementById('result-panel').style.display = 'block';
+  document.getElementById('result-label').textContent = label;
+
+  const totEl = document.getElementById('result-total');
+  totEl.textContent = total;
+  totEl.className = 'result-total' + (anyC ? ' crit' : anyF ? ' fumble' : '');
+
+  // Affichage des 2 dés (avantage/désavantage)
+  const advWrap = document.getElementById('adv-dice-wrap');
+  if (adv) {
+    advWrap.style.display = 'flex';
+    const keptVal   = adv.kept;
+    const dropVal   = adv.keptIsFirst ? adv.r2 : adv.r1;
+    const keptClass = 'adv-die kept' + (keptVal === 20 ? ' is-crit' : keptVal === 1 ? ' is-fumble' : '');
+    advWrap.innerHTML = adv.keptIsFirst
+      ? `<div class="${keptClass}">${keptVal}</div><div class="adv-die dropped">${dropVal}</div>`
+      : `<div class="adv-die dropped">${dropVal}</div><div class="${keptClass}">${keptVal}</div>`;
+    document.getElementById('result-detail').textContent = '';
+  } else {
+    advWrap.style.display = 'none';
+    // Ligne de détail
+    let detail = '';
+    if (exprDetail) {
+      detail = exprDetail;
+    } else if (rolls.length > 1 || mod !== 0 || (dropped && dropped.length)) {
+      const modStr  = mod > 0 ? ' + ' + mod : mod < 0 ? ' − ' + Math.abs(mod) : '';
+      const rollStr = '[' + rolls.join(' + ') + ']';
+      const dropStr = dropped && dropped.length ? '  (supprimés : ' + dropped.join(', ') + ')' : '';
+      detail = rollStr + dropStr + modStr + ' = ' + total;
+    }
+    document.getElementById('result-detail').textContent = detail;
+  }
+
+  document.getElementById('result-badge-wrap').innerHTML =
+    anyC ? '<span class="result-badge crit">✦ Critique !</span>' :
+    anyF ? '<span class="result-badge fumble">✗ Fumble</span>' : '';
+
+  // Historique
+  rollHistory.unshift({ label, rolls, dropped: dropped || [], mod, total,
+    isCrit: anyC, isFumble: anyF, adv });
+  if (rollHistory.length > 20) rollHistory.pop();
+  renderHistory();
+}
+
+// ── Historique ─────────────────────────────────────────────────────────────
+function renderHistory() {
+  document.getElementById('hist-panel').style.display = 'block';
+  document.getElementById('hist-list').innerHTML = rollHistory.map(h => {
+    const cls = h.isCrit ? ' crit' : h.isFumble ? ' fumble' : '';
+    let detail = '';
+    if (h.adv) {
+      detail = (h.adv.dir === 1 ? '▲' : '▼') + ' [' + h.adv.r1 + ', ' + h.adv.r2 + ']';
+    } else if (h.rolls.length > 1 || h.mod !== 0 || h.dropped.length) {
+      const drop = h.dropped.length ? '(−' + h.dropped.join(',') + ')' : '';
+      const mod  = h.mod !== 0 ? (h.mod > 0 ? '+' + h.mod : h.mod) : '';
+      detail = '[' + h.rolls.join(',') + '] ' + drop + mod;
+    }
+    return `<div class="hist-item${cls}">
+      <span class="hist-lbl">${h.label}</span>
+      <span class="hist-detail">${detail}</span>
+      <span class="hist-tot">${h.total}</span>
+    </div>`;
+  }).join('');
+}
+
+function clearHistory() {
+  rollHistory = [];
+  document.getElementById('hist-panel').style.display = 'none';
+}
+</script>
+</body>
+</html>

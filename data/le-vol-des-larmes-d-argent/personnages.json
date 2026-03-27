@@ -1,0 +1,2128 @@
+[
+  {
+    "id": "pj_01",
+    "nom": "Cael Vernois",
+    "race": "Elfe",
+    "classe": "Barde",
+    "niveau": 3,
+    "de_vie": "d8",
+    "background": "Artiste satirique",
+    "statut_campagne": "absent",
+    "traits": [
+      "Éloquent",
+      "Manipulateur bienveillant"
+    ],
+    "citation": "Les mots sont des armes, et j'en ai plus que toi.",
+    "pv_max": 21,
+    "pv_actuels": 21,
+    "ca": 14,
+    "vitesse": "9m",
+    "initiative": 3,
+    "bonus_maitrise": 2,
+    "jets_sauvegarde": [
+      "DEX",
+      "CHA"
+    ],
+    "attributs": {
+      "FOR": {
+        "val": 8,
+        "mod": -1
+      },
+      "DEX": {
+        "val": 16,
+        "mod": 3
+      },
+      "CON": {
+        "val": 12,
+        "mod": 1
+      },
+      "INT": {
+        "val": 14,
+        "mod": 2
+      },
+      "SAG": {
+        "val": 10,
+        "mod": 0
+      },
+      "CHA": {
+        "val": 18,
+        "mod": 4
+      }
+    },
+    "competences": [
+      {
+        "nom": "Histoire",
+        "bonus": 4,
+        "expertise": false
+      },
+      {
+        "nom": "Perception",
+        "bonus": 4,
+        "expertise": false
+      },
+      {
+        "nom": "Persuasion",
+        "bonus": 8,
+        "expertise": true
+      },
+      {
+        "nom": "Représentation",
+        "bonus": 8,
+        "expertise": true
+      },
+      {
+        "nom": "Tromperie",
+        "bonus": 6,
+        "expertise": false
+      }
+    ],
+    "equipement": [
+      "Rapière",
+      "Couteaux ×2",
+      "Luth",
+      "Armure de cuir",
+      "Sac d'aventurier"
+    ],
+    "attaques": [
+      {
+        "visible_joueurs": true,
+        "nom": "Rapière",
+        "valeur": "1d8+3",
+        "jet": "d20+5",
+        "stat": "DEX",
+        "type": "arme",
+        "portee": "",
+        "description": "Un coup précis au contact : pique, pare, riposte dans un même geste.",
+        "regle": "Règle : si d20+5 ≥ CA → touche, puis inflige 1d8+3 perforant."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Couteau lancé",
+        "valeur": "1d4+3",
+        "jet": "d20+5",
+        "stat": "DEX",
+        "type": "arme",
+        "portee": "",
+        "description": "Un lancer rapide : le couteau file en ligne droite vers une cible à distance.",
+        "regle": "Règle : si d20+5 ≥ CA → touche, puis inflige 1d4+3 perforant."
+      }
+    ],
+    "sorts_mineurs": [
+      {
+        "visible_joueurs": true,
+        "nom": "Mot de tonnerre",
+        "valeur": "1d6",
+        "utilisations": 3,
+        "recharge": "fin combat",
+        "chips": [
+          "Type : sort mineur",
+          "STAT : CHA",
+          "DD 13"
+        ],
+        "description": "Un mot claqué comme une détonation : l'air frappe la cible et la fait reculer.",
+        "regle": "Règle : la cible fait un jet de résistance contre DD 13 ; si échec → 1d6 tonnerre + repousse 3m."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Amis",
+        "valeur": "—",
+        "utilisations": 3,
+        "recharge": "fin combat",
+        "chips": [
+          "Type : sort mineur",
+          "STAT : CHA",
+          "Durée : 1 min"
+        ],
+        "description": "Un charme subtil : ta voix et ton regard paraissent soudain plus convaincants.",
+        "regle": "Règle : pendant 1 minute, tu as avantage sur ton prochain jet social contre la cible."
+      }
+    ],
+    "capacites": [
+      {
+        "visible_joueurs": true,
+        "nom": "Éclat de brume",
+        "valeur": "3d6",
+        "utilisations": 3,
+        "recharge": "RC +1 · RL full",
+        "chips": [
+          "Type : capacité",
+          "STAT : CHA",
+          "DD 14",
+          "Effet : désavantage"
+        ],
+        "description": "Tu fais scintiller la brume en éclats : la cible est assaillie de reflets et de visions, son esprit décroche.",
+        "regle": "Règle : jet de résistance contre DD 14 ; si échec → 3d6 psy + désavantage sur la prochaine attaque, si réussite → moitié dégâts."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Inspiration bardique",
+        "valeur": "d6",
+        "utilisations": 3,
+        "recharge": "RC +1 · RL full",
+        "chips": [
+          "Type : action bonus / capacité",
+          "STAT : CHA"
+        ],
+        "description": "Un mot juste, une cadence : l'allié retrouve son souffle et son timing.",
+        "regle": "Règle : un allié visible gagne 1d6 ; il peut l'ajouter à un jet dans la minute, après avoir vu son résultat."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Contre-charme",
+        "valeur": "—",
+        "utilisations": 3,
+        "recharge": "RC +1 · RL full",
+        "chips": [
+          "Type : réaction / capacité",
+          "STAT : CHA"
+        ],
+        "description": "Tu brises l'emprise : une note, un geste, quelque chose qui ramène l'esprit au réel.",
+        "regle": "Règle : quand toi ou un allié (9m) subit peur/charme, il obtient avantage immédiat sur sa résistance contre l'effet."
+      }
+    ],
+    "passifs": [],
+    "actions_bonus": "Inspiration bardique (coûte 1 sur le compteur des capacités) ou couteau de riposte après une attaque à la rapière : 1d4 (sans modificateur).",
+    "reaction": "Mots coupants : Quand une créature visible rate une attaque : tu la déconcentres par une pique cinglante.",
+    "relations": [
+      "pnj_edward"
+    ],
+    "portrait_url": "img/portraits/cael.jpg",
+    "visible_joueurs": false,
+    "argent": {
+      "po": 0,
+      "pa": 0,
+      "pe": 0,
+      "pc": 0,
+      "pp": 0
+    },
+    "sorts_dnd": {},
+    "sous_classe": "Collège de l'Éloquence",
+    "langues": "",
+    "maitrise_armures": "",
+    "maitrise_armes": "",
+    "maitrise_outils": "",
+    "traits_perso": "",
+    "ideaux": "",
+    "liens": "",
+    "defauts": "",
+    "histoire": "",
+    "age": "45",
+    "taille": "170",
+    "poids": "55",
+    "yeux": "rouge",
+    "peau": "rouge",
+    "cheveux": "noir",
+    "alignement": "Chaotique Bon",
+    "xp": 0,
+    "background_feature": "",
+    "pv_temporaires": 0,
+    "inspiration": false,
+    "sens_speciaux": "",
+    "resistances": "",
+    "immunites": "",
+    "vulnerabilites": ""
+  },
+  {
+    "id": "pj_02",
+    "nom": "Illwen",
+    "race": "Elfe",
+    "classe": "Druide - Cercle de la Lune",
+    "niveau": 3,
+    "de_vie": "d8",
+    "background": "Ermite de la Marche",
+    "statut_campagne": "actif",
+    "traits": [
+      "Observatrice",
+      "Patiente"
+    ],
+    "citation": "La brume ne m'obéit pas. Elle me parle, c'est différent.",
+    "pv_max": 26,
+    "pv_actuels": 26,
+    "ca": 14,
+    "vitesse": "9m",
+    "initiative": 2,
+    "bonus_maitrise": 2,
+    "jets_sauvegarde": [
+      "INT",
+      "SAG"
+    ],
+    "attributs": {
+      "FOR": {
+        "val": 10,
+        "mod": 0
+      },
+      "DEX": {
+        "val": 14,
+        "mod": 2
+      },
+      "CON": {
+        "val": 14,
+        "mod": 2
+      },
+      "INT": {
+        "val": 12,
+        "mod": 1
+      },
+      "SAG": {
+        "val": 18,
+        "mod": 4
+      },
+      "CHA": {
+        "val": 10,
+        "mod": 0
+      }
+    },
+    "competences": [
+      {
+        "nom": "Médecine",
+        "bonus": 6,
+        "expertise": false
+      },
+      {
+        "nom": "Nature",
+        "bonus": 6,
+        "expertise": false
+      },
+      {
+        "nom": "Perception",
+        "bonus": 6,
+        "expertise": false
+      },
+      {
+        "nom": "Survie",
+        "bonus": 6,
+        "expertise": false
+      }
+    ],
+    "equipement": [
+      "Bâton de bois",
+      "Armure de cuir + Bouclier",
+      "Symbole sacré (branche)",
+      "Kit d'herboriste"
+    ],
+    "attaques": [
+      {
+        "visible_joueurs": true,
+        "nom": "Bâton de bois",
+        "valeur": "1d6+2",
+        "jet": "d20+4",
+        "stat": "DEX",
+        "type": "arme",
+        "description": "Un coup de bâton direct au contact, pour faire reculer ou briser une garde.",
+        "regle": "Règle : si le jet touche la CA, inflige 1d6+2 contondant."
+      }
+    ],
+    "sorts_mineurs": [
+      {
+        "visible_joueurs": true,
+        "nom": "Éclat de flammes",
+        "valeur": "1d8",
+        "utilisations": 3,
+        "recharge": "fin combat",
+        "chips": [
+          "Type : sort mineur",
+          "STAT : WIS",
+          "Portée : longue"
+        ],
+        "description": "Une flamme jaillit et marque la cible d'une lueur gênante.",
+        "regle": "Règle : attaque à distance (d20+6), puis 1d8 feu ; la cible est illuminée jusqu'au prochain tour."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Éclair de foudre",
+        "valeur": "1d8",
+        "utilisations": 3,
+        "recharge": "fin combat",
+        "chips": [
+          "Type : sort mineur",
+          "STAT : WIS",
+          "DD 14"
+        ],
+        "description": "Un éclair court fend l'air et frappe la cible à moyenne distance.",
+        "regle": "Règle : la cible fait une résistance contre DD; si échec 1d8 foudre, si réussite moitié dégâts."
+      }
+    ],
+    "capacites": [
+      {
+        "visible_joueurs": true,
+        "nom": "Soin des blessures",
+        "valeur": "1d8+4",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : capacité",
+          "STAT : WIS",
+          "Cible : contact"
+        ],
+        "description": "Tu poses la main, et la douleur se dissipe sous un souffle de vie.",
+        "regle": "Règle : rend 1d8+4 PV à toi ou un allié touché."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Enchevêtrement",
+        "valeur": "",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : capacité",
+          "Type : contrôle de zone",
+          "STAT : WIS",
+          "DD 14"
+        ],
+        "description": "Des ronces jaillissent et s'agrippent aux jambes, stoppant l'élan.",
+        "regle": "Règle : zone 6m (portée longue) ; la cible fait une résistance contre DD 14, si échec : gênée/immobile 1 minute."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Forme sauvage : Loup",
+        "valeur": "",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : capacité",
+          "Type : action / forme",
+          "Durée : 1 heure"
+        ],
+        "description": "Ton corps se plie, se couvre de fourrure, et tes sens deviennent ceux d'un prédateur.",
+        "regle": "Règle : PV 11, CA 13 ; morsure (d20+4) pour 2d4+2 ; si le loup tombe à 0 PV, tu reprends ta forme avec tes PV actuels."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Brume voilante",
+        "valeur": "",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : capacité",
+          "Type : zone",
+          "Durée : 1 heure"
+        ],
+        "description": "Une brume épaisse s'étale et avale les silhouettes.",
+        "regle": "Règle : nuage 6m de rayon ; désavantage sur toutes les attaques à l'intérieur."
+      }
+    ],
+    "passifs": [],
+    "actions_bonus": "Soin rapide : « Soin des blessures » peut s'utiliser en action bonus au lieu de l'action.",
+    "reaction": "Lecture des signes : en entrant dans une zone inconnue, demande au MJ un indice sur le danger (traces, odeurs, animaux), sans jet requis.",
+    "relations": [
+      "pnj_edward",
+      "pnj_rulven"
+    ],
+    "argent": {
+      "po": 1,
+      "pa": 1,
+      "pe": 1,
+      "pc": 1,
+      "pp": 1
+    },
+    "sorts_dnd": {},
+    "sous_classe": "",
+    "langues": "",
+    "maitrise_armures": "",
+    "maitrise_armes": "",
+    "maitrise_outils": "",
+    "traits_perso": "",
+    "ideaux": "",
+    "liens": "",
+    "defauts": "",
+    "histoire": "",
+    "age": "",
+    "taille": "",
+    "poids": "",
+    "yeux": "",
+    "peau": "",
+    "cheveux": "",
+    "alignement": "Neutre Bon"
+  },
+  {
+    "id": "pj_03",
+    "nom": "Osric Veinargent",
+    "race": "Humain",
+    "classe": "Ensorceleur - Ligne Draconique (Argent)",
+    "niveau": 3,
+    "de_vie": "d6",
+    "background": "Incontrôlable",
+    "statut_campagne": "actif",
+    "traits": [
+      "Audacieux",
+      "Impulsif"
+    ],
+    "citation": "Je ne contrôle pas toujours ce qui sort. Mais ça sort fort.",
+    "pv_max": 20,
+    "pv_actuels": 20,
+    "ca": 13,
+    "vitesse": "9m",
+    "initiative": 2,
+    "bonus_maitrise": 2,
+    "jets_sauvegarde": [
+      "CON",
+      "CHA"
+    ],
+    "attributs": {
+      "FOR": {
+        "val": 8,
+        "mod": -1
+      },
+      "DEX": {
+        "val": 14,
+        "mod": 2
+      },
+      "CON": {
+        "val": 14,
+        "mod": 2
+      },
+      "INT": {
+        "val": 12,
+        "mod": 1
+      },
+      "SAG": {
+        "val": 10,
+        "mod": 0
+      },
+      "CHA": {
+        "val": 18,
+        "mod": 4
+      }
+    },
+    "competences": [
+      {
+        "nom": "Arcanes",
+        "bonus": 6,
+        "expertise": false
+      },
+      {
+        "nom": "Discrétion",
+        "bonus": 4,
+        "expertise": false
+      },
+      {
+        "nom": "Investigation",
+        "bonus": 4,
+        "expertise": false
+      },
+      {
+        "nom": "Persuasion",
+        "bonus": 6,
+        "expertise": false
+      }
+    ],
+    "equipement": [
+      "Dague",
+      "Bâton de focalisation",
+      "Composantes de sort",
+      "Sac de voyage"
+    ],
+    "attaques": [
+      {
+        "visible_joueurs": true,
+        "nom": "Dague",
+        "valeur": "1d4+2",
+        "jet": "d20+4",
+        "stat": "DEX",
+        "type": "arme",
+        "description": "Un coup rapide au contact, ou un lancer sec si la cible est à portée.",
+        "regle": "Règle : si le jet touche la CA, inflige 1d4+2 perforant (mêlée ou lancer courte portée)."
+      }
+    ],
+    "sorts_mineurs": [
+      {
+        "visible_joueurs": true,
+        "nom": "Trait de feu",
+        "valeur": "1d10",
+        "utilisations": 3,
+        "recharge": "fin combat",
+        "chips": [
+          "Type : sort mineur",
+          "STAT : CHA",
+          "Portée : longue"
+        ],
+        "description": "Un trait incandescent file vers la cible, net et violent.",
+        "regle": "Règle : attaque à distance (d20+6), puis 1d10 feu."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Bouffée de froid",
+        "valeur": "1d8",
+        "utilisations": 3,
+        "recharge": "fin combat",
+        "chips": [
+          "Type : sort mineur",
+          "STAT : CHA",
+          "DD 14"
+        ],
+        "description": "L'air se cristallise : le froid saisit et coupe l'élan.",
+        "regle": "Règle : la cible fait une résistance contre DD 14 ; si échec 1d8 froid et sa vitesse tombe à 0 jusqu'à son prochain tour."
+      }
+    ],
+    "capacites": [
+      {
+        "visible_joueurs": true,
+        "nom": "Mains brûlantes",
+        "valeur": "3d6",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : capacité",
+          "STAT : CHA",
+          "DD 14",
+          "Type : zone"
+        ],
+        "description": "Une gerbe de flammes jaillit en cône et balaie l'espace devant toi.",
+        "regle": "Règle : cône de 4,5m ; la cible fait une résistance contre DD 14, si échec 3d6 feu, si réussite moitié dégâts."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Flèche de foudre",
+        "valeur": "3d8",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : capacité",
+          "STAT : CHA",
+          "Jet : d20+6"
+        ],
+        "description": "Un éclair condensé frappe la cible et rebondit vers la plus proche.",
+        "regle": "Règle : attaque (d20+6) ; si touché : 3d8 foudre, puis se propage à une créature adjacente pour 1d8 supplémentaire."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Sommeil magique",
+        "valeur": "5d8 PV",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : capacité",
+          "Type : contrôle"
+        ],
+        "description": "Tes mots et tes gestes pèsent sur les paupières : la scène s'éteint pour les plus faibles.",
+        "regle": "Règle : affecte jusqu'à 5d8 PV de créatures dans 6m, en commençant par la moins résistante ; inefficace sur morts-vivants."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Bouclier magique",
+        "valeur": "+5 CA",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : réaction / capacité"
+        ],
+        "description": "Une plaque invisible se forme au dernier instant et détourne le coup.",
+        "regle": "Règle : quand tu es touché : +5 CA rétroactivement, peut faire rater l'attaque."
+      }
+    ],
+    "passifs": [
+      {
+        "visible_joueurs": true,
+        "nom": "Sens draconiques",
+        "chips": [
+          "Type : capacité innée"
+        ],
+        "description": "Ton sang draconique réagit aux traces de magie ancienne.",
+        "regle": "Règle : si quelque chose d'inhabituel survient, signale-le au MJ ; il décrit ce que tu ressens."
+      }
+    ],
+    "actions_bonus": "Sort mineur supplémentaire : tu peux lancer un sort mineur en bonus, en plus de ton action (1 fois par round).",
+    "reaction": "Bouclier magique : voir « Capacités puissantes ».",
+    "relations": [
+      "pnj_edward"
+    ],
+    "argent": {
+      "po": 0,
+      "pa": 0,
+      "pe": 0,
+      "pc": 0,
+      "pp": 0
+    },
+    "sorts_dnd": {},
+    "sous_classe": "",
+    "langues": "",
+    "maitrise_armures": "",
+    "maitrise_armes": "",
+    "maitrise_outils": "",
+    "traits_perso": "",
+    "ideaux": "",
+    "liens": "",
+    "defauts": "",
+    "histoire": "",
+    "age": "",
+    "taille": "",
+    "poids": "",
+    "yeux": "",
+    "peau": "",
+    "cheveux": "",
+    "alignement": "Chaotique Neutre"
+  },
+  {
+    "id": "pj_04",
+    "nom": "Brund Okafor",
+    "race": "Nain",
+    "classe": "Clerc",
+    "niveau": 3,
+    "de_vie": "d8",
+    "background": "Soignant intransigeant",
+    "statut_campagne": "absent",
+    "traits": [
+      "Intransigeant",
+      "Protecteur"
+    ],
+    "citation": "Je soigne ceux qui méritent d'être soignés. C'est moi qui décide.",
+    "pv_max": 31,
+    "pv_actuels": 31,
+    "ca": 18,
+    "vitesse": "7,5m",
+    "initiative": 0,
+    "bonus_maitrise": 2,
+    "jets_sauvegarde": [
+      "SAG",
+      "CHA"
+    ],
+    "attributs": {
+      "FOR": {
+        "val": 16,
+        "mod": 3
+      },
+      "DEX": {
+        "val": 10,
+        "mod": 0
+      },
+      "CON": {
+        "val": 16,
+        "mod": 3
+      },
+      "INT": {
+        "val": 10,
+        "mod": 0
+      },
+      "SAG": {
+        "val": 18,
+        "mod": 4
+      },
+      "CHA": {
+        "val": 8,
+        "mod": -1
+      }
+    },
+    "competences": [
+      {
+        "nom": "Histoire",
+        "bonus": 5,
+        "expertise": false
+      },
+      {
+        "nom": "Médecine",
+        "bonus": 6,
+        "expertise": false
+      },
+      {
+        "nom": "Perception",
+        "bonus": 6,
+        "expertise": false
+      },
+      {
+        "nom": "Perspicacité",
+        "bonus": 6,
+        "expertise": false
+      },
+      {
+        "nom": "Religion",
+        "bonus": 6,
+        "expertise": false
+      }
+    ],
+    "equipement": [
+      "Marteau de guerre",
+      "Cotte de mailles + Bouclier",
+      "Symbole sacré (rune naine)",
+      "Kit de soins"
+    ],
+    "attaques": [
+      {
+        "visible_joueurs": true,
+        "nom": "Marteau de guerre",
+        "valeur": "1d8+5",
+        "jet": "d20+5",
+        "stat": "STR",
+        "type": "arme",
+        "description": "Un coup lourd et franc, fait pour casser ce qui tient encore debout.",
+        "regle": "Règle : si le jet touche la CA, inflige 1d8+5 contondant (les squelettes : dégâts doublés)."
+      }
+    ],
+    "sorts_mineurs": [
+      {
+        "visible_joueurs": true,
+        "nom": "Flamme sacrée",
+        "valeur": "1d8",
+        "utilisations": 3,
+        "recharge": "fin combat",
+        "chips": [
+          "Type : sort mineur",
+          "STAT : WIS",
+          "DD 14",
+          "Portée : longue"
+        ],
+        "description": "Une lueur brûlante tombe du ciel et juge la cible.",
+        "regle": "Règle : la cible fait une résistance contre DD 14 ; l'armure n'aide pas ; si échec 1d8 radiant (dégâts doublés contre morts-vivants)."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Stabilisation",
+        "valeur": "",
+        "utilisations": 3,
+        "recharge": "fin combat",
+        "chips": [
+          "Type : sort mineur",
+          "Type : soin d'urgence",
+          "Cible : contact"
+        ],
+        "description": "Tu verrouilles la vie dans le corps : pas de glissement, pas d'hémorragie.",
+        "regle": "Règle : touche un allié à 0 PV : stabilisé automatiquement, reste inconscient à 1 PV."
+      }
+    ],
+    "capacites": [
+      {
+        "visible_joueurs": true,
+        "nom": "Soin des blessures (Vie)",
+        "valeur": "1d8+6",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : capacité",
+          "STAT : WIS",
+          "Cible : contact"
+        ],
+        "description": "Ta magie remplit les fissures et remet le souffle à sa place.",
+        "regle": "Règle : rend 1d8+6 PV ; minimum 7 PV rendus (domaine de la Vie)."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Renvoi des morts-vivants",
+        "valeur": "",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : capacité",
+          "Type : zone",
+          "STAT : WIS",
+          "DD 14"
+        ],
+        "description": "Tu imposes un commandement sacré : les morts refusent de rester proches.",
+        "regle": "Règle : tous les morts-vivants à 9m font une résistance contre DD 14, si échec : fuient 1 minute."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Injonction divine",
+        "valeur": "2d10",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : capacité",
+          "STAT : WIS",
+          "DD 14",
+          "Portée : longue"
+        ],
+        "description": "Une sentence tombe, et la lumière frappe comme un marteau.",
+        "regle": "Règle : la cible fait une résistance contre DD 14 ; si échec 2d10 radiant, si réussite moitié dégâts."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Prière de soin",
+        "valeur": "1d8+4",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : capacité",
+          "Type : hors combat",
+          "Durée : 10 min"
+        ],
+        "description": "Tu poses une prière stable, et la fatigue se retire des visages.",
+        "regle": "Règle : soigne jusqu'à 3 alliés proches pour 1d8+4 PV chacun."
+      }
+    ],
+    "passifs": [],
+    "actions_bonus": "Mot de guérison : 1 fois par round, 1d4+4 PV à un allié visible (portée longue).",
+    "reaction": "Protection divine : un allié adjacent est touché, tu interposes ton bouclier ; l'attaquant relance ses dégâts et garde le plus bas.",
+    "relations": [
+      "pnj_edward"
+    ],
+    "visible_joueurs": false,
+    "argent": {
+      "po": 0,
+      "pa": 0,
+      "pe": 0,
+      "pc": 0,
+      "pp": 0
+    },
+    "sorts_dnd": {},
+    "sous_classe": "Domaine de la Vie",
+    "langues": "",
+    "maitrise_armures": "",
+    "maitrise_armes": "",
+    "maitrise_outils": "",
+    "traits_perso": "",
+    "ideaux": "",
+    "liens": "",
+    "defauts": "",
+    "histoire": "",
+    "age": "",
+    "taille": "",
+    "poids": "",
+    "yeux": "",
+    "peau": "",
+    "cheveux": "",
+    "alignement": "Loyal Bon"
+  },
+  {
+    "id": "pj_05",
+    "nom": "Darg Fumeroc",
+    "race": "Nain",
+    "classe": "Guerrier",
+    "niveau": 3,
+    "de_vie": "d10",
+    "background": "Bagarreur juste",
+    "statut_campagne": "actif",
+    "traits": [
+      "Efficace",
+      "Mesuré"
+    ],
+    "citation": "L'autre a commencé. Je me suis contenté de finir.",
+    "pv_max": 33,
+    "pv_actuels": 33,
+    "ca": 18,
+    "vitesse": "7,5m",
+    "initiative": 1,
+    "bonus_maitrise": 2,
+    "jets_sauvegarde": [
+      "FOR",
+      "CON"
+    ],
+    "attributs": {
+      "FOR": {
+        "val": 18,
+        "mod": 4
+      },
+      "DEX": {
+        "val": 12,
+        "mod": 1
+      },
+      "CON": {
+        "val": 16,
+        "mod": 3
+      },
+      "INT": {
+        "val": 8,
+        "mod": -1
+      },
+      "SAG": {
+        "val": 10,
+        "mod": 0
+      },
+      "CHA": {
+        "val": 8,
+        "mod": -1
+      }
+    },
+    "competences": [
+      {
+        "nom": "Athlétisme",
+        "bonus": 6,
+        "expertise": false
+      },
+      {
+        "nom": "Histoire",
+        "bonus": 2,
+        "expertise": false
+      },
+      {
+        "nom": "Intimidation",
+        "bonus": 1,
+        "expertise": false
+      },
+      {
+        "nom": "Perception",
+        "bonus": 4,
+        "expertise": false
+      }
+    ],
+    "equipement": [
+      "Hache de guerre",
+      "Hachettes ×2",
+      "Harnois",
+      "Arc court + 20 flèches",
+      "Sac d'aventurier"
+    ],
+    "attaques": [
+      {
+        "visible_joueurs": true,
+        "nom": "Hache de guerre",
+        "valeur": "1d8+6",
+        "jet": "d20+6",
+        "stat": "STR",
+        "type": "arme",
+        "description": "Un taillade franche, la plus fiable quand tu veux trancher net.",
+        "regle": "Règle : si le jet touche la CA, inflige 1d8+6 tranchant."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Hachette (lancée)",
+        "valeur": "1d6+4",
+        "jet": "d20+6",
+        "stat": "STR",
+        "type": "arme",
+        "description": "Un lancer court et brutal : ça part vite, ça termine vite.",
+        "regle": "Règle : si le jet touche la CA, inflige 1d6+4 tranchant (tu en as deux)."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Arc court",
+        "valeur": "1d6+1",
+        "jet": "d20+3",
+        "stat": "DEX",
+        "type": "arme",
+        "description": "Quand la mêlée est impossible, tu tires propre et tu avances.",
+        "regle": "Règle : si le jet touche la CA, inflige 1d6+1 perforant (portée longue)."
+      }
+    ],
+    "sorts_mineurs": [],
+    "capacites": [
+      {
+        "visible_joueurs": true,
+        "nom": "Attaque supplémentaire",
+        "valeur": "",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : capacité",
+          "Type : action"
+        ],
+        "description": "Tu presses l'avantage : deux ouvertures, deux coups.",
+        "regle": "Règle : tu attaques deux fois avec la même action (deux jets séparés)."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Second souffle",
+        "valeur": "1d10+3",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : action bonus / capacité"
+        ],
+        "description": "Tu inspires, tu encaisses, et tu repars comme si ça n'avait jamais mordu.",
+        "regle": "Règle : récupère 1d10+3 PV ; utilisable 1 fois par repos court."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Foulée d'action",
+        "valeur": "",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : action bonus / capacité",
+          "Type : mobilité"
+        ],
+        "description": "Tu franchis la distance d'un coup, sans abandonner ton attaque.",
+        "regle": "Règle : tu te déplaces d'une zone supplémentaire ce tour."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Indomptable",
+        "valeur": "",
+        "utilisations": 1,
+        "recharge": "repos long",
+        "chips": [
+          "Type : capacité",
+          "Type : résistance"
+        ],
+        "description": "Tu refuses l'échec : tu serres les dents et tu t'arraches au sort.",
+        "regle": "Règle : si tu rates une résistance, tu peux la relancer et garder le second résultat ; 1 fois par repos long."
+      }
+    ],
+    "passifs": [
+      {
+        "visible_joueurs": true,
+        "nom": "Critique amélioré",
+        "chips": [
+          "Type : capacité"
+        ],
+        "description": "Tu frappes juste plus souvent : l'ouverture suffit pour conclure.",
+        "regle": "Règle : coup critique sur 19 ou 20 naturel ; sur un critique, double tous les dés de dégâts."
+      }
+    ],
+    "actions_bonus": "Second souffle ou Foulée d'action : une seule action bonus par tour.",
+    "reaction": "Attaque d'opportunité : une créature quitte ta zone de mêlée sans se désengager, tu peux attaquer avant qu'elle parte.",
+    "relations": [
+      "pnj_edward"
+    ],
+    "argent": {
+      "po": 0,
+      "pa": 0,
+      "pe": 0,
+      "pc": 0,
+      "pp": 0
+    },
+    "sorts_dnd": {},
+    "sous_classe": "Champion",
+    "langues": "",
+    "maitrise_armures": "",
+    "maitrise_armes": "",
+    "maitrise_outils": "",
+    "traits_perso": "",
+    "ideaux": "",
+    "liens": "",
+    "defauts": "",
+    "histoire": "",
+    "age": "",
+    "taille": "",
+    "poids": "",
+    "yeux": "",
+    "peau": "",
+    "cheveux": "",
+    "alignement": "Neutre Bon"
+  },
+  {
+    "id": "pj_06",
+    "nom": "Finn Brume-Grise",
+    "race": "Humain",
+    "classe": "Roublard",
+    "niveau": 3,
+    "de_vie": "d8",
+    "background": "Contrebandier contestataire",
+    "statut_campagne": "actif",
+    "traits": [
+      "Zélé pour la Brigade",
+      "Malin"
+    ],
+    "citation": "Je conteste pas les faits. Je conteste la juridiction.",
+    "pv_max": 21,
+    "pv_actuels": 21,
+    "ca": 15,
+    "vitesse": "9m",
+    "initiative": 4,
+    "bonus_maitrise": 2,
+    "jets_sauvegarde": [
+      "DEX",
+      "INT"
+    ],
+    "attributs": {
+      "FOR": {
+        "val": 10,
+        "mod": 0
+      },
+      "DEX": {
+        "val": 18,
+        "mod": 4
+      },
+      "CON": {
+        "val": 12,
+        "mod": 1
+      },
+      "INT": {
+        "val": 14,
+        "mod": 2
+      },
+      "SAG": {
+        "val": 12,
+        "mod": 1
+      },
+      "CHA": {
+        "val": 14,
+        "mod": 2
+      }
+    },
+    "competences": [
+      {
+        "nom": "Discrétion",
+        "bonus": 8,
+        "expertise": true
+      },
+      {
+        "nom": "Escamotage",
+        "bonus": 8,
+        "expertise": true
+      },
+      {
+        "nom": "Investigation",
+        "bonus": 6,
+        "expertise": false
+      },
+      {
+        "nom": "Perception",
+        "bonus": 5,
+        "expertise": false
+      },
+      {
+        "nom": "Persuasion",
+        "bonus": 6,
+        "expertise": false
+      },
+      {
+        "nom": "Tromperie",
+        "bonus": 6,
+        "expertise": false
+      }
+    ],
+    "equipement": [
+      "Épées courtes ×2",
+      "Armure de cuir clouté",
+      "Arc court + 20 flèches",
+      "Outils de voleur",
+      "Déguisements"
+    ],
+    "attaques": [
+      {
+        "visible_joueurs": true,
+        "nom": "Épée courte",
+        "valeur": "1d6+4",
+        "jet": "d20+6",
+        "stat": "DEX",
+        "type": "arme",
+        "description": "Une estoc précise au contact, courte et propre.",
+        "regle": "Règle : si le jet touche la CA, inflige 1d6+4 perforant."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Arc court",
+        "valeur": "1d6+4",
+        "jet": "d20+6",
+        "stat": "DEX",
+        "type": "arme",
+        "description": "Tu tires depuis l'ombre, et l'angle devient une plaie.",
+        "regle": "Règle : si le jet touche la CA, inflige 1d6+4 perforant ; attaque sournoise possible depuis une position cachée."
+      }
+    ],
+    "sorts_mineurs": [],
+    "capacites": [
+      {
+        "visible_joueurs": true,
+        "nom": "Embuscade parfaite",
+        "valeur": "",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : capacité",
+          "Type : 1er round"
+        ],
+        "description": "Tu choisis le moment : la cible n'a même pas compris qu'elle était déjà perdue.",
+        "regle": "Règle : depuis une position cachée au 1er round : avantage automatique, +2d6 à l'attaque sournoise (4d6 total)."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Dérobade",
+        "valeur": "",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : capacité",
+          "Type : esquive totale"
+        ],
+        "description": "Tu te jettes dans le bon interstice : même l'explosion ne t'attrape pas.",
+        "regle": "Règle : zone d'effet : si tu rates la résistance, demi-dégâts ; si tu réussis, aucun dégât."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Frappe désarmante",
+        "valeur": "",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : capacité",
+          "Type : effet spécial",
+          "DD 14"
+        ],
+        "description": "Tu frappes le poignet, pas l'armure. Et l'arme tombe.",
+        "regle": "Règle : au lieu des dégâts : la cible fait une résistance contre DD 14, si échec : lâche son arme."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Imposteur",
+        "valeur": "",
+        "utilisations": 3,
+        "recharge": "RC 1 · RL full",
+        "chips": [
+          "Type : capacité",
+          "Type : hors combat"
+        ],
+        "description": "Tu deviens quelqu'un d'autre : posture, voix, détails. Ça passe.",
+        "regle": "Règle : avantage sur tous les jets de Tromperie et déguisement pour toute la scène."
+      }
+    ],
+    "passifs": [
+      {
+        "visible_joueurs": true,
+        "nom": "Attaque sournoise",
+        "chips": [
+          "Type : capacité"
+        ],
+        "description": "Tu frappes là où ça ne pardonne pas, dès qu'un angle s'ouvre.",
+        "regle": "Règle : ajoute 2d6 si tu as l'avantage OU si un allié est adjacent à la cible ; 1 fois par tour."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Esquive instinctive",
+        "chips": [
+          "Type : réaction / passif"
+        ],
+        "description": "Tu bouges au dernier moment : le coup touche, mais pas comme prévu.",
+        "regle": "Règle : un attaquant visible te touche : dégâts divisés par deux, même surpris."
+      }
+    ],
+    "actions_bonus": "Double frappe : si ton bonus n'a pas été utilisé ce tour, attaque une seconde fois avec la 2e épée (dégâts sans modificateur : 1d6).",
+    "reaction": "Esquive instinctive : voir « Capacités passives ».",
+    "relations": [
+      "pnj_edward"
+    ],
+    "argent": {
+      "po": 0,
+      "pa": 0,
+      "pe": 0,
+      "pc": 0,
+      "pp": 0
+    },
+    "sorts_dnd": {},
+    "sous_classe": "Escroc",
+    "langues": "",
+    "maitrise_armures": "",
+    "maitrise_armes": "",
+    "maitrise_outils": "",
+    "traits_perso": "",
+    "ideaux": "",
+    "liens": "",
+    "defauts": "",
+    "histoire": "",
+    "age": "",
+    "taille": "",
+    "poids": "",
+    "yeux": "",
+    "peau": "",
+    "cheveux": "",
+    "alignement": "Chaotique Neutre"
+  },
+  {
+    "id": "pj_nom",
+    "nom": "Nom du personnage",
+    "race": "Tieffelin",
+    "classe": "Magicien",
+    "niveau": 5,
+    "de_vie": "d6",
+    "background": "Ermite",
+    "statut_campagne": "actif",
+    "pv_actuels": 22,
+    "pv_max": 22,
+    "ca": 10,
+    "vitesse": "9m",
+    "initiative": 0,
+    "bonus_maitrise": 3,
+    "traits": [
+      "J'ai été isolé pendant tellement longtemps que je ne parle que rarement",
+      "préférant les gestes et quelques grognements occasionnels.",
+      "Bien commun. Mes dons sont destinés à être partagés par tous",
+      "et non pour mon propre intérêt (Bon).",
+      "Rien n'est plus important que les autres membres de mon ermitage",
+      "de mon ordre ou de mon association.",
+      "J'aime garder des secrets et je ne les partage avec personne."
+    ],
+    "jets_sauvegarde": [
+      "INT",
+      "SAG"
+    ],
+    "attributs": {
+      "FOR": {
+        "val": 10,
+        "mod": 0
+      },
+      "DEX": {
+        "val": 10,
+        "mod": 0
+      },
+      "CON": {
+        "val": 10,
+        "mod": 0
+      },
+      "INT": {
+        "val": 10,
+        "mod": 0
+      },
+      "SAG": {
+        "val": 10,
+        "mod": 0
+      },
+      "CHA": {
+        "val": 10,
+        "mod": 0
+      }
+    },
+    "competences": [
+      {
+        "nom": "Arcanes",
+        "bonus": 6,
+        "expertise": true
+      },
+      {
+        "nom": "Nature",
+        "bonus": 3,
+        "expertise": false
+      },
+      {
+        "nom": "Religion",
+        "bonus": 3,
+        "expertise": false
+      }
+    ],
+    "citation": "",
+    "equipement": [
+      "5 po"
+    ],
+    "attaques": [],
+    "sorts_mineurs": [
+      {
+        "visible_joueurs": true,
+        "nom": "amis",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Type : sort mineur",
+          "Concentration"
+        ],
+        "description": "Vous émettez magiquement un sentiment d'amitié envers une créature que vous pouvez voir à portée. La cible doit réussir un jet de sauvegarde de Sagesse ou subir l'état Charmé pendant toute la durée du sort. La cible réussit automatiquement si elle n'est pas humanoïde, si vous la combattez ou si vous avez lancé ce sort sur elle au cours des dernières 24 heures.<br/>Le sort prend fin prématurément si la cible subit des dégâts, si vous effectuez un jet d'attaque, infligez des dégâts ou forcez quelqu'un à effectuer un jet de sauvegarde. À la fin du sort, la cible sait que vous l'avez charmée.<br/>",
+        "regle": "Incantation : Action · Portée : 3 m · Composantes : S, M (un peu de maquillage) · Durée : Concentration, jusqu'à 1 minute"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "lumière",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Type : sort mineur"
+        ],
+        "description": "Vous touchez un objet de taille G ou inférieure qui n'est pas porté par quelqu'un d'autre. Jusqu'à la fin du sort, l'objet émet une Lumière vive sur un rayon de 6 mètres et une Lumière faible sur 6 mètres supplémentaires. La lumière peut être colorée à votre guise. Recouvrir l'objet par quelque chose d'opaque bloque la lumière. Le sort prend fin si vous le relancez.<br/>",
+        "regle": "Incantation : Action · Portée : Contact · Composantes : V, M (une luciole ou de la mousse phosphorescente) · Durée : 1 heure"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "message",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Type : sort mineur"
+        ],
+        "description": "Vous pointez une créature à portée et murmurez un message. La cible (et elle seule) entend le message et peut répondre par un murmure que vous seul pouvez entendre.<br/>Vous pouvez lancer ce sort à travers des objets solides si vous connaissez la cible et savez qu'elle se trouve au-delà de la barrière. Un silence magique, 30 cm de pierre, de métal ou de bois, ou une fine feuille de plomb bloquent le sort.<br/>",
+        "regle": "Incantation : Action · Portée : 36 m · Composantes : S, M (du fil de cuivre) · Durée : 1 round"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "contrôle des flammes",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Type : sort mineur"
+        ],
+        "description": "",
+        "regle": ""
+      }
+    ],
+    "capacites": [
+      {
+        "visible_joueurs": true,
+        "nom": "nappe de brouillard",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 1",
+          "Concentration"
+        ],
+        "description": "Vous créez une Sphère de brouillard de 6 mètres de rayon centrée sur un point à portée. La Sphère est une zone de Visibilité nulle. Elle se maintient pendant toute la durée du sort ou jusqu'à ce qu'un vent fort (comme celui créé par <em><a href=\"./bourrasque\">bourrasque</a></em>) la disperse.<br/><strong><em>Emplacement de niveau supérieur</em></strong>. Le rayon du brouillard augmente de 6 mètres pour chaque niveau d'emplacement de sort supérieur à 1.<br/>",
+        "regle": "Incantation : Action · Portée : 36 m · Composantes : V, S · Durée : Concentration, jusqu'à 1 heure"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "déguisement",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 1"
+        ],
+        "description": "Vous vous transformez (vêtements, armure, armes et autres effets personnels inclus) jusqu'à la fin du sort. Vous pouvez paraître plus petit ou plus grand de 30 cm, et paraître plus lourd ou plus léger. Vous devez adopter une forme dont la disposition des membres est identique à la vôtre. Mis à part cela, l'ampleur de l'illusion dépend de vous.<br/>Les changements apportés par ce sort ne résistent pas à une inspection physique. Par exemple, si vous utilisez ce sort pour ajouter un chapeau à votre tenue, les objets le traversent et quiconque le touche ne ressent rien.<br/>Pour discerner que vous êtes déguisé, une créature doit prendre l'action Étude pour inspecter votre apparence et réussir un jet d'Intelligence (Investigation) contre le DD de sauvegarde de votre sort.<br/>",
+        "regle": "Incantation : Action · Portée : Personnelle · Composantes : V, S · Durée : 1 heure"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "orbe chromatique",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 1"
+        ],
+        "description": "Vous lancez un orbe d'énergie sur une cible à portée. Choisissez acide, froid, feu, foudre, poison ou tonnerre comme type d'orbe, puis effectuez une attaque de sort à distance contre la cible. Si l'attaque touche, la cible subit 3d8 dégâts du type choisi.<br/>Si vous obtenez le même résultat sur deux d8 ou plus, l'orbe bondit vers une autre cible de votre choix dans un rayon de 9 mètres de la cible. Effectuez un jet d'attaque contre la nouvelle cible, puis un nouveau jet de dégâts. L'orbe ne peut pas bondir à nouveau, sauf si vous lancez le sort avec un emplacement de sort de niveau 2 ou supérieur.<br/><strong><em>Emplacement de niveau supérieur</em></strong>. Les dégâts augmentent de 1d8 pour chaque niveau d'emplacement de sort supérieur à 1. L'orbe peut bondir un nombre maximal de fois égal au niveau de l'emplacement dépensé, et une créature ne peut être ciblée qu'une seule fois par lancement de ce sort.<br/>",
+        "regle": "Incantation : Action · Portée : 27 m · Composantes : V, S, M (un diamant d'une valeur minimale de 50 po) · Durée : Instantanée"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "mains brûlantes",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 1"
+        ],
+        "description": "Une fine nappe de flammes jaillit de vous. Toute créature dans un Cône de 4,50 mètres effectue un jet de sauvegarde de Dextérité, subissant 3d6 dégâts de feu en cas d'échec, ou la moitié de ces dégâts en cas de réussite.<br/>Les objets inflammables dans le Cône qui ne sont pas portés commencent à brûler.<br/><strong><em>Emplacement de niveau supérieur</em></strong>. Les dégâts augmentent de 1d6 pour chaque niveau d'emplacement de sort supérieur à 1.<br/>",
+        "regle": "Incantation : Action · Portée : Personnelle · Composantes : V, S · Durée : Instantanée"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "identification",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 1",
+          "Rituel"
+        ],
+        "description": "Vous touchez un objet pendant l'incantation du sort. S'il s'agit d'un objet magique, vous connaissez ses propriétés et son utilisation, si un lien est nécessaire et combien de charges il possède, le cas échéant. Vous savez si des sorts en cours affectent l'objet et lesquels. Si l'objet a été créé par un sort, vous connaissez le nom de ce sort.<br/>Si par contre vous touchez une créature pendant l'incantation, vous savez quels sorts l'affectent, le cas échéant.<br/>",
+        "regle": "Incantation : 1 minute ou Rituel · Portée : Contact · Composantes : V, S, M (une perle d'une valeur minimale de 100 po) · Durée : Instantanée"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "repli expéditif",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 1",
+          "Concentration"
+        ],
+        "description": "Vous prenez l'action Pointe et, jusqu'à la fin du sort, vous pouvez prendre de nouveau cette action en tant qu'action Bonus.<br/>",
+        "regle": "Incantation : Action bonus · Portée : Personnelle · Composantes : V, S · Durée : Concentration, jusqu'à 10 minutes"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "image silencieuse",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 1",
+          "Concentration"
+        ],
+        "description": "Vous créez l'image d'un objet, d'une créature ou d'un autre phénomène visible ne dépassant pas un Cube de 4,50 mètres de côté. L'image apparaît à un endroit à portée et persiste pendant toute la durée du sort. L'image est purement visuelle ; elle n'est accompagnée d'aucun son, odeur ou autre effet sensoriel.<br/>Par une action Magie, vous pouvez déplacer l'image n'importe où à portée. Lorsque l'image change d'emplacement, vous pouvez modifier son apparence afin que ses mouvements paraissent naturels. Par exemple, si vous créez l'image d'une créature et que vous la déplacez, vous pouvez la modifier pour qu'elle semble marcher.<br/>Une interaction physique avec l'image révèle qu'il s'agit d'une illusion, car des objets peuvent la traverser. Une créature qui prend l'action Étude pour examiner l'image peut déterminer qu'il s'agit d'une illusion en réussissant un jet d'Intelligence (Investigation) contre le DD de sauvegarde de votre sort. Si une créature perçoit l'illusion pour ce qu'elle est, elle peut voir à travers l'image.<br/>",
+        "regle": "Incantation : Action · Portée : 18 m · Composantes : V, S, M (un peu de laine brute) · Durée : Concentration, jusqu'à 10 minutes"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "nappe de brouillard",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 1",
+          "Concentration"
+        ],
+        "description": "Vous créez une Sphère de brouillard de 6 mètres de rayon centrée sur un point à portée. La Sphère est une zone de Visibilité nulle. Elle se maintient pendant toute la durée du sort ou jusqu'à ce qu'un vent fort (comme celui créé par <em><a href=\"./bourrasque\">bourrasque</a></em>) la disperse.<br/><strong><em>Emplacement de niveau supérieur</em></strong>. Le rayon du brouillard augmente de 6 mètres pour chaque niveau d'emplacement de sort supérieur à 1.<br/>",
+        "regle": "Incantation : Action · Portée : 36 m · Composantes : V, S · Durée : Concentration, jusqu'à 1 heure"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "fouet mental de tasha",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 2"
+        ],
+        "description": "",
+        "regle": ""
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "foulée brumeuse",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 2"
+        ],
+        "description": "Brièvement entouré d'une brume argentée, vous vous téléportez jusqu'à 9 mètres dans un espace inoccupé que vous pouvez voir.<br/>",
+        "regle": "Incantation : Action bonus · Portée : Personnelle · Composantes : V · Durée : Instantanée"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "espièglerie de nathair",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 2"
+        ],
+        "description": "",
+        "regle": ""
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "sens de la distorsion",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 2"
+        ],
+        "description": "",
+        "regle": ""
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "lenteur",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 3",
+          "Concentration"
+        ],
+        "description": "Vous modifiez le temps pour un maximum de six créatures de votre choix dans un Cube de 12 mètres de côté à portée. Chaque cible doit réussir un jet de sauvegarde de Sagesse ou être affectée pendant toute la durée du sort.<br/>La Vitesse de la cible affectée est divisée par deux, elle subit un malus de -2 à la CA et à ses jets de sauvegarde de Dextérité, et elle ne peut pas prendre de Réactions. À chacun de ses tours, elle peut prendre soit une action, soit une action Bonus, mais pas les deux, et elle ne peut effectuer qu'une seule attaque si elle prend l'action Attaque. Si elle lance un sort à composante somatique, il y a 25 % de chances que le sort échoue car la cible effectue les gestes du sort trop lentement.<br/>Une cible affectée refait son jet de sauvegarde à la fin de chacun de ses tours, mettant fin au sort sur elle-même en cas de réussite.<br/>",
+        "regle": "Incantation : Action · Portée : 36 m · Composantes : V, S, M (une goutte de mélasse) · Durée : Concentration, jusqu'à 1 minute"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "image majeure",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 3",
+          "Concentration"
+        ],
+        "description": "Vous créez l'image d'un objet, d'une créature ou d'un autre phénomène visible ne dépassant pas un Cube de 6 mètres de côté. L'image apparaît à un endroit que vous pouvez voir à portée et persiste pendant toute la durée du sort. Elle semble réelle, incluant les sons, les odeurs et la température appropriés à l'objet représenté, mais elle ne peut infliger de dégâts ni provoquer d'états.<br/>Si vous êtes à portée de l'illusion, vous pouvez prendre une action Magie pour déplacer l'image vers un autre endroit à portée. Lorsque l'image change d'emplacement, vous pouvez modifier son apparence afin que ses mouvements paraissent naturels. Par exemple, si vous créez l'image d'une créature et la déplacez, vous pouvez la modifier pour qu'elle semble marcher. De même, vous pouvez faire en sorte que l'illusion émette différents sons à différents moments, voire lui faire tenir une conversation, par exemple.<br/>L'interaction physique avec l'image révèle qu'il s'agit d'une illusion, car des objets peuvent la traverser. Une créature qui prend une action Étude pour examiner l'image peut déterminer qu'il s'agit d'une illusion en réussissant un jet d'Intelligence (Investigation) contre le DD de votre sauvegarde de sort. Si une créature discerne l'illusion, elle peut voir à travers l'image et ses autres capacités sensorielles s'évanouissent.<br/><strong><em>Emplacement de niveau supérieur</em></strong>. Le sort dure jusqu'à sa dissipation, sans nécessiter de concentration, s'il est lancé avec un emplacement de sort de niveau 4 ou supérieur.<br/>",
+        "regle": "Incantation : Action · Portée : 36 m · Composantes : V, S, M (un peu de laine brute) · Durée : Concentration, jusqu'à 10 minutes"
+      }
+    ],
+    "passifs": [],
+    "actions_bonus": "",
+    "reaction": "",
+    "relations": [],
+    "visible_joueurs": false,
+    "argent": {
+      "po": 0,
+      "pa": 0,
+      "pe": 0,
+      "pc": 0,
+      "pp": 0
+    },
+    "sous_classe": "enchantement",
+    "alignement": ""
+  },
+  {
+    "id": "fabrice",
+    "nom": "Fabrice \"l'émo\"",
+    "race": "Haut-elfe",
+    "classe": "Roublard - escroc arcanique",
+    "niveau": 3,
+    "de_vie": "d8",
+    "background": "Criminel",
+    "statut_campagne": "actif",
+    "pv_actuels": 27,
+    "pv_max": 27,
+    "ca": 15,
+    "vitesse": "9m",
+    "initiative": 3,
+    "bonus_maitrise": 2,
+    "traits": [
+      "Déteste les bardes et la magie",
+      "Liberté. Les chaînes sont faites pour être brisées",
+      "de même que ceux qui les forgent (Chaotique).",
+      "Je dois retrouver le barde rouge",
+      "Déteste avoir tord",
+      "pense avoir toujours raison"
+    ],
+    "jets_sauvegarde": [
+      "DEX",
+      "INT"
+    ],
+    "attributs": {
+      "FOR": {
+        "val": 10,
+        "mod": 0
+      },
+      "DEX": {
+        "val": 16,
+        "mod": 3
+      },
+      "CON": {
+        "val": 12,
+        "mod": 1
+      },
+      "INT": {
+        "val": 10,
+        "mod": 0
+      },
+      "SAG": {
+        "val": 12,
+        "mod": 1
+      },
+      "CHA": {
+        "val": 12,
+        "mod": 1
+      }
+    },
+    "competences": [
+      {
+        "nom": "Acrobaties",
+        "bonus": 5,
+        "expertise": false
+      },
+      {
+        "nom": "Discrétion",
+        "bonus": 5,
+        "expertise": false
+      },
+      {
+        "nom": "Escamotage",
+        "bonus": 5,
+        "expertise": false
+      },
+      {
+        "nom": "Investigation",
+        "bonus": 2,
+        "expertise": false
+      },
+      {
+        "nom": "Perspicacité",
+        "bonus": 3,
+        "expertise": true
+      },
+      {
+        "nom": "Persuasion",
+        "bonus": 3,
+        "expertise": true
+      },
+      {
+        "nom": "Tromperie",
+        "bonus": 3,
+        "expertise": false
+      }
+    ],
+    "citation": "J'emmerde la magie et ce barde rouge : un vrai coup de poing n'a pas besoin d'incantation pour lui faire fermer sa gueule.",
+    "equipement": [
+      "Lettre de Potras",
+      "jeu d'échec draconique",
+      "outils de voleur"
+    ],
+    "argent": {
+      "po": 10,
+      "pa": 0,
+      "pe": 0,
+      "pc": 0,
+      "pp": 0
+    },
+    "attaques": [
+      {
+        "visible_joueurs": true,
+        "nom": "Arbalète de poing",
+        "valeur": "1d6+3",
+        "jet": "d20+5",
+        "stat": "DEX",
+        "type": "perforant",
+        "portee": "",
+        "description": "",
+        "regle": ""
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Dague",
+        "valeur": "1d4+3",
+        "jet": "d20+5",
+        "stat": "DEX",
+        "type": "perforant",
+        "portee": "",
+        "description": "",
+        "regle": ""
+      }
+    ],
+    "sorts_mineurs": [
+      {
+        "visible_joueurs": true,
+        "nom": "main de mage",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Type : sort mineur"
+        ],
+        "description": "Une main spectrale et flottante apparaît à un endroit que vous choisissez à portée. La main reste active pendant toute la durée du sort. Elle disparaît si elle s'éloigne de vous de plus de 9 mètres ou si vous relancez ce sort.<br/>Lorsque vous lancez ce sort, vous pouvez utiliser la main pour manipuler un objet, ouvrir une porte ou un contenant déverrouillé, ranger ou récupérer un objet d'un contenant ouvert, ou vider le contenu d'une fiole.<br/>Par une action Magie lors de vos tours ultérieurs, vous pouvez continuer de contrôler la main ainsi. Cette action vous permet de déplacer la main jusqu'à 9 mètres.<br/>La main ne peut pas attaquer, ni activer des objets magiques, ni porter plus de 5 kg.<br/>",
+        "regle": "Incantation : Action · Portée : 9 m · Composantes : V, S · Durée : 1 minute"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "lame retentissante",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Type : sort mineur"
+        ],
+        "description": "Vous brandissez l'arme utilisée pour l'incantation du sort et effectuez une attaque au corps à corps avec cette arme contre une créature à 1,50 mètre ou moins de vous. Si vous touchez, la cible subit les effets normaux de l'attaque et elle est enveloppée d'une énergie explosive jusqu'au début de votre prochain tour. Si la cible se déplace volontairement de 1,50 mètre ou plus pendant ce laps de temps, elle subit 1d8 dégâts de tonnerre et le sort se termine.<br/>Les dégâts de ce sort augmentent suivant votre niveau. Au niveau 5, l'attaque au corps à corps inflige 1d8 dégâts de tonnerre supplémentaires à la cible, et les dégâts que la cible subit si elle se déplace passent à 2d8. Les deux jets de dégâts augmentent ensuite de 1d8 aux niveaux 11 (2d8 et 3d8) et 17 (3d8 et 4d8).<br/>",
+        "regle": "Incantation : 1 action · Portée : personnelle (rayon de 1,50 mètre) · Composantes : V, M (une arme de corps à corps valant au moins 1 pa) · Durée : 1 round"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "message",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Type : sort mineur"
+        ],
+        "description": "Vous pointez une créature à portée et murmurez un message. La cible (et elle seule) entend le message et peut répondre par un murmure que vous seul pouvez entendre.<br/>Vous pouvez lancer ce sort à travers des objets solides si vous connaissez la cible et savez qu'elle se trouve au-delà de la barrière. Un silence magique, 30 cm de pierre, de métal ou de bois, ou une fine feuille de plomb bloquent le sort.<br/>",
+        "regle": "Incantation : Action · Portée : 36 m · Composantes : S, M (du fil de cuivre) · Durée : 1 round"
+      }
+    ],
+    "capacites": [
+      {
+        "visible_joueurs": true,
+        "nom": "appel de familier",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 1",
+          "Rituel"
+        ],
+        "description": "Vous obtenez les services d'un familier, un esprit qui prend une forme animale de votre choix : chauve-souris\nchat\ngrenouille\nlézard\npieuvre\nchouette\nrat\ncorbeau\naraignée\nbelette\n ou autre Bête dont le FP est de 0.\nIl apparait dans une case libre à portée et possède le profil de la forme choisie, mais est du type Céleste, Fée ou Fiélon (selon votre choix) au lieu de Bête. Votre familier agit indépendamment de vous, mais obéit à vos ordres.\n\nLien télépathique. \nTant que votre familier est dans un rayon de 30 mètres autour de vous, vous pouvez communiquer avec lui par télépathie. De plus, par une action Bonus, vous pouvez voir à travers les yeux du familier et entendre ce qu'il entend jusqu'au début de votre prochain tour, bénéficiant ainsi des avantages de ses sens spéciaux. Enfin, lorsque vous lancez un sort dont la portée est de contact, votre familier peut appliquer le contact. Votre familier doit se trouver dans un rayon de 30 mètres et doit prendre une Réaction pour appliquer le contact lorsque vous lancez le sort.\n\nCombat.\nLe familier est votre allié et celui de vos alliés. Il lance sa propre Initiative et agit à son tour. Un familier ne peut pas attaquer mais peut effectuer d'autres actions normalement.\n\nDisparition du familier\nLorsque le familier tombe à 0 point de vie, il disparaît. Il réapparaît si vous lancez ce sort à nouveau. Par une action Magie, vous pouvez renvoyer temporairement le familier dans une niche dimensionnelle. Vous pouvez également le renvoyer définitivement. Par une action Magie, tant qu'il est temporairement renvoyé, vous pouvez le faire réapparaître dans un espace inoccupé dans un rayon de 9 mètres. Chaque fois que le familier tombe à 0 point de vie ou disparaît dans la niche dimensionnelle, il laisse derrière lui tout ce qu'il portait.\n\nUn seul familier. Vous ne pouvez pas avoir plus d'un familier à la fois. Si vous lancez ce sort alors que vous avez un familier, il adopte une nouvelle forme valide.",
+        "regle": "Incantation : 1 heure ou Rituel · Portée : 3 m · Composantes : V, S, M (de l'encens qui brûle d'une valeur minimale de 10 po, que le sort consomme) · Durée : Instantanée"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "armure de mage",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 1"
+        ],
+        "description": "Vous touchez une créature consentante qui ne porte pas d'armure. Jusqu'à la fin du sort, la CA de base de la cible passe à 13, plus son modificateur de Dextérité. Le sort prend fin prématurément si la cible enfile une armure",
+        "regle": "Incantation : Action · Portée : Contact · Composantes : V, S, M (un morceau de cuir traité) · Durée : 8 heures"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "charme-personne",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 1"
+        ],
+        "description": "Un humanoïde que vous pouvez voir à portée effectue un jet de sauvegarde de Sagesse. Il le fait avec un Avantage si vous ou vos alliés le combattez. En cas d'échec, la cible subit l'état Charmé jusqu'à la fin du sort ou jusqu'à ce que vous ou vos alliés lui infligiez des dégâts. La créature charmée est amicale envers vous. À la fin du sort, la cible sait que vous l'avez charmée.<br/><strong><em>Emplacement de niveau supérieur</em></strong>. Vous pouvez cibler une créature supplémentaire pour chaque niveau d'emplacement de sort supérieur à 1.<br/>",
+        "regle": "Incantation : Action · Portée : 9 m · Composantes : V, S · Durée : 1 heure"
+      }
+    ],
+    "passifs": [],
+    "actions_bonus": "",
+    "reaction": "",
+    "sorts_dnd": {
+      "classe_lanceur": "Roublard",
+      "dd_sauvegarde": 10,
+      "bonus_attaque": 2,
+      "mineurs": [
+        "main de mage",
+        "lame retentissante",
+        "message"
+      ],
+      "niveaux": {
+        "1": {
+          "emplacements": 4,
+          "liste": [
+            "appel de familier",
+            "armure de mage",
+            "charme-personne"
+          ]
+        },
+        "2": {
+          "emplacements": 2,
+          "liste": []
+        }
+      }
+    },
+    "relations": [],
+    "sous_classe": "",
+    "langues": "commun, elfique, sylvestre",
+    "maitrise_armures": "",
+    "maitrise_armes": "",
+    "maitrise_outils": "",
+    "traits_perso": "il a du mal à s'exprimer en public et évite autant que possible la communication de groupe lorsqu'elle ne sert pas ses intérêts.",
+    "ideaux": "Deteste les bardes et la magie",
+    "liens": "",
+    "defauts": "Pense avoir toujours raison, deteste avoir tord",
+    "histoire": "Il voit la magie d'un mauvais oeil.\n\nIl a coupé les ponts avec son père, un barde de renom, qu'il estime violent et malicieux et qu'il suspecte de l'avoir l'abandonné pour rejoindre une guilde de bardes : \"L'Oasis\".\n\nIl soupçonne également son père d'être responsable de la disparition de sa mère, qu'il n'a pas connue. En effet, alors âgé d'une dizaine d'années environ il a appris, en écoutant sournoisement une discussion entre le directeur adjoint de l'orphelinat et la mère supérieure, que son père serait impliqué dans différent cas disparitions de femmes vivants aux abords de la ville.\n\nIl y a quelques années, il est déposé par un homme à l'orphelinat de Fort-Sylvestre assez jeune, mais assez âgé pour se souvenir du visage et de la voix de son père. Fort-Sylvestre est un orphelinat plutôt tranquille et de renom, mais qui ordonne des pratiques religieuses et magiques aux enfants recueillis.\n\nOn ne connait pas son âge avec précision, mais il semble avoir environ 17 ans.\n\nAu fil de ses année à l'orphelinat, il a appris à tirer parti des autres en influençant les simples d'esprit. Il déteste la hiérarchie et a appris à se débrouiller seul, ne faisant que très peu appel aux adultes, même dans des situations hors de ses capacités. Débrouillard mais peu éduqué, il a du mal à s'exprimer en public et évite autant que possible la communication de groupe lorsqu'elle ne sert pas ses intérêts.\n\nIl aime avoir raison et déteste avoir tort. Il voit la magie d'un très mauvais œil et plus particulièrement les bardes : il les considère comme des manipulateurs dangereux et hautains. Il estime que la magie est une pratique ésotérique d'illuminés qui brûlent des encens et agitent des pendules.\n\nD'un naturel curieux et calme. Toujours à l'heure. Il est complexé par son prénom, donné par défaut par la mère supérieure.\n\nIl porte un capuchon quasiment en permanence, a les yeux bleus très foncés, les cheveux très courts et foncés. Il a une corpulence assez fine et est plutôt court sur pattes. Il porte une bague mystérieuse mauve sur son auriculaire droit et refuse d'épiloguer à ce sujet.\n\nBien que curieux, Fabrice n'est pas très loquace et aime à laisser croire que les autres sont idiots, bien qu'il soit totalement capable de se remettre en question et d'accepter de ses torts.",
+    "age": "",
+    "taille": "",
+    "poids": "",
+    "yeux": "",
+    "peau": "",
+    "cheveux": "",
+    "alignement": "",
+    "xp": 0,
+    "background_feature": "",
+    "pv_temporaires": 0,
+    "inspiration": false,
+    "sens_speciaux": "",
+    "resistances": "",
+    "immunites": "",
+    "vulnerabilites": ""
+  },
+  {
+    "id": "pj_test",
+    "nom": "TEST",
+    "race": "Haut-elfe",
+    "alignement": "",
+    "classe": "Roublard",
+    "sous_classe": "escroc arcanique",
+    "niveau": 3,
+    "xp": 0,
+    "de_vie": "d8",
+    "background": "Criminel",
+    "background_feature": "",
+    "statut_campagne": "actif",
+    "pv_actuels": 27,
+    "pv_max": 27,
+    "pv_temporaires": 0,
+    "ca": 15,
+    "vitesse": "9m",
+    "initiative": 3,
+    "bonus_maitrise": 2,
+    "inspiration": false,
+    "traits": [],
+    "jets_sauvegarde": [
+      "DEX",
+      "INT"
+    ],
+    "attributs": {
+      "FOR": {
+        "val": 10,
+        "mod": 0
+      },
+      "DEX": {
+        "val": 16,
+        "mod": 3
+      },
+      "CON": {
+        "val": 12,
+        "mod": 1
+      },
+      "INT": {
+        "val": 10,
+        "mod": 0
+      },
+      "SAG": {
+        "val": 12,
+        "mod": 1
+      },
+      "CHA": {
+        "val": 12,
+        "mod": 1
+      }
+    },
+    "competences": [
+      {
+        "nom": "Acrobaties",
+        "bonus": 5,
+        "expertise": false
+      },
+      {
+        "nom": "Discrétion",
+        "bonus": 5,
+        "expertise": false
+      },
+      {
+        "nom": "Escamotage",
+        "bonus": 5,
+        "expertise": false
+      },
+      {
+        "nom": "Investigation",
+        "bonus": 2,
+        "expertise": false
+      },
+      {
+        "nom": "Perspicacité",
+        "bonus": 3,
+        "expertise": false
+      },
+      {
+        "nom": "Persuasion",
+        "bonus": 3,
+        "expertise": false
+      },
+      {
+        "nom": "Tromperie",
+        "bonus": 3,
+        "expertise": false
+      }
+    ],
+    "citation": "",
+    "equipement": [
+      "outils de voleur",
+      "jeu d'échecs draconiques",
+      "outils de bijoutier"
+    ],
+    "argent": {
+      "po": 15,
+      "pa": 0,
+      "pe": 0,
+      "pc": 0,
+      "pp": 0
+    },
+    "attaques": [
+      {
+        "visible_joueurs": true,
+        "nom": "Arbalète légère",
+        "valeur": "1d8+3",
+        "jet": "d20+5",
+        "stat": "DEX",
+        "type": "perforant",
+        "portee": "",
+        "description": "",
+        "regle": ""
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Dague",
+        "valeur": "1d4+3",
+        "jet": "d20+5",
+        "stat": "DEX",
+        "type": "perforant",
+        "portee": "",
+        "description": "",
+        "regle": ""
+      }
+    ],
+    "sorts_mineurs": [
+      {
+        "visible_joueurs": true,
+        "nom": "main de mage",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Type : sort mineur"
+        ],
+        "description": "Une main spectrale et flottante apparaît à un endroit que vous choisissez à portée. La main reste active pendant toute la durée du sort. Elle disparaît si elle s'éloigne de vous de plus de 9 mètres ou si vous relancez ce sort.<br/>Lorsque vous lancez ce sort, vous pouvez utiliser la main pour manipuler un objet, ouvrir une porte ou un contenant déverrouillé, ranger ou récupérer un objet d'un contenant ouvert, ou vider le contenu d'une fiole.<br/>Par une action Magie lors de vos tours ultérieurs, vous pouvez continuer de contrôler la main ainsi. Cette action vous permet de déplacer la main jusqu'à 9 mètres.<br/>La main ne peut pas attaquer, ni activer des objets magiques, ni porter plus de 5 kg.<br/>",
+        "regle": "Incantation : Action · Portée : 9 m · Composantes : V, S · Durée : 1 minute"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "lumière",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Type : sort mineur"
+        ],
+        "description": "Vous touchez un objet de taille G ou inférieure qui n'est pas porté par quelqu'un d'autre. Jusqu'à la fin du sort, l'objet émet une Lumière vive sur un rayon de 6 mètres et une Lumière faible sur 6 mètres supplémentaires. La lumière peut être colorée à votre guise. Recouvrir l'objet par quelque chose d'opaque bloque la lumière. Le sort prend fin si vous le relancez.<br/>",
+        "regle": "Incantation : Action · Portée : Contact · Composantes : V, M (une luciole ou de la mousse phosphorescente) · Durée : 1 heure"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "illusion mineure",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Type : sort mineur"
+        ],
+        "description": "Vous créez un son ou l'image d'un objet, à portée, qui se maintient pendant toute la durée du sort. Voir les descriptions ci-dessous pour les différents effets. L'illusion disparait si vous relancez ce sort.<br/>Si une créature entreprend l'action Étudier pour examiner le son ou l'image, elle peut reconnaitre qu'il s'agit d'une illusion en réussissant un jet d'Intelligence (Investigation) contre votre DD de sauvegarde des sorts. Si une créature reconnait ainsi l'illusion pour ce qu'elle est, la perçoit toujours, mais amoindrie.<br/><strong>Son</strong>. Si vous créez un son, son intensité peut aller du chuchotement au cri. Cela peut être votre voix, la voix de quelqu'un d'autre, un rugissement de lion, un battement de tambour ou tout autre son de votre choix. Le son se poursuit sans faiblir pendant toute la durée du sort, ou vous pouvez choisir de faire différents sons individuels, à différents intervalles, jusqu'à la fin du sort.<br/><strong>Image</strong>. Si vous créez l'image d'un objet (comme une chaise, des empreintes boueuses ou un petit coffre), cela ne peut pas être plus grand qu'un Cube de 1,50 mètre de côté. L'image ne produit ni son, ni lumière, ni odeur, ni autre effet sensoriel. Interagir physiquement avec l'illusion révèle sa nature, car elle est intangible.<br/>",
+        "regle": "Incantation : Action · Portée : 9 m · Composantes : S, M (un peu de laine brute) · Durée : 1 minute"
+      }
+    ],
+    "capacites": [
+      {
+        "visible_joueurs": true,
+        "nom": "bouclier",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 1"
+        ],
+        "description": "Une barrière imperceptible de force magique vous protège. Jusqu'au début de votre prochain tour, vous bénéficiez d'un bonus de +5 à la CA, y compris contre l'attaque déclenchante, et vous ne subissez aucun dégât de <em><a href=\"./projectile-magique\">projectile magique</a></em>.<br/>",
+        "regle": "Incantation : Réaction, que vous prenez lorsque vous êtes touché par un jet d'attaque ou ciblé par le sort projectile magique · Portée : Personnelle · Composantes : V, S · Durée : 1 round"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "image silencieuse",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 1",
+          "Concentration"
+        ],
+        "description": "Vous créez l'image d'un objet, d'une créature ou d'un autre phénomène visible ne dépassant pas un Cube de 4,50 mètres de côté. L'image apparaît à un endroit à portée et persiste pendant toute la durée du sort. L'image est purement visuelle ; elle n'est accompagnée d'aucun son, odeur ou autre effet sensoriel.<br/>Par une action Magie, vous pouvez déplacer l'image n'importe où à portée. Lorsque l'image change d'emplacement, vous pouvez modifier son apparence afin que ses mouvements paraissent naturels. Par exemple, si vous créez l'image d'une créature et que vous la déplacez, vous pouvez la modifier pour qu'elle semble marcher.<br/>Une interaction physique avec l'image révèle qu'il s'agit d'une illusion, car des objets peuvent la traverser. Une créature qui prend l'action Étude pour examiner l'image peut déterminer qu'il s'agit d'une illusion en réussissant un jet d'Intelligence (Investigation) contre le DD de sauvegarde de votre sort. Si une créature perçoit l'illusion pour ce qu'elle est, elle peut voir à travers l'image.<br/>",
+        "regle": "Incantation : Action · Portée : 18 m · Composantes : V, S, M (un peu de laine brute) · Durée : Concentration, jusqu'à 10 minutes"
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "nappe de brouillard",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [
+          "Niveau 1",
+          "Concentration"
+        ],
+        "description": "Vous créez une Sphère de brouillard de 6 mètres de rayon centrée sur un point à portée. La Sphère est une zone de Visibilité nulle. Elle se maintient pendant toute la durée du sort ou jusqu'à ce qu'un vent fort (comme celui créé par <em><a href=\"./bourrasque\">bourrasque</a></em>) la disperse.<br/><strong><em>Emplacement de niveau supérieur</em></strong>. Le rayon du brouillard augmente de 6 mètres pour chaque niveau d'emplacement de sort supérieur à 1.<br/>",
+        "regle": "Incantation : Action · Portée : 36 m · Composantes : V, S · Durée : Concentration, jusqu'à 1 heure"
+      }
+    ],
+    "passifs": [],
+    "actions_bonus": "",
+    "reaction": "",
+    "sorts_dnd": {
+      "classe_lanceur": "Roublard",
+      "dd_sauvegarde": 10,
+      "bonus_attaque": 2,
+      "mineurs": [
+        "main de mage",
+        "lumière",
+        "illusion mineure"
+      ],
+      "niveaux": {
+        "1": {
+          "emplacements": 4,
+          "liste": [
+            "bouclier",
+            "image silencieuse",
+            "nappe de brouillard"
+          ]
+        },
+        "2": {
+          "emplacements": 2,
+          "liste": []
+        }
+      }
+    },
+    "langues": "commun, elfique, sylvestre",
+    "maitrise_armures": "",
+    "maitrise_armes": "",
+    "maitrise_outils": "",
+    "sens_speciaux": "",
+    "resistances": "",
+    "immunites": "",
+    "vulnerabilites": "",
+    "traits_perso": "il a du mal à s'exprimer en public et évite autant que possible la communication de groupe lorsqu'elle ne sert pas ses intérêts.",
+    "ideaux": "Détruire les bardes",
+    "liens": "",
+    "defauts": "Il aime avoir raison et déteste avoir tort.  Il voit la magie d'un très mauvais œil et plus particulièrement les bardes : il les considère comme des manipulateurs dangereux et hautains. Il estime que la magie est une pratique ésotérique d'illuminés qui brûlent des encens et agitent des pendules.",
+    "histoire": "",
+    "age": "17",
+    "taille": "1,65 m",
+    "poids": "55 kg",
+    "yeux": "bleu",
+    "peau": "verte",
+    "cheveux": "noir",
+    "relations": []
+  }
+]

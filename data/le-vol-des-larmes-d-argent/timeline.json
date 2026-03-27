@@ -1,0 +1,249 @@
+[
+  {
+    "id": "evt_06",
+    "titre": "Exécution du père de Renn par la Brigade",
+    "date_fiction": "Quelques années avant la campagne",
+    "periode": "avant_campagne",
+    "type": "historique",
+    "description": "Le père de Renn est arrêté et exécuté par la Brigade du Saumon Noir. Les raisons de cette exécution sont inconnues. Cet événement forge la rancœur de Renn envers la Brigade.",
+    "visible_joueurs": true,
+    "entites_liees": [
+      "pnj_renn"
+    ]
+  },
+  {
+    "id": "evt_07",
+    "titre": "Mort de la mère de Renn",
+    "date_fiction": "Janvier de l'année en cours",
+    "periode": "avant_campagne",
+    "type": "historique",
+    "description": "La mère de Renn meurt en janvier. Renn, 16 ans, se retrouve seul responsable de sa sœur Camille, 9 ans.",
+    "visible_joueurs": true,
+    "entites_liees": [
+      "pnj_renn",
+      "pnj_camille",
+      "pnj_mila"
+    ]
+  },
+  {
+    "id": "evt_11",
+    "titre": "Le marché de Mael",
+    "date_fiction": "Avant la session 1",
+    "periode": "avant_session_01",
+    "type": "session",
+    "description": "Mael propose aux aventuriers le marché : liberté contre retrouver la Larme. Un soldat interrompt l'entretien. Edward est l'opérationnel présent sur le terrain — Mael est le supérieur.",
+    "visible_joueurs": true,
+    "entites_liees": [
+      "pnj_mael",
+      "pnj_edward"
+    ]
+  },
+  {
+    "id": "evt_08",
+    "titre": "L'homme à la capuche contacte Renn",
+    "date_fiction": "Avant la session 1",
+    "periode": "avant_session_01",
+    "type": "revelation",
+    "description": "L'homme à la capuche contacte Renn par communication télépathique. Il lui dit que la pierre est décorative, lui montre le symbole à graver, lui promet argent, nouveau foyer, départ de la Marche pour lui et sa sœur, et lui dit que ça conduira au départ de la Brigade.",
+    "visible_joueurs": true,
+    "entites_liees": [
+      "pnj_capuche",
+      "pnj_renn"
+    ]
+  },
+  {
+    "id": "evt_10",
+    "titre": "Les morts se lèvent — La Brigade réagit",
+    "date_fiction": "Nuit de la session 1",
+    "periode": "session_01",
+    "type": "session",
+    "description": "Sans la Larme, la frontière se fissure. Les morts-vivants sortent du cimetière. La Brigade est en alerte. Edward fait laisse un chance aux aventuriers de faire leurs preuves.",
+    "visible_joueurs": true,
+    "entites_liees": [
+      "pnj_mael",
+      "pnj_edward"
+    ]
+  },
+  {
+    "id": "evt_12",
+    "titre": "Combat sur la place centrale",
+    "date_fiction": "Session 1",
+    "periode": "session_01",
+    "type": "session",
+    "description": "Combat des aventuriers. Les aventuriers se débarrassent des squelettes sans heurts, Finn trouve de la poudre d'argent sur le squelette.",
+    "visible_joueurs": true,
+    "entites_liees": [
+      "pnj_edward"
+    ]
+  },
+  {
+    "id": "evt_13",
+    "titre": "Rulven pose un sceau d'urgence — compte à rebours 24-48h",
+    "date_fiction": "Session 1",
+    "periode": "session_01",
+    "type": "session",
+    "description": "Rulven scelle provisoirement la Borne à la craie d'argent. La protection tient quelques heures. L'enquête commence.",
+    "visible_joueurs": true,
+    "entites_liees": [
+      "pnj_rulven"
+    ]
+  },
+  {
+    "id": "evt_14",
+    "titre": "Osric touche la poudre argentée — résonance inexpliquée",
+    "date_fiction": "Session 1",
+    "periode": "session_01",
+    "type": "session",
+    "description": "Osric touche la poudre d'argent sur les mains de Finn. Son sang draconique réagit, sensation de désorientation, comme une boussole qui cherche son nord.",
+    "visible_joueurs": true,
+    "entites_liees": [
+      "pnj_ysolda"
+    ]
+  },
+  {
+    "id": "evt_15",
+    "titre": "Mila retrouvée aux bains",
+    "date_fiction": "Session 1",
+    "periode": "session_01",
+    "type": "session",
+    "description": "Mila est retrouvée à l'établissement de bains, dans un état d'incohérence avancée au sel de lune. Elle mentionne vaguement un sale gamin.",
+    "visible_joueurs": true,
+    "entites_liees": [
+      "pnj_mila",
+      "pnj_gobelin"
+    ]
+  },
+  {
+    "id": "evt_16",
+    "titre": "Renn retrouvé — Osric l'empoigne, Darg gifle Osric",
+    "date_fiction": "Session 1",
+    "periode": "session_01",
+    "type": "session",
+    "description": "Renn est localisé caché dans une dépendance. Osric l'empoigne par le col sans raison opérationnelle, Renn fuit. Darg gifle Osric et l'envoie au sol. Renn est retrouvé chez lui par Illwen et Darg avec une approche plus bienveillante. Renn confesse tout : manipulation, voix télépathique, promesses.",
+    "visible_joueurs": true,
+    "entites_liees": [
+      "pnj_renn"
+    ]
+  },
+  {
+    "id": "evt_17",
+    "titre": "Finn crochète le manoir — Corvin interrogé",
+    "date_fiction": "Session 1",
+    "periode": "session_01",
+    "type": "session",
+    "description": "Guillaume signale le cheval de Corvin à l'écurie. Finn crochète le manoir du maire et improvise un déguisement de majordome. Corvin coopère dès que Finn pose ses lames sur la table des négociations. Il avoue avoir racheté la Larme à Renn pour presque rien et l'avoir vendue à Ysolda, connaît l'étranger comme intermédiaire. Les aventuriers lui extorquent une lanterne de Sel-Lune et du sel.",
+    "visible_joueurs": true,
+    "entites_liees": [
+      "pnj_corvin",
+      "pnj_guillaume"
+    ]
+  },
+  {
+    "id": "evt_18",
+    "titre": "La Larme récupérée chez Ysolda",
+    "date_fiction": "Session 1",
+    "periode": "session_01",
+    "type": "session",
+    "description": "Ysolda est coopérative immédiatement, mains ouvertes. Elle pensait avoir acheté une copie affaiblie pour en étudier le mécanisme. Rend la Larme sans négociation.",
+    "visible_joueurs": true,
+    "entites_liees": [
+      "pnj_ysolda"
+    ]
+  },
+  {
+    "id": "evt_19",
+    "titre": "La Larme replacée — Valmorne protégée",
+    "date_fiction": "Session 1",
+    "periode": "session_01",
+    "type": "session",
+    "description": "Rulven replace la Larme dans la Borne-Cœur.",
+    "visible_joueurs": true,
+    "entites_liees": [
+      "pnj_rulven",
+      "pnj_renn"
+    ]
+  },
+  {
+    "id": "evt_20",
+    "titre": "Dispositions d'Edward — Aventuriers enrôlés dans la Brigade",
+    "date_fiction": "Lendemain de la session 1",
+    "periode": "session_01",
+    "type": "session",
+    "description": "Edward prend les dispositions : Renn aux écuries / Ysolda accord commercial / Corvin donation + surveillance / Mila suspension conservatoire / Gobelin Brigade ou prison. Les aventuriers sont enrôlés définitivement dans la Brigade du Saumon Noir.",
+    "visible_joueurs": true,
+    "entites_liees": [
+      "pnj_edward",
+      "pnj_mael"
+    ]
+  },
+  {
+    "id": "S02-01",
+    "titre": "Briefing à la taverne",
+    "date_fiction": "Jour 2, 12h30",
+    "periode": "session_02",
+    "type": "session",
+    "description": "Edward retrouve le groupe, intègre de force la nouvelle recrue Fabrice et les envoie enquêter au moulin en ruine sur la piste de l'homme à la capuche.",
+    "visible_joueurs": true,
+    "entites_liees": []
+  },
+  {
+    "id": "S02-02",
+    "titre": "Réquisition frauduleuse",
+    "date_fiction": "Jour 2, 13h00",
+    "periode": "session_02",
+    "type": "session",
+    "description": "Osric falsifie la signature d'Edward pour emprunter une charrette et un cheval de la Brigade auprès du palefrenier.",
+    "visible_joueurs": true,
+    "entites_liees": []
+  },
+  {
+    "id": "S02-03",
+    "titre": "Embuscade sur la route",
+    "date_fiction": "Jour 2, milieu d'après-midi",
+    "periode": "session_02",
+    "type": "session",
+    "description": "Le groupe est attaqué par des bandits qui ciblent la charrette de la Brigade. La lanterne est détruite et Darg élimine la jeteuse de sorts ennemie. Un attaquant parvient à s'échapper.",
+    "visible_joueurs": true,
+    "entites_liees": []
+  },
+  {
+    "id": "S02-04",
+    "titre": "Le repoussement de la brume",
+    "date_fiction": "Jour 2, milieu d'après-midi",
+    "periode": "session_02",
+    "type": "session",
+    "description": "Le brouillard menace de les engloutir, mais Illwen parvient à écouter la brume et à la repousser magiquement pour créer une zone de sécurité.",
+    "visible_joueurs": true,
+    "entites_liees": []
+  },
+  {
+    "id": "S02-05",
+    "titre": "Affrontement au moulin",
+    "date_fiction": "Jour 2, fin d'après-midi",
+    "periode": "session_02",
+    "type": "session",
+    "description": "Arrivés au moulin, les héros débusquent un monstre des brumes caché dans les fourrés et parviennent à le blesser gravement au cours d'un combat brutal.\nL'inconnu surgit, soigne la bête et neutralise le groupe d'un seul geste. Traversé par une forte attraction magnétique, Osric reçoit un message télépathique avant de s'effondrer.",
+    "visible_joueurs": true,
+    "entites_liees": []
+  },
+  {
+    "id": "S02-06",
+    "titre": "Réveil et découvertes",
+    "date_fiction": "Jour 2, fin de journée",
+    "periode": "session_02",
+    "type": "session",
+    "description": "Le groupe se réveille soigné. Ils libèrent deux soldats de la Brigade ligotés, Darg trouve et cache des documents de forge naine, et Finn découvre une pièce frappée d'un dragon.",
+    "visible_joueurs": true,
+    "entites_liees": []
+  },
+  {
+    "id": "S02-07",
+    "titre": "Rapport à Valmorne",
+    "date_fiction": "Jour 2, soirée",
+    "periode": "avant_campagne",
+    "type": "session",
+    "description": "De retour, le groupe ment à Edward sur le timing de l'embuscade. Ils lui montrent la pièce et transmettent le message cryptique, ce qui pousse Edward à les orienter vers Rulven. Osric parle de l'attraction, Lancenoir l'invite à la suivre.",
+    "visible_joueurs": true,
+    "entites_liees": []
+  }
+]
