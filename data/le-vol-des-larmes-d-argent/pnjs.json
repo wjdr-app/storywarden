@@ -55,7 +55,8 @@
     "visible_joueurs": true,
     "phrase_cle": "",
     "capacites_confirmees": [],
-    "capacites_visible_joueurs": true
+    "capacites_visible_joueurs": true,
+    "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/Mael.png"
   },
   {
     "id": "pnj_rulven",
@@ -79,7 +80,10 @@
     "notes": "Descendant spirituel autodidacte des Gardiens de Route. Ses connaissances sont incomplètes par rapport au savoir de l'étranger.",
     "tic": "",
     "phrase_cle": "",
-    "repliques": []
+    "repliques": [],
+    "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/Rulven.png",
+    "capacites_confirmees": [],
+    "capacites_visible_joueurs": true
   },
   {
     "id": "pnj_renn",
@@ -104,7 +108,10 @@
     "phrase_cle": "",
     "notes": "Disposition finale : emploi aux écuries du détachement sous supervision de Guillaume. Rancœur envers la Brigade (père exécuté) — à surveiller.",
     "tic": "",
-    "repliques": []
+    "repliques": [],
+    "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/Renn.png",
+    "capacites_confirmees": [],
+    "capacites_visible_joueurs": true
   },
   {
     "id": "pnj_ysolda",
@@ -128,7 +135,10 @@
     "notes": "Disposition finale : accord commercial avec la Brigade, tarif préférentiel alcools/potions en échange de sa liberté.",
     "tic": "",
     "phrase_cle": "",
-    "repliques": []
+    "repliques": [],
+    "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/Ysolda.png",
+    "capacites_confirmees": [],
+    "capacites_visible_joueurs": true
   },
   {
     "id": "pnj_corvin",
@@ -153,7 +163,10 @@
     "notes": "Disposition finale : donation conséquente à la Brigade, doit déclarer ses passages, toute récidive traitée sans négociation. Informateur commercial potentiel.",
     "tic": "",
     "phrase_cle": "",
-    "repliques": []
+    "repliques": [],
+    "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/Corvin.png",
+    "capacites_confirmees": [],
+    "capacites_visible_joueurs": true
   },
   {
     "id": "pnj_mila",
@@ -177,7 +190,10 @@
     "notes": "Statut : suspendue à titre conservatoire. Décision conjointe Mael/Rulven attendue.",
     "tic": "",
     "phrase_cle": "",
-    "repliques": []
+    "repliques": [],
+    "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/mila.png",
+    "capacites_confirmees": [],
+    "capacites_visible_joueurs": true
   },
   {
     "id": "pnj_bren",
@@ -198,7 +214,8 @@
     "repliques": [],
     "stats": {},
     "capacites_confirmees": [],
-    "capacites_visible_joueurs": true
+    "capacites_visible_joueurs": true,
+    "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/Bren.png"
   },
   {
     "id": "pnj_guillaume",
@@ -216,7 +233,10 @@
     "tic": "",
     "phrase_cle": "",
     "repliques": [],
-    "stats": {}
+    "stats": {},
+    "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/guillaume.png",
+    "capacites_confirmees": [],
+    "capacites_visible_joueurs": true
   },
   {
     "id": "pnj_capuche",
@@ -245,7 +265,8 @@
     "phrase_cle": "",
     "repliques": [],
     "stats": {},
-    "capacites_visible_joueurs": true
+    "capacites_visible_joueurs": true,
+    "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/Kaelen.png"
   },
   {
     "id": "pnj_gobelin",
@@ -263,7 +284,10 @@
     "tic": "",
     "phrase_cle": "",
     "repliques": [],
-    "stats": {}
+    "stats": {},
+    "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/le gobelin tenancier.png",
+    "capacites_confirmees": [],
+    "capacites_visible_joueurs": true
   },
   {
     "id": "pnj_camille",
@@ -282,7 +306,10 @@
     "phrase_cle": "",
     "repliques": [],
     "stats": {},
-    "visible_joueurs": true
+    "visible_joueurs": true,
+    "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/camille.png",
+    "capacites_confirmees": [],
+    "capacites_visible_joueurs": true
   },
   {
     "id": "PNJ-BEN",
@@ -308,7 +335,8 @@
       "ca": 15,
       "attaque": "Lance d'arrêt : +4 pour toucher (1d6+2 dégâts perforant)",
       "initiative": "+1"
-    }
+    },
+    "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/ben.png"
   },
   {
     "id": "PNJ-JERRY",
@@ -334,6 +362,7 @@
       "ca": 14,
       "attaque": "Épée courte de milicien : +4 pour toucher (1d6+2 dégâts tranchants).",
       "initiative": "+2"
-    }
+    },
+    "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/Jerry.png"
   }
 ]
