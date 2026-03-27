@@ -886,7 +886,7 @@
   document.addEventListener('larme-mj-change', function() {
     mjMode = localStorage.getItem('sw_mj_mode') === 'true';
     var grid = document.getElementById('cards-grid');
-    if (grid && allPjs.length) grid.innerHTML = allPjs.map(function(pj, i) { return renderCard(pj, i); }).join('');
+    if (grid && allPjs.length) { var displayPjs = allPjs.filter(function(pj){ return mjMode || pj.statut_campagne !== 'absent'; }); grid.innerHTML = displayPjs.map(function(pj, i) { return renderCard(pj, i); }).join(''); }
   });
 
   /* ── Load data ── */
@@ -897,7 +897,8 @@
       allPjs = Array.isArray(data) ? data : [];
       populateSpellbookSelect();
       if (!allPjs.length) { grid.innerHTML = '<div class="loading">Aucun aventurier trouv\u00e9.</div>'; return; }
-      grid.innerHTML = allPjs.map(function(pj, i) { return renderCard(pj, i); }).join('');
+      var displayPjs = allPjs.filter(function(pj){ return mjMode || pj.statut_campagne !== 'absent'; });
+      grid.innerHTML = displayPjs.map(function(pj, i) { return renderCard(pj, i); }).join('');
       var actifs = allPjs.filter(function(p) { return p.statut_campagne !== 'absent'; }).length;
       var _ac = document.getElementById('active-count'); if(_ac) _ac.textContent = actifs + ' / ' + allPjs.length;
       var urlP = new URLSearchParams(window.location.search); var ficheP = parseInt(urlP.get('fiche')); if (!isNaN(ficheP) && ficheP >= 0 && ficheP < allPjs.length) { openSheet(ficheP); }
