@@ -135,7 +135,13 @@ function showMJPasswordModal() {
     function close(result) { ov.remove(); resolve(result); }
     async function trySubmit() {
       const auth = await loadAuthData();
-      if (!auth || !auth.passwordHash || await sha256hex(inp.value) === auth.passwordHash) { close(true); }
+      if (!auth || !auth.passwordHash || await sha256hex(inp.value) === auth.passwordHash) {
+        // Mode web : persister l'auth dans localStorage pour que getMJMode() fonctionne
+        if (typeof window.electronAPI === 'undefined' && !localStorage.getItem('sw_auth_v1')) {
+          localStorage.setItem('sw_auth_v1', JSON.stringify(auth || {}));
+        }
+        close(true);
+      }
       else { err.textContent = 'Mot de passe incorrect.'; inp.value = ''; inp.focus(); }
     }
     document.getElementById('mj-pwd-ok').onclick = trySubmit;
