@@ -104,6 +104,7 @@ function setMJMode(val) {
   localStorage.setItem('sw_mj_mode', val ? 'true' : 'false');
   applyMJMode(val);
   document.dispatchEvent(new CustomEvent('mjmodechange', { detail: { isMJ: val } }));
+  document.dispatchEvent(new CustomEvent('larme-mj-change', { detail: { isMJ: val } }));
 }
 
 function applyMJMode(isMJ) {
