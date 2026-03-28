@@ -93,7 +93,7 @@ function getMJMode() {
   // En mode web (non-Electron), exiger que des données d'auth soient présentes.
   // Empêche le mode MJ de persister automatiquement sur la vue joueurs publiée
   // quand le MJ n'a pas explicitement re-validé son identité.
-  if (typeof window.electronAPI === 'undefined' && !localStorage.getItem('sw_auth_v1')) {
+  if (typeof window.electronAPI === 'undefined' && !sessionStorage.getItem('sw_mj_session')) {
     localStorage.removeItem('sw_mj_mode');
     return false;
   }
@@ -136,9 +136,9 @@ function showMJPasswordModal() {
     async function trySubmit() {
       const auth = await loadAuthData();
       if (!auth || !auth.passwordHash || await sha256hex(inp.value) === auth.passwordHash) {
-        // Mode web : persister l'auth dans localStorage pour que getMJMode() fonctionne
-        if (typeof window.electronAPI === 'undefined' && !localStorage.getItem('sw_auth_v1')) {
-          localStorage.setItem('sw_auth_v1', JSON.stringify(auth || {}));
+        // Mode web : flag de session so getMJMode() persiste entre les pages du meme onglet
+        if (typeof window.electronAPI === 'undefined') {
+          sessionStorage.setItem('sw_mj_session', '1');
         }
         close(true);
       }
