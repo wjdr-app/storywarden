@@ -201,7 +201,7 @@ function toggleCard(id, event) {
   applyMJMode(getMJMode());
 }
 
-(function(){ const _o=window.setMJMode; window.setMJMode=function(v){_o(v); if(LORE_DATA&&LORE_DATA.length) applyFilters();}; })();
+document.addEventListener('mjmodechange', function() { if (LORE_DATA && LORE_DATA.length) applyFilters(); });
 document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>

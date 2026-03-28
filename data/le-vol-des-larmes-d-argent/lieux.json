@@ -213,6 +213,23 @@
     "sous_lieux": []
   },
   {
+    "id": "lieu_10",
+    "nom": "Le moulin abandonné",
+    "type": "autre",
+    "region": "Route de Valmorne",
+    "description": "Moulin à eau désaffecté à mi-chemin à deux heures de marche de Valmorne. Mentionné sur une note reçue par Bren. on suppose qu'il était là avant la brume, ce qui explique son état déplorable.",
+    "statut": "visité",
+    "evenements": [],
+    "pnjs_presents": [],
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "visible_joueurs": false,
+    "categorie": "batiment",
+    "sous_lieux": []
+  },
+  {
     "id": "lieu_11",
     "nom": "Val-de-Brume",
     "type": "ville",
@@ -228,5 +245,600 @@
     "visible_joueurs": true,
     "categorie": "ville",
     "sous_lieux": []
+  },
+  {
+    "id": "lieu_12",
+    "nom": "Hautecendre",
+    "type": "ville",
+    "region": "Les Marches du Souffle",
+    "description": "Première ville située au nord de Valmorne, elle constitue le principal carrefour commercial du sud de la région. La Brigade y est solidement implantée et y possède un centre de formation.\n\nLa ville a été bâtie sur une vaste colline, élevée sur les cendres de l’ancienne forêt qui occupait autrefois ces terres.",
+    "statut": "inconnu",
+    "evenements": [],
+    "pnjs_presents": [],
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "visible_joueurs": false,
+    "categorie": "ville",
+    "sous_lieux": []
+  },
+  {
+    "id": "lieu_13",
+    "nom": "Crevesouche",
+    "type": "village",
+    "region": "Les Marches du Souffle",
+    "description": "Village de bûcherons au sud-ouest de Valmorne, au bord des landes.",
+    "statut": "inconnu",
+    "evenements": [],
+    "pnjs_presents": [],
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "visible_joueurs": false,
+    "categorie": "ville",
+    "sous_lieux": []
+  },
+  {
+    "id": "lieu_14",
+    "nom": "Grisebarre",
+    "type": "village",
+    "region": "Les Marches du Souffle",
+    "description": "Bourgade fortifiée du sud-ouest, autrefois siège de la Brigade. La région est désormais considérée comme dangereuse, la brume avançant inexorablement et grignotant chaque année un peu plus les terres environnantes.",
+    "statut": "inconnu",
+    "evenements": [],
+    "pnjs_presents": [],
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "visible_joueurs": false,
+    "categorie": "ville",
+    "sous_lieux": []
+  },
+  {
+    "id": "lieu_15",
+    "nom": "Sauval",
+    "type": "village",
+    "region": "Les Marches du Souffle",
+    "description": "Village de pêcheurs établi sur les rives sud du lac d’Onyr. Autrefois paisibles et abondantes, ses eaux sont désormais redoutées : la brume s’élève souvent du lac à la tombée du jour, s’étirant sur la surface noire avant de gagner lentement les terres. On raconte que quelque chose remue dans ses profondeurs, et que certaines nuits, des silhouettes émergent de l’eau pour disparaître aussitôt dans les vapeurs épaisses.\n\nLa Brigade maintenait jadis un petit poste de surveillance sur la rive, chargé de patrouiller le lac et d’escorter les barques trop éloignées. Depuis que la brume s’est intensifiée, les rondes se sont faites plus rares, et plusieurs patrouilles ne sont jamais revenues. Les pêcheurs évitent désormais de sortir avant l’aube et refusent catégoriquement de naviguer lorsque la brume tombe sur le lac d’Onyr.",
+    "statut": "inconnu",
+    "evenements": [],
+    "pnjs_presents": [],
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "visible_joueurs": false,
+    "categorie": "ville",
+    "sous_lieux": []
+  },
+  {
+    "id": "valmecroix",
+    "nom": "Valmecroix",
+    "type": "village",
+    "region": "La marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Petit village bâti dans une dépression du terrain où deux anciens chemins se croisent en formant une croix de pierres blanches. Ces pierres repoussent faiblement le Souffle, ce qui expliquerait pourquoi Valmecroix n’a jamais été abandonné malgré sa proximité avec les zones brumeuses.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "riveclair",
+    "nom": "Riveclair",
+    "type": "village",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Construit sur la rive nord d’un lac pâle, Riveclair est connu pour ses eaux étranges. Par temps calme, on distingue les ruines d’anciennes constructions sous la surface. Certains pêcheurs affirment que les silhouettes bougent lorsque la brume s’approche.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "embrin",
+    "nom": "Embrin",
+    "type": "village",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Embrin est entouré de champs pierreux où poussent des herbes grisâtres résistantes au Souffle. Le village vit du charbon de tourbe et de petits élevages. Les habitants portent souvent des amulettes de cuivre terni, par superstition. Certains érigent la brume comme une divinité.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "clairbleu",
+    "nom": "Clairebleu",
+    "type": "village",
+    "region": "Les Marches du Souffle",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Clairebleu est situé près de sources dont l’eau a une teinte légèrement bleutée. On dit que cette eau protège contre les effets du Souffle. Des voyageurs viennent parfois remplir des fioles avant de s’aventurer plus loin. Seule lieu connu ayant une résistance naturelle à la brume, sans larme.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Bourg-Argent",
+    "nom": "Bourg-Argent",
+    "type": "ville",
+    "region": "Les Marches du Souffle",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Ville commerçante bâtie sur un ancien site minier. Les collines alentour contiennent encore des veines de métal pâle appelé \"argent gris\", moins précieux que l’argent mais facile à travailler. Bourg-Argent est l’un des principaux points d’approvisionnement des villages de la marche.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Malgard",
+    "nom": "Malgard",
+    "type": "forteresse",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Ancienne place militaire transformée en ville. Malgard protège une route importante. Les murailles sont épaisses mais rongées par des marques sombres laissées par les monstres du Souffle. La garnison y reste permanente.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Bois-mort",
+    "nom": "Bois-mort",
+    "type": "village",
+    "region": "",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Un cercle d’arbres morts entoure Bois-mort. Aucun ne tombe jamais malgré leur pourriture avancée. Les habitants refusent de brûler ce bois, prétendant qu’il crie dans le feu.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Pont-de-Bruine",
+    "nom": "Pont-de-Bruine",
+    "type": "village",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Le village s’est développé autour d’un vieux pont de pierre toujours couvert d’une fine condensation. Même en été, une bruine légère flotte au-dessus du cours d’eau. Les voyageurs disent que le Souffle suit parfois la rivière jusqu’au pont.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Brunefeuille",
+    "nom": "Brunefeuille",
+    "type": "village",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Brunefeuille se trouve au bord d’un bois où les feuilles prennent une couleur brune même au printemps. Les habitants fabriquent des teintures sombres et des \"remèdes\" contre la fièvre du Souffle.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Solime",
+    "nom": "Solime",
+    "type": "village",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Solime est situé sur un terrain légèrement surélevé qui reste sec même après les pluies. Des bornes anciennes entourent les terres agricoles comme si elles délimitaient un territoire oublié.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Beaumarais",
+    "nom": "Beaumarais",
+    "type": "village",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Petit hameau construit sur des pilotis dans une zone marécageuse. Le sol y est instable mais le Souffle s’y dissipe plus vite que dans les forêts. Les habitants vivent de la pêche et des roseaux.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Plaineval",
+    "nom": "Plaineval",
+    "type": "ville",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Plaineval est une ville sans murailles entourée de vastes champs. Elle nourrit une grande partie de la marche. Les habitants allument de grands feux sur les hauteurs pour qui agissent comme un phare pour guider les éventuels voyageurs.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Sombrebois",
+    "nom": "Sombrebois",
+    "type": "village",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Village installé à la lisière d’une forêt dense où la lumière semble toujours faible. On raconte que certains arbres changent de place lentement au fil des saisons. On raconte beaucoup de conneries aussi.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "La Croisée",
+    "nom": "La Croisée",
+    "type": "ville",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Petit bourg situé au carrefour des principales routes de la marche. Des poteaux indicateurs anciens y sont couverts de noms effacés menant vers des lieux qui n’existent probablement plus.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Fontombre",
+    "nom": "Fontombre",
+    "type": "village",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Fontombre est bâti autour d’une source très profonde dont l’eau semble noire. On n’en voit jamais le fond. Les habitants disent que les nuits de brume, la source murmure.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Val-Châtaigne",
+    "nom": "Val-Châtaigne",
+    "type": "village",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Village installé dans une vallée fertile où poussent des châtaigniers anciens. La farine de châtaigne y constitue la base de l’alimentation locale. C'est bien.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Kald",
+    "nom": "Kald",
+    "type": "ville",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Ville austère construite en pierre sombre. Kald sert de point de passage vers les terres plus dangereuses. Les étrangers y sont observés avec méfiance.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Clairforêt",
+    "nom": "Clairforêt",
+    "type": "village",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Situé dans une forêt relativement claire. On y coupe du bois de bonne qualité, rare dans la marche.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Nuidiver",
+    "nom": "Nuidiver",
+    "type": "village",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Village isolé où les nuits semblent plus longues qu’ailleurs. Les habitants utilisent des lampes bleutées censées éloigner un peu plus les créatures du Souffle.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Nidragon",
+    "nom": "Nidragon",
+    "type": "village",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Petit village proche d’une ancienne colline rocheuse où l’on trouve parfois des ossements gigantesques. Certains pensent qu’un dragon y est mort autrefois.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Eralion",
+    "nom": "Eralion",
+    "type": "ville",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Ancienne ville partiellement reconstruite sur des ruines plus vieilles encore. Les rues suivent un tracé irrégulier qui ne correspond à aucune logique moderne. Eralion est un centre d’étude du Souffle.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Cairneige",
+    "nom": "Cairneige",
+    "type": "village",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Village construit autour d’anciens cairns de pierre blanche. Même en été, une fine poussière claire recouvre le sol.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Dhunfoth",
+    "nom": "Dhunfoth",
+    "type": "village",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Village reculé dont l’architecture ne ressemble pas à celle des autres localités. On dit que les premiers habitants venaient d’au-delà des montagnes.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Bassevue",
+    "nom": "Bassevue",
+    "type": "village",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Construit dans une cuvette naturelle. La brume y est plus dense qu’ailleurs. Des tours de guet permettent de surveiller les hauteurs, les habitants ayant conscience qu'une défaillance de la larme serait fatale.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Fort-de-Feu",
+    "nom": "Fort-de-Feu",
+    "type": "forteresse",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Forteresse bâtie près d’une zone où des feux naturels sortent parfois du sol. La brigade y entretient des brasiers permanents, comme il est coutume dans la forteresse depuis toujours.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Rochebrume",
+    "nom": "Rochebrume",
+    "type": "ville",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Ville construite sur des falaises rocheuses où la brume s’accroche continuellement. Rochebrume marque la limite officieuse des terres sûres.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Palais des Marées",
+    "nom": "Palais des Marées",
+    "type": "autre",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Les ruines du Palais des Marées se trouvent sur une côte basse envahie par les eaux. À marée basse, on peut atteindre les vestiges d’un ancien palais aux colonnes brisées. À marée haute, seules les pointes des tours dépassent de la surface.\n\nLe palais aurait appartenu à une dynastie disparue avant l’apparition du Souffle. Les salles basses sont maintenant pleines d’eau noire et de créatures aveugles.\n\nCertains explorateurs affirment que la marée ne suit pas toujours le cycle normal. Il arrive que l’eau monte ou descende sans prévenir, comme si quelque chose respirait sous les ruines.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Le Donjon Hors du Temps",
+    "nom": "Le Donjon Hors du Temps",
+    "type": "autre",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Une tour solitaire faite d’une pierre lisse que rien n’altère. Ni mousse, ni fissure, ni trace d’érosion.\n\nLes portes restent toujours ouvertes.\nCeux qui entrent racontent tous une histoire différente :\n\ncertains disent être restés quelques minutes\nd’autres jurent y avoir vécu des années\nMais tous ressortent seuls.\n\nPersonne n’a jamais réussi à tracer un plan du donjon. Les escaliers changent, les salles disparaissent, et certaines portes donnent sur des paysages impossibles.\n\nCertains revenants finissent par sombrer dans un état proche de celui des victimes du Souffle.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Tour du Dragon",
+    "nom": "Tour du Dragon",
+    "type": "autre",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Une tour de pierre noire dressée sur une hauteur rocheuse. Autour d’elle se tiennent des corbeaux immobiles qui ne s’envolent que si on s’approche trop près.\n\nOn raconte que la tour fut construite pour surveiller un dragon ancien, ou peut-être pour l’invoquer.\n\nLa pierre est chaude au toucher même en hiver.\n\nLa nuit, on peut parfois voir une lueur rouge apparaître dans les ouvertures supérieures.\n\nPersonne n’a jamais atteint le sommet.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Cachots des Argentiers",
+    "nom": "Cachots des Argentiers",
+    "type": "autre",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Sous une colline anonyme se cache un réseau de galeries creusées autrefois par les argentiers de Bourg-Argent.\n\nCes galeries furent abandonnées après la découverte de salles beaucoup plus anciennes que les mines elles-mêmes.\n\nCertains tunnels sont parfaitement taillés, d’autres semblent rongés comme par des dents géantes.\n\nDes chaînes rouillées pendent encore dans certaines salles, mais personne ne sait qui y fut enfermé.\n\nOn dit que les murs murmurent lorsque le Souffle est proche.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "Le Sanctuaire Interdit",
+    "nom": "Le Sanctuaire Interdit",
+    "type": "autre",
+    "region": "Marche de Roncebrume",
+    "statut": "inconnu",
+    "categorie": "ville",
+    "description": "Le Sanctuaire Interdit se trouve au cœur d’une clairière murée de pieux et de barricades abandonnées.\n\nPeu après la formation de la Brigade, ce lieu fut condamné et toute pratique religieuse y fut interdite.\n\nLes archives mentionnent seulement \"un danger spirituel incompatible avec la survie de la marche\".\n\nDes statues brisées jonchent le sol à l’intérieur. Leurs visages ont été martelés.\n\nParfois, des lumières apparaissent dans les ruines malgré l’absence de visiteurs.\n\nLes rares survivants qui s’en sont approchés parlent d’un silence total, comme si même le vent refusait d’entrer.",
+    "coords_carte": {
+      "x": 0,
+      "y": 0
+    },
+    "evenements": [],
+    "pnjs_presents": [],
+    "sous_lieux": [],
+    "visible_joueurs": false
   }
 ]
