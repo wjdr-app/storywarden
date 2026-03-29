@@ -2,147 +2,173 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lieux — La Larme d'Argent</title>
 <link rel="stylesheet" href="css/sw-v2.css">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 
-/* ── PAGE HEADER ── */
-.l-page-header { margin-bottom: 24px; }
-.l-page-title {
-  font-family: var(--font-ui); font-size: 1.45rem; font-weight: 700;
-  color: var(--text); letter-spacing: .02em; margin-bottom: 3px;
+/* ── FILTER BAR ─────────────────────────────────────────────────────────────── */
+.l-filterbar {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 8px; margin-bottom: 14px;
 }
-.l-page-sub {
-  font-family: var(--font-body); font-size: .82rem;
-  font-style: italic; color: var(--text-muted);
+.search-input {
+  padding: 5px 14px; background: var(--surface); border: 1px solid var(--border-soft);
+  border-radius: 20px; font-family: var(--font-body); font-size: .85rem; font-style: italic;
+  color: var(--text); outline: none; transition: border-color .15s; min-width: 180px;
 }
-
-/* ── FILTRES ── */
-.l-filters { margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px; }
-.l-filters-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-
-/* Dropdown ville */
-.l-select-wrap { position: relative; }
-.l-select-wrap::after {
-  content: '▾'; position: absolute; right: 11px; top: 50%; transform: translateY(-50%);
-  font-size: .65rem; color: var(--text-muted); pointer-events: none;
-}
-#ville-select {
-  font-family: var(--font-ui); font-size: .7rem; font-weight: 600;
-  letter-spacing: .04em; padding: 6px 30px 6px 14px;
-  background: var(--surface); border: 1.5px solid var(--border-soft);
-  border-radius: 20px; color: var(--text); outline: none; cursor: pointer;
-  transition: border-color .14s; appearance: none; -webkit-appearance: none;
-  min-width: 180px;
-}
-#ville-select:focus { border-color: var(--crimson-bd); }
-#ville-select option { background: var(--surface); color: var(--text); }
-
-/* Pills statut */
+.search-input::placeholder { color: var(--text-dim); }
+.search-input:focus { border-color: var(--border-mid); }
 .filter-group { display: flex; flex-wrap: wrap; gap: 6px; }
 .filter-pill {
-  font-family: var(--font-ui); font-size: .68rem; font-weight: 600;
-  letter-spacing: .06em; text-transform: uppercase;
-  padding: 5px 13px; border-radius: 20px;
-  border: 1.5px solid var(--border-soft);
-  background: var(--surface); color: var(--text-muted);
-  cursor: pointer; transition: all .14s; outline: none;
+  font-family: var(--font-ui); font-size: .68rem; font-weight: 600; letter-spacing: .06em;
+  text-transform: uppercase; padding: 5px 13px; border-radius: 20px;
+  border: 1.5px solid var(--border-soft); background: var(--surface);
+  color: var(--text-muted); cursor: pointer; transition: all .14s; outline: none;
 }
 .filter-pill:hover { border-color: var(--border-mid); color: var(--text); background: var(--surface-mid); }
 .filter-pill.active { background: var(--crimson); border-color: var(--text); color: var(--text); }
-
-.search-input{padding:5px 14px;background:var(--surface);border:1px solid var(--border-soft);border-radius:20px;font-family:var(--font-body);font-size:.85rem;font-style:italic;color:var(--text);outline:none;transition:border-color .15s;margin-left:auto;}
-.search-input::placeholder{color:var(--text-dim);}
-.search-input:focus{border-color:var(--border-mid);}
-
-/* Count */
 .l-count {
-  font-family: var(--font-ui); font-size: .58rem; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--text-dim); margin-bottom: 14px;
+  margin-left: auto; font-family: var(--font-ui); font-size: .58rem;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--text-dim);
 }
 
-/* ── GRILLE ── */
-.lieux-grid {
+/* ── 3-COLUMN WORKSPACE ─────────────────────────────────────────────────────── */
+.l-workspace {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-  gap: 12px; align-items: start;
+  grid-template-columns: 1fr 1.1fr 1.6fr;
+  gap: 10px;
+  height: calc(100vh - 230px);
+  min-height: 320px;
 }
-.l-empty {
-  grid-column: 1/-1; text-align: center; padding: 60px 20px;
-  font-family: var(--font-ui); font-size: .75rem; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--text-dim);
-}
-
-/* ── CARTE LIEU ── */
-.lieu-card {
+.l-col {
   background: var(--surface); border-radius: 12px;
-  box-shadow: var(--sh-card); overflow: hidden;
-  animation: cardIn .3s ease both;
-  transition: box-shadow .18s;
+  box-shadow: var(--sh-card); display: flex;
+  flex-direction: column; overflow: hidden;
 }
-.lieu-card:hover { box-shadow: var(--sh-card-hov); }
+.l-col-head {
+  padding: 10px 14px; border-bottom: 1px solid var(--border-soft);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.l-col-title {
+  font-family: var(--font-ui); font-size: .6rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--text-dim);
+}
+.l-col-cnt {
+  font-family: var(--font-ui); font-size: .6rem; color: var(--text-dim);
+  background: var(--bg); border-radius: 10px; padding: 1px 8px;
+  border: 1px solid var(--border-soft);
+}
+.l-col-body {
+  flex: 1; overflow-y: auto;
+  scrollbar-width: thin; scrollbar-color: var(--border-mid) transparent;
+}
+.l-col-body::-webkit-scrollbar { width: 4px; }
+.l-col-body::-webkit-scrollbar-track { background: transparent; }
+.l-col-body::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 4px; }
 
-/* ── EN-TÊTE CARTE ── */
-.lieu-head {
-  padding: 14px 16px 12px;
-  display: flex; align-items: flex-start; gap: 11px;
-  cursor: pointer; user-select: none;
+/* ── LIST ITEMS ─────────────────────────────────────────────────────────────── */
+.l-item {
+  display: flex; align-items: center; gap: 9px;
+  padding: 9px 12px 9px 14px; cursor: pointer;
+  border-left: 3px solid transparent;
+  border-bottom: 1px solid var(--border-soft);
+  transition: background .12s, border-color .12s;
 }
-.lieu-type-icon {
-  width: 96px; height: 96px; border-radius: 18px;
-  background: var(--surface-mid); border: 1px solid var(--border-soft);
+.l-item:last-child { border-bottom: none; }
+.l-item:hover { background: var(--surface-mid); }
+.l-item.l-sel { background: var(--crimson-dim); border-left-color: var(--crimson); }
+.l-ico-wrap {
+  width: 26px; height: 26px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; margin-top: 0;
-  color: var(--text); padding: 14px; box-sizing: border-box; overflow: hidden;
 }
-.lieu-head-info { flex: 1; min-width: 0; }
-.lieu-nom {
-  font-family: var(--font-ui); font-size: .88rem; font-weight: 700;
-  color: var(--text); letter-spacing: .02em; line-height: 1.25; margin-bottom: 4px;
+.l-ico-mask {
+  width: 22px; height: 22px;
+  background: var(--text-muted);
+  mask-size: contain; mask-repeat: no-repeat; mask-position: center;
+  -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center;
+}
+.l-sel .l-ico-mask { background: var(--text); }
+.l-ico-sym {
+  font-size: 14px; color: var(--text-dim); line-height: 1;
+}
+.l-item-info { flex: 1; min-width: 0; }
+.l-item-name {
+  font-family: var(--font-ui); font-size: .82rem; font-weight: 600;
+  color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.l-item-sub {
+  font-size: .68rem; color: var(--text-dim); margin-top: 1px;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.lieu-region {
-  font-family: var(--font-body); font-size: .78rem; font-style: italic; color: var(--text-muted);
+.l-chip-sm {
+  font-family: var(--font-ui); font-size: .55rem; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 20px;
+  border: 1px solid var(--border-soft);
+  background: transparent; color: var(--text-dim);
+  white-space: nowrap; flex-shrink: 0;
 }
+.l-chip-sm.visite   { color: var(--text); border-color: var(--border-mid); }
+.l-chip-sm.connu    { color: var(--text-muted); }
+.l-chip-sm.inexplore,
+.l-chip-sm.inconnu  { opacity: .65; }
+.l-empty-col {
+  padding: 24px 14px; font-size: .72rem; color: var(--text-dim);
+  font-style: italic; text-align: center;
+}
+
+/* ── DETAIL PANEL ───────────────────────────────────────────────────────────── */
+.l-detail {
+  margin-top: 12px; background: var(--surface); border-radius: 12px;
+  box-shadow: var(--sh-card); padding: 20px 24px;
+  display: none; animation: cardIn .22s ease;
+}
+.l-detail.open { display: block; }
+.l-detail-head {
+  display: flex; align-items: flex-start; gap: 16px; margin-bottom: 14px;
+}
+.l-detail-icon {
+  width: 64px; height: 64px; background: var(--surface-mid);
+  border-radius: 12px; border: 1px solid var(--border-soft);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; overflow: hidden; padding: 10px; box-sizing: border-box;
+}
+.l-detail-icon-inner { width: 100%; height: 100%; }
+.l-detail-ttl {
+  font-family: var(--font-ui); font-size: 1.05rem; font-weight: 700;
+  color: var(--text); margin-bottom: 6px; line-height: 1.2;
+}
+.l-detail-meta { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
 .l-chip {
   font-family: var(--font-ui); font-size: .6rem; font-weight: 600;
   letter-spacing: .08em; text-transform: uppercase;
   padding: 2px 9px; border-radius: 20px; white-space: nowrap;
   border: 1.5px solid var(--border-soft); background: transparent; color: var(--text-muted);
-  flex-shrink: 0; align-self: flex-start;
 }
 .l-chip.visite   { color: var(--text);        border-color: var(--border-mid); }
 .l-chip.connu    { color: var(--text-muted);   border-color: var(--border-soft); }
 .l-chip.inexplore{ color: var(--text-dim);     border-color: var(--border-soft); }
 .l-chip.inconnu  { color: var(--text-dim);     border-color: var(--border-soft); }
-
-.lieu-chevron {
-  font-size: .6rem; color: var(--text-dim);
-  transition: transform .2s; margin-top: 5px; flex-shrink: 0;
+.l-detail-path {
+  font-family: var(--font-body); font-size: .74rem; font-style: italic;
+  color: var(--text-dim);
 }
-.lieu-card.open .lieu-chevron { transform: rotate(180deg); }
-
-/* ── CORPS CARTE ── */
-.lieu-div { height: 1px; background: var(--border-soft); margin: 0 16px; display: none; }
-.lieu-card.open .lieu-div { display: block; }
-.lieu-body { padding: 14px 16px 16px; display: none; }
-.lieu-card.open .lieu-body { display: block; }
-
-.lieu-desc {
+.l-detail-sep { height: 1px; background: var(--border-soft); margin: 12px 0; }
+.l-detail-desc {
   font-family: var(--font-body); font-size: .82rem; font-style: italic;
   color: var(--text-muted); line-height: 1.65; margin-bottom: 12px;
 }
-
-/* Bloc détails */
-.lieu-details {
+.l-detail-block {
   background: var(--bg); border: 1px solid var(--border-soft);
   border-radius: 8px; padding: 10px 12px; margin-bottom: 10px;
 }
-.lieu-detail-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 7px; }
-.lieu-detail-row:last-child { margin-bottom: 0; }
-.lieu-detail-lbl {
+.l-detail-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 7px; }
+.l-detail-row:last-child { margin-bottom: 0; }
+.l-detail-lbl {
   font-family: var(--font-ui); font-size: .52rem; font-weight: 700;
   letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted);
   min-width: 90px; flex-shrink: 0; padding-top: 3px;
@@ -153,8 +179,6 @@
   color: var(--text-muted); padding: 1px 8px;
   border: 1px solid var(--border-soft); border-radius: 8px;
 }
-
-/* Bloc MJ */
 .mj-block {
   border: 1.5px solid var(--crimson-bd); border-radius: 8px; padding: 10px 12px;
 }
@@ -167,257 +191,434 @@
   color: var(--text-muted); line-height: 1.6;
 }
 
-@media(max-width:640px) {
-  .search-input { margin-left: 0; width: 100%; }
-  .lieux-grid { grid-template-columns: 1fr; }
+/* ── BREADCRUMB NAV ─────────────────────────────────────────────────────────── */
+.l-breadcrumb {
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 10px; flex-wrap: wrap;
+}
+.l-bc-item {
+  font-family: var(--font-ui); font-size: .68rem; color: var(--text-dim);
+  cursor: pointer; transition: color .12s; text-decoration: none;
+}
+.l-bc-item:hover { color: var(--text-muted); }
+.l-bc-item.active { color: var(--crimson); cursor: default; }
+.l-bc-sep { color: var(--text-dim); font-size: .6rem; }
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .l-workspace {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 8px;
+  }
+  .l-col { height: 200px; }
+  .l-col:last-child { height: 260px; }
+  .l-count { margin-left: 0; width: 100%; }
+  .search-input { width: 100%; }
 }
 
 </style>
 </head>
 <body>
 
-<div class="l-page-header">
-  <div class="page-title">Les <span>Lieux</span></div>
-  <div class="page-sub">Emplacements connus dans les Marches du Souffle</div>
+<div class="page-title">Les <span>Lieux</span></div>
+<div class="page-sub">Emplacements connus dans les Marches du Souffle</div>
+
+<!-- Filter bar -->
+<div class="l-filterbar">
+  <input class="search-input" type="text" id="search-input" placeholder="Rechercher un lieu…" oninput="render()">
+  <div class="filter-group">
+    <button class="filter-pill active" onclick="setStatut('', this)">Tous</button>
+    <button class="filter-pill" onclick="setStatut('visité', this)">Visités</button>
+    <button class="filter-pill" onclick="setStatut('connu', this)">Connus</button>
+    <button class="filter-pill mj-only" onclick="setStatut('inexploré', this)">Inexplorés</button>
+  </div>
+  <span class="l-count" id="l-count"></span>
 </div>
 
-<div class="l-filters">
-  <div class="l-filters-row">
-    <div class="l-select-wrap">
-      <select id="ville-select" onchange="setVilleFilter()">
-        <option value="">Toutes les villes</option>
-      </select>
+<!-- Breadcrumb -->
+<div class="l-breadcrumb" id="l-breadcrumb"></div>
+
+<!-- 3-column workspace -->
+<div class="l-workspace">
+  <div class="l-col" id="col-regions">
+    <div class="l-col-head">
+      <span class="l-col-title">Régions</span>
+      <span class="l-col-cnt" id="cnt-regions">—</span>
     </div>
-    <input class="search-input" type="text" id="search-input" placeholder="Rechercher un lieu…" oninput="applyFilters()">
+    <div class="l-col-body" id="list-regions">
+      <div class="l-empty-col">Chargement…</div>
+    </div>
   </div>
-  <div class="l-filters-row">
-    <div class="filter-group">
-      <button class="filter-pill active" onclick="setStatutFilter('', this)">Tous</button>
-      <button class="filter-pill" onclick="setStatutFilter('visité', this)">Visités</button>
-      <button class="filter-pill" onclick="setStatutFilter('connu', this)">Connus</button>
-      <button class="filter-pill mj-only" onclick="setStatutFilter('inexploré', this)">Inexplorés</button>
+  <div class="l-col" id="col-villes">
+    <div class="l-col-head">
+      <span class="l-col-title">Villes &amp; Villages</span>
+      <span class="l-col-cnt" id="cnt-villes">—</span>
+    </div>
+    <div class="l-col-body" id="list-villes">
+      <div class="l-empty-col">Chargement…</div>
+    </div>
+  </div>
+  <div class="l-col" id="col-lieux">
+    <div class="l-col-head">
+      <span class="l-col-title">Lieux &amp; Bâtiments</span>
+      <span class="l-col-cnt" id="cnt-lieux">—</span>
+    </div>
+    <div class="l-col-body" id="list-lieux">
+      <div class="l-empty-col">Chargement…</div>
     </div>
   </div>
 </div>
 
-<div class="l-count" id="l-count"></div>
-<div class="lieux-grid" id="lieux-grid">
-  <p style="font-style:italic;color:var(--text-dim);font-size:.82rem;grid-column:1/-1;text-align:center;padding:24px;">Chargement…</p>
-</div>
+<!-- Detail panel -->
+<div class="l-detail" id="l-detail"></div>
 
 <script src="js/storage.js"></script>
 <script src="js/nav-v2.js"></script>
 <script>
-var LIEUX_DATA   = [];
-var LIEUX_MAP    = {};
-var currentVille  = '';
-var currentStatut = '';
+var LIEUX_DATA = [];
+var LIEUX_MAP  = {};
+var selRegionId = null;
+var selVilleId  = null;
+var selLieuId   = null;
+var curStatut   = '';
 
 var STATUTS_MJ_ONLY = ['inexploré', 'inconnu'];
+var STATUT_LABELS   = { 'visité': 'Visité', 'connu': 'Connu', 'inexploré': 'Inexploré', 'inconnu': 'Inconnu' };
 
-var TYPE_ICONS = {
-  village:    '<div style="background:var(--text);mask-image:url(assets/pictos/type_villes/village.svg);mask-size:contain;mask-repeat:no-repeat;mask-position:center;-webkit-mask-image:url(assets/pictos/type_villes/village.svg);-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center;width:100%;height:100%"></div>',
-  ville:      '<div style="background:var(--text);mask-image:url(assets/pictos/type_villes/ville.svg);mask-size:contain;mask-repeat:no-repeat;mask-position:center;-webkit-mask-image:url(assets/pictos/type_villes/ville.svg);-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center;width:100%;height:100%"></div>',
-  forteresse: '<div style="background:var(--text);mask-image:url(assets/pictos/type_villes/forteresse.svg);mask-size:contain;mask-repeat:no-repeat;mask-position:center;-webkit-mask-image:url(assets/pictos/type_villes/forteresse.svg);-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center;width:100%;height:100%"></div>',
-  ruines:     '<div style="background:var(--text);mask-image:url(assets/pictos/type_villes/ruines.svg);mask-size:contain;mask-repeat:no-repeat;mask-position:center;-webkit-mask-image:url(assets/pictos/type_villes/ruines.svg);-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center;width:100%;height:100%"></div>',
-  temples:    '<div style="background:var(--text);mask-image:url(assets/pictos/type_villes/temples.svg);mask-size:contain;mask-repeat:no-repeat;mask-position:center;-webkit-mask-image:url(assets/pictos/type_villes/temples.svg);-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center;width:100%;height:100%"></div>',
-  parchemin:  '<div style="background:var(--text);mask-image:url(assets/pictos/type_villes/parchemin.svg);mask-size:contain;mask-repeat:no-repeat;mask-position:center;-webkit-mask-image:url(assets/pictos/type_villes/parchemin.svg);-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center;width:100%;height:100%"></div>',  autre:      `<svg fill="currentColor" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 239.72 283.92"><g><path d="M225.98,185.43c-.94-.25-1.89-.51-2.82-.75-3-.8-6-1.58-9.01-2.35v-.07c-4.75-1.28-14.27-3.48-14.27-3.48-4.75-1.16-9.52-2.27-14.28-3.36l-14.27-3.14c-4.75-1.02-9.52-2-14.28-2.94l-14.27-2.75c-5.34-.99-10.68-1.95-16.04-2.86-.04-.01-.09-.01-.13-.02-40.89-5.88-70.12-9.86-99.87-12.24-3.07-.24-6.15-.48-9.25-.69-1.06-.07-2.13-.14-3.2-.21l-14.28-.79.02,12.28v2.08c.05,4.81.4,9.56,1,14.22.64,4.95,1.58,9.8,2.8,14.55,2.31,8.96,5.62,17.53,9.8,25.56,2.37,4.58,5.04,9,7.98,13.22,3.08,4.45,6.46,8.69,10.11,12.67,4.1,4.49,8.53,8.68,13.27,12.52,20.86,16.91,47.44,27.04,76.38,27.04,34.16,0,65.03-14.11,87.07-36.83,4.2-4.31,8.06-8.93,11.57-13.83,1.25-1.72,2.44-3.49,3.59-5.28,1.57-2.44,3.05-4.94,4.43-7.49.94-1.72,1.83-3.47,2.7-5.23,1.35-2.8,2.59-5.66,3.73-8.57.5-1.29.98-2.58,1.43-3.89.31-.89.62-1.79.91-2.7,1.15-3.49,2.13-7.07,2.94-10.69-4.58-1.33-9.15-2.66-13.74-3.98ZM28.68,216.21c-4.06-6.99-7.36-14.5-9.75-22.39,36.16,2.48,72.23,6.79,108.08,12.95-32.97,1.65-65.79,4.81-98.32,9.44ZM121.36,269.64c-20.28,0-39.26-5.64-55.42-15.44,40.15-4.7,80.67-7.15,121.34-7.26-18.17,14.22-41.05,22.7-65.93,22.7ZM202.08,232.91c-51.23-.61-102.23,2.43-152.64,8.99-4.26-3.86-8.19-8.05-11.78-12.54,50.29-6.87,101.19-10.19,152.34-9.81,6.33,1.47,12.63,3.01,18.94,4.61-2.13,3.03-4.42,5.96-6.86,8.75ZM219.23,206.06c-.82,1.84-1.69,3.67-2.62,5.45-8.19-2.12-16.4-4.14-24.62-6.06-58.17-13.6-117.19-22.34-176.42-26.23-.74-4.65-1.17-9.41-1.27-14.24,69.9,4.48,139.51,15.81,207.75,34.05-.85,2.39-1.8,4.73-2.83,7.03Z"/><path d="M13.74,98.49c.94.25,1.89.51,2.82.75,3,.8,6,1.58,9.01,2.35v.07c4.75,1.28,14.27,3.48,14.27,3.48,4.75,1.16,9.52,2.27,14.28,3.36l14.27,3.14c4.75,1.02,9.52,2,14.28,2.94l14.27,2.75c5.34.99,10.68,1.95,16.04,2.86.04.01.09.01.13.02,40.89,5.88,70.12,9.86,99.87,12.24,3.07.24,6.15.48,9.25.69,1.06.07,2.13.14,3.2.21l14.28.79-.02-12.28v-2.08c-.05-4.81-.4-9.56-1-14.22-.64-4.95-1.58-9.8-2.8-14.55-2.31-8.96-5.62-17.53-9.8-25.56-2.37-4.58-5.04-9-7.98-13.22-3.08-4.45-6.46-8.69-10.11-12.67-4.1-4.49-8.53-8.68-13.27-12.52C173.88,10.14,147.3,0,118.36,0,84.2,0,53.34,14.11,31.29,36.83c-4.2,4.31-8.06,8.93-11.57,13.83-1.25,1.72-2.44,3.49-3.59,5.28-1.57,2.44-3.05,4.94-4.43,7.49-.94,1.72-1.83,3.47-2.7,5.23-1.35,2.8-2.59,5.66-3.73,8.57-.5,1.29-.98,2.58-1.43,3.89-.31.89-.62,1.79-.91,2.7-1.15,3.49-2.13,7.07-2.94,10.69,4.58,1.33,9.15,2.66,13.74,3.98ZM211.04,67.7c4.06,6.99,7.36,14.5,9.75,22.39-36.16-2.48-72.23-6.79-108.08-12.95,32.97-1.65,65.79-4.81,98.32-9.44ZM118.36,14.27c20.28,0,39.26,5.64,55.42,15.44-40.15,4.7-80.67,7.15-121.34,7.26,18.17-14.22,41.05-22.7,65.93-22.7ZM37.64,51.01c51.23.61,102.23-2.43,152.64-8.99,4.26,3.86,8.19,8.05,11.78,12.54-50.29,6.87-101.19,10.19-152.34,9.81-6.33-1.47-12.63-3.01-18.94-4.61,2.13-3.03,4.42-5.96,6.86-8.75ZM20.49,77.86c.82-1.84,1.69-3.67,2.62-5.45,8.19,2.12,16.4,4.14,24.62,6.06,58.17,13.6,117.19,22.34,176.42,26.23.74,4.65,1.17,9.41,1.27,14.24-69.9-4.48-139.51-15.81-207.75-34.05.85-2.39,1.8-4.73,2.83-7.03Z"/><path d="M119.72,107.76c-19.45,0-35.21,15.76-35.21,35.21s15.76,35.22,35.21,35.22,35.22-15.77,35.22-35.22-15.77-35.21-35.22-35.21ZM119.72,164.1c-11.67,0-21.13-9.46-21.13-21.13s9.46-21.12,21.13-21.12,21.13,9.45,21.13,21.12-9.46,21.13-21.13,21.13Z"/></g></svg>`
-};
-var STATUT_LABELS = {
-  'visité': 'Visité', 'connu': 'Connu', 'inexploré': 'Inexploré', 'inconnu': 'Inconnu'
-};
+// ── Type icons ────────────────────────────────────────────────────────────────
+var MASK_TYPES = ['village', 'ville', 'forteresse', 'ruines', 'temples', 'parchemin'];
 
+var AUTRE_SVG = '<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 239.72 283.92" width="100%" height="100%"><g><path d="M225.98,185.43c-.94-.25-1.89-.51-2.82-.75-3-.8-6-1.58-9.01-2.35v-.07c-4.75-1.28-14.27-3.48-14.27-3.48-4.75-1.16-9.52-2.27-14.28-3.36l-14.27-3.14c-4.75-1.02-9.52-2-14.28-2.94l-14.27-2.75c-5.34-.99-10.68-1.95-16.04-2.86-.04-.01-.09-.01-.13-.02-40.89-5.88-70.12-9.86-99.87-12.24-3.07-.24-6.15-.48-9.25-.69-1.06-.07-2.13-.14-3.2-.21l-14.28-.79.02,12.28v2.08c.05,4.81.4,9.56,1,14.22.64,4.95,1.58,9.8,2.8,14.55,2.31,8.96,5.62,17.53,9.8,25.56,2.37,4.58,5.04,9,7.98,13.22,3.08,4.45,6.46,8.69,10.11,12.67,4.1,4.49,8.53,8.68,13.27,12.52,20.86,16.91,47.44,27.04,76.38,27.04,34.16,0,65.03-14.11,87.07-36.83,4.2-4.31,8.06-8.93,11.57-13.83,1.25-1.72,2.44-3.49,3.59-5.28,1.57-2.44,3.05-4.94,4.43-7.49.94-1.72,1.83-3.47,2.7-5.23,1.35-2.8,2.59-5.66,3.73-8.57.5-1.29.98-2.58,1.43-3.89.31-.89.62-1.79.91-2.7,1.15-3.49,2.13-7.07,2.94-10.69-4.58-1.33-9.15-2.66-13.74-3.98Z"/><path d="M13.74,98.49c.94.25,1.89.51,2.82.75,3,.8,6,1.58,9.01,2.35v.07c4.75,1.28,14.27,3.48,14.27,3.48,4.75,1.16,9.52,2.27,14.28,3.36l14.27,3.14c4.75,1.02,9.52,2,14.28,2.94l14.27,2.75c5.34.99,10.68,1.95,16.04,2.86.04.01.09.01.13.02,40.89,5.88,70.12,9.86,99.87,12.24,3.07.24,6.15.48,9.25.69,1.06.07,2.13.14,3.2.21l14.28.79-.02-12.28v-2.08c-.05-4.81-.4-9.56-1-14.22-.64-4.95-1.58-9.8-2.8-14.55-2.31-8.96-5.62-17.53-9.8-25.56-2.37-4.58-5.04-9-7.98-13.22-3.08-4.45-6.46-8.69-10.11-12.67-4.1-4.49-8.53-8.68-13.27-12.52C173.88,10.14,147.3,0,118.36,0,84.2,0,53.34,14.11,31.29,36.83c-4.2,4.31-8.06,8.93-11.57,13.83-1.25,1.72-2.44,3.49-3.59,5.28-1.57,2.44-3.05,4.94-4.43,7.49-.94,1.72-1.83,3.47-2.7,5.23-1.35,2.8-2.59,5.66-3.73,8.57-.5,1.29-.98,2.58-1.43,3.89-.31.89-.62,1.79-.91,2.7-1.15,3.49-2.13,7.07-2.94,10.69,4.58,1.33,9.15,2.66,13.74,3.98Z"/><path d="M119.72,107.76c-19.45,0-35.21,15.76-35.21,35.21s15.76,35.22,35.21,35.22,35.22-15.77,35.22-35.22-15.77-35.21-35.22-35.21ZM119.72,164.1c-11.67,0-21.13-9.46-21.13-21.13s9.46-21.12,21.13-21.12,21.13,9.45,21.13,21.12-9.46,21.13-21.13,21.13Z"/></g></svg>';
+
+function typeIconSmall(type) {
+  if (MASK_TYPES.indexOf(type) !== -1) {
+    return '<div class="l-ico-mask" style="mask-image:url(assets/pictos/type_villes/' + type + '.svg);-webkit-mask-image:url(assets/pictos/type_villes/' + type + '.svg)"></div>';
+  }
+  if (type === 'autre') {
+    return '<div class="l-ico-sym" style="color:var(--text-dim);width:22px;height:22px">' + AUTRE_SVG + '</div>';
+  }
+  var syms = { region: '◈', ville: '⬡', default: '◇' };
+  return '<div class="l-ico-sym">' + (syms[type] || syms.default) + '</div>';
+}
+
+function typeIconLarge(type) {
+  if (MASK_TYPES.indexOf(type) !== -1) {
+    return '<div style="background:var(--text);width:100%;height:100%;mask-image:url(assets/pictos/type_villes/' + type + '.svg);-webkit-mask-image:url(assets/pictos/type_villes/' + type + '.svg);mask-size:contain;mask-repeat:no-repeat;mask-position:center;-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center"></div>';
+  }
+  if (type === 'autre') { return AUTRE_SVG; }
+  return '<span style="font-size:26px;color:var(--text-dim)">' + (type === 'region' ? '◈' : '◇') + '</span>';
+}
+
+// ── Visibility ────────────────────────────────────────────────────────────────
+function isMJ() {
+  return typeof getMJMode === 'function' ? getMJMode() : false;
+}
+
+function isVisible(l) {
+  if (!isMJ()) {
+    if (l.visible_joueurs === false) return false;
+    if (STATUTS_MJ_ONLY.indexOf(l.statut) !== -1) return false;
+  }
+  return true;
+}
+
+// ── Data hierarchy helpers ────────────────────────────────────────────────────
+function getRegions() {
+  return LIEUX_DATA.filter(function(l) {
+    return l.categorie === 'region' && isVisible(l);
+  });
+}
+
+function getVillesForRegion(regionId) {
+  if (!regionId) {
+    return LIEUX_DATA.filter(function(l) {
+      return l.categorie === 'ville' && isVisible(l);
+    });
+  }
+  var region = LIEUX_MAP[regionId];
+  if (!region) return [];
+  return LIEUX_DATA.filter(function(l) {
+    if (l.categorie !== 'ville' || !isVisible(l)) return false;
+    if (region.sous_lieux && region.sous_lieux.indexOf(l.id) !== -1) return true;
+    if (l.region && region.nom && l.region.toLowerCase() === region.nom.toLowerCase()) return true;
+    return false;
+  });
+}
+
+function getLieuxForVille(villeId) {
+  if (!villeId) {
+    return LIEUX_DATA.filter(function(l) {
+      return l.categorie !== 'region' && l.categorie !== 'ville' && isVisible(l);
+    });
+  }
+  var ville = LIEUX_MAP[villeId];
+  if (!ville) return [];
+  return LIEUX_DATA.filter(function(l) {
+    if (l.categorie === 'region' || l.categorie === 'ville') return false;
+    if (!isVisible(l)) return false;
+    if (l.ville_parente_id === villeId) return true;
+    if (ville.sous_lieux && ville.sous_lieux.indexOf(l.id) !== -1) return true;
+    return false;
+  });
+}
+
+// ── Stat helpers ──────────────────────────────────────────────────────────────
+function statutClass(s) {
+  if (s === 'visité')    return 'visite';
+  if (s === 'inexploré') return 'inexplore';
+  if (s === 'inconnu')   return 'inconnu';
+  return 'connu';
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
+function render() {
+  var q = (document.getElementById('search-input').value || '').toLowerCase().trim();
+
+  // Column 1 — Regions
+  var regions = getRegions().filter(function(r) {
+    return !q || (r.nom || '').toLowerCase().indexOf(q) !== -1;
+  });
+  renderCol('list-regions', 'cnt-regions', regions, 'region');
+
+  // Column 2 — Villes
+  var villes = getVillesForRegion(selRegionId).filter(function(v) {
+    return !q || (v.nom || '').toLowerCase().indexOf(q) !== -1;
+  });
+  renderCol('list-villes', 'cnt-villes', villes, 'ville');
+
+  // Column 3 — Lieux (with statut filter)
+  var lieux = getLieuxForVille(selVilleId).filter(function(l) {
+    if (q && (l.nom || '').toLowerCase().indexOf(q) === -1
+           && (l.description || '').toLowerCase().indexOf(q) === -1) return false;
+    if (curStatut) {
+      if (curStatut === 'inexploré') {
+        return l.statut === 'inexploré' || l.statut === 'inconnu';
+      }
+      return l.statut === curStatut;
+    }
+    return true;
+  });
+  renderCol('list-lieux', 'cnt-lieux', lieux, 'lieu');
+
+  // Count
+  var total = LIEUX_DATA.filter(isVisible).length;
+  document.getElementById('l-count').textContent = total + ' lieu' + (total > 1 ? 'x' : '');
+
+  // Breadcrumb
+  renderBreadcrumb();
+
+  // Detail
+  if (selLieuId && LIEUX_MAP[selLieuId]) {
+    renderDetail(LIEUX_MAP[selLieuId]);
+  } else {
+    document.getElementById('l-detail').className = 'l-detail';
+  }
+}
+
+function renderCol(listId, cntId, items, colType) {
+  document.getElementById(cntId).textContent = items.length;
+  var list = document.getElementById(listId);
+  if (!items.length) {
+    list.innerHTML = '<div class="l-empty-col">' + (colType === 'region' ? 'Aucune région' : colType === 'ville' ? 'Aucune ville' : 'Aucun lieu') + '</div>';
+    return;
+  }
+
+  var html = '';
+  for (var i = 0; i < items.length; i++) {
+    var item = items[i];
+    var isSel = (colType === 'region' && item.id === selRegionId)
+             || (colType === 'ville'  && item.id === selVilleId)
+             || (colType === 'lieu'   && item.id === selLieuId);
+
+    var sub = '';
+    if (colType === 'region') {
+      var vc = getVillesForRegion(item.id).length;
+      sub = vc > 0 ? (vc + ' ville' + (vc > 1 ? 's' : '')) : '';
+    } else if (colType === 'ville') {
+      var lc = getLieuxForVille(item.id).length;
+      sub = lc > 0 ? (lc + ' lieu' + (lc > 1 ? 'x' : '')) : '';
+    } else {
+      sub = item.type || item.categorie || '';
+    }
+
+    var statut = (item.statut && STATUT_LABELS[item.statut]) ? STATUT_LABELS[item.statut] : (item.statut || '');
+    var chipHtml = statut ? '<span class="l-chip-sm ' + statutClass(item.statut) + '">' + esc(statut) + '</span>' : '';
+    var iconType = item.type || item.categorie || 'default';
+    var onclick = colType === 'region' ? 'selectRegion(\'' + item.id + '\')'
+                : colType === 'ville'  ? 'selectVille(\'' + item.id + '\')'
+                : 'selectLieu(\'' + item.id + '\')';
+
+    html += '<div class="l-item' + (isSel ? ' l-sel' : '') + '" onclick="' + onclick + '">'
+          +   '<div class="l-ico-wrap">' + typeIconSmall(iconType) + '</div>'
+          +   '<div class="l-item-info">'
+          +     '<div class="l-item-name">' + esc(item.nom) + '</div>'
+          +     (sub ? '<div class="l-item-sub">' + esc(sub) + '</div>' : '')
+          +   '</div>'
+          +   chipHtml
+          + '</div>';
+  }
+  list.innerHTML = html;
+}
+
+// ── Breadcrumb ────────────────────────────────────────────────────────────────
+function renderBreadcrumb() {
+  var bc = document.getElementById('l-breadcrumb');
+  var parts = [];
+  if (selRegionId && LIEUX_MAP[selRegionId]) {
+    parts.push('<span class="l-bc-item" onclick="clearFrom(\'region\')">'
+      + esc(LIEUX_MAP[selRegionId].nom) + '</span>');
+  }
+  if (selVilleId && LIEUX_MAP[selVilleId]) {
+    parts.push('<span class="l-bc-sep">›</span>');
+    parts.push('<span class="l-bc-item" onclick="clearFrom(\'ville\')">'
+      + esc(LIEUX_MAP[selVilleId].nom) + '</span>');
+  }
+  if (selLieuId && LIEUX_MAP[selLieuId]) {
+    parts.push('<span class="l-bc-sep">›</span>');
+    parts.push('<span class="l-bc-item active">' + esc(LIEUX_MAP[selLieuId].nom) + '</span>');
+  }
+  bc.innerHTML = parts.join('');
+}
+
+// ── Detail panel ──────────────────────────────────────────────────────────────
+function renderDetail(lieu) {
+  var panel = document.getElementById('l-detail');
+
+  var statut = (lieu.statut && STATUT_LABELS[lieu.statut]) ? STATUT_LABELS[lieu.statut] : (lieu.statut || '');
+  var chipHtml = statut ? '<span class="l-chip ' + statutClass(lieu.statut) + '">' + esc(statut) + '</span>' : '';
+
+  var path = '';
+  if (lieu.ville_parente_id && LIEUX_MAP[lieu.ville_parente_id]) {
+    var v = LIEUX_MAP[lieu.ville_parente_id];
+    path = esc(v.nom);
+    if (v.region) path = esc(v.region) + ' › ' + path;
+  } else if (lieu.region) {
+    path = esc(lieu.region);
+  }
+
+  var iconType = lieu.type || lieu.categorie || 'autre';
+  var iconHtml = '<div class="l-detail-icon"><div class="l-detail-icon-inner">' + typeIconLarge(iconType) + '</div></div>';
+
+  // Sous-lieux chips
+  var sousLieux = '';
+  if (lieu.sous_lieux && lieu.sous_lieux.length) {
+    var chips = lieu.sous_lieux.map(function(id) {
+      var sl = LIEUX_MAP[id];
+      return sl ? '<span class="chip">' + esc(sl.nom) + '</span>' : '';
+    }).filter(Boolean).join('');
+    if (chips) sousLieux = '<div class="l-detail-row"><span class="l-detail-lbl">Sous-lieux</span><div class="chip-list">' + chips + '</div></div>';
+  }
+
+  // PNJs
+  var pnjs = '';
+  if (lieu.pnjs_presents && lieu.pnjs_presents.length) {
+    var chips2 = lieu.pnjs_presents.map(function(id) {
+      return '<span class="chip">' + esc(id.replace('pnj_', '')) + '</span>';
+    }).join('');
+    pnjs = '<div class="l-detail-row"><span class="l-detail-lbl">PNJs présents</span><div class="chip-list">' + chips2 + '</div></div>';
+  }
+
+  var detailsBlock = (sousLieux || pnjs)
+    ? '<div class="l-detail-block">' + sousLieux + pnjs + '</div>' : '';
+
+  var mjBlock = (lieu.notes_mj && isMJ())
+    ? '<div class="mj-only"><div class="mj-block"><div class="mj-block-title">&#9919; Notes MJ</div><div class="mj-block-txt">' + esc(lieu.notes_mj) + '</div></div></div>'
+    : '';
+
+  panel.innerHTML =
+      '<div class="l-detail-head">'
+    +   iconHtml
+    +   '<div>'
+    +     '<div class="l-detail-ttl">' + esc(lieu.nom) + '</div>'
+    +     '<div class="l-detail-meta">'
+    +       chipHtml
+    +       (path ? '<span class="l-detail-path">' + path + '</span>' : '')
+    +     '</div>'
+    +   '</div>'
+    + '</div>'
+    + (lieu.description ? '<div class="l-detail-sep"></div><div class="l-detail-desc">' + esc(lieu.description) + '</div>' : '')
+    + detailsBlock
+    + mjBlock;
+
+  panel.className = 'l-detail open';
+  requestAnimationFrame(function() {
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+}
+
+// ── Selection handlers ────────────────────────────────────────────────────────
+function selectRegion(id) {
+  if (selRegionId === id) {
+    selRegionId = null;
+  } else {
+    selRegionId = id;
+    selVilleId  = null;
+    selLieuId   = null;
+  }
+  render();
+}
+
+function selectVille(id) {
+  if (selVilleId === id) {
+    selVilleId = null;
+    selLieuId  = null;
+  } else {
+    selVilleId = id;
+    selLieuId  = null;
+  }
+  render();
+}
+
+function selectLieu(id) {
+  selLieuId = (selLieuId === id) ? null : id;
+  render();
+}
+
+function clearFrom(level) {
+  if (level === 'region') { selRegionId = null; selVilleId = null; selLieuId = null; }
+  if (level === 'ville')  { selVilleId  = null; selLieuId  = null; }
+  render();
+}
+
+// ── Status filter ─────────────────────────────────────────────────────────────
+function setStatut(statut, btn) {
+  if (!isMJ() && STATUTS_MJ_ONLY.indexOf(statut) !== -1) return;
+  curStatut = statut;
+  document.querySelectorAll('.filter-pill').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  render();
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
 async function init() {
   try {
     LIEUX_DATA = await loadData('lieux.json');
     LIEUX_MAP  = {};
-    LIEUX_DATA.forEach(function(l){ LIEUX_MAP[l.id] = l; });
-    buildVilleDropdown();
-    applyFilters();
+    LIEUX_DATA.forEach(function(l) { LIEUX_MAP[l.id] = l; });
+    render();
   } catch(e) {
-    document.getElementById('lieux-grid').innerHTML =
-      '<p style="color:var(--crimson);font-size:.82rem;font-style:italic;grid-column:1/-1;text-align:center;padding:24px;">⚠ Données inaccessibles en file://. Utiliser un serveur local.</p>';
+    var err = '<div class="l-empty-col" style="color:var(--crimson)">&#9888; Données inaccessibles en file://. Utiliser un serveur local.</div>';
+    document.getElementById('list-regions').innerHTML = err;
+    document.getElementById('list-villes').innerHTML  = '';
+    document.getElementById('list-lieux').innerHTML   = '';
   }
 }
 
-// ── Dropdown villes ──────────────────────────────────────────────────────────
-function buildVilleDropdown() {
-  var isMJ = (typeof getMJMode === 'function') ? getMJMode() : false;
-
-  // Lieux visibles selon le mode
-  var visible = isMJ
-    ? LIEUX_DATA
-    : LIEUX_DATA.filter(function(l){ return l.visible_joueurs !== false && STATUTS_MJ_ONLY.indexOf(l.statut) === -1; });
-
-  // Collecter les villes qui ont au moins un lieu visible associé
-  var villeIds = {};
-  visible.forEach(function(l) {
-    // La ville elle-même
-    if (l.categorie === 'ville') villeIds[l.id] = true;
-    // La ville parente d'un bâtiment
-    if (l.ville_parente_id && LIEUX_MAP[l.ville_parente_id]) villeIds[l.ville_parente_id] = true;
-  });
-
-  // Construire les options triées par nom
-  var villes = Object.keys(villeIds).map(function(id){ return LIEUX_MAP[id]; }).filter(Boolean);
-  villes.sort(function(a, b){ return a.nom.localeCompare(b.nom, 'fr'); });
-
-  var sel = document.getElementById('ville-select');
-  var prev = currentVille;
-  sel.innerHTML = '<option value="">Toutes les villes</option>';
-  villes.forEach(function(l) {
-    var opt = document.createElement('option');
-    opt.value = l.id;
-    opt.textContent = l.nom;
-    sel.appendChild(opt);
-  });
-
-  // Restaurer la sélection si toujours valide
-  if (prev && villeIds[prev]) sel.value = prev;
-  else { sel.value = ''; currentVille = ''; }
-}
-
-// ── Filtres ──────────────────────────────────────────────────────────────────
-function setVilleFilter() {
-  currentVille = document.getElementById('ville-select').value;
-  applyFilters();
-}
-
-function setStatutFilter(statut, btn) {
-  currentStatut = statut;
-  document.querySelectorAll('.filter-pill').forEach(function(b){ b.classList.remove('active'); });
-  btn.classList.add('active');
-  applyFilters();
-}
-
-function applyFilters() {
-  var isMJ = (typeof getMJMode === 'function') ? getMJMode() : false;
-  var q = (document.getElementById('search-input').value || '').toLowerCase().trim();
-
-  // 1. Filtre mode joueur
-  var filtered = isMJ
-    ? LIEUX_DATA
-    : LIEUX_DATA.filter(function(l){ return l.visible_joueurs !== false && STATUTS_MJ_ONLY.indexOf(l.statut) === -1; });
-
-  // En mode joueur, si le statut actif est MJ-only → reset
-  if (!isMJ && STATUTS_MJ_ONLY.indexOf(currentStatut) !== -1) {
-    currentStatut = '';
-    document.querySelectorAll('.filter-pill').forEach(function(b){ b.classList.toggle('active', !b.dataset || b.textContent === 'Tous'); });
-    var pills = document.querySelectorAll('.filter-pill');
-    pills.forEach(function(b){ b.classList.remove('active'); });
-    pills[0].classList.add('active');
-  }
-
-  // 2. Filtre ville
-  if (currentVille) {
-    filtered = filtered.filter(function(l){
-      return l.id === currentVille || l.ville_parente_id === currentVille;
-    });
-  }
-
-  // 3. Filtre statut
-  if (currentStatut) {
-    if (currentStatut === 'inexploré') {
-      filtered = filtered.filter(function(l){ return l.statut === 'inexploré' || l.statut === 'inconnu'; });
-    } else {
-      filtered = filtered.filter(function(l){ return l.statut === currentStatut; });
-    }
-  }
-
-  // 4. Recherche texte
-  if (q) {
-    filtered = filtered.filter(function(l){
-      return (l.nom||'').toLowerCase().includes(q)
-          || (l.region||'').toLowerCase().includes(q)
-          || (l.description||'').toLowerCase().includes(q);
-    });
-  }
-
-  renderGrid(filtered);
-
-  var total = isMJ ? LIEUX_DATA.length : LIEUX_DATA.filter(function(l){ return l.visible_joueurs !== false && STATUTS_MJ_ONLY.indexOf(l.statut) === -1; }).length;
-  document.getElementById('l-count').textContent = filtered.length === total
-    ? total + ' lieu' + (total > 1 ? 'x' : '')
-    : filtered.length + ' / ' + total + ' lieu' + (total > 1 ? 'x' : '');
-}
-
-// ── Rendu grille ─────────────────────────────────────────────────────────────
-function renderGrid(lieux) {
-  var grid = document.getElementById('lieux-grid');
-  if (!lieux.length) {
-    grid.innerHTML = '<div class="l-empty">Aucun lieu correspondant.</div>';
-    return;
-  }
-  grid.innerHTML = lieux.map(buildCard).join('');
-}
-
-function esc(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-function buildCard(lieu) {
-  var icon     = TYPE_ICONS[lieu.type] || '◈';
-  var statutLbl = STATUT_LABELS[lieu.statut] || lieu.statut || '';
-  var statutCls = lieu.statut === 'visité' ? 'visite'
-    : lieu.statut === 'inexploré' ? 'inexplore'
-    : lieu.statut === 'inconnu'   ? 'inconnu'
-    : 'connu';
-
-  // Sous-lieux
-  var sousLieux = '';
-  if (lieu.sous_lieux && lieu.sous_lieux.length) {
-    var chips = lieu.sous_lieux.map(function(id){
-      var sl = LIEUX_MAP[id];
-      return sl ? '<span class="chip">' + esc(sl.nom) + '</span>' : '';
-    }).filter(Boolean).join('');
-    if (chips) sousLieux = '<div class="lieu-detail-row"><span class="lieu-detail-lbl">Sous-lieux</span><div class="chip-list">' + chips + '</div></div>';
-  }
-
-  // PNJs présents
-  var pnjs = '';
-  if (lieu.pnjs_presents && lieu.pnjs_presents.length) {
-    var chips = lieu.pnjs_presents.map(function(id){ return '<span class="chip">' + esc(id.replace('pnj_','')) + '</span>'; }).join('');
-    pnjs = '<div class="lieu-detail-row"><span class="lieu-detail-lbl">PNJs présents</span><div class="chip-list">' + chips + '</div></div>';
-  }
-
-  var hasDetails = sousLieux || pnjs;
-  var detailsBlock = hasDetails ? '<div class="lieu-details">' + sousLieux + pnjs + '</div>' : '';
-
-  var mjHTML = lieu.notes_mj ? '<div class="mj-only"><div class="mj-block"><div class="mj-block-title">⚿ Notes MJ</div><div class="mj-block-txt">' + esc(lieu.notes_mj) + '</div></div></div>' : '';
-
-  return '<div class="lieu-card" id="lieu-' + lieu.id + '">'
-    + '<div class="lieu-head" onclick="toggleCard(\'' + lieu.id + '\')">'
-    +   '<div class="lieu-type-icon">' + icon + '</div>'
-    +   '<div class="lieu-head-info">'
-    +     '<div class="lieu-nom">' + esc(lieu.nom) + '</div>'
-    +     (lieu.region ? '<div class="lieu-region">' + esc(lieu.region) + '</div>' : '')
-    +   '</div>'
-    +   '<span class="l-chip ' + statutCls + '">' + esc(statutLbl) + '</span>'
-    +   '<span class="lieu-chevron">▾</span>'
-    + '</div>'
-    + '<div class="lieu-div"></div>'
-    + '<div class="lieu-body">'
-    +   (lieu.description ? '<p class="lieu-desc">' + esc(lieu.description) + '</p>' : '')
-    +   detailsBlock
-    +   mjHTML
-    + '</div>'
-    + '</div>';
-}
-
-// ── Toggle carte ─────────────────────────────────────────────────────────────
-function toggleCard(id) {
-  var card = document.getElementById('lieu-' + id);
-  if (!card) return;
-  var isOpen = card.classList.contains('open');
-  document.querySelectorAll('.lieu-card.open').forEach(function(c){ c.classList.remove('open'); });
-  if (!isOpen) card.classList.add('open');
-}
-
-// ── Changement mode MJ ───────────────────────────────────────────────────────
 document.addEventListener('mjmodechange', function() {
   if (!LIEUX_DATA.length) return;
-  buildVilleDropdown();
-  applyFilters();
+  // Reset MJ-only filters if switching to player mode
+  if (!isMJ() && STATUTS_MJ_ONLY.indexOf(curStatut) !== -1) {
+    curStatut = '';
+    document.querySelectorAll('.filter-pill').forEach(function(b) { b.classList.remove('active'); });
+    var firstPill = document.querySelector('.filter-pill');
+    if (firstPill) firstPill.classList.add('active');
+  }
+  render();
 });
 
 document.addEventListener('DOMContentLoaded', init);

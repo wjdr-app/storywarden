@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>R&#232;gles — La Larme d'Argent</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -208,7 +209,7 @@ function toggleCard(id, event) {
   applyMJMode(getMJMode());
 }
 
-(function(){ const _o=window.setMJMode; window.setMJMode=function(v){_o(v); if(REGLES_DATA&&REGLES_DATA.length) applyFilters();}; })();
+document.addEventListener('mjmodechange', function() { if (REGLES_DATA && REGLES_DATA.length) applyFilters(); });
 document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>

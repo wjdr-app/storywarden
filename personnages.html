@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aventuriers &mdash; Story Warden</title>
@@ -489,7 +490,7 @@
   function renderCard(pj, idx) {
     var absent = pj.statut_campagne === 'absent';
     var portrait = pj.portrait_url
-      ? '<img class="card-portrait" src="' + pj.portrait_url + '" alt="' + pj.nom + '" loading="lazy">'
+      ? '<img class="card-portrait" src="' + pj.portrait_url + '" alt="' + pj.nom + '" loading="lazy" onclick="openPortraitLightbox(this.src,this.alt)" style="cursor:zoom-in">'
       : '<div class="card-portrait-ph">&#9876;</div>';
 
     var badge = pj.niveau ? '<span class="level-badge">Niv.\u00a0' + pj.niveau + '</span>' : '';

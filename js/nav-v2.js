@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { href: 'personnages.html',    label: 'Aventuriers', picto: 'aventuriers' },
   { href: 'pnjs.html',         label: 'PNJs',        picto: 'pnj' },
   { href: 'monstres.html',     label: 'Monstres',    picto: 'monstres' },
+  { href: 'magasin.html',      label: 'Magasins',    picto: 'magasin' },
   { href: 'relations.html',    label: 'Relations',   picto: 'relations' },
   { sep: true },
   { href: 'quetes.html',       label: 'Quêtes',      picto: 'quetes' },
@@ -89,15 +90,11 @@ async function fetchAndApplySettings() {
 
 // ── MODE MJ ──────────────────────────────────────────────────────────────────
 function getMJMode() {
-  if (localStorage.getItem('sw_mj_mode') !== 'true') return false;
-  // En mode web (non-Electron), exiger que des données d'auth soient présentes.
-  // Empêche le mode MJ de persister automatiquement sur la vue joueurs publiée
-  // quand le MJ n'a pas explicitement re-validé son identité.
-  if (typeof window.electronAPI === 'undefined' && !sessionStorage.getItem('sw_mj_session')) {
-    localStorage.removeItem('sw_mj_mode');
-    return false;
+  // Web mode: require active MJ session (set when password modal succeeds)
+  if (typeof window.electronAPI === 'undefined') {
+    if (!sessionStorage.getItem('sw_mj_session')) return false;
   }
-  return true;
+  return localStorage.getItem('sw_mj_mode') === 'true';
 }
 
 function setMJMode(val) {
@@ -477,6 +474,32 @@ function pickerSubmit(i) {
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
+
+// ── PORTRAIT LIGHTBOX ─────────────────────────────────────────────────────────
+function openPortraitLightbox(src, alt) {
+  if (!src) return;
+  let lb = document.getElementById('sw-portrait-lb');
+  if (!lb) {
+    lb = document.createElement('div');
+    lb.id = 'sw-portrait-lb';
+    lb.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99999;display:flex;align-items:center;justify-content:center;cursor:zoom-out;animation:lbIn .18s ease';
+    lb.innerHTML = '<img id="sw-portrait-lb-img" style="max-width:90vw;max-height:90vh;border-radius:10px;box-shadow:0 8px 60px rgba(0,0,0,.8);object-fit:contain" alt="">';
+    lb.addEventListener('click', closePortraitLightbox);
+    document.head.insertAdjacentHTML('beforeend','<style>@keyframes lbIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}</style>');
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') closePortraitLightbox(); });
+    document.body.appendChild(lb);
+  }
+  document.getElementById('sw-portrait-lb-img').src = src;
+  document.getElementById('sw-portrait-lb-img').alt = alt || '';
+  lb.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closePortraitLightbox() {
+  const lb = document.getElementById('sw-portrait-lb');
+  if (lb) lb.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
 window._swCampaignReady = new Promise(function(resolve) {
   document.addEventListener('DOMContentLoaded', async () => {
     if (document.body && document.body.hasAttribute('data-no-nav')) { resolve(); return; }

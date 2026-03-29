@@ -1,0 +1,73 @@
+[
+  {
+    "id": "magasins_01",
+    "nom": "test",
+    "type": "Général",
+    "lieu": "",
+    "description": "",
+    "notes_mj": "",
+    "visible_joueurs": true,
+    "items": [
+      {
+        "id": "item_1774777273342",
+        "nom": "Cloak of the Bat",
+        "type": "Wondrous Item",
+        "rarete": "rare",
+        "prix": "",
+        "quantite": null,
+        "attunement": true,
+        "visible_joueurs": true,
+        "description": "While wearing this cloak, you have Advantage on Dexterity (Stealth) checks. In an area of Dim Light or Darkness, you can grip the edges of the cloak and use it to gain a Fly Speed of 40 feet. If you ever fail to grip the cloak's edges while flying in this way, or if you are no longer in Dim Light or Darkness, you lose this Fly Speed. While wearing the cloak in an area of Dim Light or Darkness, you can cast Polymorph on yourself, shape-shifting into a Bat . While in that form, you retain your Intelligence, Wisdom, and Charisma scores. The cloak can't be used this way again until the next dawn.",
+        "notes_mj": ""
+      },
+      {
+        "id": "item_1774777285267",
+        "nom": "Alchemy Jug",
+        "type": "Wondrous Item",
+        "rarete": "uncommon",
+        "prix": "",
+        "quantite": null,
+        "attunement": false,
+        "visible_joueurs": true,
+        "description": "This ceramic jug appears to be able to hold a gallon of liquid and weighs 12 pounds whether full or empty. The jug sloshes when it is shaken, even if the jug is empty. You can take a Magic action and name one liquid from the table to cause the jug to produce the chosen liquid. Afterward, you can uncork the jug as a Utilize action and pour that liquid out, up to 2 gallons per minute. The maximum amount of liquid the jug can produce depends on the liquid you named. Once the jug starts producing a liquid, it can't produce a different one, or more of one that has reached its maximum, until the next dawn. Liquid Max. Amount Acid 8 ounces Basic Poison 4 ounces Beer 4 gallons Honey 1 gallon Mayonnaise 2 gallons Oil 1 quart Vinegar 2 gallons Water, fresh 8 gallons Water, salt 12 gallons Wine 1 gallon",
+        "notes_mj": ""
+      },
+      {
+        "id": "item_1774777286639",
+        "nom": "Armor of Gleaming",
+        "type": "Armor (Any Light, Medium, or Heavy)",
+        "rarete": "common",
+        "prix": "",
+        "quantite": null,
+        "attunement": false,
+        "visible_joueurs": true,
+        "description": "This armor never gets dirty.",
+        "notes_mj": ""
+      },
+      {
+        "id": "item_1774783387205",
+        "nom": "Amulette d'antidétection",
+        "type": "Objet merveilleux",
+        "rarete": "uncommon",
+        "prix": "",
+        "quantite": null,
+        "attunement": true,
+        "visible_joueurs": true,
+        "description": "Lorsque vous portez cette amulette, vous ne pouvez pas être ciblé par des sorts de divination ou perçu par des capteurs de divination magique, sauf si vous le permettez.",
+        "notes_mj": ""
+      },
+      {
+        "id": "item_1774783693822",
+        "nom": "Bouclier gardesort",
+        "type": "Armure (bouclier)",
+        "rarete": "very rare",
+        "prix": "",
+        "quantite": null,
+        "attunement": true,
+        "visible_joueurs": true,
+        "description": "Lorsque vous tenez ce bouclier, vous avez un Avantage aux jets de sauvegarde contre les sorts et autres effets magiques, et les jets d'attaque de sort ont un Désavantage contre vous.",
+        "notes_mj": ""
+      }
+    ]
+  }
+]

@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Carte — La Larme d'Argent</title>
 <link rel="stylesheet" href="vendor/leaflet.css">
@@ -170,7 +171,7 @@ let _lieux = [];
 let _navStack = [];
 let _leaflet = null;
 
-function isMJ() { return localStorage.getItem('sw_mj_mode') === 'true'; }
+function isMJ() { return typeof getMJMode === 'function' ? getMJMode() : localStorage.getItem('sw_mj_mode') === 'true'; }
 function esc(s) { return !s ? '' : String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 // ── ÉTAGES ────────────────────────────────────────────────────────
@@ -477,6 +478,14 @@ function destroyLeaflet() {
   if (_leaflet) { _leaflet.remove(); _leaflet = null; }
 }
 
+document.addEventListener('mjmodechange', function() {
+  if (!_cartes || !_cartes.length) return;
+  var roots = _cartes.filter(function(c) { return !c.parent_id && (isMJ() || c.visible_joueurs !== false); });
+  var app = document.getElementById('app');
+  if (roots.length === 0) { app.innerHTML = '<div class="empty-state">Aucune carte disponible.</div>'; }
+  else if (roots.length === 1) { showCarte(roots[0].id); }
+  else { showList(roots); }
+});
 document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>

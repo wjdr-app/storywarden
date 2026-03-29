@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Monstres — La Larme d'Argent</title>
 <link rel="stylesheet" href="css/sw-v2.css">
@@ -303,7 +304,7 @@ function buildCard(m, idx) {
   const icon  = TYPE_ICONS[(m.type||'').toLowerCase()] || '◎';
 
   const portrait = m.portrait_url
-    ? `<img src="${escHtml(m.portrait_url)}" alt="${escHtml(m.nom)}" loading="lazy" onerror="this.style.display='none'">`
+    ? `<img src="${escHtml(m.portrait_url)}" alt="${escHtml(m.nom)}" loading="lazy" onerror="this.style.display='none'" onclick="openPortraitLightbox(this.src,this.alt)" style="cursor:zoom-in">`
     : `<span class="m-type-icon">${icon}</span>`;
 
   const sousTitre = [m.type, m.taille].filter(Boolean).join(' · ');

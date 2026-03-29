@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PNJs — La Larme d'Argent</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -416,7 +417,7 @@ function buildCard(p, delay) {
   const city = getPnjCity(p);
 
   const portraitHtml = p.portrait_url
-    ? `<img src="${escHtml(p.portrait_url)}" alt="${escHtml(p.nom)}" loading="lazy">`
+    ? `<img src="${escHtml(p.portrait_url)}" alt="${escHtml(p.nom)}" loading="lazy" onclick="openPortraitLightbox(this.src,this.alt)" style="cursor:zoom-in">`
     : `<div class="card-portrait-ico"></div>`;
 
   const locHtml = city ? `<span class="chip-loc">&#128205; ${escHtml(city)}</span>` : '';
