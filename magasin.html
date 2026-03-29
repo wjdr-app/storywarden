@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magasins &#8212; La Larme d&#8217;Argent</title>
+<link rel="stylesheet" href="css/sw-v2.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+
+/* ── 4-COLUMN WORKSPACE ─────────────────────────────────────────────────────── */
+.l-workspace {
+  display: grid;
+  grid-template-columns: 0.7fr 0.9fr 1fr 1.8fr;
+  gap: 10px;
+  height: calc(100vh - 150px);
+  min-height: 320px;
+}
+.l-col {
+  background: var(--surface); border-radius: 12px;
+  box-shadow: var(--sh-card); display: flex;
+  flex-direction: column; overflow: hidden;
+}
+.l-col-head {
+  padding: 10px 14px; border-bottom: 1px solid var(--border-soft);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.l-col-title {
+  font-family: var(--font-ui); font-size: .6rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--text-dim);
+}
+.l-col-cnt {
+  font-family: var(--font-ui); font-size: .6rem; color: var(--text-dim);
+  background: var(--bg); border-radius: 10px; padding: 1px 8px;
+  border: 1px solid var(--border-soft);
+}
+.l-col-body {
+  flex: 1; overflow-y: auto;
+  scrollbar-width: thin; scrollbar-color: var(--border-mid) transparent;
+}
+.l-col-body::-webkit-scrollbar { width: 4px; }
+.l-col-body::-webkit-scrollbar-track { background: transparent; }
+.l-col-body::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 4px; }
+
+/* ── LIST ITEMS ─────────────────────────────────────────────────────────────── */
+.l-item {
+  display: flex; align-items: center; gap: 9px;
+  padding: 9px 12px 9px 14px; cursor: pointer;
+  border-left: 3px solid transparent;
+  border-bottom: 1px solid var(--border-soft);
+  transition: background .12s, border-color .12s;
+}
+.l-item:last-child { border-bottom: none; }
+.l-item:hover { background: var(--surface-mid); }
+.l-item.l-sel { background: var(--crimson-dim); border-left-color: var(--crimson); }
+.l-ico-wrap {
+  width: 26px; height: 26px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.l-ico-sym {
+  font-size: 14px; color: var(--text-dim); line-height: 1;
+}
+.l-item-info { flex: 1; min-width: 0; }
+.l-item-name {
+  font-family: var(--font-ui); font-size: .82rem; font-weight: 600;
+  color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.l-item-sub {
+  font-size: .68rem; color: var(--text-dim); margin-top: 1px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.l-chip-sm {
+  font-family: var(--font-ui); font-size: .55rem; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 20px;
+  border: 1px solid var(--border-soft);
+  background: transparent; color: var(--text-dim);
+  white-space: nowrap; flex-shrink: 0;
+}
+.l-empty-col {
+  padding: 24px 14px; font-size: .72rem; color: var(--text-dim);
+  font-style: italic; text-align: center;
+}
+
+/* ── DETAIL COLUMN CONTENT ──────────────────────────────────────────────────── */
+.l-detail-inner {
+  padding: 18px 20px;
+}
+.l-detail-head {
+  display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px;
+}
+.l-detail-icon {
+  width: 48px; height: 48px; background: var(--surface-mid);
+  border-radius: 10px; border: 1px solid var(--border-soft);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 1.4rem;
+}
+.l-detail-ttl {
+  font-family: var(--font-ui); font-size: 1rem; font-weight: 700;
+  color: var(--text); margin-bottom: 6px; line-height: 1.2;
+}
+.l-detail-meta { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+.l-chip {
+  font-family: var(--font-ui); font-size: .6rem; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 2px 9px; border-radius: 20px; white-space: nowrap;
+  border: 1.5px solid var(--border-soft); background: transparent; color: var(--text-muted);
+}
+.l-detail-path {
+  font-family: var(--font-body); font-size: .74rem; font-style: italic;
+  color: var(--text-dim);
+}
+.l-detail-sep { height: 1px; background: var(--border-soft); margin: 12px 0; }
+.l-detail-desc {
+  font-family: var(--font-body); font-size: .82rem; font-style: italic;
+  color: var(--text-muted); line-height: 1.65;
+}
+
+/* ── TABLE RENDERING IN DESCRIPTIONS ────────────────────────────────────────── */
+.l-detail-desc table {
+  border-collapse: collapse; width: 100%; font-size: .78rem;
+  font-style: normal; margin: 8px 0;
+}
+.l-detail-desc th,
+.l-detail-desc td {
+  border: 1px solid var(--border-soft); padding: 5px 8px; text-align: left;
+}
+.l-detail-desc th {
+  background: var(--surface-mid); font-family: var(--font-ui);
+  font-size: .6rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+.l-detail-desc p { margin: 6px 0; }
+.l-detail-desc ul, .l-detail-desc ol { margin: 6px 0 6px 18px; }
+.l-detail-desc li { margin-bottom: 3px; }
+.l-detail-desc strong, .l-detail-desc b { color: var(--text); font-style: normal; }
+.l-detail-desc em, .l-detail-desc i { color: var(--text-muted); }
+
+/* ── RARITY CHIPS ────────────────────────────────────────────────────────────── */
+.l-chip.rar-common    { color:#b0b0b0; border-color:#666; }
+.l-chip.rar-uncommon  { color:#7ab878; border-color:#4a7840; }
+.l-chip.rar-rare      { color:#6a9fd8; border-color:#3a6090; }
+.l-chip.rar-very-rare { color:#a668d4; border-color:#6a3a90; }
+.l-chip.rar-legendary { color:#d4a862; border-color:#907030; }
+.l-chip.rar-artifact  { color:var(--crimson); border-color:var(--crimson-bd); }
+.l-chip.rar-varies    { color:#d4c862; border-color:#907c30; }
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .l-workspace {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    height: auto;
+    gap: 8px;
+  }
+  .l-col { height: 220px; }
+  #col-detail { grid-column: 1 / -1; height: 280px; }
+}
+@media (max-width: 600px) {
+  .l-workspace {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+  .l-col { height: 180px; }
+  #col-detail { height: 260px; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="page-title">Les <span>Magasins</span></div>
+<div class="page-sub" style="margin-bottom:20px">Commerce</div>
+
+<!-- 4-column workspace -->
+<div class="l-workspace">
+  <div class="l-col" id="col-villes">
+    <div class="l-col-head">
+      <span class="l-col-title">Villes</span>
+      <span class="l-col-cnt" id="cnt-villes">&#8212;</span>
+    </div>
+    <div class="l-col-body" id="list-villes">
+      <div class="l-empty-col">Chargement&#8230;</div>
+    </div>
+  </div>
+  <div class="l-col" id="col-shops">
+    <div class="l-col-head">
+      <span class="l-col-title">Magasins</span>
+      <span class="l-col-cnt" id="cnt-shops">&#8212;</span>
+    </div>
+    <div class="l-col-body" id="list-shops">
+      <div class="l-empty-col">Chargement&#8230;</div>
+    </div>
+  </div>
+  <div class="l-col" id="col-items">
+    <div class="l-col-head">
+      <span class="l-col-title">Articles</span>
+      <span class="l-col-cnt" id="cnt-items">&#8212;</span>
+    </div>
+    <div class="l-col-body" id="list-items">
+      <div class="l-empty-col">Chargement&#8230;</div>
+    </div>
+  </div>
+  <div class="l-col" id="col-detail">
+    <div class="l-col-head">
+      <span class="l-col-title">D&eacute;tail</span>
+    </div>
+    <div class="l-col-body" id="detail-body">
+      <div class="l-empty-col">S&eacute;lectionner un article</div>
+    </div>
+  </div>
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/nav-v2.js"></script>
+<script>
+var LIEUX_DATA = [];
+var SHOPS      = [];
+var selVilleNom = null;
+var selShopId   = null;
+var selItemIdx  = null;
+
+var RAR = {
+  'common':    'Commun',
+  'uncommon':  'Peu courant',
+  'rare':      'Rare',
+  'very rare': 'Tr\u00e8s rare',
+  'legendary': 'L\u00e9gendaire',
+  'artifact':  'Artefact',
+  'varies':    'Variable',
+  'unknown':   'Inconnu'
+};
+var RAR_CSS = {
+  'common':    'rar-common',
+  'uncommon':  'rar-uncommon',
+  'rare':      'rar-rare',
+  'very rare': 'rar-very-rare',
+  'legendary': 'rar-legendary',
+  'artifact':  'rar-artifact',
+  'varies':    'rar-varies'
+};
+
+function isMJ() {
+  return (typeof getMJMode === 'function') ? getMJMode() : localStorage.getItem('sw_mj_mode') === 'true';
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// ── Visibility ────────────────────────────────────────────────────────────────
+function getVisibleShops() {
+  return SHOPS.filter(function(s) {
+    return isMJ() || s.visible_joueurs !== false;
+  });
+}
+
+function getVisibleItems(shop) {
+  return (shop.items || []).filter(function(it) {
+    return isMJ() || it.visible_joueurs !== false;
+  });
+}
+
+// ── Data helpers ──────────────────────────────────────────────────────────────
+function getVisibleCities() {
+  var shops = getVisibleShops();
+  if (!shops.length) return [];
+
+  var shopCityNames = {};
+  shops.forEach(function(s) { if (s.lieu) shopCityNames[s.lieu] = true; });
+
+  var cities = [];
+
+  if (LIEUX_DATA.length) {
+    LIEUX_DATA.forEach(function(l) {
+      if (l.categorie === 'ville' && l.statut === 'visit\u00e9' && shopCityNames[l.nom]) {
+        cities.push({ nom: l.nom, id: l.id });
+        delete shopCityNames[l.nom];
+      }
+    });
+    Object.keys(shopCityNames).forEach(function(nom) {
+      cities.push({ nom: nom, id: null });
+    });
+  } else {
+    Object.keys(shopCityNames).forEach(function(nom) {
+      cities.push({ nom: nom, id: null });
+    });
+  }
+
+  return cities.sort(function(a, b) {
+    return (a.nom || '').localeCompare(b.nom || '');
+  });
+}
+
+function getShopsForCity(villeNom) {
+  return getVisibleShops().filter(function(s) { return s.lieu === villeNom; });
+}
+
+function getShopById(id) {
+  return SHOPS.find(function(s) { return s.id === id; }) || null;
+}
+
+// ── Render functions ──────────────────────────────────────────────────────────
+function renderVilles() {
+  var cities = getVisibleCities();
+  document.getElementById('cnt-villes').textContent = cities.length;
+  var list = document.getElementById('list-villes');
+  if (!cities.length) {
+    list.innerHTML = '<div class="l-empty-col">Aucune ville avec des magasins</div>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < cities.length; i++) {
+    var city = cities[i];
+    var sc = getShopsForCity(city.nom).length;
+    var isSel = city.nom === selVilleNom;
+    html += '<div class="l-item' + (isSel ? ' l-sel' : '') + '" data-ville="' + esc(city.nom) + '" onclick="selectVille(this.dataset.ville)">'
+          +   '<div class="l-ico-wrap"><div class="l-ico-sym">&#x2B21;</div></div>'
+          +   '<div class="l-item-info">'
+          +     '<div class="l-item-name">' + esc(city.nom) + '</div>'
+          +     '<div class="l-item-sub">' + sc + ' magasin' + (sc > 1 ? 's' : '') + '</div>'
+          +   '</div>'
+          + '</div>';
+  }
+  list.innerHTML = html;
+}
+
+function renderShops() {
+  var shops = selVilleNom ? getShopsForCity(selVilleNom) : [];
+  document.getElementById('cnt-shops').textContent = shops.length;
+  var list = document.getElementById('list-shops');
+  if (!selVilleNom) {
+    list.innerHTML = '<div class="l-empty-col">S\u00e9lectionner une ville</div>';
+    return;
+  }
+  if (!shops.length) {
+    list.innerHTML = '<div class="l-empty-col">Aucun magasin</div>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < shops.length; i++) {
+    var s = shops[i];
+    var ic = getVisibleItems(s).length;
+    var isSel = s.id === selShopId;
+    html += '<div class="l-item' + (isSel ? ' l-sel' : '') + '" data-shop="' + esc(s.id) + '" onclick="selectShop(this.dataset.shop)">'
+          +   '<div class="l-ico-wrap"><div class="l-ico-sym">&#x1F3EA;</div></div>'
+          +   '<div class="l-item-info">'
+          +     '<div class="l-item-name">' + esc(s.nom || '?') + '</div>'
+          +     '<div class="l-item-sub">' + esc(s.type || '') + (ic > 0 ? ' \u00b7 ' + ic + ' article' + (ic > 1 ? 's' : '') : '') + '</div>'
+          +   '</div>'
+          + '</div>';
+  }
+  list.innerHTML = html;
+}
+
+function renderItems() {
+  var shop = selShopId ? getShopById(selShopId) : null;
+  var items = shop ? getVisibleItems(shop) : [];
+  document.getElementById('cnt-items').textContent = items.length;
+  var list = document.getElementById('list-items');
+  if (!selShopId) {
+    list.innerHTML = '<div class="l-empty-col">S\u00e9lectionner un magasin</div>';
+    return;
+  }
+  if (!items.length) {
+    list.innerHTML = '<div class="l-empty-col">Aucun article</div>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < items.length; i++) {
+    var item = items[i];
+    var rarLabel = RAR[item.rarete] || item.rarete || '';
+    var rarCss   = RAR_CSS[item.rarete] || '';
+    var isSel = i === selItemIdx;
+    html += '<div class="l-item' + (isSel ? ' l-sel' : '') + '" onclick="selectItem(' + i + ')">'
+          +   '<div class="l-ico-wrap"><div class="l-ico-sym" style="font-size:10px;color:var(--text-dim)">&#9670;</div></div>'
+          +   '<div class="l-item-info">'
+          +     '<div class="l-item-name">' + esc(item.nom || '?') + '</div>'
+          +     (rarLabel ? '<div class="l-item-sub">' + esc(rarLabel) + (item.prix ? ' \u00b7 ' + esc(item.prix) : '') + '</div>' : '')
+          +   '</div>'
+          +   (rarCss ? '<span class="l-chip-sm ' + rarCss + '">' + esc(rarLabel) + '</span>' : '')
+          + '</div>';
+  }
+  list.innerHTML = html;
+}
+
+function renderDetail() {
+  var body = document.getElementById('detail-body');
+  if (selItemIdx === null || !selShopId) {
+    body.innerHTML = '<div class="l-empty-col">S\u00e9lectionner un article</div>';
+    return;
+  }
+  var shop  = getShopById(selShopId);
+  var items = shop ? getVisibleItems(shop) : [];
+  var item  = items[selItemIdx];
+  if (!item) { body.innerHTML = '<div class="l-empty-col">Article introuvable</div>'; return; }
+
+  var rarLabel = RAR[item.rarete] || item.rarete || '';
+  var rarCss   = RAR_CSS[item.rarete] || '';
+
+  var chips = '';
+  if (rarLabel) chips += '<span class="l-chip' + (rarCss ? ' ' + rarCss : '') + '">' + esc(rarLabel) + '</span>';
+  if (item.prix) chips += '<span class="l-chip">' + esc(item.prix) + '</span>';
+  if (item.attunement) chips += '<span class="l-chip">Harmonisation</span>';
+
+  var path = item.type ? '<span class="l-detail-path">' + esc(item.type) + '</span>' : '';
+
+  var descHtml = '';
+  if (item.description) {
+    if (item.description.indexOf('<') !== -1) {
+      descHtml = '<div class="l-detail-sep"></div><div class="l-detail-desc">' + item.description + '</div>';
+    } else {
+      descHtml = '<div class="l-detail-sep"></div><div class="l-detail-desc">' + esc(item.description) + '</div>';
+    }
+  }
+
+  body.innerHTML =
+    '<div class="l-detail-inner">'
+  +   '<div class="l-detail-head">'
+  +     '<div class="l-detail-icon">&#9670;</div>'
+  +     '<div>'
+  +       '<div class="l-detail-ttl">' + esc(item.nom || '?') + '</div>'
+  +       '<div class="l-detail-meta">' + chips + path + '</div>'
+  +     '</div>'
+  +   '</div>'
+  +   descHtml
+  + '</div>';
+}
+
+function render() {
+  renderVilles();
+  renderShops();
+  renderItems();
+  renderDetail();
+}
+
+// ── Selection handlers ────────────────────────────────────────────────────────
+function selectVille(nom) {
+  if (selVilleNom === nom) {
+    selVilleNom = null;
+  } else {
+    selVilleNom = nom;
+    selShopId   = null;
+    selItemIdx  = null;
+  }
+  render();
+}
+
+function selectShop(id) {
+  if (selShopId === id) {
+    selShopId  = null;
+    selItemIdx = null;
+  } else {
+    selShopId  = id;
+    selItemIdx = null;
+  }
+  render();
+}
+
+function selectItem(idx) {
+  selItemIdx = (selItemIdx === idx) ? null : idx;
+  renderItems();
+  renderDetail();
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+async function init() {
+  try {
+    var results = await Promise.all([
+      loadData('lieux.json').catch(function() { return []; }),
+      loadData('magasins.json').catch(function() { return []; })
+    ]);
+    LIEUX_DATA = results[0] || [];
+    SHOPS      = results[1] || [];
+    render();
+  } catch(e) {
+    console.warn('magasin init error', e);
+    render();
+  }
+}
+
+document.addEventListener('mjmodechange', function() {
+  if (!SHOPS.length) return;
+  if (!isMJ()) {
+    var shop = selShopId ? getShopById(selShopId) : null;
+    if (shop && shop.visible_joueurs === false) {
+      selShopId  = null;
+      selItemIdx = null;
+    }
+  }
+  render();
+});
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
