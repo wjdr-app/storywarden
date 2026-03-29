@@ -3,7 +3,7 @@
     "id": "magasins_01",
     "nom": "test",
     "type": "Général",
-    "lieu": "",
+    "lieu": "Valmorne",
     "description": "",
     "notes_mj": "",
     "visible_joueurs": true,

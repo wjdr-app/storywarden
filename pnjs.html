@@ -304,6 +304,12 @@ let LIEUX_DATA = [];
 let _villeFilter = 'toutes';
 let _cityMap = {}; // pnjId → cityNom
 
+function isMJ() {
+  return (typeof getMJMode === 'function') ? getMJMode() : localStorage.getItem('sw_mj_mode') === 'true';
+}
+function isVisibleToPlayer(item) {
+  return isMJ() || item.visible_joueurs !== false;
+}
 const STATUS_LABELS = { vivant: 'Vivant', mort: 'Mort', disparu: 'Disparu', inconnu: 'Inconnu' };
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
@@ -369,8 +375,7 @@ function getPnjCity(pnj) {
 
 // ── FILTRES VILLE ─────────────────────────────────────────────────────────────
 function buildVilleFilters() {
-  const isMJ = getMJMode();
-  const visible = isMJ ? PNJ_DATA : PNJ_DATA.filter(p => p.visible_joueurs !== false);
+  const visible = PNJ_DATA.filter(p => isVisibleToPlayer(p));
   const cities = [...new Set(visible.map(p => getPnjCity(p)).filter(Boolean))].sort();
 
   const container = document.getElementById('filter-villes');
@@ -394,8 +399,7 @@ function setVilleFilter(ville, btn) {
 
 function applyFilters() {
   const q = (document.getElementById('search-input').value || '').toLowerCase().trim();
-  const isMJ = getMJMode();
-  let list = isMJ ? PNJ_DATA : PNJ_DATA.filter(p => p.visible_joueurs !== false);
+  let list = PNJ_DATA.filter(p => isVisibleToPlayer(p));
   if (_villeFilter !== 'toutes') list = list.filter(p => getPnjCity(p) === _villeFilter);
   if (q) list = list.filter(p =>
     (p.nom || '').toLowerCase().includes(q) ||
@@ -454,7 +458,6 @@ function buildCard(p, delay) {
 }
 
 function buildDetailsSection(p) {
-  const isMJ = getMJMode();
   let html = '';
 
   // Stats — 9 cases fixes : PV/CA/INIT (ligne 1) + 6 compétences (ligne 2)
@@ -502,7 +505,7 @@ function buildDetailsSection(p) {
   if (p.repliques && p.repliques.length)
     html += `<div class="detail-row"><span class="detail-lbl">Répliques</span><span class="detail-val">${p.repliques.map(r => `&#171; ${escHtml(r)} &#187;`).join(' — ')}</span></div>`;
 
-  if (p.capacites_confirmees && p.capacites_confirmees.length && (isMJ || p.capacites_visible_joueurs !== false)) {
+  if (p.capacites_confirmees && p.capacites_confirmees.length && (isMJ() || p.capacites_visible_joueurs !== false)) {
     const caps = p.capacites_confirmees.map(c => {
       const nom = typeof c === 'object' ? (c.nom || '') : c;
       const desc = typeof c === 'object' ? (c.description || c.desc || '') : '';
@@ -521,7 +524,7 @@ function buildDetailsSection(p) {
   if (p.notes)
     html += `<div class="detail-row"><span class="detail-lbl">Notes</span><span class="detail-val">${escHtml(p.notes)}</span></div>`;
 
-  if (isMJ && p.secrets_mj)
+  if (isMJ() && p.secrets_mj)
     html += `<div class="mj-block mj-only"><div class="mj-block-title">&#128273; Secrets MJ</div><div class="mj-block-txt">${escHtml(p.secrets_mj)}</div></div>`;
 
   return html || '<p style="font-size:.78rem;font-style:italic;color:var(--text-dim)">Aucun détail supplémentaire.</p>';
@@ -555,8 +558,7 @@ function escHtml(s) {
 
 // ── MJ MODE ───────────────────────────────────────────────────────────────────
 document.addEventListener('mjmodechange', () => {
-  buildVilleFilters();
-  applyFilters();
+  if (PNJ_DATA.length) { buildVilleFilters(); applyFilters(); }
 });
 
 document.addEventListener('DOMContentLoaded', init);
