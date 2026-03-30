@@ -524,8 +524,9 @@ function buildDetailsSection(p) {
   if (p.notes)
     html += `<div class="detail-row"><span class="detail-lbl">Notes</span><span class="detail-val">${escHtml(p.notes)}</span></div>`;
 
-  if (isMJ() && p.secrets_mj)
-    html += `<div class="mj-block mj-only"><div class="mj-block-title">&#128273; Secrets MJ</div><div class="mj-block-txt">${escHtml(p.secrets_mj)}</div></div>`;
+  const _mjSec = p.secrets_mj || p.notes_mj;
+  if (isMJ() && _mjSec)
+    html += `<div class="mj-block mj-only"><div class="mj-block-title">&#128273; Secrets MJ</div><div class="mj-block-txt">${escHtml(_mjSec)}</div></div>`;
 
   return html || '<p style="font-size:.78rem;font-style:italic;color:var(--text-dim)">Aucun détail supplémentaire.</p>';
 }
