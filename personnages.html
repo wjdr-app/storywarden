@@ -265,6 +265,11 @@
     /* Trait block */
     .sheet-trait { font-family: 'Noto Serif', serif; font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 
+    /* QR code */
+    .fiche-qr{flex-shrink:0;width:116px;background:var(--bg);border:1px solid var(--border-soft);border-radius:10px;padding:9px 8px 8px;display:flex;flex-direction:column;gap:6px;align-items:center;}
+    .fiche-qr-lbl{font-family:'Manrope',sans-serif;font-size:8px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;text-align:center;}
+    #sheet-qr-img{width:100%;background:#fff;border-radius:4px;overflow:hidden;}
+    @media(max-width:700px){.fiche-qr{display:none;}}
     /* Dice roller */
     .sheet-dice{flex-shrink:0;width:190px;background:var(--bg);border:1px solid var(--border-soft);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:7px;}
     .dr-lbl{font-family:'Manrope',sans-serif;font-size:9px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;text-align:center;padding-bottom:7px;border-bottom:1px solid var(--border-soft);}
@@ -438,6 +443,7 @@
   </div>
 </div>
 
+<script src="vendor/qrcode.min.js"></script>
 <script src="js/storage.js"></script>
 <script>
 (function() {
@@ -887,6 +893,14 @@
     var _bw=document.getElementById('sh-btn-pdf-lite');
     if(_b5e) _b5e.onclick=function(){window.open('pdf/'+_sfn+'_dnd5e.pdf','_blank');};
     if(_bw) _bw.onclick=function(){window.open('pdf/'+_sfn+'_warden.pdf','_blank');};
+    if(typeof window.qrcode==='function'&&window.location.protocol!=='file:'){
+      var _cid2=new URLSearchParams(location.search).get('c')||'';
+      var _qrUrl='fiche.html?c='+encodeURIComponent(_cid2)+'&id='+encodeURIComponent(pj.id||'');
+      var _qr=window.qrcode(0,'M');
+      _qr.addData(_qrUrl);_qr.make();
+      var _diceEl=document.querySelector('.sheet-dice');
+      if(_diceEl){var _qrW=document.createElement('div');_qrW.className='fiche-qr';_qrW.innerHTML='<div class="fiche-qr-lbl">Sur mobile</div><div id="sheet-qr-img">'+_qr.createSvgTag(3,0,'',true)+'</div>';_diceEl.parentNode.insertBefore(_qrW,_diceEl);}
+    }
   };
   var mjMode = localStorage.getItem('sw_mj_mode') === 'true';
 
