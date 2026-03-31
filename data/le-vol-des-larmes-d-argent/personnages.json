@@ -763,6 +763,7 @@
         "jet": "d20+5",
         "stat": "STR",
         "type": "arme",
+        "portee": "",
         "description": "Un coup lourd et franc, fait pour casser ce qui tient encore debout.",
         "regle": "Règle : si le jet touche la CA, inflige 1d8+5 contondant (les squelettes : dégâts doublés)."
       }
@@ -889,7 +890,16 @@
     "yeux": "",
     "peau": "",
     "cheveux": "",
-    "alignement": "Loyal Bon"
+    "alignement": "Loyal Bon",
+    "xp": 0,
+    "background_feature": "",
+    "portrait_url": "le-vol-des-larmes-d-argent/img/portraits/brund.png",
+    "pv_temporaires": 0,
+    "inspiration": false,
+    "sens_speciaux": "",
+    "resistances": "",
+    "immunites": "",
+    "vulnerabilites": ""
   },
   {
     "id": "pj_05",
