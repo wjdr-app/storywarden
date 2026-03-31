@@ -880,6 +880,11 @@
     document.getElementById('sheet-content').innerHTML = renderSheet(pj);
     document.getElementById('sheet-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
+    var _sfn=(pj.nom||'').replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_\-]/g,'').replace(/_+/g,'_');
+    var _b5e=document.getElementById('sh-btn-pdf-5e');
+    var _bw=document.getElementById('sh-btn-pdf-lite');
+    if(_b5e) _b5e.onclick=function(){window.open('pdf/'+_sfn+'_dnd5e.pdf','_blank');};
+    if(_bw) _bw.onclick=function(){window.open('pdf/'+_sfn+'_warden.pdf','_blank');};
   };
   var mjMode = localStorage.getItem('sw_mj_mode') === 'true';
 
