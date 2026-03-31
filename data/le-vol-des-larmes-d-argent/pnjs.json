@@ -532,7 +532,7 @@
       "attaque": "Hallebarde de garnison : +5 pour toucher, allonge 3m, dégâts 1d10+3 tranchants.",
       "initiative": "+1"
     },
-    "visible_joueurs": false,
+    "visible_joueurs": true,
     "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/Elara.png"
   },
   {
@@ -556,7 +556,7 @@
       "ca": 10,
       "initiative": "0"
     },
-    "visible_joueurs": false,
+    "visible_joueurs": true,
     "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/lucian.png"
   },
   {
@@ -635,7 +635,7 @@
       "attaque": "Épée courte : +4 pour toucher, dégâts 1d6+2 perforants.",
       "initiative": "+2"
     },
-    "visible_joueurs": false,
+    "visible_joueurs": true,
     "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/Garrick.png"
   }
 ]
