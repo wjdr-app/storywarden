@@ -308,6 +308,7 @@
         "jet": "d20+4",
         "stat": "DEX",
         "type": "arme",
+        "portee": "",
         "description": "Un coup de bâton direct au contact, pour faire reculer ou briser une garde.",
         "regle": "Règle : si le jet touche la CA, inflige 1d6+2 contondant."
       }
@@ -432,7 +433,16 @@
     "yeux": "",
     "peau": "",
     "cheveux": "",
-    "alignement": "Neutre Bon"
+    "alignement": "Neutre Bon",
+    "xp": 0,
+    "background_feature": "",
+    "portrait_url": "le-vol-des-larmes-d-argent/img/portraits/illwen.png",
+    "pv_temporaires": 0,
+    "inspiration": false,
+    "sens_speciaux": "",
+    "resistances": "",
+    "immunites": "",
+    "vulnerabilites": ""
   },
   {
     "id": "pj_03",
