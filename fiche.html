@@ -178,8 +178,7 @@
     .dr-res.dr-roll { animation: dr-flash .25s ease; color: var(--crimson); }
 
     /* QR code block (desktop only) */
-    .fiche-qr { flex-shrink: 0; width: 116px; background: var(--bg); border: 1px solid var(--border-soft); border-radius: 10px; padding: 9px 8px 8px; display: flex; flex-direction: column; gap: 6px; align-items: center; }
-    .fiche-qr-lbl { font-family: 'Manrope', sans-serif; font-size: 8px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .1em; text-align: center; padding-bottom: 6px; border-bottom: 1px solid var(--border-soft); width: 100%; }
+    .fiche-qr { flex-shrink: 0; width: 116px; height: 116px; background: var(--bg); border: 1px solid var(--border-soft); border-radius: 10px; padding: 6px; display: flex; align-items: center; justify-content: center; }
     #fiche-qr-img { width: 100%; background: #fff; border-radius: 4px; overflow: hidden; }
     #fiche-qr-img svg { width: 100%; height: auto; display: block; }
 
@@ -569,7 +568,7 @@
           if (_diceEl) {
             var _qrWrap = document.createElement('div');
             _qrWrap.className = 'fiche-qr';
-            _qrWrap.innerHTML = '<div class="fiche-qr-lbl">Ouvrir sur mobile</div><div id="fiche-qr-img">' + _qr.createSvgTag(3, 0, '', true) + '</div>';
+            _qrWrap.innerHTML = '<div id="fiche-qr-img">' + _qr.createSvgTag(3, 0, '', true) + '</div>';
             _diceEl.parentNode.insertBefore(_qrWrap, _diceEl);
           }
         } catch(_qe) { console.warn('QR', _qe); }
