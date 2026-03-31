@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fiche &mdash; Story Warden</title>
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#2D2D2D; --surface:#393939; --surface-mid:#424242;
+      --crimson:#9E3A44; --crimson-dark:#7a2d35; --crimson-dim:#4a3035; --crimson-bd:#6b3038;
+      --text:#ECE9E0; --text-muted:#9E9C9A; --text-dim:#797876; --border-soft:#484848;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100%; background: var(--bg); font-family: 'Noto Serif', serif; color: var(--text); }
+
+    /* Page layout */
+    #fiche-wrap { max-width: 960px; margin: 0 auto; padding: 20px 14px 64px; }
+    .sheet-container { background: var(--surface); border-radius: 16px; border: 1px solid var(--crimson-bd); overflow: hidden; box-shadow: 0 24px 80px #080808; }
+    .sheet-content { padding: 0; }
+    .sheet-content-inner { padding: 24px 28px 40px; }
+    .fiche-msg { padding: 60px 20px; text-align: center; font-family: 'Manrope', sans-serif; font-size: 14px; color: var(--text-dim); }
+
+    /* Sheet overlay compat (unused here, but kept for renderSheet output) */
+    .sheet-overlay { display: none; }
+
+    /* Hero band */
+    .sheet-hero { display: flex; gap: 20px; align-items: flex-start; padding-bottom: 20px; border-bottom: 1px solid var(--border-soft); margin-bottom: 20px; }
+    .sheet-portrait { width: 110px; height: 130px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border-soft); flex-shrink: 0; }
+    .sheet-portrait-ph { width: 110px; height: 130px; border-radius: 10px; border: 1px solid var(--border-soft); background: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 40px; color: var(--text-dim); flex-shrink: 0; }
+    .sheet-hero-info { flex: 1; min-width: 0; padding-top: 4px; }
+    .sheet-name { font-family: 'Noto Serif', serif; font-size: 30px; font-weight: 900; color: var(--text); line-height: 1; margin-bottom: 6px; }
+    .sheet-class { font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 700; color: var(--text-muted); margin-bottom: 5px; }
+    .sheet-meta { font-family: 'Manrope', sans-serif; font-size: 12px; font-weight: 500; color: var(--text-dim); margin-bottom: 8px; }
+    .sheet-align { display: inline-block; font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 700; background: var(--crimson); color: var(--text); border-radius: 4px; padding: 3px 8px; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+    .sheet-quote { font-family: 'Noto Serif', serif; font-size: 13px; font-style: italic; color: var(--text-dim); line-height: 1.5; }
+
+    /* Two-column body */
+    .sheet-body { display: grid; grid-template-columns: 220px 1fr; gap: 20px; }
+    .sheet-col-left, .sheet-col-right { display: flex; flex-direction: column; gap: 16px; }
+    .sheet-section { background: var(--bg); border-radius: 8px; border: 1px solid var(--border-soft); padding: 12px 14px; }
+    .sheet-section-title { font-family: 'Manrope', sans-serif; font-size: 9px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; border-bottom: 1px solid var(--border-soft); padding-bottom: 6px; }
+
+    /* Saves */
+    .sheet-saves { display: flex; flex-direction: column; gap: 4px; }
+    .sheet-save { font-family: 'Manrope', sans-serif; font-size: 12px; font-weight: 500; color: var(--text-dim); display: flex; justify-content: space-between; }
+    .sheet-save.prof { color: var(--text-muted); font-weight: 700; }
+
+    /* Skills */
+    .sheet-skills { display: flex; flex-direction: column; gap: 3px; }
+    .sheet-skill { font-family: 'Manrope', sans-serif; font-size: 11px; font-weight: 500; color: var(--text-dim); display: flex; align-items: center; gap: 6px; padding: 1px 0; }
+    .sheet-skill.prof { color: var(--text-muted); }
+    .sheet-skill.expert { color: var(--text); }
+    .skill-mark { width: 12px; flex-shrink: 0; text-align: center; font-size: 10px; color: var(--text-dim); }
+    .sheet-skill.prof .skill-mark { color: var(--text-muted); }
+    .sheet-skill.expert .skill-mark { color: var(--crimson); }
+    .skill-name { flex: 1; }
+    .skill-bonus { font-family: 'Noto Serif', serif; font-size: 12px; font-weight: 700; color: var(--text-muted); }
+    .sheet-skill.expert .skill-bonus { color: var(--text); }
+
+    /* Attacks */
+    .sheet-attack { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border-soft); }
+    .sheet-attack:last-child { border-bottom: none; }
+    .attack-name { flex: 1; font-family: 'Noto Serif', serif; font-size: 13px; font-weight: 700; color: var(--text); }
+    .attack-dmg { font-family: 'Manrope', sans-serif; font-size: 11px; font-weight: 700; color: var(--crimson); background: transparent; border: 1px solid var(--crimson-bd); border-radius: 4px; padding: 2px 6px; }
+
+    /* Capacites */
+    .cap2 { border-bottom: 1px solid var(--border-soft); }
+    .cap2:last-child { border-bottom: none; }
+    .cap2-head { display: flex; align-items: center; gap: 7px; padding: 7px 0; cursor: pointer; user-select: none; }
+    .cap2-name { flex: 1; font-family: 'Noto Serif', serif; font-size: 13px; font-weight: 700; color: var(--text); }
+    .cap2-tags { display: flex; gap: 3px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
+    .cap2-tag { font-family: 'Manrope', sans-serif; font-size: 9px; font-weight: 700; color: var(--text-dim); background: var(--surface-mid); border-radius: 3px; padding: 1px 5px; }
+    .cap2-body { display: none; padding: 0 0 9px 18px; }
+    .cap2.open .cap2-body { display: block; }
+    .cap2-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 5px; }
+    .cap2-chip { font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 700; color: var(--crimson); background: transparent; border: 1px solid var(--crimson-bd); border-radius: 3px; padding: 1px 5px; }
+    .cap2-desc { font-family: 'Noto Serif', serif; font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+    .cap2-uses-info { font-family: 'Manrope', sans-serif; font-size: 10px; color: var(--text-dim); margin-top: 6px; padding-top: 5px; border-top: 1px solid var(--border-soft); }
+
+    /* Equipment */
+    .sheet-equip { display: flex; flex-wrap: wrap; gap: 5px; }
+    .equip-item { font-family: 'Manrope', sans-serif; font-size: 11px; font-weight: 500; color: var(--text-muted); background: var(--surface-mid); border-radius: 4px; padding: 3px 8px; }
+
+    /* Notes MJ */
+    .sheet-note { padding: 8px 0; border-bottom: 1px solid var(--border-soft); }
+    .sheet-note:last-child { border-bottom: none; }
+    .note-titre { font-family: 'Manrope', sans-serif; font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; }
+    .note-contenu { font-family: 'Noto Serif', serif; font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+
+    /* Trait block */
+    .sheet-trait { font-family: 'Noto Serif', serif; font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    /* Misc */
+    .sheet-kv { display: flex; justify-content: space-between; align-items: baseline; padding: 3px 0; border-bottom: 1px solid var(--border-soft); font-family: 'Manrope', sans-serif; font-size: 11px; }
+    .sheet-kv:last-child { border-bottom: none; }
+    .sheet-kv-k { color: var(--text-dim); font-size: 9px; text-transform: uppercase; letter-spacing: .05em; flex-shrink: 0; }
+    .sheet-kv-v { color: var(--text-muted); font-weight: 500; text-align: right; flex: 1; margin-left: 8px; }
+    .sheet-tag-row { display: flex; flex-wrap: wrap; gap: 5px; }
+    .sheet-tag { font-family: 'Manrope', sans-serif; font-size: 11px; font-weight: 500; color: var(--text-muted); background: var(--surface-mid); border-radius: 4px; padding: 2px 7px; }
+    .sheet-mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+    .sheet-mini-item .k { font-family: 'Manrope', sans-serif; font-size: 8px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; display: block; }
+    .sheet-mini-item .v { font-family: 'Manrope', sans-serif; font-size: 11px; font-weight: 500; color: var(--text-muted); }
+    .bm-pp-row { display: flex; gap: 8px; margin-top: 8px; }
+    .bm-pp-box { flex: 1; background: var(--bg); border: 1px solid var(--border-soft); border-radius: 6px; padding: 6px 8px; display: flex; align-items: center; gap: 7px; }
+    .bm-pp-lbl { font-family: 'Manrope', sans-serif; font-size: 8px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; flex: 1; }
+    .bm-pp-val { font-family: 'Noto Serif', serif; font-size: 16px; font-weight: 900; color: var(--text); }
+
+    /* Proficiency legend */
+    .prof-legend { display: flex; gap: 10px; padding: 7px 0 0; border-top: 1px solid var(--border-soft); margin-top: 3px; flex-wrap: wrap; }
+    .prof-legend-item { display: flex; align-items: center; gap: 3px; font-family: 'Manrope', sans-serif; font-size: 9px; font-weight: 500; color: var(--text-dim); }
+
+    /* Money */
+    .sheet-money { display: flex; gap: 5px; flex-wrap: wrap; }
+    .coin-box { flex: 1; min-width: 38px; background: var(--surface); border-radius: 5px; padding: 5px 3px; text-align: center; border: 1px solid var(--border-soft); }
+    .coin-lbl { font-family: 'Manrope', sans-serif; font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; display: block; margin-bottom: 1px; }
+    .coin-po { color: #c9a84c; } .coin-pa { color: #9aaed4; } .coin-pe { color: #7abfa0; } .coin-pc { color: #b07040; } .coin-pp { color: #d4b8d4; }
+    .coin-val { font-family: 'Noto Serif', serif; font-size: 15px; font-weight: 900; color: var(--text); }
+
+    /* Inspiration */
+    .sheet-insp { display: inline-flex; align-items: center; gap: 5px; border-radius: 4px; padding: 3px 8px; font-family: 'Manrope', sans-serif; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; cursor: pointer; user-select: none; transition: background .15s, color .15s, border-color .15s; }
+    .sheet-insp.active { background: var(--crimson); color: var(--text); }
+    .sheet-insp.inactive { background: var(--surface-mid); color: var(--text-dim); border: 1px solid var(--border-soft); }
+
+    /* Actions bar */
+    .sheet-actions-bar { display: flex; gap: 8px; padding: 10px 24px; border-bottom: 1px solid var(--border-soft); background: var(--bg); flex-wrap: wrap; border-radius: 16px 16px 0 0; }
+    .btn-sheet-action { height: 30px; padding: 0 12px; background: var(--surface-mid); border: 1px solid var(--border-soft); border-radius: 5px; font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; text-decoration: none; transition: background .15s, border-color .15s, color .15s; }
+    .btn-sheet-action:hover { background: var(--crimson); border-color: var(--crimson); color: var(--text); }
+
+    /* Stat groups */
+    .sheet-stat-groups { display: flex; gap: 10px; align-items: stretch; margin-bottom: 16px; flex-wrap: wrap; }
+    .sheet-sg { background: var(--bg); border-radius: 8px; border: 1px solid var(--border-soft); overflow: hidden; display: flex; flex-direction: column; flex: 1; min-width: 0; }
+    .sheet-sg-title { font-family: 'Manrope', sans-serif; font-size: 8px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .1em; padding: 5px 8px 0; }
+    .sheet-sg-attrs { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border-soft); }
+    .sheet-a2 { padding: 5px 2px 8px; text-align: center; background: var(--bg); }
+    .sheet-a2-ico { width: 15px; height: 15px; margin: 0 auto 1px; display: block; background-color: var(--text-dim); mask-repeat: no-repeat; mask-position: center; mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; -webkit-mask-size: contain; }
+    .sheet-a2-lbl { font-family: 'Manrope', sans-serif; font-size: 7px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; display: block; }
+    .sheet-a2-val { font-family: 'Noto Serif', serif; font-size: 18px; font-weight: 900; color: var(--text); line-height: 1.1; display: block; }
+    .sheet-a2-mod { font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 700; color: var(--crimson); line-height: 1; display: block; }
+
+    /* Combat group */
+    .sheet-sg-combat-inner { display: grid; grid-template-columns: repeat(3,1fr); gap: 5px; padding: 8px; }
+    .sheet-cstat { background: var(--surface); border-radius: 5px; padding: 7px 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-align: center; }
+    .cstat-ico { width: 14px; height: 14px; background-color: var(--text-dim); mask-repeat: no-repeat; mask-position: center; mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; -webkit-mask-size: contain; }
+    .cstat-lbl { font-family: 'Manrope', sans-serif; font-size: 7px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; display: block; }
+    .cstat-val { font-family: 'Noto Serif', serif; font-size: 17px; font-weight: 900; color: var(--text); line-height: 1; }
+
+    /* HP group */
+    .sheet-sg-hp-inner { display: flex; flex-direction: column; gap: 6px; padding: 6px 8px 8px; flex: 1; min-width: 155px; }
+    .sheet-hp3 { background: var(--surface); border-radius: 5px; padding: 6px 8px; }
+    .hp3-head { display: flex; align-items: center; gap: 5px; margin-bottom: 4px; }
+    .hp3-lbl { font-family: 'Manrope', sans-serif; font-size: 7px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; flex: 1; }
+    .hp3-ctrl { display: flex; align-items: center; gap: 3px; flex-shrink: 0; }
+    .hp3-val { font-family: 'Noto Serif', serif; font-size: 16px; font-weight: 900; color: var(--text); min-width: 28px; text-align: center; line-height: 1; }
+    .hp3-max { font-family: 'Manrope', sans-serif; font-size: 10px; color: var(--text-dim); }
+    .btn-hp { width: 20px; height: 20px; border-radius: 3px; background: var(--surface-mid); border: 1px solid var(--border-soft); color: var(--text-muted); font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1; transition: background .1s, color .1s; flex-shrink: 0; padding: 0; }
+    .btn-hp:hover { background: var(--crimson); border-color: var(--crimson); color: var(--text); }
+    .hp3-bar { width: 100%; height: 4px; background: var(--bg); border-radius: 9999px; overflow: hidden; margin-top: 2px; }
+    .hp3-fill { height: 100%; border-radius: 9999px; background: var(--crimson); transition: width .3s; }
+    .hp3-fill.low { background: #c04040; }
+    .hp3-fill.crit { background: #8a2020; }
+    .sheet-hp3-temp { background: var(--surface); border-radius: 5px; padding: 5px 8px; display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+    .hp3-temp-lbl { font-family: 'Manrope', sans-serif; font-size: 7px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; flex: 1; }
+    .hp3-temp-val { font-family: 'Noto Serif', serif; font-size: 13px; font-weight: 700; color: #7ab8d4; }
+
+    /* Dice roller */
+    .sheet-dice { flex-shrink: 0; width: 190px; background: var(--bg); border: 1px solid var(--border-soft); border-radius: 10px; padding: 10px; display: flex; flex-direction: column; gap: 7px; }
+    .dr-lbl { font-family: 'Manrope', sans-serif; font-size: 9px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .1em; text-align: center; padding-bottom: 7px; border-bottom: 1px solid var(--border-soft); }
+    .dr-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 4px; }
+    .dr-d100 { grid-column: span 2; }
+    .dr-btn { background: var(--surface-mid); border: 1px solid var(--border-soft); border-radius: 5px; color: var(--text-muted); font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 700; padding: 6px 0; cursor: pointer; transition: background .1s, border-color .1s, color .1s; text-align: center; line-height: 1; }
+    .dr-btn:hover { background: var(--crimson); border-color: var(--crimson); color: var(--text); }
+    .dr-btn:active { transform: scale(.9); }
+    .dr-res { flex: 1; background: var(--surface); border: 1px solid var(--border-soft); border-radius: 6px; text-align: center; font-family: 'Noto Serif', serif; font-size: 22px; font-weight: 900; color: var(--text-dim); display: flex; align-items: center; justify-content: center; min-height: 42px; transition: color .15s; letter-spacing: .02em; }
+    .dr-res.dr-active { color: var(--text); }
+    @keyframes dr-flash { 0%,100%{opacity:1} 40%{opacity:.2} }
+    .dr-res.dr-roll { animation: dr-flash .25s ease; color: var(--crimson); }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      #fiche-wrap { padding: 10px 8px 48px; }
+      .sheet-content-inner { padding: 16px 12px 24px; }
+      .sheet-body { grid-template-columns: 1fr; }
+      .sheet-hero { flex-wrap: wrap; }
+      .sheet-dice { width: 100%; }
+      .sheet-stat-groups { flex-direction: column; }
+      .sheet-actions-bar { padding: 8px 12px; }
+    }
+  </style>
+</head>
+<body>
+<div id="fiche-wrap">
+  <div class="sheet-container">
+    <div class="sheet-content" id="sheet-content">
+      <div class="fiche-msg">Chargement&hellip;</div>
+    </div>
+  </div>
+</div>
+
+<script src="js/storage.js"></script>
+<script>
+(function() {
+  var pj = null;
+
+  /* ── Helpers ── */
+  function s(n) { return n >= 0 ? '+' + n : '' + n; }
+
+  var SKILL_ATTR = {
+    'Acrobaties':'DEX','Arcanes':'INT','Athl\u00e9tisme':'FOR',
+    'Discr\u00e9tion':'DEX','Dressage':'SAG','Escamotage':'DEX',
+    'Histoire':'INT','Intimidation':'CHA','Investigation':'INT',
+    'M\u00e9decine':'SAG','Nature':'INT','Perception':'SAG',
+    'Perspicacit\u00e9':'SAG','Persuasion':'CHA','Religion':'INT',
+    'Repr\u00e9sentation':'CHA','Survie':'SAG','Tromperie':'CHA'
+  };
+
+  function getAttr(pj, key) {
+    if (!pj.attributs) return null;
+    var _alias = { FOR:'STR', SAG:'WIS' }; var a = pj.attributs[key] || (_alias[key] ? pj.attributs[_alias[key]] : null);
+    if (a == null) return null;
+    if (typeof a === 'object') return a;
+    return { val: a, mod: Math.floor((a - 10) / 2) };
+  }
+  function attrMod(pj, key) { var a = getAttr(pj, key); return a ? a.mod : 0; }
+  function strField(v) { return (v && typeof v === 'object') ? (v.nom || JSON.stringify(v)) : (v || ''); }
+  function hpFill(pct) { return pct <= 25 ? ' crit' : pct <= 50 ? ' low' : ''; }
+
+  var ICO = '../pictos/tw-dnd/icons/';
+
+  function mkIco(path, color, size) {
+    var c = color || 'var(--text-dim)';
+    var sz = (size || 14) + 'px';
+    return '<span style="display:block;width:' + sz + ';height:' + sz + ';flex-shrink:0;background-color:' + c + ';mask-image:url(' + ICO + path + ');mask-size:contain;mask-repeat:no-repeat;mask-position:center;-webkit-mask-image:url(' + ICO + path + ');-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center"></span>';
+  }
+
+  function capItem(c, uid) {
+    var rechargeLabel = '';
+    if (c.recharge) {
+      var r = ('' + c.recharge).trim();
+      if (/^rc/i.test(r)) rechargeLabel = 'Repos court';
+      else if (/^rl/i.test(r)) rechargeLabel = 'Repos long';
+      else if (/full/i.test(r)) rechargeLabel = 'Repos long (complet)';
+      else if (/aube/i.test(r)) rechargeLabel = 'Au lever du soleil';
+      else rechargeLabel = r;
+    }
+    var usesLine = '';
+    if (c.utilisations) {
+      usesLine = '<div class="cap2-uses-info">Utilisations\u00a0: ' + c.utilisations + (rechargeLabel ? ' \u2014 Recharge\u00a0: ' + rechargeLabel : '') + '</div>';
+    }
+    var h = '<div class="cap2" id="' + uid + '">';
+    h += '<div class="cap2-head" onclick="toggleCap(\'' + uid + '\')">';
+    h += '<svg width="9" height="6" viewBox="0 0 9 6" fill="none" style="flex-shrink:0;stroke:var(--text-dim);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .18s"><polyline points="1,1 4.5,5 8,1"/></svg>';
+    h += '<span class="cap2-name">' + c.nom + '</span>';
+    h += '<div class="cap2-tags">' + (c.valeur ? '<span class="cap2-tag">' + c.valeur + '</span>' : '') + '</div></div>';
+    h += '<div class="cap2-body">';
+    h += (c.chips && c.chips.length ? '<div class="cap2-chips">' + c.chips.map(function(ch) { return '<span class="cap2-chip">' + ch + '</span>'; }).join('') + '</div>' : '');
+    h += (c.description ? '<div class="cap2-desc">' + c.description + '</div>' : '<div class="cap2-desc" style="color:var(--text-dim);font-style:italic">Aucune description.</div>');
+    h += usesLine;
+    h += '</div></div>';
+    return h;
+  }
+
+  function renderSheet(pj) {
+    var portrait = pj.portrait_url
+      ? '<img class="sheet-portrait" src="' + pj.portrait_url + '" alt="' + pj.nom + '">'
+      : '<div class="sheet-portrait-ph">&#9876;</div>';
+    var className  = strField(pj.classe);
+    var raceName   = strField(pj.race);
+    var classeLine = className + (pj.niveau ? ' Niv.\u00a0' + pj.niveau : '');
+    if (pj.sous_classe) classeLine += '\u00a0\u2014\u00a0' + pj.sous_classe;
+    var meta = [raceName, pj.background].filter(Boolean).join(' \u00b7 ');
+    var pvCur = parseInt(pj.pv_actuels != null ? pj.pv_actuels : pj.pv) || 0;
+    var pvMax = parseInt(pj.pv_max) || pvCur || 1;
+    var pct   = Math.min(100, Math.round(pvCur / pvMax * 100));
+    var bm    = pj.bonus_maitrise || 0;
+
+    /* ACTIONS BAR */
+    var actBar = '<div class="sheet-actions-bar">'
+      + '<button class="btn-sheet-action" id="sh-btn-pdf-lite">'
+      + mkIco('entity/book.svg','var(--text-muted)',13) + 'PDF Lite</button>'
+      + '<button class="btn-sheet-action" id="sh-btn-pdf-5e">'
+      + mkIco('game/adventure-book.svg','var(--text-muted)',13) + 'PDF 5e Complet</button>'
+      + '<div style="flex:1"></div>'
+      + '<button class="btn-sheet-action" onclick="window.closeSheet()" style="padding:0 10px" title="Retour">&#8592; Retour</button>'
+      + '</div>';
+
+    /* HERO BAND */
+    var inspClass = pj.inspiration ? 'active' : 'inactive';
+    var inspLabel = pj.inspiration ? '\u2605 Inspiration' : '\u25cb Inspiration';
+    var heroMeta = '<div class="sheet-insp ' + inspClass + '" onclick="toggleInspiration()">' + inspLabel + '</div>'
+      + '<div class="sheet-class">' + classeLine + '</div>'
+      + '<div class="sheet-meta">' + meta + '</div>';
+    if (pj.xp != null && pj.xp !== '') heroMeta += '<div class="sheet-tag-row" style="margin:5px 0"><span class="sheet-tag">' + pj.xp + ' XP</span></div>';
+    if (pj.alignement) heroMeta += '<div class="sheet-align">' + pj.alignement + '</div>';
+    if (pj.citation) heroMeta += '<div class="sheet-quote">&ldquo;' + pj.citation + '&rdquo;</div>';
+    var heroBand = '<div class="sheet-hero">' + portrait
+      + '<div class="sheet-hero-info"><div class="sheet-name">' + pj.nom + '</div>' + heroMeta + '</div>'
+      + '<div class="sheet-dice"><div class="dr-lbl">Lancer de d&eacute;s</div><div class="dr-grid"><button class="dr-btn" onclick="rollDie(4)">d4</button><button class="dr-btn" onclick="rollDie(6)">d6</button><button class="dr-btn" onclick="rollDie(8)">d8</button><button class="dr-btn" onclick="rollDie(10)">d10</button><button class="dr-btn" onclick="rollDie(12)">d12</button><button class="dr-btn" onclick="rollDie(20)">d20</button><button class="dr-btn dr-d100" onclick="rollDie(100)">d%</button></div><div class="dr-res">&mdash;</div></div>'
+      + '</div>';
+
+    /* STAT GROUPS */
+    var abilityMap = { FOR:'ability/strength.svg', DEX:'ability/dexterity.svg', CON:'ability/constitution.svg', INT:'ability/intelligence.svg', SAG:'ability/wisdom.svg', CHA:'ability/charisma.svg' };
+    var abilitiesHtml = '<div class="sheet-sg sheet-sg-abilities"><div class="sheet-sg-title">Caract\u00e9ristiques</div><div class="sheet-sg-attrs">';
+    ['FOR','DEX','CON','INT','SAG','CHA'].forEach(function(k) {
+      var a = getAttr(pj, k);
+      abilitiesHtml += '<div class="sheet-a2">'
+        + '<span class="sheet-a2-ico" style="mask-image:url(' + ICO + abilityMap[k] + ');-webkit-mask-image:url(' + ICO + abilityMap[k] + ')"></span>'
+        + '<span class="sheet-a2-lbl">' + k + '</span>'
+        + '<span class="sheet-a2-val">' + (a ? a.val : '\u2014') + '</span>'
+        + '<span class="sheet-a2-mod">' + (a ? s(a.mod) : '\u2014') + '</span>'
+        + '</div>';
+    });
+    abilitiesHtml += '</div></div>';
+
+    var combatHtml = '<div class="sheet-sg"><div class="sheet-sg-title">Combat</div><div class="sheet-sg-combat-inner">'
+      + '<div class="sheet-cstat"><span class="cstat-ico" style="mask-image:url(' + ICO + 'attribute/ac.svg);-webkit-mask-image:url(' + ICO + 'attribute/ac.svg)"></span><span class="cstat-lbl">CA</span><div class="cstat-val">' + (pj.ca || '\u2014') + '</div></div>'
+      + '<div class="sheet-cstat"><span class="cstat-ico" style="mask-image:url(' + ICO + 'combat/initiative.svg);-webkit-mask-image:url(' + ICO + 'combat/initiative.svg)"></span><span class="cstat-lbl">Initiative</span><div class="cstat-val">' + (pj.initiative != null ? s(pj.initiative) : '\u2014') + '</div></div>'
+      + '<div class="sheet-cstat"><span class="cstat-ico" style="mask-image:url(' + ICO + 'movement/walking.svg);-webkit-mask-image:url(' + ICO + 'movement/walking.svg)"></span><span class="cstat-lbl">Vitesse</span><div class="cstat-val">' + (pj.vitesse || '\u2014') + '</div></div>'
+      + '</div></div>';
+
+    var pvTempVal = parseInt(pj.pv_temporaires) || 0;
+    var dvStr = pj.de_vie || null;
+    var hpHtml = '<div class="sheet-sg"><div class="sheet-sg-title">Points de vie</div><div class="sheet-sg-hp-inner">'
+      + '<div class="sheet-hp3"><div class="hp3-head">'
+      + mkIco('hp/full.svg','var(--crimson)',13)
+      + '<span class="hp3-lbl">PV</span>'
+      + '<div class="hp3-ctrl">'
+      + '<button class="btn-hp" onclick="adjustHP(-1)">-</button>'
+      + '<span class="hp3-val" id="sh-pv-cur">' + pvCur + '</span>'
+      + '<span class="hp3-max">&thinsp;/ ' + pvMax + '</span>'
+      + '<button class="btn-hp" onclick="adjustHP(1)">+</button>'
+      + '</div></div>'
+      + '<div class="hp3-bar"><div class="hp3-fill' + hpFill(pct) + '" id="sh-pv-bar" style="width:' + pct + '%"></div></div>'
+      + '</div>'
+      + '<div class="sheet-hp3-temp">'
+      + mkIco('hp/temp.svg','#7ab8d4',13)
+      + '<span class="hp3-temp-lbl">PV Temp</span>'
+      + '<button class="btn-hp" onclick="adjustPVTemp(-1)" style="margin-left:auto">-</button>'
+      + '<span class="hp3-temp-val" id="sh-pvt-cur">' + (pvTempVal || '\u2014') + '</span>'
+      + '<button class="btn-hp" onclick="adjustPVTemp(1)">+</button>'
+      + '</div>'
+      + (dvStr ? '<div class="sheet-hp3-temp" style="gap:6px;margin-top:2px">'
+        + mkIco('dice/d' + (dvStr.replace('d','').trim() || '8') + '.svg','var(--text-dim)',13)
+        + '<span class="hp3-temp-lbl">D\u00e9 de vie</span>'
+        + '<span class="hp3-temp-val" style="color:var(--text-muted)">' + dvStr + '</span></div>' : '')
+      + '</div></div>';
+
+    var statGroups = '<div class="sheet-stat-groups">' + abilitiesHtml + combatHtml + hpHtml + '</div>';
+
+    /* SAVES */
+    var _en2fr = { STR:'FOR', WIS:'SAG' }; var saves = (pj.jets_sauvegarde || pj.jets_de_sauvegarde || []).map(function(k) { return _en2fr[k] || k; });
+    var savesHtml = ['FOR','DEX','CON','INT','SAG','CHA'].map(function(k) {
+      var m = attrMod(pj, k); var prof = saves.indexOf(k) >= 0;
+      return '<div class="sheet-save' + (prof ? ' prof' : '') + '">' + (prof ? '&#9679;' : '&#9675;') + ' ' + k + '&ensp;' + s(prof ? m + bm : m) + '</div>';
+    }).join('');
+
+    /* SKILLS */
+    var compMap = {};
+    (pj.competences || []).forEach(function(c) { compMap[c.nom] = c; });
+    var skillsHtml = Object.keys(SKILL_ATTR).sort().map(function(sk) {
+      var c = compMap[sk]; var base = attrMod(pj, SKILL_ATTR[sk]);
+      var bonus = c ? c.bonus : base;
+      var mark = c ? (c.expertise ? '\u2605' : '\u25cf') : '\u25cb';
+      var cls  = c ? (c.expertise ? ' expert' : ' prof') : '';
+      return '<div class="sheet-skill' + cls + '"><span class="skill-mark">' + mark + '</span><span class="skill-name">' + sk + '</span><span class="skill-bonus">' + s(bonus) + '</span></div>';
+    }).join('');
+
+    var legend = '<div class="prof-legend">'
+      + '<div class="prof-legend-item"><span style="color:var(--text-dim)">\u25cb</span>\u00a0Non ma\u00eetris\u00e9</div>'
+      + '<div class="prof-legend-item"><span style="color:var(--text-muted)">\u25cf</span>\u00a0Ma\u00eetris\u00e9</div>'
+      + '<div class="prof-legend-item"><span style="color:var(--crimson)">\u2605</span>\u00a0Expertise</div>'
+      + '</div>';
+
+    var bmPp = '<div class="bm-pp-row">'
+      + '<div class="bm-pp-box">' + mkIco('attribute/bonus.svg','var(--text-dim)',14) + '<span class="bm-pp-lbl">Ma\u00eetrise</span><span class="bm-pp-val">' + (bm ? s(bm) : '\u2014') + '</span></div>'
+      + '<div class="bm-pp-box">' + mkIco('attribute/vision.svg','var(--text-dim)',14) + '<span class="bm-pp-lbl">PP</span><span class="bm-pp-val">' + (pj.perception_passive || '\u2014') + '</span></div>'
+      + '</div>';
+
+    var argent = pj.argent;
+    var coin = function(lbl, cls, v) {
+      return '<div class="coin-box"><span class="coin-lbl ' + cls + '">' + lbl + '</span><span class="coin-val">' + (v > 0 ? v : '\u2014') + '</span></div>';
+    };
+    var moneyHtml = argent ? '<div class="sheet-section"><div class="sheet-section-title">Argent</div><div class="sheet-money">'
+      + coin('PO','coin-po', argent.po || 0) + coin('PA','coin-pa', argent.pa || 0) + coin('PE','coin-pe', argent.pe || 0)
+      + coin('PC','coin-pc', argent.pc || 0) + coin('PP','coin-pp', argent.pp || 0)
+      + '</div></div>' : '';
+
+    var attacksHtml = '';
+    if (pj.attaques && pj.attaques.length) {
+      attacksHtml = '<div class="sheet-section"><div class="sheet-section-title">Attaques</div>'
+        + pj.attaques.map(function(a) {
+          return '<div class="sheet-attack"><span class="attack-name">' + a.nom + '</span>'
+            + (a.valeur ? '<span class="attack-dmg">' + a.valeur + '</span>' : '') + '</div>';
+        }).join('') + '</div>';
+    }
+
+    var caps = (pj.capacites || []).concat(pj.sorts_mineurs || []);
+    var capsHtml = caps.length ? '<div class="sheet-section"><div class="sheet-section-title">Capacit\u00e9s &amp; Sorts</div>'
+      + caps.map(function(c, i) { return capItem(c, 'cap_' + i); }).join('') + '</div>' : '';
+
+    var passifsHtml = (pj.passifs && pj.passifs.length) ? '<div class="sheet-section"><div class="sheet-section-title">Passifs</div>'
+      + pj.passifs.map(function(c, i) { return capItem(c, 'pas_' + i); }).join('') + '</div>' : '';
+
+    var sortsDndHtml = '';
+    if (pj.sorts_dnd) {
+      var sdRows = '';
+      Object.keys(pj.sorts_dnd).sort().forEach(function(lv) {
+        var lst = pj.sorts_dnd[lv] || [];
+        if (lst.length) {
+          sdRows += '<div style="font-family:\'Manrope\',sans-serif;font-size:9px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;margin:6px 0 3px">'
+            + (lv === '0' ? 'Sorts mineurs' : 'Niveau ' + lv) + '</div>'
+            + lst.map(function(c, i) { return capItem(c, 'sd' + lv + '_' + i); }).join('');
+        }
+      });
+      if (sdRows) sortsDndHtml = '<div class="sheet-section"><div class="sheet-section-title">Sorts D&amp;D</div>' + sdRows + '</div>';
+    }
+
+    var actionsHtml = '';
+    if (pj.actions_bonus || pj.reaction) {
+      actionsHtml = '<div class="sheet-section">';
+      if (pj.actions_bonus) actionsHtml += '<div class="sheet-section-title">Action bonus</div><div class="sheet-trait">' + pj.actions_bonus + '</div>';
+      if (pj.reaction) actionsHtml += '<div class="sheet-section-title" style="margin-top:' + (pj.actions_bonus ? '10px' : '0') + '">R\u00e9action</div><div class="sheet-trait">' + pj.reaction + '</div>';
+      actionsHtml += '</div>';
+    }
+
+    var equipHtml = (pj.equipement && pj.equipement.length)
+      ? '<div class="sheet-section"><div class="sheet-section-title">\u00c9quipement</div><div class="sheet-equip">'
+        + pj.equipement.map(function(e) { return '<span class="equip-item">' + e + '</span>'; }).join('') + '</div></div>' : '';
+
+    function traitSec(title, val) {
+      if (!val) return '';
+      return '<div class="sheet-section"><div class="sheet-section-title">' + title + '</div><div class="sheet-trait">' + val + '</div></div>';
+    }
+
+    var infoRows = [];
+    if (pj.langues) infoRows.push({ k: 'Langues', v: pj.langues });
+    if (pj.maitrise_armures) infoRows.push({ k: 'Armures', v: pj.maitrise_armures });
+    if (pj.maitrise_armes) infoRows.push({ k: 'Armes', v: pj.maitrise_armes });
+    if (pj.maitrise_outils) infoRows.push({ k: 'Outils', v: pj.maitrise_outils });
+    if (pj.sens_speciaux) infoRows.push({ k: 'Sens sp\u00e9ciaux', v: pj.sens_speciaux });
+    var infoHtml = infoRows.length ? '<div class="sheet-section"><div class="sheet-section-title">Ma\u00eettrises &amp; Langues</div>'
+      + infoRows.map(function(it) { return '<div class="sheet-kv"><span class="sheet-kv-k">' + it.k + '</span><span class="sheet-kv-v">' + it.v + '</span></div>'; }).join('') + '</div>' : '';
+
+    var resistRows = [];
+    if (pj.resistances) resistRows.push({ k: 'R\u00e9sistances', v: pj.resistances });
+    if (pj.immunites) resistRows.push({ k: 'Immunit\u00e9s', v: pj.immunites });
+    if (pj.vulnerabilites) resistRows.push({ k: 'Vuln\u00e9rabilit\u00e9s', v: pj.vulnerabilites });
+    var resistHtml = resistRows.length ? '<div class="sheet-section"><div class="sheet-section-title">R\u00e9sistances &amp; Immunit\u00e9s</div>'
+      + resistRows.map(function(it) { return '<div class="sheet-kv"><span class="sheet-kv-k">' + it.k + '</span><span class="sheet-kv-v">' + it.v + '</span></div>'; }).join('') + '</div>' : '';
+
+    var physFields = [];
+    if (pj.age) physFields.push({ k: 'Age', v: pj.age });
+    if (pj.taille) physFields.push({ k: 'Taille', v: pj.taille + ' cm' });
+    if (pj.poids) physFields.push({ k: 'Poids', v: pj.poids + ' kg' });
+    if (pj.yeux) physFields.push({ k: 'Yeux', v: pj.yeux });
+    if (pj.peau) physFields.push({ k: 'Peau', v: pj.peau });
+    if (pj.cheveux) physFields.push({ k: 'Cheveux', v: pj.cheveux });
+    var physHtml = physFields.length ? '<div class="sheet-section"><div class="sheet-section-title">Caract\u00e9ristiques physiques</div><div class="sheet-mini-grid">'
+      + physFields.map(function(it) { return '<div class="sheet-mini-item"><span class="k">' + it.k + '</span><span class="v">' + it.v + '</span></div>'; }).join('') + '</div></div>' : '';
+
+    return actBar
+      + '<div class="sheet-content-inner">'
+      + heroBand + statGroups
+      + '<div class="sheet-body">'
+      +   '<div class="sheet-col-left">'
+      +     '<div class="sheet-section"><div class="sheet-section-title">Jets de Sauvegarde</div><div class="sheet-saves">' + savesHtml + '</div></div>'
+      +     '<div class="sheet-section"><div class="sheet-section-title">Comp\u00e9tences</div><div class="sheet-skills">' + skillsHtml + '</div>' + legend + '</div>'
+      +     bmPp + moneyHtml
+      +   '</div>'
+      +   '<div class="sheet-col-right">'
+      +     attacksHtml + capsHtml + passifsHtml + sortsDndHtml + actionsHtml + equipHtml
+      +     traitSec('Traits de personnalit\u00e9', pj.traits_perso)
+      +     traitSec('Id\u00e9aux', pj.ideaux)
+      +     traitSec('Liens', pj.liens)
+      +     traitSec('D\u00e9fauts', pj.defauts)
+      +     traitSec('Avantage du background', pj.background_feature)
+      +     traitSec('Histoire', pj.histoire)
+      +     infoHtml + resistHtml + physHtml
+      +   '</div>'
+      + '</div>'
+      + '</div>';
+  }
+
+  /* ── Interactive ── */
+  window.closeSheet = function() { history.back(); };
+
+  window.toggleInspiration = function() {
+    if (!pj) return;
+    pj.inspiration = !pj.inspiration;
+    var el = document.querySelector('.sheet-insp');
+    if (!el) return;
+    el.className = 'sheet-insp ' + (pj.inspiration ? 'active' : 'inactive');
+    el.textContent = pj.inspiration ? '\u2605 Inspiration' : '\u25cb Inspiration';
+  };
+
+  window.toggleCap = function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var open = el.classList.toggle('open');
+    var svg = el.querySelector('.cap2-head svg');
+    if (svg) svg.style.transform = open ? 'rotate(180deg)' : 'rotate(0deg)';
+  };
+
+  window.adjustHP = function(delta) {
+    if (!pj) return;
+    var cur = parseInt(pj.pv_actuels != null ? pj.pv_actuels : pj.pv) || 0;
+    var max = parseInt(pj.pv_max) || cur || 1;
+    cur = Math.max(0, Math.min(max, cur + delta));
+    pj.pv_actuels = cur;
+    var elV = document.getElementById('sh-pv-cur'); if (elV) elV.textContent = cur;
+    var pct = Math.min(100, Math.round(cur / max * 100));
+    var bar = document.getElementById('sh-pv-bar');
+    if (bar) { bar.style.width = pct + '%'; bar.className = 'hp3-fill' + (pct <= 25 ? ' crit' : pct <= 50 ? ' low' : ''); }
+  };
+
+  window.adjustPVTemp = function(delta) {
+    if (!pj) return;
+    var cur = parseInt(pj.pv_temporaires) || 0;
+    cur = Math.max(0, cur + delta);
+    pj.pv_temporaires = cur;
+    var el = document.getElementById('sh-pvt-cur'); if (el) el.textContent = cur > 0 ? cur : '\u2014';
+  };
+
+  /* ── Init ── */
+  async function init() {
+    var params = new URLSearchParams(location.search);
+    var cid    = params.get('c') || '';
+    var pjId   = params.get('id') || '';
+    var el     = document.getElementById('sheet-content');
+
+    if (!pjId) {
+      el.innerHTML = '<div class="fiche-msg">Param\u00e8tre manquant (id).</div>';
+      return;
+    }
+
+    try {
+      var data = await loadData('personnages.json');
+      var pjs  = Array.isArray(data) ? data : [];
+      pj = pjs.find(function(p) { return p.id === pjId; });
+      if (!pj) {
+        el.innerHTML = '<div class="fiche-msg">Personnage introuvable.</div>';
+        return;
+      }
+
+      document.title = (pj.nom || 'Fiche') + ' \u2014 Story Warden';
+      el.innerHTML = renderSheet(pj);
+
+      /* Wire PDF buttons */
+      var _sfn = (pj.nom || '').replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_\-]/g, '').replace(/_+/g, '_');
+      var _b5e = document.getElementById('sh-btn-pdf-5e');
+      var _bw  = document.getElementById('sh-btn-pdf-lite');
+      if (_b5e) _b5e.onclick = function() { window.open('pdf/' + _sfn + '_dnd5e.pdf', '_blank'); };
+      if (_bw)  _bw.onclick  = function() { window.open('pdf/' + _sfn + '_warden.pdf', '_blank'); };
+    } catch(e) {
+      el.innerHTML = '<div class="fiche-msg">Erreur de chargement : ' + e.message + '</div>';
+    }
+  }
+
+  init();
+})();
+
+function rollDie(n) {
+  var r = Math.floor(Math.random() * n) + 1;
+  var el = document.querySelector('.sheet-dice .dr-res');
+  if (!el) return;
+  el.textContent = r + ' / d' + n;
+  el.classList.remove('dr-roll', 'dr-active');
+  void el.offsetWidth;
+  el.classList.add('dr-roll', 'dr-active');
+  setTimeout(function() { el.classList.remove('dr-roll'); }, 300);
+}
+</script>
+</body>
+</html>

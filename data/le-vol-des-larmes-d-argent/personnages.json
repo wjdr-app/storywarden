@@ -530,6 +530,7 @@
         "jet": "d20+4",
         "stat": "DEX",
         "type": "arme",
+        "portee": "",
         "description": "Un coup rapide au contact, ou un lancer sec si la cible est à portée.",
         "regle": "Règle : si le jet touche la CA, inflige 1d4+2 perforant (mêlée ou lancer courte portée)."
       }
@@ -660,7 +661,16 @@
     "yeux": "",
     "peau": "",
     "cheveux": "",
-    "alignement": "Chaotique Neutre"
+    "alignement": "Chaotique Neutre",
+    "xp": 0,
+    "background_feature": "",
+    "portrait_url": "le-vol-des-larmes-d-argent/img/portraits/osric_veinargent.png",
+    "pv_temporaires": 0,
+    "inspiration": false,
+    "sens_speciaux": "",
+    "resistances": "",
+    "immunites": "",
+    "vulnerabilites": ""
   },
   {
     "id": "pj_04",

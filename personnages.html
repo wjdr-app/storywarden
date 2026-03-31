@@ -869,7 +869,9 @@
   window.openSheetNewTab = function() {
     var pj = allPjs[currentSheetIdx];
     if (!pj) return;
-    var w = window.open('personnages_v2.html?fiche=' + currentSheetIdx, '_blank');
+    var _cid = new URLSearchParams(location.search).get('c') || '';
+    var _url = 'fiche.html?c=' + encodeURIComponent(_cid) + '&id=' + encodeURIComponent(pj.id || '');
+    var w = window.open(_url, '_blank');
     if (!w) alert('Popup bloqu\u00e9. Autorisez les popups pour ce site.');
   };
 
