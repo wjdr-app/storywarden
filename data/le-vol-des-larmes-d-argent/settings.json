@@ -9,6 +9,8 @@
   "codex_visible_joueurs": true,
   "nav_visible": {
     "codex": true,
-    "lieux": true
+    "lieux": true,
+    "relations": false,
+    "magasins": false
   }
 }
