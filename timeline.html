@@ -118,7 +118,7 @@ async function init() {
 }
 
 function render(events) {
-  if (!getMJMode()) events = events.filter(e => e.visible_joueurs !== false);
+  const _isMJtl = (typeof getMJMode === 'function') ? getMJMode() : (localStorage.getItem('sw_mj_mode') === 'true'); if (!_isMJtl) events = events.filter(e => e.visible_joueurs !== false);
   const _pdsLS = (() => { try{ return JSON.parse(localStorage.getItem('sw_timeline_periods'))||null; }catch(e){ return null; } })();
   const periodes = _pdsLS || [...new Set(events.map(e=>e.periode).filter(Boolean))];
   let html = '';

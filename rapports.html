@@ -312,7 +312,7 @@ function renderRapportBody(text) {
 
 // ── Construction carte ──────────────────────────────────────────────────────
 function buildCard(s, idx) {
-  var isMJ = (typeof getMJMode === 'function') ? getMJMode() : false;
+  var isMJ = (typeof getMJMode === 'function') ? getMJMode() : (localStorage.getItem('sw_mj_mode') === 'true');
   var pnjsChips  = (s.pnjs_rencontres || []).map(function(id){ return '<span class="chip">' + esc(pnjName(id)) + '</span>'; }).join('');
   var lieuxChips = (s.lieux_visites   || []).map(function(id){ return '<span class="chip">' + esc(lieuName(id)) + '</span>'; }).join('');
 
@@ -367,7 +367,7 @@ function toggleSession(idx) {
 }
 
 function renderGrid() {
-  var isMJ = (typeof getMJMode === 'function') ? getMJMode() : false;
+  var isMJ = (typeof getMJMode === 'function') ? getMJMode() : (localStorage.getItem('sw_mj_mode') === 'true');
   var rapports = isMJ ? RAPPORTS_DATA : RAPPORTS_DATA.filter(function(r){ return r.visible_joueurs !== false; });
   if (!rapports.length) {
     document.getElementById('rapports-wrap').innerHTML =

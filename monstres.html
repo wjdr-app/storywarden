@@ -422,7 +422,7 @@ function toggleCard(card) {
 
 // ── FILTRES ─────────────────────────────────────────────────────────────────
 function buildFilters() {
-  const isMJ = (typeof getMJMode === 'function') ? getMJMode() : false;
+  const isMJ = (typeof getMJMode === 'function') ? getMJMode() : (localStorage.getItem('sw_mj_mode') === 'true');
   const visible = isMJ ? MONSTRE_DATA : MONSTRE_DATA.filter(m => m.visible_joueurs !== false);
   const types = [...new Set(visible.map(m => m.categorie || m.type).filter(Boolean))].sort();
   const group = document.getElementById('m-filter-group');

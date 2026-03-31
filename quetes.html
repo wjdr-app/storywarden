@@ -204,7 +204,7 @@ async function init() {
 }
 
 function renderGrid() {
-  var isMJ = (typeof getMJMode === 'function') ? getMJMode() : false;
+  var isMJ = (typeof getMJMode === 'function') ? getMJMode() : (localStorage.getItem('sw_mj_mode') === 'true');
   var quetes = isMJ ? QUETES_DATA : QUETES_DATA.filter(function(q){ return q.visible_joueurs !== false; });
   var critique  = quetes.filter(function(q){ return q.statut === 'active'    && q.priorite === 'critique'; });
   var actives   = quetes.filter(function(q){ return q.statut === 'active'    && q.priorite !== 'critique'; });
@@ -234,7 +234,7 @@ function esc(s) {
 }
 
 function buildCard(q) {
-  var isMJ   = (typeof getMJMode === 'function') ? getMJMode() : false;
+  var isMJ   = (typeof getMJMode === 'function') ? getMJMode() : (localStorage.getItem('sw_mj_mode') === 'true');
   var isCrit = q.priorite === 'critique';
   var isDone = q.statut === 'terminée';
 

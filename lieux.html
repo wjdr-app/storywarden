@@ -312,7 +312,7 @@ function typeIconLarge(type) {
 
 // ── Visibility ────────────────────────────────────────────────────────────────
 function isMJ() {
-  return typeof getMJMode === 'function' ? getMJMode() : false;
+  return typeof getMJMode === 'function' ? getMJMode() : (localStorage.getItem('sw_mj_mode') === 'true');
 }
 
 function isVisible(l) {
