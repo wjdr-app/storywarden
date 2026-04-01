@@ -149,9 +149,9 @@ function applyFilters() {
   let filtered = isMJ ? LORE_DATA : LORE_DATA.filter(l => l.visible_joueurs !== false);
   if (currentFilter !== 'tous') filtered = filtered.filter(l => l.categorie === currentFilter);
   if (q) filtered = filtered.filter(l =>
-    l.titre.toLowerCase().includes(q) ||
-    l.contenu.toLowerCase().includes(q) ||
-    (l.tags || []).some(t => t.toLowerCase().includes(q)));
+    (l.titre || '').toLowerCase().includes(q) ||
+    (l.contenu || '').toLowerCase().includes(q) ||
+    (l.tags || []).some(t => (t || '').toLowerCase().includes(q)));
   renderGrid(filtered);
   const total = LORE_DATA.length;
   document.getElementById('count-line').textContent =
