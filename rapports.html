@@ -329,7 +329,7 @@ function buildCard(s, idx) {
     + (lieuxChips ? '<div class="r-meta-row"><span class="r-meta-lbl">Lieux</span><div class="chip-list">' + lieuxChips + '</div></div>' : '')
     + '</div>' : '';
 
-  var mjHTML = s.notes_mj ? '<div class="mj-only"><div class="mj-block"><div class="mj-block-title">⚿ Notes MJ</div><div class="mj-block-txt">' + esc(s.notes_mj) + '</div></div></div>' : '';
+  var mjHTML = (isMJ && s.notes_mj) ? '<div class="mj-block"><div class="mj-block-title">⚿ Notes MJ</div><div class="mj-block-txt">' + esc(s.notes_mj) + '</div></div>' : '';
 
   var hasSections = evtsSection || decsSection || revsSection || metaHTML;
   var sectionSep  = hasSections && s['rapport_diégetique'] ? '<div class="r-section-sep"></div>' : '';

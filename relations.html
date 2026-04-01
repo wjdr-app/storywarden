@@ -142,7 +142,7 @@
     <div class="graph-header">
       <span class="graph-title">Graphe des relations</span>
       <span class="graph-hint">Cliquer-glisser &middot; Molette &middot; Clic n&#339;ud &rarr; d&#233;tails</span>
-      <span class="mj-only mj-notice">&#9919; Relations secr&#232;tes visibles</span>
+      <span class="mj-notice" id="rels-mj-notice" style="display:none">&#9919; Relations secr&#232;tes visibles</span>
     </div>
     <div id="network"></div>
   </div>
@@ -172,7 +172,7 @@
     <div class="legend-item" data-type="m&#233;fiance"><div class="legend-line" style="background:#c66000;"></div><span>M&#233;fiance</span></div>
     <div class="legend-item" data-type="neutre"><div class="legend-line" style="background:#888;"></div><span>Neutre</span></div>
     <div class="legend-sep"></div>
-    <div class="legend-item mj-only"><div class="legend-line" style="background:transparent;border-top:2px dashed var(--crimson);height:0;width:28px;"></div><span style="color:var(--crimson);">secret MJ</span></div>
+    <div class="legend-item" id="rels-legend-mj" style="display:none"><div class="legend-line" style="background:transparent;border-top:2px dashed var(--crimson);height:0;width:28px;"></div><span style="color:var(--crimson);">secret MJ</span></div>
   </div>
 </div>
 
@@ -280,7 +280,9 @@ function nodeProps(id, dimmed) {
 
 // ── Construction du graphe ────────────────────────────────────────────────
 function buildGraph(savedPositions) {
-  var isMJ = getMJMode();
+  var isMJ = (typeof getMJMode === 'function') ? getMJMode() : localStorage.getItem('sw_mj_mode') === 'true';
+  var _n = document.getElementById('rels-mj-notice'); if (_n) _n.style.display = isMJ ? '' : 'none';
+  var _l = document.getElementById('rels-legend-mj'); if (_l) _l.style.display = isMJ ? '' : 'none';
   var nodeSet = {};
 
   for (var k = 0; k < allRelations.length; k++) {
@@ -381,7 +383,7 @@ function buildGraph(savedPositions) {
 // ── Filtres ───────────────────────────────────────────────────────────────
 function applyFilters() {
   if (!network) return;
-  var isMJ = getMJMode();
+  var isMJ = (typeof getMJMode === 'function') ? getMJMode() : localStorage.getItem('sw_mj_mode') === 'true';
   var allNodeIds = network.body.data.nodes.getIds();
   var allEdgeIds = network.body.data.edges.getIds();
 
@@ -431,7 +433,7 @@ function applyFilters() {
 function showNodePanel(nodeId) {
   currentPanelId = nodeId;
   var actor = actorMap[nodeId] || {};
-  var isMJ  = getMJMode();
+  var isMJ  = (typeof getMJMode === 'function') ? getMJMode() : localStorage.getItem('sw_mj_mode') === 'true';
   var panel = document.getElementById('side-panel');
 
   var img = document.getElementById('sp-portrait');

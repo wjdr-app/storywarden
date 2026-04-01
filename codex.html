@@ -49,7 +49,7 @@
 }
 .codex-card:not(.open):hover { background:var(--surface-mid); border-color:var(--border-mid); }
 .codex-card.open { border-color:var(--border-mid); cursor:default; }
-.codex-card.mj-only { border-color:var(--crimson-bd); }
+.codex-card.codex-card-mj { border-color:var(--crimson-bd); }
 
 .codex-head { padding:12px 14px 10px; display:flex; align-items:flex-start; gap:10px; }
 .codex-icon { font-size:1.2rem; flex-shrink:0; margin-top:1px; opacity:.75; display:flex; align-items:center; }
@@ -139,7 +139,7 @@ function buildFilters() {
 async function init() {
   try {
     const cfg = JSON.parse(localStorage.getItem('sw_settings') || '{}');
-    if (cfg.codex_visible_joueurs === false && !getMJMode()) {
+    if (cfg.codex_visible_joueurs === false && !((typeof getMJMode === 'function') ? getMJMode() : localStorage.getItem('sw_mj_mode') === 'true')) {
       document.getElementById('codex-grid').innerHTML = '<p class="empty-msg">Page non disponible.</p>';
       document.getElementById('count-line').textContent = '';
       return;
@@ -162,16 +162,16 @@ function setFilter(filter, btn) {
 
 function applyFilters() {
   const q = (document.getElementById('search-input').value || '').toLowerCase().trim();
-  const isMJ = getMJMode();
+  const isMJ = (typeof getMJMode === 'function') ? getMJMode() : localStorage.getItem('sw_mj_mode') === 'true';
   let filtered = isMJ
     ? CODEX_DATA
-    : CODEX_DATA.filter(c => c.visible_joueurs === true && c.statut !== 'cache');
+    : CODEX_DATA.filter(c => c.visible_joueurs !== false);
   if (currentFilter !== 'tous') filtered = filtered.filter(c => c.type === currentFilter);
   if (q) filtered = filtered.filter(c =>
     (c.titre || '').toLowerCase().includes(q) ||
     (c.contenu || '').toLowerCase().includes(q));
   renderGrid(filtered);
-  const total = isMJ ? CODEX_DATA.length : CODEX_DATA.filter(c => c.visible_joueurs === true && c.statut !== 'cache').length;
+  const total = isMJ ? CODEX_DATA.length : CODEX_DATA.filter(c => c.visible_joueurs !== false).length;
   document.getElementById('count-line').textContent =
     filtered.length === total ? `${total} entr${total > 1 ? '\u00e9es' : '\u00e9e'}` : `${filtered.length} / ${total} entr\u00e9es`;
 }
@@ -185,16 +185,16 @@ function buildCard(c) {
   const icon = TYPE_ICONS[c.type] || '\u25c8';
   const typeLabel = TYPE_LABELS[c.type] || c.type || '';
   const statut = c.statut || 'cache';
-  const isMJ = getMJMode();
+  const isMJ = (typeof getMJMode === 'function') ? getMJMode() : localStorage.getItem('sw_mj_mode') === 'true';
   const mjOnly = c.visible_joueurs === false || c.visible_joueurs === undefined;
   const sessionLine = c.session_decouverte
     ? `<div class="codex-session">Session de d\u00e9couverte : ${esc(c.session_decouverte)}</div>` : '';
   const notesMJ = (isMJ && c.notes_mj)
-    ? `<div class="codex-notes-mj mj-only"><span class="codex-notes-mj-lbl">Notes MJ</span>${esc(c.notes_mj)}</div>` : '';
+    ? `<div class="codex-notes-mj"><span class="codex-notes-mj-lbl">Notes MJ</span>${esc(c.notes_mj)}</div>` : '';
   const showContent = isMJ || statut === 'revele' || statut === 'partiel';
   const contenu = showContent && c.contenu
     ? `<div class="codex-contenu">${esc(c.contenu)}</div>` : '';
-  return `<div class="codex-card${isMJ && mjOnly ? ' mj-only' : ''}" onclick="toggleCard(this)">
+  return `<div class="codex-card${isMJ && mjOnly ? ' codex-card-mj' : ''}" onclick="toggleCard(this)">
   <div class="codex-head">
     <div class="codex-icon">${icon}</div>
     <div class="codex-head-info">
@@ -220,7 +220,7 @@ function renderGrid(data) {
   const grid = document.getElementById('codex-grid');
   if (!data.length) { grid.innerHTML = '<p class="empty-msg">Aucune entr\u00e9e correspondante.</p>'; return; }
   grid.innerHTML = data.map(buildCard).join('');
-  applyMJMode(getMJMode());
+
 }
 
 document.addEventListener('mjmodechange', function() {

@@ -280,10 +280,10 @@ function buildCard(q) {
   var recHTML = q.recompense ? '<div class="recompense">' + esc(q.recompense) + '</div>' : '';
 
   // Notes MJ
-  var mjHTML = q.notes_mj ? '<div class="mj-only"><div class="mj-block">'
+  var mjHTML = (isMJ && q.notes_mj) ? '<div class="mj-block">'
     + '<div class="mj-block-title">⚿ Notes MJ</div>'
     + '<div class="mj-block-txt">' + esc(q.notes_mj) + '</div>'
-    + '</div></div>' : '';
+    + '</div>' : '';
 
   return '<div class="quete-card' + leftCls + doneCls + '" id="q-' + q.id + '">'
     + '<div class="quete-head" onclick="toggleCard(\'' + q.id + '\')">'

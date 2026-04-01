@@ -231,7 +231,7 @@
     <button class="filter-pill active" onclick="setStatut('', this)">Tous</button>
     <button class="filter-pill" onclick="setStatut('visité', this)">Visités</button>
     <button class="filter-pill" onclick="setStatut('connu', this)">Connus</button>
-    <button class="filter-pill mj-only" onclick="setStatut('inexploré', this)">Inexplorés</button>
+    <button class="filter-pill" id="lieux-btn-inexplore" style="display:none" onclick="setStatut('inexploré', this)">Inexplorés</button>
   </div>
   <span class="l-count" id="l-count"></span>
 </div>
@@ -527,7 +527,7 @@ function renderDetail(lieu) {
     ? '<div class="l-detail-block">' + sousLieux + pnjs + '</div>' : '';
 
   var mjBlock = (lieu.notes_mj && isMJ())
-    ? '<div class="mj-only"><div class="mj-block"><div class="mj-block-title">&#9919; Notes MJ</div><div class="mj-block-txt">' + esc(lieu.notes_mj) + '</div></div></div>'
+    ? '<div class="mj-block"><div class="mj-block-title">&#9919; Notes MJ</div><div class="mj-block-txt">' + esc(lieu.notes_mj) + '</div></div>'
     : '';
 
   panel.innerHTML =
@@ -601,6 +601,7 @@ async function init() {
     LIEUX_MAP  = {};
     LIEUX_DATA.forEach(function(l) { LIEUX_MAP[l.id] = l; });
     render();
+    var _ib = document.getElementById('lieux-btn-inexplore'); if (_ib) _ib.style.display = isMJ() ? '' : 'none';
   } catch(e) {
     var err = '<div class="l-empty-col" style="color:var(--crimson)">&#9888; Données inaccessibles en file://. Utiliser un serveur local.</div>';
     document.getElementById('list-regions').innerHTML = err;
@@ -618,6 +619,7 @@ document.addEventListener('mjmodechange', function() {
     var firstPill = document.querySelector('.filter-pill');
     if (firstPill) firstPill.classList.add('active');
   }
+  var _ib2 = document.getElementById('lieux-btn-inexplore'); if (_ib2) _ib2.style.display = isMJ() ? '' : 'none';
   render();
 });
 

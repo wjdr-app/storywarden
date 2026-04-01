@@ -128,11 +128,10 @@ function render(events) {
     html += `<div class="periode-head"><div class="ph-line"></div><span class="ph-label">${PERIODE_LABELS[p] || p.replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}</span><div class="ph-line"></div></div>`;
     html += `<div class="timeline-wrap">`;
     evts.forEach(e => {
-      const mjCls = e.visible_joueurs ? '' : ' mj-only';
       const entitesChips = (e.entites_liees || [])
         .map(id => `<span class="chip">${id.replace('pnj_','').replace('pj_','Av. ')}</span>`).join('');
       html += `
-      <div class="tl-item${mjCls}">
+      <div class="tl-item">
         <div class="tl-dot ${e.type}"></div>
         <div class="tl-card" id="tl-${e.id||events.indexOf(e)}" onclick="toggleEvt('${e.id||events.indexOf(e)}',event)">
           <div class="tl-card-head">
@@ -154,7 +153,6 @@ function render(events) {
     html += `</div>`;
   });
   document.getElementById('timeline-wrap').innerHTML = html;
-  applyMJMode(getMJMode());
 }
 
 function toggleEvt(id, event) {
@@ -164,7 +162,6 @@ function toggleEvt(id, event) {
   const isOpen = card.classList.contains('open');
   document.querySelectorAll('.tl-card.open').forEach(c => c.classList.remove('open'));
   if (!isOpen) card.classList.add('open');
-  applyMJMode(getMJMode());
 }
 
 document.addEventListener('mjmodechange', function() { if (TIMELINE_DATA && TIMELINE_DATA.length) render(TIMELINE_DATA); });

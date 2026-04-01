@@ -266,8 +266,9 @@
     .sheet-trait { font-family: 'Noto Serif', serif; font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 
     /* QR code */
-    .fiche-qr{flex-shrink:0;width:116px;height:116px;background:var(--bg);border:1px solid var(--border-soft);border-radius:10px;padding:6px;display:flex;align-items:center;justify-content:center;}
-    #sheet-qr-img{width:100%;background:#fff;border-radius:4px;overflow:hidden;}
+    .fiche-qr{flex-shrink:0;aspect-ratio:1/1;width:120px;background:var(--surface);border:1px solid var(--border-soft);border-radius:10px;padding:10px;display:flex;align-items:center;justify-content:center;}
+    #sheet-qr-img{width:100%;overflow:hidden;}
+    #sheet-qr-img svg{width:100%;height:100%;max-width:100px;max-height:100px;display:block;}
     @media(max-width:700px){.fiche-qr{display:none;}}
     /* Dice roller */
     .sheet-dice{flex-shrink:0;width:190px;background:var(--bg);border:1px solid var(--border-soft);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:7px;}

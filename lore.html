@@ -162,25 +162,24 @@ function renderGrid(lore) {
   const grid = document.getElementById('lore-grid');
   if (!lore.length) { grid.innerHTML = '<p class="empty-msg">Aucune entr\u00e9e correspondante.</p>'; return; }
   grid.innerHTML = lore.map(buildCard).join('');
-  applyMJMode((typeof getMJMode === 'function') ? getMJMode() : (localStorage.getItem('sw_mj_mode') === 'true'));
+  //(typeof getMJMode === 'function') ? getMJMode() : (localStorage.getItem('sw_mj_mode') === 'true'));
 }
 
 function buildCard(entry) {
+  const isMJ = (typeof getMJMode === 'function') ? getMJMode() : localStorage.getItem('sw_mj_mode') === 'true';
   const catLbl = catLabel(entry.categorie);
-  const visible = entry.visible_joueurs;
-  const mjOnlyCls = visible ? '' : ' mj-only';
   const tagsHTML = (entry.tags || []).length
     ? `<div class="tag-list">${entry.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>`
     : '';
   return `
-  <div class="lore-card${mjOnlyCls}" id="lore-${entry.id}" onclick="toggleCard('${entry.id}',event)">
+  <div class="lore-card" id="lore-${entry.id}" onclick="toggleCard('${entry.id}',event)">
     <div class="lore-card-head">
       <div class="lore-head-info">
         <div class="lore-titre">${entry.titre}</div>
         <div class="lore-cat">${catLbl}</div>
       </div>
       <div class="badge-col">
-        <span class="l-badge mj-seul">${visible ? '' : 'MJ seul'}</span>
+        ${isMJ && entry.visible_joueurs === false ? '<span class="l-badge mj-seul">MJ seul</span>' : ''}
       </div>
       <span class="lore-chevron">\u25be</span>
     </div>
@@ -199,7 +198,6 @@ function toggleCard(id, event) {
   const isOpen = card.classList.contains('open');
   document.querySelectorAll('.lore-card.open').forEach(c => c.classList.remove('open'));
   if (!isOpen) card.classList.add('open');
-  applyMJMode((typeof getMJMode === 'function') ? getMJMode() : (localStorage.getItem('sw_mj_mode') === 'true'));
 }
 
 document.addEventListener('mjmodechange', function() { if (LORE_DATA && LORE_DATA.length) applyFilters(); });

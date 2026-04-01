@@ -178,9 +178,9 @@
     .dr-res.dr-roll { animation: dr-flash .25s ease; color: var(--crimson); }
 
     /* QR code block (desktop only) */
-    .fiche-qr { flex-shrink: 0; width: 116px; height: 116px; background: var(--bg); border: 1px solid var(--border-soft); border-radius: 10px; padding: 6px; display: flex; align-items: center; justify-content: center; }
-    #fiche-qr-img { width: 100%; background: #fff; border-radius: 4px; overflow: hidden; }
-    #fiche-qr-img svg { width: 100%; height: auto; display: block; }
+    .fiche-qr { flex-shrink: 0; aspect-ratio: 1 / 1; width: 120px; background: var(--surface); border: 1px solid var(--border-soft); border-radius: 10px; padding: 10px; display: flex; align-items: center; justify-content: center; }
+    #fiche-qr-img { width: 100%; overflow: hidden; }
+    #fiche-qr-img svg { width: 100%; height: 100%; max-width: 100px; max-height: 100px; display: block; }
 
     /* Responsive */
     @media (max-width: 700px) {
