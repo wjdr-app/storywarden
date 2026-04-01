@@ -148,20 +148,20 @@ function applyFilters() {
   const isMJ = (typeof getMJMode === 'function') ? getMJMode() : localStorage.getItem('sw_mj_mode') === 'true';
   let filtered = isMJ ? REGLES_DATA : REGLES_DATA.filter(r => r.visible_joueurs !== false);
   if (currentFilter !== 'tous') filtered = filtered.filter(r => r.categorie === currentFilter);
-  renderGrid(filtered);
+  renderGrid(filtered, isMJ);
   const total = REGLES_DATA.length;
   document.getElementById('count-line').textContent =
     filtered.length === total ? `${total} r\u00e8gles` : `${filtered.length} / ${total} r\u00e8gles`;
 }
 
-function renderGrid(regles) {
+function renderGrid(regles, isMJ) {
   const grid = document.getElementById('regles-grid');
   if (!regles.length) { grid.innerHTML = '<p class="empty-msg">Aucune r\u00e8gle correspondante.</p>'; return; }
-  grid.innerHTML = regles.map(buildCard).join('');
+  grid.innerHTML = regles.map(function(r){ return buildCard(r, isMJ); }).join('');
+  applyMJMode(isMJ);
 }
 
-function buildCard(r) {
-  const isMJ = (typeof getMJMode === 'function') ? getMJMode() : localStorage.getItem('sw_mj_mode') === 'true';
+function buildCard(r, isMJ) {
   const catLbl = CAT_LABELS[r.categorie] || r.categorie;
 
   let tableHTML = '';

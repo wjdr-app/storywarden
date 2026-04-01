@@ -152,21 +152,20 @@ function applyFilters() {
     (l.titre || '').toLowerCase().includes(q) ||
     (l.contenu || '').toLowerCase().includes(q) ||
     (l.tags || []).some(t => (t || '').toLowerCase().includes(q)));
-  renderGrid(filtered);
+  renderGrid(filtered, isMJ);
   const total = LORE_DATA.length;
   document.getElementById('count-line').textContent =
     filtered.length === total ? `${total} entr\u00e9es` : `${filtered.length} / ${total} entr\u00e9es`;
 }
 
-function renderGrid(lore) {
+function renderGrid(lore, isMJ) {
   const grid = document.getElementById('lore-grid');
   if (!lore.length) { grid.innerHTML = '<p class="empty-msg">Aucune entr\u00e9e correspondante.</p>'; return; }
-  grid.innerHTML = lore.map(buildCard).join('');
-  //(typeof getMJMode === 'function') ? getMJMode() : (localStorage.getItem('sw_mj_mode') === 'true'));
+  grid.innerHTML = lore.map(function(e){ return buildCard(e, isMJ); }).join('');
+  applyMJMode(isMJ);
 }
 
-function buildCard(entry) {
-  const isMJ = (typeof getMJMode === 'function') ? getMJMode() : localStorage.getItem('sw_mj_mode') === 'true';
+function buildCard(entry, isMJ) {
   const catLbl = catLabel(entry.categorie);
   const tagsHTML = (entry.tags || []).length
     ? `<div class="tag-list">${entry.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>`

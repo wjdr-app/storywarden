@@ -412,6 +412,7 @@ function render() {
   // Breadcrumb
   renderBreadcrumb();
 
+  applyMJMode(isMJ());
   // Detail
   if (selLieuId && LIEUX_MAP[selLieuId]) {
     renderDetail(LIEUX_MAP[selLieuId]);

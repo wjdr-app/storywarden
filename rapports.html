@@ -311,8 +311,7 @@ function renderRapportBody(text) {
 }
 
 // ── Construction carte ──────────────────────────────────────────────────────
-function buildCard(s, idx) {
-  var isMJ = (typeof getMJMode === 'function') ? getMJMode() : (localStorage.getItem('sw_mj_mode') === 'true');
+function buildCard(s, idx, isMJ) {
   var pnjsChips  = (s.pnjs_rencontres || []).map(function(id){ return '<span class="chip">' + esc(pnjName(id)) + '</span>'; }).join('');
   var lieuxChips = (s.lieux_visites   || []).map(function(id){ return '<span class="chip">' + esc(lieuName(id)) + '</span>'; }).join('');
 
@@ -374,7 +373,8 @@ function renderGrid() {
       '<p style="font-style:italic;color:var(--text-dim);font-size:.82rem;text-align:center;padding:40px;">Aucun rapport disponible.</p>';
     return;
   }
-  document.getElementById('rapports-wrap').innerHTML = rapports.map(buildCard).join('');
+  document.getElementById('rapports-wrap').innerHTML = rapports.map(function(s, idx){ return buildCard(s, idx, isMJ); }).join('');
+  applyMJMode(isMJ);
 }
 
 document.addEventListener('mjmodechange', function(){ if (RAPPORTS_DATA.length) renderGrid(); });

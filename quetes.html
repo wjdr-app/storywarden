@@ -211,10 +211,11 @@ function renderGrid() {
   var suspens   = quetes.filter(function(q){ return q.statut === 'en suspens'; });
   var terminees = quetes.filter(function(q){ return q.statut === 'terminée'; });
   var html = '';
-  if (critique.length)  html += '<div class="q-section">'  + secHead('Actives — Critique', true) + critique.map(buildCard).join('') + '</div>';
-  if (actives.length)   html += '<div class="q-section">'  + secHead('Actives', false) + actives.map(buildCard).join('') + '</div>';
-  if (suspens.length)   html += '<div class="q-section">'  + secHead('En suspens', false) + suspens.map(buildCard).join('') + '</div>';
-  if (terminees.length) html += '<div class="q-section">'  + secHead('Terminées', false) + '<div class="done-grid">' + terminees.map(buildCard).join('') + '</div></div>';
+  if (critique.length)  html += '<div class="q-section">'  + secHead('Actives — Critique', true) + critique.map(function(q){ return buildCard(q, isMJ); }).join('') + '</div>';
+  if (actives.length)   html += '<div class="q-section">'  + secHead('Actives', false) + actives.map(function(q){ return buildCard(q, isMJ); }).join('') + '</div>';
+  if (suspens.length)   html += '<div class="q-section">'  + secHead('En suspens', false) + suspens.map(function(q){ return buildCard(q, isMJ); }).join('') + '</div>';
+  if (terminees.length) html += '<div class="q-section">'  + secHead('Terminées', false) + '<div class="done-grid">' + terminees.map(function(q){ return buildCard(q, isMJ); }).join('') + '</div></div>';
+  applyMJMode(isMJ);
   document.getElementById('quetes-wrap').innerHTML = html || '<p style="text-align:center;color:var(--text-dim);padding:60px;font-family:var(--font-ui);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;">Aucune quête</p>';
 }
 
@@ -233,8 +234,7 @@ function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-function buildCard(q) {
-  var isMJ   = (typeof getMJMode === 'function') ? getMJMode() : (localStorage.getItem('sw_mj_mode') === 'true');
+function buildCard(q, isMJ) {
   var isCrit = q.priorite === 'critique';
   var isDone = q.statut === 'terminée';
 

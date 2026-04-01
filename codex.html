@@ -170,7 +170,7 @@ function applyFilters() {
   if (q) filtered = filtered.filter(c =>
     (c.titre || '').toLowerCase().includes(q) ||
     (c.contenu || '').toLowerCase().includes(q));
-  renderGrid(filtered);
+  renderGrid(filtered, isMJ);
   const total = isMJ ? CODEX_DATA.length : CODEX_DATA.filter(c => c.visible_joueurs !== false).length;
   document.getElementById('count-line').textContent =
     filtered.length === total ? `${total} entr${total > 1 ? '\u00e9es' : '\u00e9e'}` : `${filtered.length} / ${total} entr\u00e9es`;
@@ -181,11 +181,10 @@ function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-function buildCard(c) {
+function buildCard(c, isMJ) {
   const icon = TYPE_ICONS[c.type] || '\u25c8';
   const typeLabel = TYPE_LABELS[c.type] || c.type || '';
   const statut = c.statut || 'cache';
-  const isMJ = (typeof getMJMode === 'function') ? getMJMode() : localStorage.getItem('sw_mj_mode') === 'true';
   const mjOnly = c.visible_joueurs === false || c.visible_joueurs === undefined;
   const sessionLine = c.session_decouverte
     ? `<div class="codex-session">Session de d\u00e9couverte : ${esc(c.session_decouverte)}</div>` : '';
@@ -216,11 +215,11 @@ function toggleCard(el) {
   el.classList.toggle('open');
 }
 
-function renderGrid(data) {
+function renderGrid(data, isMJ) {
   const grid = document.getElementById('codex-grid');
   if (!data.length) { grid.innerHTML = '<p class="empty-msg">Aucune entr\u00e9e correspondante.</p>'; return; }
-  grid.innerHTML = data.map(buildCard).join('');
-
+  grid.innerHTML = data.map(function(c){ return buildCard(c, isMJ); }).join('');
+  applyMJMode(isMJ);
 }
 
 document.addEventListener('mjmodechange', function() {

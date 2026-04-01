@@ -895,7 +895,7 @@
     if(_bw) _bw.onclick=function(){window.open('pdf/'+_sfn+'_warden.pdf','_blank');};
     if(typeof window.qrcode==='function'&&window.location.protocol!=='file:'){
       var _cid2=new URLSearchParams(location.search).get('c')||'';
-      var _qrUrl='fiche.html?c='+encodeURIComponent(_cid2)+'&id='+encodeURIComponent(pj.id||'');
+      var _qrUrl=new URL('fiche.html?c='+encodeURIComponent(_cid2)+'&id='+encodeURIComponent(pj.id||''),window.location.href).href;
       var _qr=window.qrcode(0,'M');
       _qr.addData(_qrUrl);_qr.make();
       var _diceEl=document.querySelector('.sheet-dice');

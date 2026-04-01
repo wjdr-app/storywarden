@@ -153,6 +153,7 @@ function render(events) {
     html += `</div>`;
   });
   document.getElementById('timeline-wrap').innerHTML = html;
+  applyMJMode(_isMJtl);
 }
 
 function toggleEvt(id, event) {
