@@ -1,5 +1,29 @@
 [
   {
+    "id": "Le souffle",
+    "categorie": "cosmologie",
+    "titre": "Le Souffle du Dessous",
+    "contenu": "Le monde est traversé par une force diffuse appelée le Souffle du Dessous, une énergie sans conscience apparente qui remonte par les fissures de la roche depuis les profondeurs. Elle se manifeste en surface sous forme de brume. Elle n'a pas de volonté propre, mais ses effets sont réels et mesurables : détérioration physique et mentale des êtres vivants exposés, réanimation des morts dans les zones non protégées, augmentation de l'agressivité des monstres. Perturbation des sens et de l'orientation pouvant amener à la mort.",
+    "visible_joueurs": false,
+    "tags": [
+      "souffle",
+      "brume",
+      "cosmologie"
+    ]
+  },
+  {
+    "id": "lore_02",
+    "categorie": "cosmologie",
+    "titre": "Le Sceau Souterrain",
+    "contenu": "Un sceau souterrain a été posé il y a plusieurs siècles par un ordre mixte de mages humains, elfes et nains pour contenir le Souffle. Ce sceau se fissure avec le temps. Le remettre en état complet demanderait un effort coordonné que personne n'a encore entrepris.",
+    "visible_joueurs": false,
+    "tags": [
+      "sceau",
+      "cosmologie",
+      "histoire"
+    ]
+  },
+  {
     "id": "lore_03",
     "categorie": "bornes",
     "titre": "Les Bornes-Cœur",
@@ -105,5 +129,13 @@
       "géographie",
       "région"
     ]
+  },
+  {
+    "id": "piece_serment",
+    "titre": "Pièce du serment",
+    "categorie": "autre",
+    "contenu": "Au creux de la main, la pièce pèse d'un poids froid et dense. Ce n'est pas l'argent brillant et fin des empires voisins, mais un alliage brut, presque mat, taillé pour durer des siècles sans s'oxyder. Sur la face, l'effigie d'un dragon n'a rien d'une créature conquérante crachant le feu : c'est un grand wyrm lové sur lui-même, semblant repousser une masse informe gravée sur les bords de la pièce. À l'arrière, aucun profil de roi ni armoiries de ville, seulement un enchevêtrement géométrique de lignes nettes, rappelant les canaux runiques qui parcourent la surface des Bornes-Cœur.\n​\n\nPour les escrocs ordinaires, ce n'est qu'une vieille monnaie sans cours légal, tout juste bonne à être fondue ou vendue à un collectionneur. Mais pour les anciens de la pègre, c'est une \"Pièce de Serment\". La preuve tangible que ceux qui ont cartographié les routes avant eux – les Argentiers – possédaient des richesses bien plus vastes et des secrets bien plus lourds que la simple contrebande.",
+    "visible_joueurs": false,
+    "tags": []
   }
 ]

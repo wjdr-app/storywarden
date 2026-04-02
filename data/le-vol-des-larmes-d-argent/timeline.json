@@ -1,5 +1,64 @@
 [
   {
+    "id": "evt_01",
+    "titre": "Pose du sceau souterrain",
+    "date_fiction": "Il y a plusieurs siècles",
+    "periode": "avant_campagne",
+    "type": "historique",
+    "description": "Un ordre mixte de mages humains, elfes et nains pose un sceau souterrain pour contenir le Souffle du Dessous. Les Bornes-Cœur et les Larmes d'Argent sont créées pour compléter la protection en surface.",
+    "visible_joueurs": false,
+    "entites_liees": []
+  },
+  {
+    "id": "evt_02",
+    "titre": "Fondation des Gardiens de Route",
+    "date_fiction": "Il y a six générations",
+    "periode": "avant_campagne",
+    "type": "historique",
+    "description": "Fondation de l'ordre mixte des Gardiens de Route. Ils deviennent les dépositaires du savoir sur les Bornes, les Larmes et la nature du Souffle — cartographiant ses effets, en transmettant la connaissance. Symbole : serpent enroulé autour d'un obélisque.",
+    "visible_joueurs": false,
+    "entites_liees": []
+  },
+  {
+    "id": "evt_03",
+    "titre": "Dissolution des Gardiens de Route",
+    "date_fiction": "Il y a deux générations",
+    "periode": "avant_campagne",
+    "type": "historique",
+    "description": "Les Gardiens de Route sont dissous. Les causes sont disputées et non documentées publiquement. Leur savoir est dispersé ou perdu. Rulven deviendra plus tard leur seul héritier indirect connu.",
+    "visible_joueurs": false,
+    "entites_liees": [
+      "pnj_rulven"
+    ]
+  },
+  {
+    "id": "evt_04",
+    "titre": "Fondation de la Brigade du Saumon Noir",
+    "date_fiction": "Il y a une vingtaine d'années",
+    "periode": "avant_campagne",
+    "type": "historique",
+    "description": "Des marchands de Val-de-Brume fondent la Brigade du Saumon Noir pour sécuriser les routes de commerce de la Marche. Milice privée, ni entièrement corrompue ni entièrement fiable. Insigne : saumon sautant à contre-courant sur fond noir.",
+    "visible_joueurs": false,
+    "entites_liees": [
+      "pnj_mael",
+      "pnj_edward"
+    ]
+  },
+  {
+    "id": "evt_05",
+    "titre": "Rulven recrute Mila comme gardienne de la Borne",
+    "date_fiction": "Indéterminé — avant la campagne",
+    "periode": "avant_campagne",
+    "type": "faction",
+    "description": "Rulven engage Mila pour surveiller la Borne-Cœur de Valmorne. Mila connaissait la mère de Renn — lien qui expliquera sa réticence à dénoncer le vol.",
+    "visible_joueurs": false,
+    "entites_liees": [
+      "pnj_rulven",
+      "pnj_mila",
+      "pnj_renn"
+    ]
+  },
+  {
     "id": "evt_06",
     "titre": "Exécution du père de Renn par la Brigade",
     "date_fiction": "Quelques années avant la campagne",
@@ -49,6 +108,19 @@
     "entites_liees": [
       "pnj_capuche",
       "pnj_renn"
+    ]
+  },
+  {
+    "id": "evt_09",
+    "titre": "Renn dérobe la Larme d'Argent",
+    "date_fiction": "Nuit précédant la session 1",
+    "periode": "avant_session_01",
+    "type": "session",
+    "description": "Renn monte sur l'obélisque avec une corde et une lanterne vers minuit. Il dérobe la Larme d'Argent. Mila était absente — aux bains publics, défoncée au sel de lune. La Borne-Cœur s'éteint.",
+    "visible_joueurs": false,
+    "entites_liees": [
+      "pnj_renn",
+      "pnj_mila"
     ]
   },
   {

@@ -46,7 +46,146 @@
       "pnj_ysolda",
       "pnj_mila"
     ],
-    "recompense": "Liberté — intégration dans la Brigade du Saumon Noir."
+    "recompense": "Liberté — intégration dans la Brigade du Saumon Noir.",
+    "notes_mj": "Scénario One-Shot terminé. Session 1."
+  },
+  {
+    "id": "quete_06",
+    "titre": "Mila",
+    "statut": "en suspens",
+    "priorite": "secondaire",
+    "description": "Mila est suspendue à titre conservatoire. La décision définitive de Mael et Rulven n'a pas encore été rendue.",
+    "objectifs": [
+      {
+        "texte": "Attendre ou influencer la décision Mael/Rulven",
+        "accompli": false
+      }
+    ],
+    "lieux_impliques": [
+      "lieu_01"
+    ],
+    "pnjs_impliques": [
+      "pnj_mila",
+      "pnj_mael",
+      "pnj_rulven"
+    ],
+    "recompense": "",
+    "notes_mj": "🟠Elle n'est peut être pas addict au sel de lune, elle peut avoir été manipulée par l'homme à la capuche.",
+    "indices": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "quete_07",
+    "titre": "Le gobelin tenancier — Brigade ou prison",
+    "statut": "en suspens",
+    "priorite": "secondaire",
+    "description": "Le gobelin tenancier a été placé devant un choix binaire : intégrer le réseau d'informateurs de la Brigade ou aller en prison. Sa réponse est attendue sous huitaine depuis la session 1.",
+    "objectifs": [
+      {
+        "texte": "Obtenir la réponse du gobelin",
+        "accompli": false
+      },
+      {
+        "texte": "Si allié : exploiter son réseau de distribution de sel de lune",
+        "accompli": false
+      }
+    ],
+    "lieux_impliques": [
+      "lieu_05"
+    ],
+    "pnjs_impliques": [
+      "pnj_gobelin",
+      "pnj_corvin"
+    ],
+    "recompense": "",
+    "notes_mj": "🟠 Réseau de distribution du sel de lune dans la région — informations potentielles sur l'économie de la Marche. Il finira dans la brigade et sera un pnj allié, mais peu avenant, les aventurier ayant exposé son trafic.",
+    "indices": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "quete_08",
+    "titre": "Renn et Camille",
+    "statut": "en suspens",
+    "priorite": "secondaire",
+    "description": "Renn travaille aux écuries sous supervision de Guillaume. Sa rancœur envers la Brigade (père exécuté) est réelle. Sa sœur Camille, 9 ans, est à sa charge.",
+    "objectifs": [
+      {
+        "texte": "Surveiller l'intégration de Renn aux écuries",
+        "accompli": false
+      },
+      {
+        "texte": "Élucider les circonstances de l'exécution du père de Renn par la Brigade",
+        "accompli": false
+      }
+    ],
+    "lieux_impliques": [
+      "lieu_07"
+    ],
+    "pnjs_impliques": [
+      "pnj_renn",
+      "pnj_camille",
+      "pnj_guillaume"
+    ],
+    "recompense": "",
+    "notes_mj": "🟠 Rancœur de Renn envers la Brigade — potentiel allié ou risque selon l'évolution. Père exécuté : raison inconnue, à développer.",
+    "indices": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "quete_09",
+    "titre": "La Larme enfouie sous la cabane d'Ysolda",
+    "statut": "en suspens",
+    "priorite": "secondaire",
+    "description": "Rulven émet l'hypothèse qu'une ancienne Larme d'Argent serait enfouie sous le terrain de la cabane d'Ysolda, ce qui expliquerait pourquoi la brume épargne la zone. Hypothèse non confirmée.",
+    "objectifs": [
+      {
+        "texte": "Confirmer ou infirmer l'hypothèse de Rulven",
+        "accompli": false
+      },
+      {
+        "texte": "Si confirmée : évaluer l'état de cette Larme ancienne",
+        "accompli": false
+      }
+    ],
+    "lieux_impliques": [
+      "lieu_08"
+    ],
+    "pnjs_impliques": [
+      "pnj_rulven",
+      "pnj_ysolda"
+    ],
+    "recompense": "",
+    "notes_mj": "🟠 Ysolda pourrait trouver et étudier cette Larme dans le cadre de ses recherches sur la reproduction du mécanisme.",
+    "indices": [],
+    "visible_joueurs": false
+  },
+  {
+    "id": "quete_10",
+    "titre": "Ysolda et la reproduction du mécanisme de la Larme",
+    "statut": "en suspens",
+    "priorite": "secondaire",
+    "description": "Ysolda a passé quarante ans à étudier les plantes de la Marche et leurs propriétés contre la brume. Elle est proche, selon elle, de comprendre comment la Larme fonctionne pour en reproduire l'effet naturellement.",
+    "objectifs": [
+      {
+        "texte": "Suivre l'avancement des recherches d'Ysolda",
+        "accompli": false
+      },
+      {
+        "texte": "L'aider ou l'utiliser comme alliée scientifique",
+        "accompli": false
+      }
+    ],
+    "lieux_impliques": [
+      "lieu_08"
+    ],
+    "pnjs_impliques": [
+      "pnj_ysolda",
+      "pnj_rulven"
+    ],
+    "recompense": "Un substitut naturel aux Larmes changerait fondamentalement l'équilibre de la Marche.",
+    "notes_mj": "🟠 Potentielle alliée scientifique. L'accord commercial avec la Brigade ne l'empêche pas de continuer ses recherches.",
+    "indices": [],
+    "visible_joueurs": false
   },
   {
     "id": "finn_quest",
@@ -65,6 +204,7 @@
       }
     ],
     "recompense": "",
+    "notes_mj": "Intro :\nAu moulin désaffecté mentionné par la note de Bren, les joueurs trouvent des preuves du passage de l'homme à la capuche. Finn y découvre des pièces neuves en argent. L'oeil d'escroc de Finn lui permet d'identifier ces pièces. Elles circulent au delà de la marche auprès de collectionneurs. Elles sont frappées d'un dragon.\n\nLes Argentiers\nÀ Bourg-Argent, le contact criminel de Finn lui révèle que ces pièces ne sont pas étrangères, mais qu'il s'agit de \"Pièces de Serment\". Elles étaient autrefois frappées par les Argentiers, de fervents chercheurs en quête d'un remède au Souffle, traqués et anéantis par l'Ordre de la Brume Noire. Kaelen, l'homme à la capuche, s'avère être l'un de ces ultimes survivants et utilise ces richesses oubliées pour opérer hors de la vue de la Brigade du Saumon Noir.\n​\n\nL'Héritage des Routes\nLe contact explique que les sentiers de contrebande actuels sont en réalité les anciennes \"Routes\" cartographiées par les Gardiens de Route là où l'espace reste stable face au Souffle. Finn réalise que son instinct exceptionnel pour s'y cacher n'est pas un simple talent de voleur, mais une résonance innée avec la magie résiduelle de la région. Son surnom \"Brume-Grise\" prend tout son sens : la terre l'a reconnu et l'a \"appelé\", le désignant comme l'un des rares mortels capables de restaurer l'équilibre lors de l'Acte 2.",
     "lieux_impliques": [],
     "pnjs_impliques": [],
     "indices": [],
@@ -87,6 +227,7 @@
       }
     ],
     "recompense": "",
+    "notes_mj": "Les joueurs se rendent au moulin avec la lanterne extorquée à Corvin. Des bandits, probablement payés par la même faction que l'homme à la capuche pour sécuriser les environs, tendent une embuscade. Leur tactique est simple mais mortelle : briser la lanterne du groupe pour laisser la brume faire le travail. Dès que le verre se brise et que le Sel de Lune s'éteint, la brume s'engouffre.\n​\n\nNotes MJ : L'Intervention d'Illwen et le Loot de Finn\nAlors que les autres membres du groupe commencent à étouffer ou perdre leurs repères, Illwen ne ressent qu'un frisson. Demande-lui un jet de Nature ou Perspicacité. Une réussite lui permet d'étendre son aura protectrice, repoussant la brume juste assez pour que le groupe puisse combattre ou fuir. Une fois les bandits gérés, Finn peut fouiller les corps (ou le lieu de l'embuscade) et trouver un insigne de guilde spécifique à la pègre de Bourg-Argent, amorçant ainsi sa recherche de contacts (Silas).\n​\n\nNotes MJ : La Crevasse et l'Héritage\nPoussée par cette nouvelle connexion, Illwen sent que la brume est attirée par un point précis. En guidant le groupe hors de la route principale, elle découvre une faille naturelle. Au fond de cette crevasse, la brume n'est pas toxique mais luminescente. Elle abrite une flore sauvage et mutante qui s'est développée autour d'un éclat d'os de dragon fossilisé, poreux comme une éponge. Illwen comprend alors par ses propres sens (Cercle de la Lune ) que la nature tente désespérément de recréer les filtres naturels que les dragons incarnaient autrefois. Cette révélation prouve que la brume n'est pas le mal absolu, mais un élément naturel qui a besoin d'être régulé, posant ainsi les bases de son implication totale dans l'Acte",
     "lieux_impliques": [],
     "pnjs_impliques": [],
     "indices": [],
@@ -113,6 +254,7 @@
       }
     ],
     "recompense": "",
+    "notes_mj": "La rencontre au moulin ne doit pas être un combat équilibré. Kaelen n'a pas l'intention de tuer Osric. Lorsqu'Osric s'approche ou utilise sa magie, Kaelen utilise la télépathie (\"Tu portes une charge que tu ne comprends pas encore, mon sang...\"). Demande un jet de Sauvegarde de Charisme ou Constitution à Osric, mais le résultat ne change que la violence du choc : Kaelen utilise une forme pure de la \"Taille de Serment\" qui résonne avec le sang d'Osric et le met instantanément KO. À son réveil, la boussole interne d'Osric (découverte lors de la session précédente) est verrouillée sur une direction fixe : le nord, vers Bourg-Argent.\n​\n\nNotes MJ : Le lien avec Bourg-Argent et Finn\nLa boussole guide Osric non pas vers Kaelen lui-même, mais vers une formidable concentration statique de magie : un ancien atelier de Gardien de Route/Argentier. Cet atelier souterrain a été découvert et est aujourd'hui squatté par la Guilde des Ombres de Bourg-Argent. C'est l'excuse parfaite pour que les quêtes d'Osric et de Finn se rejoignent : Finn a besoin d'infiltrer la pègre pour retrouver le trafic de Sel de Lune (et sa propre quête), et Osric a besoin que Finn le fasse entrer pour atteindre l'atelier.\n\nNotes MJ : La Révélation \"Veinargent\"\nDans le repaire de Bourg-Argent, Osric trouve des éléments scellés (ou inactifs) qui ne réagissent qu'à son toucher, confirmant que sa magie est de même nature que l'artefact. Il y trouve les notes de recherche de Kaelen.\n​\nCes documents expliquent que lorsque les dragons (les filtres naturels) ont été exterminés, les Gardiens ont dû utiliser le sang des mages draconiques pour lier la magie à la pierre. La famille d'Osric a été littéralement saignée pour créer les Bornes-Cœur.\n​\nKaelen a pris le nom de Veinargent en hommage à cette lignée sacrifiée, et il s'avère être l'ancêtre direct d'Osric. Osric comprend alors que Kaelen essaie de détruire le système des Larmes non pas par simple folie, mais pour libérer le monde (et sa propre famille) de ce sacrifice perpétuel.",
     "lieux_impliques": [],
     "pnjs_impliques": [],
     "indices": [],
@@ -139,6 +281,7 @@
       }
     ],
     "recompense": "",
+    "notes_mj": "Dans le repaire de Kaelen au moulin, les murs sont couverts d'esquisses, de calculs d'angles et de schémas de percussions. Les autres PJ (même les lanceurs de sorts) ne verront qu'un chaos incompréhensible, car le principe est géométrique, pas mystique. Grâce à son passé de mineur près des anciens sceaux, Darg est le seul à comprendre : ce sont les plans d'architecture interne d'une Borne-Cœur.\n\nNotes MJ : Rappel du Lore - La Taille de Serment\nC'est le moment d'expliquer au joueur (et au reste de la table) ce qu'est la Taille de Serment, selon le lore que tu as établi :\n​\nLes Gardiens de Route n'avaient pas le pouvoir de créer des artefacts magiques de nulle part. Ils utilisaient une roche très dense, \"la pierre sourde\". La technique de la Taille de Serment ne consiste pas à couper la pierre, mais à la forcer à \"se souvenir\" d'un angle spécifique par l'application de chaleur, d'une percussion extrêmement rythmée, et de l'usage de \"runes-gabarits\".\nC'est grâce à cette technique purement naine que l'on obtenait des faces nettes et des canaux runiques capables de contenir la poudre d'argent et de \"mimer\" le cœur d'un dragon.\n​\n\nNotes MJ : La suite de la quête\nKaelen a étudié ces murs pour comprendre comment détruire les Bornes. Darg va utiliser ce même savoir pour apprendre à les reconstruire. Il devra trouver une ancienne cache (par exemple dans le vieux quartier nain ou minier de Bourg-Argent, créant encore un lien avec la destination globale du groupe) pour récupérer les marteaux de taille et les runes-gabarits de ses ancêtres.\nCette quête justifie pleinement la présence de Darg : quand l'heure sera venue de restaurer le monde ou de créer un nouveau réseau, les sorts d'Illwen ou la magie d'Osric seront inutiles sans la pierre taillée par les mains de Darg.",
     "lieux_impliques": [],
     "pnjs_impliques": [],
     "indices": [],
@@ -165,6 +308,7 @@
       }
     ],
     "recompense": "",
+    "notes_mj": "",
     "lieux_impliques": [],
     "pnjs_impliques": [],
     "indices": []
@@ -190,6 +334,7 @@
       }
     ],
     "recompense": "",
+    "notes_mj": "",
     "lieux_impliques": [],
     "pnjs_impliques": [],
     "indices": []
@@ -215,6 +360,7 @@
       }
     ],
     "recompense": "",
+    "notes_mj": "",
     "lieux_impliques": [],
     "pnjs_impliques": [],
     "indices": []
