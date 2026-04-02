@@ -186,7 +186,7 @@ async function init() {
       loadData('quetes.json'),
       loadData('rapports.json'),
       loadData('timeline.json').catch(()=>[]),
-      fetch('data/settings.json').then(r => r.ok ? r.json() : {}).catch(() => ({}))
+      loadData('settings.json').then(s => s || {}).catch(() => ({}))
     ]);
     if (settings.index_title)    document.getElementById('hero-title').textContent = settings.index_title;
     if (settings.index_subtitle) document.getElementById('hero-sub').textContent   = settings.index_subtitle;
