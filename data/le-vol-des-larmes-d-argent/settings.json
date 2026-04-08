@@ -3,7 +3,7 @@
     "codex": true,
     "lieux": true,
     "relations": false,
-    "magasins": false
+    "magasins": true
   },
   "index_title": "Les larmes d'argent",
   "index_subtitle": "Aventure à la marche de Roncebrume",
