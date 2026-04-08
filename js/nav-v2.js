@@ -224,8 +224,7 @@ function injectNav() {
             <span>Mode MJ</span>
             <div class="toggle" id="toggle-mj"></div>
           </div>
-          ${typeof window.electronAPI === 'undefined' ? '<a class="settings-item" href="admin.html">Administration</a>' : ''}
-          <div class="settings-item" id="settings-change-camp">
+          <div class="settings-item" id="settings-change-camp" style="display:none">
             <span>Changer de campagne</span>
           </div>
         </div>
@@ -392,6 +391,7 @@ function resetCampaignPick() {
 
 // ── SÉLECTEUR DE CAMPAGNE ─────────────────────────────────────────────────────
 let _pickerCamps = [];
+let _campsCount = 0;
 
 async function checkCampaignAccess() {
   const params = new URLSearchParams(window.location.search);
@@ -407,6 +407,7 @@ async function checkCampaignAccess() {
       if (r.ok) camps = await r.json();
     }
   } catch (e) {}
+  _campsCount = camps.length;
   if (!camps.length) { localStorage.setItem('sw_campaign', 'larmes'); return; }
   if (camps.length === 1 && !camps[0].password) {
     localStorage.setItem('sw_campaign', camps[0].id);
@@ -507,5 +508,7 @@ window._swCampaignReady = new Promise(function(resolve) {
     await checkCampaignAccess();
     resolve();
     injectNav();
+    const _cce = document.getElementById('settings-change-camp');
+    if (_cce && _campsCount >= 2) _cce.style.display = '';
   });
 });
