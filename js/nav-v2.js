@@ -7,7 +7,7 @@ const NAV_ITEMS = [
   { href: 'personnages.html',    label: 'Aventuriers', picto: 'aventuriers' },
   { href: 'pnjs.html',         label: 'PNJs',        picto: 'pnj' },
   { href: 'monstres.html',     label: 'Monstres',    picto: 'monstres' },
-  { href: 'magasin.html',      label: 'Magasins',    picto: 'magasin' },
+  { href: 'magasin.html',      label: 'Magasins',    picto: 'magasin', navKey: 'magasins' },
   { href: 'relations.html',    label: 'Relations',   picto: 'relations' },
   { sep: true },
   { href: 'quetes.html',       label: 'Quêtes',      picto: 'quetes' },
@@ -170,8 +170,8 @@ function _applySidebarVis(cfg) {
   const isMJ = getMJMode();
   document.querySelectorAll('.nav-item[href]').forEach(link => {
     const href = link.getAttribute('href');
-    const key = href.replace('.html', '');
     const item = NAV_ITEMS.find(it => it.href === href);
+    const key = (item && item.navKey) ? item.navKey : href.replace('.html', '');
     if (item && item.mjOnly) return;
     if (!isMJ && nv[key] === false) {
       link.classList.add('mj-only');
@@ -181,8 +181,8 @@ function _applySidebarVis(cfg) {
   });
   document.querySelectorAll('.mod-card[href]').forEach(card => {
     const href = card.getAttribute('href');
-    const key = href.replace('.html', '');
     const item = NAV_ITEMS.find(it => it.href === href);
+    const key = (item && item.navKey) ? item.navKey : href.replace('.html', '');
     if (item && item.mjOnly) return;
     card.style.display = (!isMJ && nv[key] === false) ? 'none' : '';
   });
