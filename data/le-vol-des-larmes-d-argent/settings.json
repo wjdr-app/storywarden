@@ -7,7 +7,7 @@
   },
   "index_title": "Les larmes d'argent",
   "index_subtitle": "Aventure à la marche de Roncebrume",
-  "hero_bg_type": "image",
+  "hero_bg_type": "color",
   "hero_bg_color": "#1a1a1a",
   "hero_bg_image": "img/heroBG/fond.png"
 }
