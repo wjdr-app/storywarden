@@ -1,6 +1,6 @@
 [
   {
-    "id": "Edward",
+    "id": "pnj_edward_lancenoir",
     "nom": "Edward Lancenoir",
     "role": "Agent de terrain — Brigade du Saumon Noir, détachement de Valmorne",
     "statut": "vivant",
@@ -10,7 +10,7 @@
     "relations": [
       "pnj_mael"
     ],
-    "connu_joueurs": true,
+    "connu_joueurs": false,
     "stats": {
       "pv": 65,
       "ca": 18,
@@ -22,13 +22,15 @@
       "discretion": 5,
       "histoire": 4
     },
-    "secrets_mj": "A perçu pendant le combat une résonance mentale émanant de Marte-Crânes — voix qui ne passe pas par les lèvres, adresse directement l'esprit. Recoupé avec le témoignage de Renn sur l'homme à la capuche. Ne l'a pas dit dans son rapport.",
+    "secrets_mj": "",
     "notes": "A rédigé le rapport officiel de la session 1. Supérieur hiérarchique immédiat des aventuriers dans la Brigade.",
     "visible_joueurs": true,
     "portrait_url": "img/portraits/edward.png",
     "tic": "",
     "phrase_cle": "",
-    "repliques": []
+    "repliques": [],
+    "capacites_confirmees": [],
+    "capacites_visible_joueurs": true
   },
   {
     "id": "pnj_mael",
@@ -637,5 +639,45 @@
     },
     "visible_joueurs": true,
     "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/Garrick.png"
+  },
+  {
+    "id": "pnj_nyle_le_cynique",
+    "nom": "Nyle \"le cynique\"",
+    "role": "Réfugié",
+    "statut": "vivant",
+    "localisation": "Grisebarre",
+    "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/nyle.png",
+    "connu_joueurs": false,
+    "description": "Ancien rentier ruiné, c'est une personne amère et peu avenante, sa malhonnêteté n'a d'égal que son égoïsme. Il est d'un age avancé sans être vieux, plutôt grand, fin et sec.",
+    "tic": "",
+    "phrase_cle": "",
+    "repliques": [],
+    "secrets_mj": "",
+    "notes": "",
+    "capacites_confirmees": [],
+    "capacites_visible_joueurs": true,
+    "relations": [],
+    "stats": {},
+    "visible_joueurs": false
+  },
+  {
+    "id": "pnj_gared_le_fanatique",
+    "nom": "Gared \"le fanatique\"",
+    "role": "Réfugié",
+    "statut": "vivant",
+    "localisation": "Grisebarre",
+    "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/gared.png",
+    "connu_joueurs": false,
+    "description": "Gared était prédicateur de rue à Grisebarre, très peu pris au sérieux dans la mesure ou il se revendique descendant du culte de la brume. Ce culte érige la brume au rang divin. Il porte des vêtements éclésiastiques improvisés qu'il a fabriqué lui même. Semble toujours le regard dans l'horizon. Il a la trentaine mais a le visage grêlé, ce qui lui donne quelques années de plus, derrière ses cheveux gras ondulés.",
+    "tic": "",
+    "phrase_cle": "",
+    "repliques": [],
+    "secrets_mj": "",
+    "notes": "",
+    "capacites_confirmees": [],
+    "capacites_visible_joueurs": true,
+    "relations": [],
+    "stats": {},
+    "visible_joueurs": false
   }
 ]
