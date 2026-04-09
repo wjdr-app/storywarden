@@ -48,9 +48,8 @@ body  { height: 100%; overflow: hidden; }
    ─────────────────────────────────────────────────────────────── */
 #leaflet-map {
   width:100%;
-  flex: 1;
-  min-height: 0;
-  min-height: calc(100vh - 200px);
+  height:100%;
+  min-height:calc(100vh - 200px);
   background:var(--surface);
 }
 .leaflet-popup-content-wrapper {
@@ -153,6 +152,14 @@ body  { height: 100%; overflow: hidden; }
   border-radius:12px; padding:14px 20px; margin-bottom:12px;
   font-size:.8rem; color:var(--crimson);
 }
+.draw-toolbar{display:flex;align-items:center;gap:6px;margin-left:auto;}
+.draw-btn{background:var(--surface-mid);border:1px solid var(--border-soft);border-radius:7px;padding:5px 10px;cursor:pointer;font-size:.85rem;color:var(--text-muted);transition:all .18s;line-height:1;font-family:inherit;}
+.draw-btn:hover{border-color:var(--border-mid);color:var(--text);}
+.draw-btn.db-on{background:var(--crimson);border-color:var(--crimson);color:#fff;}
+.draw-btn.db-danger{color:var(--crimson);border-color:var(--crimson-bd);}
+.draw-canvas-wrap{position:relative;flex:1;min-height:0;overflow:hidden;}
+#draw-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:500;pointer-events:none;}
+#draw-time{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.78);color:#fff;font-family:var(--font-ui);font-size:.78rem;letter-spacing:.06em;padding:5px 16px;border-radius:20px;z-index:600;pointer-events:none;border:1px solid rgba(255,255,255,.15);white-space:nowrap;display:none;}
 </style>
 </head>
 <body>
@@ -381,8 +388,18 @@ function renderLeaflet(carte) {
         `<span class="map-title">${esc(carte.nom)}</span>` +
         `<span class="niveau-badge">${esc(NIVEAUX[carte.niveau] || carte.niveau || '')}</span>` +
         `<span class="mkr-count">${marqueurs.length} marqueur(s)</span>` +
+        `<div class="draw-toolbar">` +
+          `<button class="draw-btn" id="db-pen" onclick="dTool('pen')" title="Crayon libre">\u270F</button>` +
+          `<button class="draw-btn" id="db-plume" onclick="dTool('plume')" title="Trac\u00e9 liss\u00e9">\uD83D\uDD8B</button>` +
+          `<button class="draw-btn db-danger" onclick="dUndo()" title="Annuler dernier">\u21A9</button>` +
+          `<button class="draw-btn" onclick="dClear()" title="Tout effacer">\u00D7</button>` +
+        `</div>` +
       `</div>` +
-      `<div id="leaflet-map"></div>` +
+      `<div class="draw-canvas-wrap">` +
+        `<div id="leaflet-map"></div>` +
+        `<canvas id="draw-canvas"></canvas>` +
+        (carte.niveau === 'region' ? `<div id="draw-time"></div>` : '') +
+      `</div>` +
     `</div>`;
 
   if (!carte.image) {
@@ -429,6 +446,7 @@ function renderLeaflet(carte) {
   map.fitBounds(bounds, {padding: [2, 2]});
   map.setMinZoom(map.getZoom());
   (function(m,b){ setTimeout(function(){ if(_leaflet){ _leaflet.invalidateSize(); _leaflet.fitBounds(b,{padding:[2,2]}); _leaflet.setMinZoom(_leaflet.getZoom()); var el=document.getElementById('leaflet-map'); var d=document.getElementById('_carte_diag'); if(d&&el)d.textContent+=' | mapH:'+el.offsetHeight; }},150); })(map,bounds);
+  dInit(carte, map);
 
   marqueurs.forEach((m, idx) => {
     const lieu = _lieux.find(l => l.id === m.lieu_id);
@@ -474,7 +492,108 @@ function renderLeaflet(carte) {
   });
 }
 
+// â”€â”€ DESSIN CARTE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+const D_SCALE = 244.4; // px image / jour (Valmorne->Grisebarre=1222px=5j)
+var _dTool=null,_dPaths=[],_dActive=false,_dCur=[],_dPlume=[],_dCtx=null,_dCv=null,_dReg=false,_dMap=null;
+
+function dInit(carte,map){
+  _dReg=carte.niveau==='region'; _dMap=map; _dPaths=[]; _dCur=[]; _dPlume=[]; _dTool=null;
+  _dCv=document.getElementById('draw-canvas');
+  if(!_dCv) return;
+  function sync(){ _dCv.width=_dCv.offsetWidth; _dCv.height=_dCv.offsetHeight; _dCtx=_dCv.getContext('2d'); _dCtx.strokeStyle='#e05252'; _dCtx.lineWidth=2.5; _dCtx.lineJoin='round'; _dCtx.lineCap='round'; _dRedraw(); }
+  sync(); new ResizeObserver(sync).observe(_dCv.parentElement);
+  _dCv.addEventListener('mousedown',_dS); _dCv.addEventListener('mousemove',_dM); _dCv.addEventListener('mouseup',_dE);
+  _dCv.addEventListener('dblclick',_dPF); _dCv.addEventListener('contextmenu',function(e){e.preventDefault();dUndo();});
+}
+
+function dTool(t){
+  _dTool=(_dTool===t)?null:t; _dPlume=[]; _dActive=false;
+  ['pen','plume'].forEach(function(k){var b=document.getElementById('db-'+k);if(b)b.classList.toggle('db-on',_dTool===k);});
+  if(_dCv){_dCv.style.pointerEvents=_dTool?'all':'none';_dCv.style.cursor=_dTool?'crosshair':'default';}
+  if(_dMap){if(_dTool){_dMap.dragging.disable();_dMap.scrollWheelZoom.disable();_dMap.doubleClickZoom.disable();}else{_dMap.dragging.enable();_dMap.scrollWheelZoom.enable();_dMap.doubleClickZoom.enable();}}
+}
+
+function _dS(e){
+  if(!_dTool) return;
+  var p={x:e.offsetX,y:e.offsetY};
+  if(_dTool==='pen'){_dActive=true;_dCur=[p];}
+  else if(_dTool==='plume'){_dPlume.push(p);_dRedraw();_dDot(p);}
+}
+function _dM(e){
+  if(_dTool==='pen'&&_dActive){
+    var p={x:e.offsetX,y:e.offsetY}; _dCur.push(p);
+    if(_dCur.length>=2){var p1=_dCur[_dCur.length-2],p2=_dCur[_dCur.length-1];_dCtx.beginPath();_dCtx.strokeStyle='#e05252';_dCtx.lineWidth=2.5;_dCtx.moveTo(p1.x,p1.y);_dCtx.lineTo(p2.x,p2.y);_dCtx.stroke();}
+    _dTime();
+  } else if(_dTool==='plume'&&_dPlume.length>0){
+    _dRedraw();
+    var last=_dPlume[_dPlume.length-1];
+    _dCtx.beginPath();_dCtx.setLineDash([4,4]);_dCtx.strokeStyle='rgba(224,82,82,0.4)';
+    _dCtx.moveTo(last.x,last.y);_dCtx.lineTo(e.offsetX,e.offsetY);_dCtx.stroke();_dCtx.setLineDash([]);
+  }
+}
+function _dE(e){
+  if(_dTool==='pen'&&_dActive&&_dCur.length>1){_dActive=false;_dPaths.push({pts:[..._dCur],tool:'pen'});_dCur=[];_dTime();}
+}
+function _dPF(e){
+  if(_dTool!=='plume') return; e.preventDefault();
+  if(_dPlume.length>=2){var a=_dPlume[_dPlume.length-1],b=_dPlume[_dPlume.length-2];if(Math.abs(a.x-b.x)<6&&Math.abs(a.y-b.y)<6)_dPlume.pop();}
+  if(_dPlume.length<2){_dPlume=[];return;}
+  _dPaths.push({pts:[..._dPlume],tool:'plume'});_dPlume=[];_dRedraw();_dTime();
+}
+function _dDot(p){_dCtx.beginPath();_dCtx.arc(p.x,p.y,3,0,Math.PI*2);_dCtx.fillStyle='#e05252';_dCtx.fill();}
+function _dCatmull(ctx,pts){
+  if(pts.length<2) return;
+  var ext=[pts[0]].concat(pts,[pts[pts.length-1]]);
+  ctx.moveTo(pts[0].x,pts[0].y);
+  for(var i=1;i<ext.length-2;i++){
+    var p0=ext[i-1],p1=ext[i],p2=ext[i+1],p3=ext[i+2];
+    for(var t=0;t<=1;t+=0.05){var t2=t*t,t3=t2*t;ctx.lineTo(0.5*((2*p1.x)+(-p0.x+p2.x)*t+(2*p0.x-5*p1.x+4*p2.x-p3.x)*t2+(-p0.x+3*p1.x-3*p2.x+p3.x)*t3),0.5*((2*p1.y)+(-p0.y+p2.y)*t+(2*p0.y-5*p1.y+4*p2.y-p3.y)*t2+(-p0.y+3*p1.y-3*p2.y+p3.y)*t3));}
+  }
+}
+function _dRedraw(){
+  if(!_dCtx||!_dCv) return;
+  _dCtx.clearRect(0,0,_dCv.width,_dCv.height);
+  _dCtx.strokeStyle='#e05252';_dCtx.lineWidth=2.5;_dCtx.lineJoin='round';_dCtx.lineCap='round';_dCtx.setLineDash([]);
+  _dPaths.forEach(function(path){
+    _dCtx.beginPath();
+    if(path.tool==='plume'){_dCatmull(_dCtx,path.pts);}
+    else{_dCtx.moveTo(path.pts[0].x,path.pts[0].y);path.pts.slice(1).forEach(function(p){_dCtx.lineTo(p.x,p.y);});}
+    _dCtx.stroke();
+    if(path.tool==='plume') path.pts.forEach(_dDot);
+  });
+  _dPlume.forEach(_dDot);
+}
+function _dPx(pts){
+  var d=0;
+  for(var i=1;i<pts.length;i++){var a=_dI(pts[i-1]),b=_dI(pts[i]);if(a&&b)d+=Math.sqrt((b.x-a.x)*(b.x-a.x)+(b.y-a.y)*(b.y-a.y));}
+  return d;
+}
+function _dI(sp){
+  if(!_dMap) return null;
+  var ll=_dMap.containerPointToLatLng(L.point(sp.x,sp.y));
+  return {x:ll.lng,y:ll.lat};
+}
+function _dSampleCR(pts){
+  if(pts.length<2) return pts;
+  var res=[],ext=[pts[0]].concat(pts,[pts[pts.length-1]]);
+  for(var i=1;i<ext.length-2;i++){var p0=ext[i-1],p1=ext[i],p2=ext[i+1],p3=ext[i+2];for(var j=0;j<=20;j++){var t=j/20,t2=t*t,t3=t2*t;res.push({x:0.5*((2*p1.x)+(-p0.x+p2.x)*t+(2*p0.x-5*p1.x+4*p2.x-p3.x)*t2+(-p0.x+3*p1.x-3*p2.x+p3.x)*t3),y:0.5*((2*p1.y)+(-p0.y+p2.y)*t+(2*p0.y-5*p1.y+4*p2.y-p3.y)*t2+(-p0.y+3*p1.y-3*p2.y+p3.y)*t3)});}}
+  return res;
+}
+function _dTime(){
+  if(!_dReg) return;
+  var b=document.getElementById('draw-time');if(!b) return;
+  var px=0;
+  _dPaths.forEach(function(p){px+=_dPx(p.tool==='plume'?_dSampleCR(p.pts):p.pts);});
+  if(_dCur.length>1) px+=_dPx(_dCur);
+  if(px<5){b.style.display='none';return;}
+  var d=px/D_SCALE,dr=Math.round(d*10)/10;
+  b.textContent='\uD83D\uDEB6 '+(dr<1?'< 1 jour':dr+(dr<=1?' jour':' jours'));
+  b.style.display='block';
+}
+function dUndo(){if(_dPlume.length>0){_dPlume.pop();_dRedraw();return;}if(_dPaths.length>0){_dPaths.pop();_dRedraw();_dTime();}}
+function dClear(){_dPaths=[];_dCur=[];_dPlume=[];if(_dCtx&&_dCv)_dCtx.clearRect(0,0,_dCv.width,_dCv.height);_dTime();}
 function destroyLeaflet() {
+  _dTool=null;_dPaths=[];_dCur=[];_dPlume=[];_dCtx=null;_dCv=null;_dActive=false;_dMap=null;
   if (_leaflet) { _leaflet.remove(); _leaflet = null; }
 }
 
