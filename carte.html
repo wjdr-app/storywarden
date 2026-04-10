@@ -493,7 +493,7 @@ function renderLeaflet(carte) {
 }
 
 // â”€â”€ DESSIN CARTE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-const D_SCALE = 244.4; // px image / jour (Valmorne->Grisebarre=1222px=5j)
+const D_SCALE = 244.4;
 var _dTool=null,_dPaths=[],_dActive=false,_dCur=[],_dPlume=[],_dCtx=null,_dCv=null,_dReg=false,_dMap=null;
 
 function dInit(carte,map){
@@ -502,6 +502,7 @@ function dInit(carte,map){
   if(!_dCv) return;
   function sync(){ _dCv.width=_dCv.offsetWidth; _dCv.height=_dCv.offsetHeight; _dCtx=_dCv.getContext('2d'); _dCtx.strokeStyle='#e05252'; _dCtx.lineWidth=2.5; _dCtx.lineJoin='round'; _dCtx.lineCap='round'; _dRedraw(); }
   sync(); new ResizeObserver(sync).observe(_dCv.parentElement);
+  map.on('zoom move', _dRedraw);
   _dCv.addEventListener('mousedown',_dS); _dCv.addEventListener('mousemove',_dM); _dCv.addEventListener('mouseup',_dE);
   _dCv.addEventListener('dblclick',_dPF); _dCv.addEventListener('contextmenu',function(e){e.preventDefault();dUndo();});
 }
@@ -510,14 +511,16 @@ function dTool(t){
   _dTool=(_dTool===t)?null:t; _dPlume=[]; _dActive=false;
   ['pen','plume'].forEach(function(k){var b=document.getElementById('db-'+k);if(b)b.classList.toggle('db-on',_dTool===k);});
   if(_dCv){_dCv.style.pointerEvents=_dTool?'all':'none';_dCv.style.cursor=_dTool?'crosshair':'default';}
-  if(_dMap){if(_dTool){_dMap.dragging.disable();_dMap.scrollWheelZoom.disable();_dMap.doubleClickZoom.disable();}else{_dMap.dragging.enable();_dMap.scrollWheelZoom.enable();_dMap.doubleClickZoom.enable();}}
+  if(_dMap){if(_dTool){_dMap.dragging.disable();}else{_dMap.dragging.enable();}}
 }
+
+function _s2m(sx,sy){ if(!_dMap) return null; return _dMap.containerPointToLatLng(L.point(sx,sy)); }
+function _m2s(ll){ if(!_dMap||!ll) return null; var p=_dMap.latLngToContainerPoint(ll); return {x:p.x,y:p.y}; }
 
 function _dS(e){
   if(!_dTool) return;
-  var p={x:e.offsetX,y:e.offsetY};
-  if(_dTool==='pen'){_dActive=true;_dCur=[p];}
-  else if(_dTool==='plume'){_dPlume.push(p);_dRedraw();_dDot(p);}
+  if(_dTool==='pen'){_dActive=true;_dCur=[{x:e.offsetX,y:e.offsetY}];}
+  else if(_dTool==='plume'){var ll=_s2m(e.offsetX,e.offsetY);if(!ll)return;_dPlume.push(ll);_dRedraw();}
 }
 function _dM(e){
   if(_dTool==='pen'&&_dActive){
@@ -526,65 +529,66 @@ function _dM(e){
     _dTime();
   } else if(_dTool==='plume'&&_dPlume.length>0){
     _dRedraw();
-    var last=_dPlume[_dPlume.length-1];
-    _dCtx.beginPath();_dCtx.setLineDash([4,4]);_dCtx.strokeStyle='rgba(224,82,82,0.4)';
-    _dCtx.moveTo(last.x,last.y);_dCtx.lineTo(e.offsetX,e.offsetY);_dCtx.stroke();_dCtx.setLineDash([]);
+    var last=_m2s(_dPlume[_dPlume.length-1]);
+    if(last){_dCtx.beginPath();_dCtx.setLineDash([4,4]);_dCtx.strokeStyle='rgba(224,82,82,0.4)';_dCtx.moveTo(last.x,last.y);_dCtx.lineTo(e.offsetX,e.offsetY);_dCtx.stroke();_dCtx.setLineDash([]);}
   }
 }
 function _dE(e){
-  if(_dTool==='pen'&&_dActive&&_dCur.length>1){_dActive=false;_dPaths.push({pts:[..._dCur],tool:'pen'});_dCur=[];_dTime();}
+  if(_dTool==='pen'&&_dActive&&_dCur.length>1){
+    _dActive=false;
+    var llpts=_dCur.map(function(p){return _s2m(p.x,p.y);}).filter(Boolean);
+    _dPaths.push({pts:llpts,tool:'pen'}); _dCur=[]; _dTime();
+  }
 }
 function _dPF(e){
   if(_dTool!=='plume') return; e.preventDefault();
-  if(_dPlume.length>=2){var a=_dPlume[_dPlume.length-1],b=_dPlume[_dPlume.length-2];if(Math.abs(a.x-b.x)<6&&Math.abs(a.y-b.y)<6)_dPlume.pop();}
+  if(_dPlume.length>=2){
+    var a=_m2s(_dPlume[_dPlume.length-1]),b=_m2s(_dPlume[_dPlume.length-2]);
+    if(a&&b&&Math.abs(a.x-b.x)<6&&Math.abs(a.y-b.y)<6) _dPlume.pop();
+  }
   if(_dPlume.length<2){_dPlume=[];return;}
   _dPaths.push({pts:[..._dPlume],tool:'plume'});_dPlume=[];_dRedraw();_dTime();
 }
-function _dDot(p){_dCtx.beginPath();_dCtx.arc(p.x,p.y,3,0,Math.PI*2);_dCtx.fillStyle='#e05252';_dCtx.fill();}
-function _dCatmull(ctx,pts){
-  if(pts.length<2) return;
-  var ext=[pts[0]].concat(pts,[pts[pts.length-1]]);
-  ctx.moveTo(pts[0].x,pts[0].y);
-  for(var i=1;i<ext.length-2;i++){
-    var p0=ext[i-1],p1=ext[i],p2=ext[i+1],p3=ext[i+2];
-    for(var t=0;t<=1;t+=0.05){var t2=t*t,t3=t2*t;ctx.lineTo(0.5*((2*p1.x)+(-p0.x+p2.x)*t+(2*p0.x-5*p1.x+4*p2.x-p3.x)*t2+(-p0.x+3*p1.x-3*p2.x+p3.x)*t3),0.5*((2*p1.y)+(-p0.y+p2.y)*t+(2*p0.y-5*p1.y+4*p2.y-p3.y)*t2+(-p0.y+3*p1.y-3*p2.y+p3.y)*t3));}
-  }
+function _dDot(sp){if(!sp)return;_dCtx.beginPath();_dCtx.arc(sp.x,sp.y,3,0,Math.PI*2);_dCtx.fillStyle='#e05252';_dCtx.fill();}
+function _dCatmull(ctx,spts){
+  if(spts.length<2) return;
+  var ext=[spts[0]].concat(spts,[spts[spts.length-1]]);
+  ctx.moveTo(spts[0].x,spts[0].y);
+  for(var i=1;i<ext.length-2;i++){var p0=ext[i-1],p1=ext[i],p2=ext[i+1],p3=ext[i+2];for(var t=0;t<=1;t+=0.05){var t2=t*t,t3=t2*t;ctx.lineTo(0.5*((2*p1.x)+(-p0.x+p2.x)*t+(2*p0.x-5*p1.x+4*p2.x-p3.x)*t2+(-p0.x+3*p1.x-3*p2.x+p3.x)*t3),0.5*((2*p1.y)+(-p0.y+p2.y)*t+(2*p0.y-5*p1.y+4*p2.y-p3.y)*t2+(-p0.y+3*p1.y-3*p2.y+p3.y)*t3));}}
 }
 function _dRedraw(){
   if(!_dCtx||!_dCv) return;
   _dCtx.clearRect(0,0,_dCv.width,_dCv.height);
   _dCtx.strokeStyle='#e05252';_dCtx.lineWidth=2.5;_dCtx.lineJoin='round';_dCtx.lineCap='round';_dCtx.setLineDash([]);
   _dPaths.forEach(function(path){
+    var spts=path.pts.map(_m2s).filter(Boolean);
+    if(spts.length<2) return;
     _dCtx.beginPath();
-    if(path.tool==='plume'){_dCatmull(_dCtx,path.pts);}
-    else{_dCtx.moveTo(path.pts[0].x,path.pts[0].y);path.pts.slice(1).forEach(function(p){_dCtx.lineTo(p.x,p.y);});}
+    if(path.tool==='plume'){_dCatmull(_dCtx,spts);}
+    else{_dCtx.moveTo(spts[0].x,spts[0].y);spts.slice(1).forEach(function(p){_dCtx.lineTo(p.x,p.y);});}
     _dCtx.stroke();
-    if(path.tool==='plume') path.pts.forEach(_dDot);
+    if(path.tool==='plume') spts.forEach(_dDot);
   });
-  _dPlume.forEach(_dDot);
+  _dPlume.forEach(function(ll){_dDot(_m2s(ll));});
+  if(_dCur.length>1){_dCtx.beginPath();_dCtx.moveTo(_dCur[0].x,_dCur[0].y);_dCur.slice(1).forEach(function(p){_dCtx.lineTo(p.x,p.y);});_dCtx.stroke();}
 }
-function _dPx(pts){
+function _dPathPx(llpts){
   var d=0;
-  for(var i=1;i<pts.length;i++){var a=_dI(pts[i-1]),b=_dI(pts[i]);if(a&&b)d+=Math.sqrt((b.x-a.x)*(b.x-a.x)+(b.y-a.y)*(b.y-a.y));}
+  for(var i=1;i<llpts.length;i++){var dx=llpts[i].lng-llpts[i-1].lng,dy=llpts[i].lat-llpts[i-1].lat;d+=Math.sqrt(dx*dx+dy*dy);}
   return d;
 }
-function _dI(sp){
-  if(!_dMap) return null;
-  var ll=_dMap.containerPointToLatLng(L.point(sp.x,sp.y));
-  return {x:ll.lng,y:ll.lat};
-}
-function _dSampleCR(pts){
-  if(pts.length<2) return pts;
-  var res=[],ext=[pts[0]].concat(pts,[pts[pts.length-1]]);
-  for(var i=1;i<ext.length-2;i++){var p0=ext[i-1],p1=ext[i],p2=ext[i+1],p3=ext[i+2];for(var j=0;j<=20;j++){var t=j/20,t2=t*t,t3=t2*t;res.push({x:0.5*((2*p1.x)+(-p0.x+p2.x)*t+(2*p0.x-5*p1.x+4*p2.x-p3.x)*t2+(-p0.x+3*p1.x-3*p2.x+p3.x)*t3),y:0.5*((2*p1.y)+(-p0.y+p2.y)*t+(2*p0.y-5*p1.y+4*p2.y-p3.y)*t2+(-p0.y+3*p1.y-3*p2.y+p3.y)*t3)});}}
+function _dSampleCR(llpts){
+  if(llpts.length<2) return llpts;
+  var res=[],ext=[llpts[0]].concat(llpts,[llpts[llpts.length-1]]);
+  for(var i=1;i<ext.length-2;i++){var p0=ext[i-1],p1=ext[i],p2=ext[i+1],p3=ext[i+2];for(var j=0;j<=20;j++){var t=j/20,t2=t*t,t3=t2*t;res.push({lng:0.5*((2*p1.lng)+(-p0.lng+p2.lng)*t+(2*p0.lng-5*p1.lng+4*p2.lng-p3.lng)*t2+(-p0.lng+3*p1.lng-3*p2.lng+p3.lng)*t3),lat:0.5*((2*p1.lat)+(-p0.lat+p2.lat)*t+(2*p0.lat-5*p1.lat+4*p2.lat-p3.lat)*t2+(-p0.lat+3*p1.lat-3*p2.lat+p3.lat)*t3)});}}
   return res;
 }
 function _dTime(){
   if(!_dReg) return;
   var b=document.getElementById('draw-time');if(!b) return;
   var px=0;
-  _dPaths.forEach(function(p){px+=_dPx(p.tool==='plume'?_dSampleCR(p.pts):p.pts);});
-  if(_dCur.length>1) px+=_dPx(_dCur);
+  _dPaths.forEach(function(p){px+=_dPathPx(p.tool==='plume'?_dSampleCR(p.pts):p.pts);});
+  if(_dCur.length>1){var ll=_dCur.map(function(p){return _s2m(p.x,p.y);}).filter(Boolean);px+=_dPathPx(ll);}
   if(px<5){b.style.display='none';return;}
   var d=px/D_SCALE,dr=Math.round(d*10)/10;
   b.textContent='\uD83D\uDEB6 '+(dr<1?'< 1 jour':dr+(dr<=1?' jour':' jours'));
