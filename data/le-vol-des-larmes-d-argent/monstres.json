@@ -380,5 +380,78 @@
     "visible_joueurs": true,
     "portrait_url": "le-vol-des-larmes-d-argent/img/monstres/rodeur de brume.png",
     "description": "Le Rôdeur de la Brume est une créature bestiale et furtive qui hante les zones corrompues par le Souffle du Dessous. Évoluant loin de la lumière protectrice des Bornes-Cœur, il représente l'un des dangers les plus mortels pour les voyageurs égarés. C'est une bête taillée pour la traque, qui déchiquette ses victimes à l'aide de ses griffes acérées et de ses puissantes mâchoires."
+  },
+  {
+    "id": "monstre_06",
+    "nom": "Égaré de Cendre",
+    "type": "Mort-vivant",
+    "categorie": "humanoïde",
+    "taille": "M",
+    "alignement": "neutre mauvais",
+    "fp": "1/4",
+    "px": 50,
+    "bonus_maitrise": 2,
+    "ca": "8",
+    "pv": "22 (3d8 + 9)",
+    "vitesse": "6 m",
+    "initiative": "",
+    "attributs": {
+      "FOR": {
+        "score": 13,
+        "mod": 1,
+        "save": null
+      },
+      "DEX": {
+        "score": 6,
+        "mod": -2,
+        "save": null
+      },
+      "CON": {
+        "score": 16,
+        "mod": 3,
+        "save": null
+      },
+      "INT": {
+        "score": 3,
+        "mod": -4,
+        "save": null
+      },
+      "SAG": {
+        "score": 6,
+        "mod": -2,
+        "save": null
+      },
+      "CHA": {
+        "score": 5,
+        "mod": -3,
+        "save": null
+      }
+    },
+    "competences": "",
+    "resistances": "",
+    "immunites_degats": "poison",
+    "immunites_etats": "empoisonné",
+    "sens": "vision dans le noir 18 m, Perception passive 8",
+    "perception_passive": 8,
+    "langues": "comprend les langues qu'il connaissait de son vivant mais ne peut pas parler",
+    "traits": [
+      {
+        "nom": "Tenacité d'égaré",
+        "description": "Si des dégâts font tomber le zombi à 0 point de vie, celui-ci doit effectuer un jet de sauvegarde de Constitution DD 5 + les dégâts subis, sauf en cas de dégâts radiants ou coup critique. En cas de réussite, il tombe à 1 point de vie à la place."
+      }
+    ],
+    "actions": [
+      {
+        "nom": "Coup",
+        "description": "Attaque au corps à corps avec une arme : +3 au toucher, allonge 1,50 m, une cible. Touché : 4 (1d6 + 1) dégâts contondants."
+      }
+    ],
+    "actions_bonus": [],
+    "reactions": [],
+    "actions_legendaires": [],
+    "notes_mj": "",
+    "visible_joueurs": false,
+    "portrait_url": "",
+    "description": ""
   }
 ]

@@ -317,5 +317,65 @@
     "description": "De retour, le groupe ment à Edward sur le timing de l'embuscade. Ils lui montrent la pièce et transmettent le message cryptique, ce qui pousse Edward à les orienter vers Rulven. Osric parle de l'attraction, Lancenoir l'invite à la suivre.",
     "visible_joueurs": true,
     "entites_liees": []
+  },
+  {
+    "id": "EVT-S03-01",
+    "titre": "L'évadé de Valmorne",
+    "date_fiction": "Jour 3",
+    "periode": "session_03",
+    "type": "session",
+    "description": "Avant de quitter Valmorne, Finn manipule Edward Lancenoir pour interroger le gobelin trafiquant de sel de lune détenu dans les geôles de la Brigade. Il obtient des informations sur les réseaux de la pègre s'étendant jusqu'à Hautecendre. En parallèle, Finn forge un double de la clé de la cellule et le fait passer au prisonnier via Fabrice. Le gobelin tente immédiatement de s'évader mais est rattrapé de justesse par Fabrice sous les ordres aboyés d'un Lancenoir suspicieux. Le gobelin retourne en cellule, mais garde secrètement le double de la clé sur lui.",
+    "visible_joueurs": true,
+    "entites_liees": []
+  },
+  {
+    "id": "evt_21",
+    "titre": "la pièce d'argent, les enseignements de Rulven",
+    "date_fiction": "Jour 3",
+    "periode": "session_03",
+    "type": "session",
+    "description": "Le groupe présente à Rulven la mystérieuse pièce frappée d'un dragon récupérée au moulin (Session 2). Le Maître-Marqueur est incapable d'identifier l'alliage ou la frappe exacte, mais l'état neuf du métal lui inspire une hypothèse : la pièce pourrait provenir de Bourg-Argent, une lointaine cité réputée pour ses mines et ses forges. Cette piste devient la nouvelle obsession du groupe.",
+    "visible_joueurs": true,
+    "entites_liees": []
+  },
+  {
+    "id": "EVT-S03-03",
+    "titre": "Le larcin chez l'herboriste",
+    "date_fiction": "Jour 3",
+    "periode": "session_03",
+    "type": "session",
+    "description": "Suivant l'attraction magnétique qui vrille l'esprit d'Osric et pointe vers l'est, le groupe quitte Valmorne et s'arrête à la cabane d'Ysolda la Grise. Pendant que le groupe discute avec l'herboriste, Fabrice pille allègrement ses réserves sous les yeux de ses compagnons complaisants, empochant des dizaines de potions (soin, explosifs, vision nocturne) sans la moindre once de culpabilité.",
+    "visible_joueurs": true,
+    "entites_liees": []
+  },
+  {
+    "id": "EVT-S03-04",
+    "titre": "Le secret de la crevasse",
+    "date_fiction": "Jour 3",
+    "periode": "session_03",
+    "type": "session",
+    "description": "Illwen découvre près de la cabane d'Ysolda une faille naturelle engloutie par une brume si dense qu'elle repousse physiquement le reste du groupe. Seule l'elfe druide parvient à y pénétrer. À l'intérieur, elle récolte des champignons baignés d'une lumière lunaire surnaturelle. Lorsqu'elle les présente à Ysolda, la vieille femme est bouleversée de voir la forme pure et surpuissante de ce qu'elle tente de synthétiser depuis quarante ans. En guise de reconnaissance, Ysolda offre à Illwen l'œuvre de sa vie : la formule de son répulsif anti-brume.",
+    "visible_joueurs": true,
+    "entites_liees": []
+  },
+  {
+    "id": "EVT-S03-05",
+    "titre": "Le démembrement du squelette",
+    "date_fiction": "Jour 3",
+    "periode": "session_03",
+    "type": "session",
+    "description": "Pendant qu'Illwen explore la crevasse, le reste du groupe est attaqué par un immense squelette armé d'une lame démesurée. Le combat est brutal. Darg, fidèle à sa sauvagerie, arrache littéralement le bras du squelette géant pour s'approprier son arme et détruit le squelette.",
+    "visible_joueurs": true,
+    "entites_liees": []
+  },
+  {
+    "id": "EVT-S03-06",
+    "titre": "La chute de Grisebarre",
+    "date_fiction": "Jour 8",
+    "periode": "session_03",
+    "type": "session",
+    "description": "Arrivé à Grisebarre, le groupe découvre une Borne-Cœur fissurée sur le point de céder. Ils rencontrent la capitaine Elara, dont le détachement de la Brigade se résume au jeune et incompétent soldat Garrick, ainsi que l'archiviste Lucian. Dans un village tétanisé par la peur où des chariots d'évacuation vides attendent mystérieusement sur la place, le groupe perd un temps précieux à débattre de l'opportunité de piller les charrettes. Finalement, l'obélisque éclate. Les morts se lèvent. Observés de loin par l'homme à la capuche, les héros font le choix d'ignorer leur antagoniste pour aider Elara à évacuer les survivants de la ville condamnée, en direction de la prochaine ville : Hautecendre.",
+    "visible_joueurs": true,
+    "entites_liees": []
   }
 ]

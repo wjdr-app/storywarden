@@ -18,15 +18,5 @@
     "session_decouverte": "Session 02",
     "notes_mj": "",
     "visible_joueurs": true
-  },
-  {
-    "id": "codex_02",
-    "titre": "test",
-    "type": "inscription",
-    "statut": "cache",
-    "contenu": "",
-    "session_decouverte": "",
-    "notes_mj": "",
-    "visible_joueurs": false
   }
 ]

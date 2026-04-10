@@ -4,7 +4,7 @@
     "categorie": "cosmologie",
     "titre": "Le Souffle du Dessous",
     "contenu": "Le monde est traversé par une force diffuse appelée le Souffle du Dessous, une énergie sans conscience apparente qui remonte par les fissures de la roche depuis les profondeurs. Elle se manifeste en surface sous forme de brume. Elle n'a pas de volonté propre, mais ses effets sont réels et mesurables : détérioration physique et mentale des êtres vivants exposés, réanimation des morts dans les zones non protégées, augmentation de l'agressivité des monstres. Perturbation des sens et de l'orientation pouvant amener à la mort.",
-    "visible_joueurs": false,
+    "visible_joueurs": true,
     "tags": [
       "souffle",
       "brume",
