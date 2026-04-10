@@ -252,14 +252,14 @@
     "type": "ville",
     "region": "Les Marches du Souffle",
     "description": "Première ville située au nord de Valmorne, elle constitue le principal carrefour commercial du sud de la région. La Brigade y est solidement implantée et y possède un centre de formation.\n\nLa ville a été bâtie sur une vaste colline, élevée sur les cendres de l’ancienne forêt qui occupait autrefois ces terres.",
-    "statut": "inconnu",
+    "statut": "connu",
     "evenements": [],
     "pnjs_presents": [],
     "coords_carte": {
       "x": 0,
       "y": 0
     },
-    "visible_joueurs": false,
+    "visible_joueurs": true,
     "categorie": "ville",
     "sous_lieux": []
   },
@@ -285,15 +285,15 @@
     "nom": "Grisebarre",
     "type": "village",
     "region": "Les Marches du Souffle",
-    "description": "Bourgade fortifiée du sud-ouest, autrefois siège de la Brigade. La région est désormais considérée comme dangereuse, la brume avançant inexorablement et grignotant chaque année un peu plus les terres environnantes.",
-    "statut": "inconnu",
+    "description": "Bourgade fortifiée du sud-ouest, autrefois siège de la Brigade. La région est désormais considérée comme dangereuse, la brume avançant inexorablement et grignotant chaque année un peu plus les terres environnantes. Le village a été rayé de la carte lorsqu'un obélisque est tombé.",
+    "statut": "visité",
     "evenements": [],
     "pnjs_presents": [],
     "coords_carte": {
       "x": 0,
       "y": 0
     },
-    "visible_joueurs": false,
+    "visible_joueurs": true,
     "categorie": "ville",
     "sous_lieux": []
   },
