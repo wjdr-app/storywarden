@@ -149,78 +149,6 @@
     "description": "Ce guerrier nécromantique est la fusion de plusieurs squelettes tombés au combat, plus grand, plus massif et plus menaçant qu’un squelette ordinaire. Son corps est un assemblage d’os recouverts de poudre d’argent, portant une armure lourde cabossée. Il peut projeter un cri directement dans l’esprit de ses ennemis, les paralysant de peur et de souffrance, comme s’il portait en lui la vengeance de tous ceux qui sont tombés sous la réquisition."
   },
   {
-    "id": "monstre_03",
-    "nom": "TEST",
-    "type": "Humanoïde (toute race)",
-    "categorie": "bête",
-    "taille": "M",
-    "alignement": "Neutre -Neutre",
-    "fp": "1/8",
-    "px": 25,
-    "bonus_maitrise": 2,
-    "ca": "12 (armure de cuir)",
-    "pv": "11 (2d8 + 2)",
-    "vitesse": "9 m",
-    "initiative": "",
-    "attributs": {
-      "FOR": {
-        "score": 11,
-        "mod": 0,
-        "save": null
-      },
-      "DEX": {
-        "score": 12,
-        "mod": 1,
-        "save": null
-      },
-      "CON": {
-        "score": 12,
-        "mod": 1,
-        "save": null
-      },
-      "INT": {
-        "score": 10,
-        "mod": 0,
-        "save": null
-      },
-      "SAG": {
-        "score": 10,
-        "mod": 0,
-        "save": null
-      },
-      "CHA": {
-        "score": 10,
-        "mod": 0,
-        "save": null
-      }
-    },
-    "competences": "",
-    "resistances": "",
-    "immunites_degats": "",
-    "immunites_etats": "",
-    "sens": "Perception passive 10",
-    "perception_passive": 10,
-    "langues": "commun",
-    "traits": [],
-    "actions": [
-      {
-        "nom": "Cimeterre",
-        "description": "Attaque au corps à corps avec une arme : +3 au toucher, allonge 1,50 m, une cible. Touché : 4 (1d6 + 1) dégâts tranchants."
-      },
-      {
-        "nom": "Arbalète légère",
-        "description": "Attaque à distance avec une arme : +3 au toucher, portée 24/96 m, une cible. Touché : 5 (1d8 + 1) dégâts perforants."
-      }
-    ],
-    "actions_bonus": [],
-    "reactions": [],
-    "actions_legendaires": [],
-    "notes_mj": "",
-    "visible_joueurs": false,
-    "portrait_url": "",
-    "description": "test"
-  },
-  {
     "id": "monstre_04",
     "nom": "Bandit",
     "type": "Humanoïde (toute race)",
@@ -289,7 +217,7 @@
     "actions_legendaires": [],
     "notes_mj": "",
     "visible_joueurs": false,
-    "portrait_url": "",
+    "portrait_url": "le-vol-des-larmes-d-argent/img/monstres/bandits.png",
     "description": ""
   },
   {
@@ -451,7 +379,403 @@
     "actions_legendaires": [],
     "notes_mj": "",
     "visible_joueurs": false,
-    "portrait_url": "",
+    "portrait_url": "le-vol-des-larmes-d-argent/img/monstres/égaré.png",
+    "description": ""
+  },
+  {
+    "id": "monstre_07",
+    "nom": "Le spectre des souvenirs",
+    "type": "Mort-vivant",
+    "categorie": "mort-vivant",
+    "taille": "M",
+    "alignement": "Chaotique Mauvais",
+    "fp": "1/2",
+    "px": 100,
+    "bonus_maitrise": 2,
+    "ca": "12",
+    "pv": "27 (5d8 + 5)",
+    "vitesse": "12 m",
+    "initiative": "+2 (12)",
+    "attributs": {
+      "FOR": {
+        "score": 6,
+        "mod": -2,
+        "save": null
+      },
+      "DEX": {
+        "score": 14,
+        "mod": 2,
+        "save": null
+      },
+      "CON": {
+        "score": 13,
+        "mod": 1,
+        "save": null
+      },
+      "INT": {
+        "score": 6,
+        "mod": -2,
+        "save": null
+      },
+      "SAG": {
+        "score": 10,
+        "mod": 0,
+        "save": null
+      },
+      "CHA": {
+        "score": 8,
+        "mod": -1,
+        "save": null
+      }
+    },
+    "competences": "Discrétion +6",
+    "resistances": "acide, froid, feu, foudre, tonnerre",
+    "immunites_degats": "nécrotique, poison",
+    "immunites_etats": "Épuisement, Effrayé, Agrippé, Paralysé, Pétrifié, Empoisonné, À terre, Entravé, Inconscient",
+    "sens": "Vision dans le noir 18 m, Perception passive 10",
+    "perception_passive": 10,
+    "langues": "aucune",
+    "traits": [
+      {
+        "nom": "Informe",
+        "description": "Le spectre peut se déplacer dans un espace étroit d'une largeur minimale de 2,50 cm sans dépense supplémentaire en déplacement."
+      },
+      {
+        "nom": "Morsure du soleil",
+        "description": "Tant qu'elle est exposée à la lumière du soleil, l'ombre subit un Désavantage aux jets de d20."
+      }
+    ],
+    "actions": [
+      {
+        "nom": "Caresse dévitalisante",
+        "description": "Corps à corps  : +4, allonge 1,50 m.  Touché  : 5 (1d6 + 2) dégâts nécrotiques, et la valeur de Force de la cible est réduite de 1d4. La cible meurt si l'effet fait tomber cette valeur à 0. Si un Humanoïde est tué par cette attaque, une  ombre  émerge de son cadavre 1d4 heures plus tard."
+      }
+    ],
+    "actions_bonus": [
+      {
+        "nom": "Discrétion dans les ombres",
+        "description": "Tant qu'elle reste dans les Ténèbres ou sous une Lumière faible, l'ombre peut prendre l'action Furtivité."
+      }
+    ],
+    "reactions": [],
+    "actions_legendaires": [],
+    "notes_mj": "",
+    "visible_joueurs": false,
+    "portrait_url": "le-vol-des-larmes-d-argent/img/monstres/Spectre des souvenirs.png",
+    "description": ""
+  },
+  {
+    "id": "monstre_08",
+    "nom": "Écorcheur des cimes",
+    "type": "Aberration",
+    "categorie": "bête",
+    "taille": "P",
+    "alignement": "Non-aligné",
+    "fp": "1/2",
+    "px": 100,
+    "bonus_maitrise": 2,
+    "ca": "11",
+    "pv": "22 (5d6 + 5)",
+    "vitesse": "3 m, vol 9 m",
+    "initiative": "+3 (13)",
+    "attributs": {
+      "FOR": {
+        "score": 16,
+        "mod": 3,
+        "save": null
+      },
+      "DEX": {
+        "score": 12,
+        "mod": 1,
+        "save": null
+      },
+      "CON": {
+        "score": 13,
+        "mod": 1,
+        "save": null
+      },
+      "INT": {
+        "score": 2,
+        "mod": -4,
+        "save": null
+      },
+      "SAG": {
+        "score": 10,
+        "mod": 0,
+        "save": null
+      },
+      "CHA": {
+        "score": 5,
+        "mod": -3,
+        "save": null
+      }
+    },
+    "competences": "Discrétion +3",
+    "resistances": "",
+    "immunites_degats": "",
+    "immunites_etats": "",
+    "sens": "Vision aveugle 18 m, Perception passive 10",
+    "perception_passive": 10,
+    "langues": "aucune",
+    "traits": [],
+    "actions": [
+      {
+        "nom": "Écrasement",
+        "description": "Corps à corps  : +5, allonge 1,50 m.  Touché  : 6 (1d6 + 3) dégâts contondants, et la mante obscure se fixe à la cible. Si la cible est une créature de taille M ou inférieure et si la mante obscure avait un Avantage au jet d'attaque, elle recouvre la cible qui subit l'état Aveuglé et s'asphyxie tant que la mante obscure reste ainsi fixée à elle. Tant qu'elle est fixée à une cible, la mante obscure ne peut attaquer que cette cible mais elle a un Avantage à ses jets d'attaque contre elle. Sa Vitesse passe à 0, elle ne peut profiter d'aucun bonus de Vitesse et suit les déplacements de sa cible. Une créature peut entreprendre une action pour tenter de détacher la mante obscure fixée à elle, ce qui nécessite de réussir un jet de Force (Athlétisme) DD 13. À son tour, la mante obscure peut se détacher en y consacrant 1,50 m de déplacement."
+      },
+      {
+        "nom": "Aura de ténèbres (1/jour)",
+        "description": "Des ténèbres magiques emplissent une Émanation de 4,50 m centrée sur la mante obscure. Cet effet persiste tant que la mante obscure maintient sa Concentration, à concurrence de 10 minutes. La Vision dans le noir échoue à percer cette zone, qu'aucune source de lumière ne parvient à éclairer."
+      }
+    ],
+    "actions_bonus": [],
+    "reactions": [],
+    "actions_legendaires": [],
+    "notes_mj": "",
+    "visible_joueurs": false,
+    "portrait_url": "le-vol-des-larmes-d-argent/img/monstres/Ecorcheur des cimes.png",
+    "description": ""
+  },
+  {
+    "id": "monstre_09",
+    "nom": "L'Horreur de cendre",
+    "type": "Aberration",
+    "categorie": "autre",
+    "taille": "G",
+    "alignement": "Neutre",
+    "fp": "5",
+    "px": 1800,
+    "bonus_maitrise": 3,
+    "ca": "14",
+    "pv": "104 (11d10 + 44)",
+    "vitesse": "9 m",
+    "initiative": "+0 (10)",
+    "attributs": {
+      "FOR": {
+        "score": 16,
+        "mod": 3,
+        "save": null
+      },
+      "DEX": {
+        "score": 11,
+        "mod": 0,
+        "save": null
+      },
+      "CON": {
+        "score": 19,
+        "mod": 4,
+        "save": 7
+      },
+      "INT": {
+        "score": 6,
+        "mod": -2,
+        "save": null
+      },
+      "SAG": {
+        "score": 13,
+        "mod": 1,
+        "save": null
+      },
+      "CHA": {
+        "score": 6,
+        "mod": -2,
+        "save": null
+      }
+    },
+    "competences": "",
+    "resistances": "",
+    "immunites_degats": "",
+    "immunites_etats": "",
+    "sens": "Vision dans le noir 36 m, Perception passive 11",
+    "perception_passive": 11,
+    "langues": "otyugh ; télépathie 36 m (ne permet pas à la créature réceptrice de répondre par télépathie)",
+    "traits": [],
+    "actions": [
+      {
+        "nom": "Attaques multiples",
+        "description": "L'Horreur de cendre effectue une attaque de Morsure et deux de Tentacule."
+      },
+      {
+        "nom": "Morsure",
+        "description": "Corps à corps  : +6, allonge 1,50 m.  Touché  : 12 (2d8 + 3) dégâts perforants, et la cible subit l'état Empoisonné. Chaque fois que la cible Empoisonnée termine un Repos long, elle subit l'effet suivant.  JdS Constitution  : DD 15.  Échec  : le maximum de points de vie de la cible est réduit de 5 (1d10) et ne revient pas à la normale tant que l'état Empoisonné persiste sur la cible.  Réussite  : l'état Empoisonné prend fin."
+      },
+      {
+        "nom": "Tentacule",
+        "description": "Corps à corps  : +6, allonge 3 m.  Touché  : 12 (2d8 + 3) dégâts perforants. Si la cible est une créature de taille M ou inférieure, elle subit l'état Agrippé (évasion DD 13) par l'un des deux tentacules."
+      },
+      {
+        "nom": "Coup de tentacule",
+        "description": "JdS Constitution  : DD 14, chaque créature Agrippée par l'otyugh.  Échec  : 16 (3d8 + 3) dégâts contondants, et la cible subit l'état Étourdi jusqu'au début du tour suivant de l'otyugh.  Réussite  : demi-dégâts uniquement."
+      }
+    ],
+    "actions_bonus": [],
+    "reactions": [],
+    "actions_legendaires": [],
+    "notes_mj": "",
+    "visible_joueurs": false,
+    "portrait_url": "le-vol-des-larmes-d-argent/img/monstres/l'horreur de cendre.png",
+    "description": ""
+  },
+  {
+    "id": "monstre_10",
+    "nom": "Le Juge des Cendres",
+    "type": "Mort-vivant",
+    "categorie": "bête",
+    "taille": "M",
+    "alignement": "Chaotique Mauvais",
+    "fp": "2",
+    "px": 450,
+    "bonus_maitrise": 2,
+    "ca": "13",
+    "pv": "36 (8d8)",
+    "vitesse": "9 m",
+    "initiative": "+3 (13)",
+    "attributs": {
+      "FOR": {
+        "score": 16,
+        "mod": 3,
+        "save": null
+      },
+      "DEX": {
+        "score": 17,
+        "mod": 3,
+        "save": null
+      },
+      "CON": {
+        "score": 10,
+        "mod": 0,
+        "save": null
+      },
+      "INT": {
+        "score": 11,
+        "mod": 0,
+        "save": null
+      },
+      "SAG": {
+        "score": 10,
+        "mod": 0,
+        "save": 2
+      },
+      "CHA": {
+        "score": 8,
+        "mod": -1,
+        "save": null
+      }
+    },
+    "competences": "",
+    "resistances": "nécrotique",
+    "immunites_degats": "poison",
+    "immunites_etats": "Charmé, Épuisement, Empoisonné",
+    "sens": "Vision dans le noir 18 m, Perception passive 10",
+    "perception_passive": 10,
+    "langues": "commun",
+    "traits": [
+      {
+        "nom": "Puanteur",
+        "description": "JdS Constitution  : DD 10, toute créature qui commence son tour dans une Émanation de 1,50 m centrée sur la blême.  Échec  : la cible subit l'état Empoisonné jusqu'au début de son tour suivant.  Réussite  : la cible est immunisée contre la puanteur de cette blême pendant 24 heures."
+      }
+    ],
+    "actions": [
+      {
+        "nom": "Griffe",
+        "description": "Corps à corps  : +5, allonge 1,50 m.  Touché  : 10 (2d6 + 3) dégâts tranchants. Si la cible est une créature autre qu'un Mort-vivant, elle est soumise à l'effet suivant.  JdS Constitution  : DD 10.  Échec  : la cible subit l'état Paralysé jusqu'à la fin de son tour suivant."
+      },
+      {
+        "nom": "Morsure",
+        "description": "Corps à corps  : +5, allonge 1,50 m.  Touché  : 7 (1d8 + 3) dégâts perforants plus 9 (2d8) dégâts nécrotiques."
+      }
+    ],
+    "actions_bonus": [],
+    "reactions": [],
+    "actions_legendaires": [],
+    "notes_mj": "",
+    "visible_joueurs": false,
+    "portrait_url": "le-vol-des-larmes-d-argent/img/monstres/Le juge des cendres.png",
+    "description": ""
+  },
+  {
+    "id": "monstre_11",
+    "nom": "Le Prédateur des Ombres",
+    "type": "Monstruosité",
+    "categorie": "bête",
+    "taille": "G",
+    "alignement": "Chaotique Mauvais",
+    "fp": "2",
+    "px": 450,
+    "bonus_maitrise": 2,
+    "ca": "13",
+    "pv": "45 (6d10 + 12)",
+    "vitesse": "3 m, nage 12 m",
+    "initiative": "+2 (12)",
+    "attributs": {
+      "FOR": {
+        "score": 18,
+        "mod": 4,
+        "save": null
+      },
+      "DEX": {
+        "score": 15,
+        "mod": 2,
+        "save": null
+      },
+      "CON": {
+        "score": 15,
+        "mod": 2,
+        "save": null
+      },
+      "INT": {
+        "score": 8,
+        "mod": -1,
+        "save": null
+      },
+      "SAG": {
+        "score": 10,
+        "mod": 0,
+        "save": null
+      },
+      "CHA": {
+        "score": 9,
+        "mod": -1,
+        "save": null
+      }
+    },
+    "competences": "",
+    "resistances": "",
+    "immunites_degats": "",
+    "immunites_etats": "",
+    "sens": "Vision dans le noir 18 m, Perception passive 10",
+    "perception_passive": 10,
+    "langues": "abyssal, primordial (aquatique)",
+    "traits": [
+      {
+        "nom": "Amphibie",
+        "description": "Le Prédateur des Ombres peut respirer sous l'eau comme à l'air libre."
+      }
+    ],
+    "actions": [
+      {
+        "nom": "Attaques multiples",
+        "description": "Le Prédateur des Ombres effectue deux attaques, réparties à sa guise entre Griffe, Morsure et Harpon."
+      },
+      {
+        "nom": "Griffe",
+        "description": "Corps à corps  : +6, allonge 1,50 m.  Touché  : 9 (2d4 + 4) dégâts tranchants."
+      },
+      {
+        "nom": "Harpon",
+        "description": "Corps à corps ou à distance  : +6, allonge 1,50 m ou portée 6/18 m.  Touché  : 11 (2d6 + 4) dégâts perforants. Si la cible est une créature de taille G ou inférieure, le merrow la tire en ligne droite vers lui d'un maximum de 4,50 m."
+      },
+      {
+        "nom": "Morsure",
+        "description": "Corps à corps  : +6, allonge 1,50 m.  Touché  : 6 (1d4 + 4) dégâts perforants, et la cible subit l'état Empoisonné jusqu'à la fin du tour suivant du merrow."
+      }
+    ],
+    "actions_bonus": [],
+    "reactions": [],
+    "actions_legendaires": [],
+    "notes_mj": "",
+    "visible_joueurs": false,
+    "portrait_url": "le-vol-des-larmes-d-argent/img/monstres/predateur des ombres.png",
     "description": ""
   }
 ]
