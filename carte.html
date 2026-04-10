@@ -504,7 +504,8 @@ function dInit(carte,map){
   sync(); new ResizeObserver(sync).observe(_dCv.parentElement);
   map.on('zoom move', _dRedraw);
   _dCv.addEventListener('mousedown',_dS); _dCv.addEventListener('mousemove',_dM); _dCv.addEventListener('mouseup',_dE);
-  _dCv.addEventListener('dblclick',_dPF); _dCv.addEventListener('contextmenu',function(e){e.preventDefault();dUndo();});
+  _dCv.addEventListener('dblclick',_dPF); _dCv.addEventListener('contextmenu',function(e){e.preventDefault();_dPlume=[];_dCur=[];_dActive=false;_dRedraw();if(_dTool)dTool(_dTool);});
+  _dCv.addEventListener('wheel',function(e){if(!_dMap)return;_dMap.getContainer().dispatchEvent(new WheelEvent('wheel',{bubbles:true,cancelable:true,deltaX:e.deltaX,deltaY:e.deltaY,deltaMode:e.deltaMode,clientX:e.clientX,clientY:e.clientY}));});
 }
 
 function dTool(t){
