@@ -151,17 +151,17 @@
   {
     "id": "monstre_04",
     "nom": "Bandit",
-    "type": "Humanoïde (toute race)",
+    "type": "Humanoïde",
     "categorie": "bête",
     "taille": "M",
-    "alignement": "tout alignement non loyal",
+    "alignement": "ou P, Neutre",
     "fp": "1/8",
     "px": 25,
     "bonus_maitrise": 2,
-    "ca": "12 (armure de cuir)",
+    "ca": "12",
     "pv": "11 (2d8 + 2)",
     "vitesse": "9 m",
-    "initiative": "",
+    "initiative": "+1 (11)",
     "attributs": {
       "FOR": {
         "score": 11,
@@ -200,16 +200,16 @@
     "immunites_etats": "",
     "sens": "Perception passive 10",
     "perception_passive": 10,
-    "langues": "une langue au choix (généralement le commun)",
+    "langues": "commun, jargon des voleurs",
     "traits": [],
     "actions": [
       {
         "nom": "Cimeterre",
-        "description": "Attaque au corps à corps avec une arme : +3 au toucher, allonge 1,50 m, une cible. Touché : 4 (1d6 + 1) dégâts tranchants."
+        "description": "Corps à corps  : +3, allonge 1,50 m.  Touché  : 4 (1d6 + 1) dégâts tranchants."
       },
       {
         "nom": "Arbalète légère",
-        "description": "Attaque à distance avec une arme : +3 au toucher, portée 24/96 m, une cible. Touché : 5 (1d8 + 1) dégâts perforants."
+        "description": "À distance  : +3, portée 24/96 m.  Touché  : 5 (1d8 + 1) dégâts perforants."
       }
     ],
     "actions_bonus": [],
@@ -218,7 +218,7 @@
     "notes_mj": "",
     "visible_joueurs": false,
     "portrait_url": "le-vol-des-larmes-d-argent/img/monstres/bandits.png",
-    "description": ""
+    "description": "Ce n'est pas un monstre né de la Brume, mais un homme que la terreur et la faim ont vidé de toute humanité. C'est un charognard du sillage, un opportuniste qui a renoncé à la solidarité pour la survie brutale. Il ne cherche ni la gloire ni le combat honorable, seulement la proie la plus faible du troupeau."
   },
   {
     "id": "monstre_05",
@@ -380,7 +380,7 @@
     "notes_mj": "",
     "visible_joueurs": false,
     "portrait_url": "le-vol-des-larmes-d-argent/img/monstres/égaré.png",
-    "description": ""
+    "description": "Une silhouette titubante émerge de la brume, recouverte d'une fine pellicule de poussière grise qui semble faire corps avec sa peau. Ce n'est qu'en s'approchant que vous reconnaissez les traits déformés d'un ancien être humain. Son corps est une éponge de spores blanchâtres, et à chaque pas, un nuage de poussière étouffante s'échappe de ses articulations."
   },
   {
     "id": "monstre_07",
@@ -462,7 +462,7 @@
     "notes_mj": "",
     "visible_joueurs": false,
     "portrait_url": "le-vol-des-larmes-d-argent/img/monstres/Spectre des souvenirs.png",
-    "description": ""
+    "description": "Une forme vaporeuse et argentée flotte à quelques centimètres du sol, oscillant comme une flamme dans le vent."
   },
   {
     "id": "monstre_08",
@@ -534,11 +534,11 @@
     "notes_mj": "",
     "visible_joueurs": false,
     "portrait_url": "le-vol-des-larmes-d-argent/img/monstres/Ecorcheur des cimes.png",
-    "description": ""
+    "description": "Quelque chose de massif s'agite dans les couches hautes du brouillard, là où le regard ne porte plus. Soudain, de longs filaments charnus et visqueux descendent silencieusement, tels les tentacules d'une méduse aérienne."
   },
   {
     "id": "monstre_09",
-    "nom": "L'Horreur de cendre",
+    "nom": "L'abomination",
     "type": "Aberration",
     "categorie": "autre",
     "taille": "G",
@@ -614,11 +614,11 @@
     "notes_mj": "",
     "visible_joueurs": false,
     "portrait_url": "le-vol-des-larmes-d-argent/img/monstres/l'horreur de cendre.png",
-    "description": ""
+    "description": "Une montagne de détritus et de boue noire s'érige devant vous. Ce colosse est un agglomérat cauchemardesque de poutres brisées, de roues de charrettes et de restes de maisons, le tout lié par une chair purulente et vibrante."
   },
   {
     "id": "monstre_10",
-    "nom": "Le Juge des Cendres",
+    "nom": "Le Juge du trépas",
     "type": "Mort-vivant",
     "categorie": "bête",
     "taille": "M",
@@ -691,7 +691,7 @@
     "notes_mj": "",
     "visible_joueurs": false,
     "portrait_url": "le-vol-des-larmes-d-argent/img/monstres/Le juge des cendres.png",
-    "description": ""
+    "description": "Une silhouette dégingandée, vêtue de lambeaux de soie noire qui furent autrefois une robe de magistrat. Sa peau est translucide, laissant voir des veines d'un argent corrompu. Il tient un livre dont les pages claquent au vent, bien qu'il n'y ait pas de brise. Il ne cherche pas votre chair, il cherche votre culpabilité."
   },
   {
     "id": "monstre_11",
@@ -776,6 +776,6 @@
     "notes_mj": "",
     "visible_joueurs": false,
     "portrait_url": "le-vol-des-larmes-d-argent/img/monstres/predateur des ombres.png",
-    "description": ""
+    "description": "Une créature d'une maigreur impossible, dont les membres longs et anguleux semblent brisés à chaque articulation. Elle se déplace par saccades, se fondant dans les zones d'ombre avec une rapidité surnaturelle. Ses doigts sont des aiguilles d'os, et son visage sans nez est tendu par un sourire fixe qui ne laisse apparaître que des gencives noires. Elle ne chasse pas par faim, mais par pur instinct de cruauté."
   }
 ]
