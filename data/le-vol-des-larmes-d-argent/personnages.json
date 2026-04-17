@@ -1067,6 +1067,16 @@
         ],
         "description": "Tu refuses l'échec : tu serres les dents et tu t'arraches au sort.",
         "regle": "Règle : si tu rates une résistance, tu peux la relancer et garder le second résultat ; 1 fois par repos long."
+      },
+      {
+        "visible_joueurs": true,
+        "nom": "Changement de sexe",
+        "valeur": "",
+        "utilisations": 0,
+        "recharge": "",
+        "chips": [],
+        "description": "Darg change de genre à sa guise. Certains assurent que c’est simplement par flemme de tailler sa barbe, une explication facile. En réalité, iel est la seule personne à connaître ses véritables motivations.",
+        "regle": ""
       }
     ],
     "passifs": [
