@@ -509,11 +509,11 @@
     "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/Thorek.png"
   },
   {
-    "id": "pnj_elara",
+    "id": "pnj_capitaine_elara_murdefer",
     "nom": "Capitaine Elara Mur-de-Fer",
     "role": "Commandante des remparts",
     "statut": "vivant",
-    "localisation": "Grisebar",
+    "localisation": "Grisebarre",
     "connu_joueurs": false,
     "description": "Elara gère la milice locale (composée de deux brigadier, dont elle) défendant les remparts de Grisebarre contre les créatures de brume. Bien qu'elle doive rendre des comptes à la Brigade du Saumon Noir, elle maintient une farouche indépendance.",
     "tic": "",
@@ -538,11 +538,11 @@
     "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/Elara.png"
   },
   {
-    "id": "pnj_lucian",
+    "id": "pnj_frre_lucian",
     "nom": "Frère Lucian",
     "role": "Archiviste",
     "statut": "vivant",
-    "localisation": "Grisebar (Église)",
+    "localisation": "Grisebarre",
     "connu_joueurs": false,
     "description": "Ce jeune clerc rattaché aux anciens relais de Grisebarre passe sa vie à dépoussiérer des archives oubliées. Il aime apprendre de nouvelles langues et semble être capable de lire ou traduire n'importe quelle langue.",
     "tic": "",
@@ -562,11 +562,11 @@
     "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/lucian.png"
   },
   {
-    "id": "pnj_kaelia",
+    "id": "pnj_kaelia_brisecur",
     "nom": "Kaelia Brisecœur",
     "role": "Gardienne de Borne-Cœur",
     "statut": "vivant",
-    "localisation": "Grisebarre (Place Centrale)",
+    "localisation": "Grisebarre",
     "connu_joueurs": false,
     "description": "Kaelia est la gardienne fatiguée de la Borne-Cœur locale, chargée de son entretien quotidien. Elle observe avec anxiété les runes de la pierre noire pulser de manière erratique depuis plusieurs jours.",
     "tic": "",
@@ -587,11 +587,11 @@
     "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/Kaelia.png"
   },
   {
-    "id": "pnj_mogrim",
+    "id": "pnj_morgrim_le_rieur",
     "nom": "Morgrim Le Rieur",
     "role": "Tavernier",
     "statut": "vivant",
-    "localisation": "Grisebar - taverne",
+    "localisation": "Grisebarre",
     "connu_joueurs": false,
     "description": "Morgrim tient la taverne principale de Grisebarre, passage obligé pour toutes les caravanes transportant des lanternes de Sel de Lune. Sous ses airs joviaux, il observe attentivement chaque étranger.\nHumain chauve, corpulent, avec une voix puissante qui couvre le bruit des chopes.",
     "tic": "",
@@ -612,11 +612,11 @@
     "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/Morgrim.png"
   },
   {
-    "id": "pnj_garrick",
+    "id": "pnj_garrick_le_veilleur",
     "nom": "Garrick le Veilleur",
     "role": "Soldat de la Brigade, second d'Elara",
     "statut": "vivant",
-    "localisation": "Grisebar",
+    "localisation": "Grisebarre",
     "connu_joueurs": false,
     "description": "Jeune recrue au visage blafard, rongé par des cernes profonds. Son armure de cuir de la Brigade est en bon état, mais il garde toujours une main nerveuse sur le pommeau de son épée. Il bégaie légèrement quand il est sous pression.",
     "tic": "",
@@ -756,6 +756,26 @@
     "notes": "",
     "capacites_confirmees": [],
     "capacites_visible_joueurs": true,
+    "relations": [],
+    "stats": {},
+    "visible_joueurs": false
+  },
+  {
+    "id": "pnj_matre_varos",
+    "nom": "Maître Varos",
+    "role": "Juge",
+    "statut": "vivant",
+    "localisation": "Grisebarre",
+    "portrait_url": "le-vol-des-larmes-d-argent/img/pnjs/maitre Varos.png",
+    "connu_joueurs": false,
+    "description": "Varos ne rend pas la justice, il applique l’épuration. Pour lui, la Brigade est l'unique rempart contre le chaos, et sa vision de la Loi est strictement littérale : il n'existe aucune circonstance atténuante, aucune nuance, seulement la règle et sa sanction.",
+    "tic": "",
+    "phrase_cle": "",
+    "repliques": [],
+    "secrets_mj": "",
+    "notes": "",
+    "capacites_confirmees": [],
+    "capacites_visible_joueurs": false,
     "relations": [],
     "stats": {},
     "visible_joueurs": false
